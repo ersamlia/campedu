@@ -1,0 +1,176 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="id">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Latihan 2 - Urutan Kerja Komputer</title>
+        <link href="{% static 'css/sb-admin-2.min.css' %}" rel="stylesheet">
+        <style>
+        body {
+            background-color: #f4f6f9;
+            font-family: "Poppins", Arial, sans-serif;
+            color: #000;
+        }
+        .container {
+            max-width: 900px;
+        }
+        #interactive-area {
+            background-color: #fff;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border-left: 6px solid #6f42c1; /* Warna ungu untuk latihan ini */
+        }
+        .answer-list {
+            list-style-type: none;
+            padding-left: 0;
+            margin-top: 20px;
+        }
+        .answer-list li {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .answer-list label {
+            font-weight: bold;
+            margin-right: 15px;
+            min-width: 80px;
+        }
+        .answer-input {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #ccc;
+            border-radius: 8px;
+            font-family: inherit;
+            transition: border-color 0.3s;
+        }
+        .feedback {
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-top: 15px;
+        }
+        </style>
+    </head>
+    <body>
+        <div class="container mt-5 mb-5">
+            <div class="text-center mb-4">
+                <h2 class="fw-bold">Latihan 2: Urutan Kerja Sistem Komputer</h2>
+                <p class="fs-5">Tuliskan urutan proses kerja dari awal hingga akhir!</p>
+            </div>
+            <div id="interactive-area">
+                <h4>Contoh Kegiatan: "Mengetik dan mencetak dokumen."</h4>
+                <hr>
+                <ol class="answer-list">
+                    <li>
+                        <label for="step1">Langkah 1:</label>
+                        <textarea id="step1"
+                                  class="form-control answer-input"
+                                  rows="2"
+                                  placeholder="Tuliskan langkah pertama di sini... (Contoh: Aktivitas Input)"></textarea>
+                    </li>
+                    <li>
+                        <label for="step2">Langkah 2:</label>
+                        <textarea id="step2"
+                                  class="form-control answer-input"
+                                  rows="2"
+                                  placeholder="Tuliskan langkah kedua di sini... (Contoh: Aktivitas Proses)"></textarea>
+                    </li>
+                    <li>
+                        <label for="step3">Langkah 3:</label>
+                        <textarea id="step3"
+                                  class="form-control answer-input"
+                                  rows="2"
+                                  placeholder="Tuliskan langkah ketiga di sini..."></textarea>
+                    </li>
+                    <li>
+                        <label for="step4">Langkah 4:</label>
+                        <textarea id="step4"
+                                  class="form-control answer-input"
+                                  rows="2"
+                                  placeholder="Tuliskan langkah keempat di sini..."></textarea>
+                    </li>
+                    <li>
+                        <label for="step5">Langkah 5:</label>
+                        <textarea id="step5"
+                                  class="form-control answer-input"
+                                  rows="2"
+                                  placeholder="Tuliskan langkah terakhir di sini..."></textarea>
+                    </li>
+                </ol>
+                <div class="text-center mt-4">
+                    <button id="check-btn" class="btn btn-primary">Periksa Jawaban</button>
+                    <button id="reset-btn" class="btn btn-secondary">Ulangi</button>
+                    <div id="feedback-message" class="feedback mt-3"></div>
+                </div>
+                <div class="text-center mt-5">
+                    <a href="{% url 'subbab1' %}" class="btn btn-secondary">← Kembali ke Materi</a>
+                </div>
+            </div>
+        </div>
+        <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const textInputs = document.querySelectorAll('.answer-input');
+        const checkButton = document.getElementById('check-btn');
+        const resetButton = document.getElementById('reset-btn');
+        const feedbackMessage = document.getElementById('feedback-message');
+        
+        // Kunci jawaban berbasis kata kunci (keywords)
+        // Jawaban dianggap benar jika mengandung SEMUA kata kunci untuk langkah tersebut
+        const correctKeywords = [
+            { keywords: ['ketik', 'keyboard', 'input'] },         // Langkah 1
+            { keywords: ['proses', 'cpu', 'komputer'] },          // Langkah 2
+            { keywords: ['monitor', 'layar', 'tampil'] },         // Langkah 3
+            { keywords: ['simpan', 'storage', 'disk'] },          // Langkah 4
+            { keywords: ['cetak', 'print', 'printer', 'kertas'] } // Langkah 5
+        ];
+
+        checkButton.addEventListener('click', () => {
+            let score = 0;
+            let totalAnswered = 0;
+
+            textInputs.forEach((input, index) => {
+                const userInput = input.value.toLowerCase();
+                const keywordsForStep = correctKeywords[index].keywords;
+                
+                if(userInput.trim() !== '') {
+                    totalAnswered++;
+                }
+
+                // Cek apakah semua kata kunci ada di dalam jawaban pengguna
+                const isCorrect = keywordsForStep.every(keyword => userInput.includes(keyword));
+
+                if (isCorrect) {
+                    score++;
+                    input.style.borderColor = '#1cc88a'; // Hijau
+                    input.style.backgroundColor = '#f1fcf7';
+                } else {
+                    input.style.borderColor = '#e74a3b'; // Merah
+                    input.style.backgroundColor = '#fdf3f2';
+                }
+            });
+
+            if (totalAnswered === 0) {
+                 feedbackMessage.textContent = '🤔 Silakan coba isi jawabannya terlebih dahulu.';
+                 feedbackMessage.style.color = '#f6c23e';
+            } else if (score === textInputs.length) {
+                feedbackMessage.textContent = '🎉 Luar biasa! Semua jawaban benar.';
+                feedbackMessage.style.color = '#1cc88a';
+            } else {
+                feedbackMessage.textContent = `Skor Anda: ${score} dari ${textInputs.length} benar. Periksa kembali jawaban yang berwarna merah.`;
+                feedbackMessage.style.color = '#e74a3b';
+            }
+        });
+
+        resetButton.addEventListener('click', () => {
+            textInputs.forEach(input => {
+                input.value = '';
+                input.style.borderColor = '#ccc';
+                input.style.backgroundColor = '#fff';
+            });
+            feedbackMessage.textContent = '';
+        });
+    });
+        </script>
+    </body>
+</html>

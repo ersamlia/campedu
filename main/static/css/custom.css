@@ -1,0 +1,52 @@
+.custom-card h5 {
+    color: #000000;
+}
+
+/* Gaya untuk tombol status sub bab */
+.status-text {
+    font-size: 1.1rem;        /* Ukuran huruf lebih besar */
+    font-weight: bold;        /* Huruf tebal */
+    padding: 10px 20px;       /* Tambah jarak dalam tombol */
+    border-radius: 50px;      /* Membulatkan ujung tombol */
+    transition: all 0.3s ease;
+}
+
+/* Efek hover saat kursor diarahkan */
+.status-text:hover {
+    background-color: #198754;   /* Warna hijau tua */
+    transform: scale(1.05);      /* Sedikit membesar */
+    text-decoration: none;       /* Hilangkan garis bawah */
+}
+
+/* Atur ukuran dan proporsi card agar tidak terpotong */
+.custom-card {
+    border-radius: 20px;
+    padding: 25px 15px;
+    height: 320px; /* tinggi seragam */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    text-align: center;
+}
+
+.row.justify-content-center {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+
+/* Atur ukuran gambar di dalam card */
+.custom-card .card-icon {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    margin-bottom: 10px;
+}
+
+/* Tambahkan ruang antar card */
+.col-md-4 {
+    padding: 15px;
+}
+
