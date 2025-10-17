@@ -1,0 +1,136 @@
+{% load static %}
+{% block title %}Pilih Kuis{% endblock %}
+{% block content %}
+    <style>
+    .quiz-menu-list {
+        list-style: none;
+        padding-left: 0;
+    }
+    .quiz-menu-item {
+        display: flex;
+        align-items: center;
+        background: linear-gradient(135deg, #ffffff 0%, #f7f9fc 100%);
+        padding: 20px 25px;
+        margin-bottom: 15px;
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+        text-decoration: none;
+        transition: all 0.3s ease;
+        border-left: 5px solid transparent;
+        border-bottom: 1px solid #e3e6f0;
+    }
+    .quiz-menu-item:hover {
+        transform: translateY(-5px) scale(1.02);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+        text-decoration: none;
+        border-bottom-color: transparent;
+    }
+    .quiz-item-number {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-right: 25px;
+        line-height: 1;
+        transition: color 0.3s ease;
+    }
+    .quiz-item-text h4 {
+        font-weight: 600;
+        color: #3a3b45;
+        margin-bottom: 2px;
+        transition: color 0.3s ease;
+    }
+    .quiz-item-text p {
+        color: #858796;
+        margin-bottom: 0;
+        font-size: 0.9rem;
+    }
+    .quiz-item-arrow {
+        margin-left: auto;
+        font-size: 1.5rem;
+        color: #d1d3e2;
+        transition: color 0.3s ease, transform 0.3s ease;
+    }
+    .quiz-menu-item:hover .quiz-item-arrow {
+        transform: translateX(8px);
+    }
+    .item-color-1 { border-left-color: #4e73df; }
+    .item-color-1 .quiz-item-number { color: #4e73df; }
+    .item-color-1:hover h4,
+    .item-color-1:hover .quiz-item-arrow { color: #4e73df; }
+
+    .item-color-2 { border-left-color: #1cc88a; }
+    .item-color-2 .quiz-item-number { color: #1cc88a; }
+    .item-color-2:hover h4,
+    .item-color-2:hover .quiz-item-arrow { color: #1cc88a; }
+
+    .item-color-3 { border-left-color: #36b9cc; }
+    .item-color-3 .quiz-item-number { color: #36b9cc; }
+    .item-color-3:hover h4,
+    .item-color-3:hover .quiz-item-arrow { color: #36b9cc; }
+
+    .item-color-4 { border-left-color: #f6c23e; }
+    .item-color-4 .quiz-item-number { color: #f6c23e; }
+    .item-color-4:hover h4,
+    .item-color-4:hover .quiz-item-arrow { color: #f6c23e; }
+
+    .item-color-5 { border-left-color: #e74a3b; }
+    .item-color-5 .quiz-item-number { color: #e74a3b; }
+    .item-color-5:hover h4,
+    .item-color-5:hover .quiz-item-arrow { color: #e74a3b; }
+    </style>
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Daftar Kuis</h1>
+        <p class="mb-0 text-gray-600">Uji pemahaman Anda pada setiap sub bab.</p>
+    </div>
+    <div class="quiz-menu-list">
+        <a href="kuis_subbab1'.html" class="quiz-menu-item item-color-1">
+            <div class="quiz-item-number">01</div>
+            <div class="quiz-item-text">
+                <h4>Pengertian Sistem Komputer</h4>
+                <p>.....</p>
+            </div>
+            <div class="quiz-item-arrow">
+                <i class="fas fa-chevron-right"></i>
+            </div>
+        </a>
+        <a href="#" class="quiz-menu-item item-color-2">
+            <div class="quiz-item-number">02</div>
+            <div class="quiz-item-text">
+                <h4>Perangkat Keras (Hardware)</h4>
+                <p>.....</p>
+            </div>
+            <div class="quiz-item-arrow">
+                <i class="fas fa-chevron-right"></i>
+            </div>
+        </a>
+        <a href="#" class="quiz-menu-item item-color-3">
+            <div class="quiz-item-number">03</div>
+            <div class="quiz-item-text">
+                <h4>Perangkat Lunak (Software)</h4>
+                <p>........................</p>
+            </div>
+            <div class="quiz-item-arrow">
+                <i class="fas fa-chevron-right"></i>
+            </div>
+        </a>
+        <a href="#" class="quiz-menu-item item-color-4">
+            <div class="quiz-item-number">04</div>
+            <div class="quiz-item-text">
+                <h4>Interaksi Antar Perangkat</h4>
+                <p>.....</p>
+            </div>
+            <div class="quiz-item-arrow">
+                <i class="fas fa-chevron-right"></i>
+            </div>
+        </a>
+        <a href="#" class="quiz-menu-item item-color-5">
+            <div class="quiz-item-number">05</div>
+            <div class="quiz-item-text">
+                <h4>Bilangan Biner</h4>
+                <p>...</p>
+            </div>
+            <div class="quiz-item-arrow">
+                <i class="fas fa-chevron-right"></i>
+            </div>
+        </a>
+    </div>
+{% endblock %}

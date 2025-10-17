@@ -6,10 +6,10 @@ def dashboard(request):
     return render(request, 'dashboard.html')
 
 def charts(request):
-    return render(request, 'charts.html')
+    return render(request, 'materi.html')
 
-def tables(request):
-    return render(request, 'tables.html')
+def kuis(request):
+    return render(request, 'kuis.html')
 
 # --- UNTUK SUB-BAB 1 ---
 def subbab1(request):

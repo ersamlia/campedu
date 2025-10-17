@@ -6,190 +6,197 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Sub Bab 1 - Sistem Komputer</title>
         <link href="{% static 'css/sb-admin-2.min.css' %}" rel="stylesheet">
-
-        <!-- Custom CSS untuk tampilan lebih menarik -->
+        <link rel="stylesheet"
+              href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
         <style>
-            body {
-                background-color: #f4f6f9;
-                font-family: "Poppins", Arial, sans-serif;
-                color: #000;
-                line-height: 1.7;
-            }
+        body {
+            background-color: #f0f2f5;
+            font-family: "Poppins", Arial, sans-serif;
+            color: #333;
+        }
+        .container {
+            max-width: 950px;
+        }
+        h2, h3, h4 {
+            font-weight: 700;
+        }
+        .hero-card {
+            background-color: #4e73df;
+            color: white;
+            padding: 40px 30px;
+            border-radius: 15px;
+            text-align: center;
+        }
+        .hero-card p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        .component-card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            border-top: 5px solid;
+            height: 100%;
+        }
+        .component-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+        }
+        .card-hardware { border-color: #4e73df; }
+        .card-software { border-color: #1cc88a; }
+        .card-brainware { border-color: #f6c23e; }
 
-            h2, h4 {
-                color: #000;
-                font-weight: 700;
-            }
+        .component-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+        .icon-hardware { color: #4e73df; }
+        .icon-software { color: #1cc88a; }
+        .icon-brainware { color: #f6c23e; }
+        
+        /* Gaya untuk Alur Proses IPOS */
+        .process-timeline .step {
+            background: #fff;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.07);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            border-left: 5px solid;
+        }
+        .process-timeline .step-icon {
+            font-size: 2rem;
+            margin-right: 20px;
+            width: 50px;
+            text-align: center;
+        }
+        .step-input { border-color: #36b9cc; } .step-input .step-icon { color: #36b9cc; }
+        .step-process { border-color: #f6c23e; } .step-process .step-icon { color: #f6c23e; }
+        .step-output { border-color: #1cc88a; } .step-output .step-icon { color: #1cc88a; }
+        .step-storage { border-color: #e74a3b; } .step-storage .step-icon { color: #e74a3b; }
 
-            .section-title {
-                border-left: 5px solid #007bff;
-                padding-left: 10px;
-                margin-bottom: 15px;
-            }
+        .btn-latihan {
+            background-color: #1cc88a;
+            border-color: #1cc88a;
+            color: white;
+            font-weight: bold;
+            padding: 12px 25px;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+        }
+        .btn-latihan:hover {
+            background-color: #17a673;
+            transform: scale(1.05);
+        }
 
-            .card {
-                border: none;
-                border-left: 6px solid #007bff;
-                border-radius: 15px;
-                transition: all 0.3s ease-in-out;
-            }
-
-            .card:hover {
-                transform: translateY(-3px);
-                box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
-            }
-
-            .card-body {
-                padding: 25px;
-            }
-
-            ul, ol {
-                padding-left: 20px;
-            }
-
-            .img-fluid {
-                border-radius: 10px;
-                transition: transform 0.3s ease;
-            }
-
-            .img-fluid:hover {
-                transform: scale(1.05);
-            }
-
-            .btn-secondary {
-                background-color: #007bff;
-                border-color: #007bff;
-                color: white;
-                border-radius: 8px;
-                padding: 10px 20px;
-                font-weight: 500;
-                transition: all 0.3s ease;
-            }
-
-            .btn-secondary:hover {
-                background-color: #0056b3;
-                transform: scale(1.05);
-            }
-
-            .container {
-                max-width: 900px;
-            }
-
-            i {
-                color: #333;
-            }
+        /* === KODE BARU UNTUK TOMBOL KEMBALI === */
+        .btn-kembali {
+            background-color: #6c757d; /* Warna abu-abu netral */
+            border-color: #6c757d;
+            color: white;
+            font-weight: bold;
+            padding: 12px 25px;
+            border-radius: 50px; /* Bentuk pil yang modern */
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        .btn-kembali:hover {
+            background-color: #5a6268; /* Sedikit lebih gelap saat disentuh */
+            transform: scale(1.05); /* Efek membesar */
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
         </style>
     </head>
-
     <body>
-        <div class="container mt-5 mb-5">
-            <!-- Judul Utama -->
+        <div class="container my-5">
+            <div class="hero-card shadow mb-5">
+                <h2 class="text-white">Memahami Sistem Komputer</h2>
+                <p class="lead">
+                    Sebuah sistem yang terdiri dari tiga komponen utama yang bekerja sama untuk mengubah data mentah menjadi informasi berharga.
+                </p>
+            </div>
             <div class="text-center mb-5">
-                <h2 class="fw-bold">Sub Bab 1: Pengertian Sistem Komputer</h2>
-                <p class="fs-5">Memahami komponen dan alur kerja sistem komputer</p>
+                <h3>Tiga Komponen Utama</h3>
+                <p>Ketiganya tak terpisahkan dan saling bergantung.</p>
             </div>
-
-            <!-- 1. Pengertian -->
-            <div class="card shadow mb-4">
-                <div class="card-body">
-                    <h4 class="section-title">1. Pengertian Sistem Komputer</h4>
-                    <p>
-                        <b>Sistem komputer</b> adalah satu kesatuan yang terdiri dari 
-                        <b>perangkat keras (hardware)</b>, <b>perangkat lunak (software)</b>, 
-                        dan <b>pengguna (brainware)</b> yang saling bekerja sama untuk 
-                        mengolah data menjadi informasi yang berguna melalui proses 
-                        <b>Input – Process – Output – Storage (IPOS)</b>.
-                    </p>
-                    <p>
-                        Sistem komputer tidak akan berfungsi dengan baik jika salah satu komponennya tidak ada, 
-                        karena masing-masing memiliki peran penting dalam proses pengolahan data.
-                    </p>
+            <div class="row mb-5">
+                <div class="col-lg-4 d-flex align-items-stretch mb-4">
+                    <div class="component-card card-hardware">
+                        <div class="component-icon icon-hardware">
+                            <i class="fas fa-server"></i>
+                        </div>
+                        <h4>Hardware</h4>
+                        <p>Semua komponen fisik komputer yang bisa kita lihat dan sentuh. Contoh: CPU, Monitor, Keyboard.</p>
+                    </div>
                 </div>
-            </div>
-
-            <!-- 2. Komponen Sistem Komputer -->
-            <div class="card shadow mb-4">
-                <div class="card-body">
-                    <h4 class="section-title">2. Komponen Sistem Komputer</h4>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">
-                            <b>a. Hardware (Perangkat Keras)</b><br>
-                            Merupakan bagian fisik komputer yang dapat disentuh. Contohnya: monitor, CPU, keyboard, mouse, dan printer.
-                        </li>
-                        <li class="list-group-item">
-                            <b>b. Software (Perangkat Lunak)</b><br>
-                            Program atau instruksi yang mengatur jalannya komputer. 
-                            Contoh: sistem operasi (Windows, Linux) dan aplikasi (Microsoft Word, Photoshop).
-                        </li>
-                        <li class="list-group-item">
-                            <b>c. Brainware (Pengguna)</b><br>
-                            Orang yang mengoperasikan komputer agar bisa digunakan secara maksimal. 
-                            Contoh: siswa, operator, programmer, dan teknisi komputer.
-                        </li>
-                    </ul>
+                <div class="col-lg-4 d-flex align-items-stretch mb-4">
+                    <div class="component-card card-software">
+                        <div class="component-icon icon-software">
+                            <i class="fas fa-compact-disc"></i>
+                        </div>
+                        <h4>Software</h4>
+                        <p>Program dan instruksi tak berwujud yang memerintahkan hardware. Contoh: Windows, Microsoft Word.</p>
+                    </div>
                 </div>
-            </div>
-
-            <!-- 3. Alur Sistem Komputer -->
-            <div class="card shadow mb-4">
-                <div class="card-body">
-                    <h4 class="section-title">3. Alur Sistem Komputer (IPOS)</h4>
-                    <p>
-                        Proses pengolahan data pada komputer terjadi melalui empat tahap utama:
-                    </p>
-                    <ol>
-                        <li><b>Input (Masukan):</b> Data dimasukkan melalui perangkat input seperti keyboard, mouse, scanner, atau mikrofon.</li>
-                        <li><b>Process (Pemrosesan):</b> Data diolah oleh CPU (Central Processing Unit) yang terdiri dari ALU, CU, dan register.</li>
-                        <li><b>Output (Keluaran):</b> Hasil pengolahan data ditampilkan melalui perangkat output seperti monitor, printer, atau speaker.</li>
-                        <li><b>Storage (Penyimpanan):</b> Data dan informasi disimpan di media penyimpanan seperti RAM, hard disk, SSD, atau flashdisk.</li>
-                    </ol>
-
-                    <div class="text-center mt-3">
-                        <img src="{% static 'img/diagram_ipos.jpg' %}" alt="Diagram IPOS" class="img-fluid shadow" style="max-width: 500px;">
-                        <p class="mt-3"><i>Gambar: Alur proses IPOS (Input → Process → Output → Storage)</i></p>
+                <div class="col-lg-4 d-flex align-items-stretch mb-4">
+                    <div class="component-card card-brainware">
+                        <div class="component-icon icon-brainware">
+                            <i class="fas fa-user-cog"></i>
+                        </div>
+                        <h4>Brainware</h4>
+                        <p>Manusia yang mengoperasikan dan mengendalikan sistem komputer. Contoh: Siswa, Programmer.</p>
                     </div>
                 </div>
             </div>
-
-            <!-- 4. Hubungan Komponen -->
-            <div class="card shadow mb-4">
-                <div class="card-body">
-                    <h4 class="section-title">4. Hubungan Antar Komponen</h4>
-                    <p>
-                        Setiap komponen dalam sistem komputer memiliki hubungan kerja yang saling terintegrasi:
-                    </p>
-                    <ul>
-                        <li>Pengguna (Brainware) menjalankan aplikasi atau software.</li>
-                        <li>Software berinteraksi dengan Sistem Operasi (OS) untuk mengakses hardware.</li>
-                        <li>OS mengatur komunikasi antara software dengan hardware agar instruksi berjalan dengan benar.</li>
-                    </ul>
-
-                    <div class="text-center mt-3">
-                        <img src="{% static 'img/komponen_sistem.jpg' %}" alt="Hubungan Komponen Sistem Komputer" class="img-fluid shadow" style="max-width: 400px;">
-                        <p class="mt-3"><i>Gambar: Hubungan antara Brainware, Software, OS, dan Hardware</i></p>
+            <div class="text-center mb-5">
+                <h3>Alur Kerja Sistem Komputer (IPOS)</h3>
+                <p>Setiap interaksi dengan komputer selalu mengikuti 4 langkah inti ini.</p>
+            </div>
+            <div class="process-timeline mb-5">
+                <div class="step step-input">
+                    <div class="step-icon">
+                        <i class="fas fa-keyboard"></i>
+                    </div>
+                    <div>
+                        <b>1. Input (Masukan):</b> Data mentah dimasukkan ke dalam sistem melalui perangkat seperti keyboard atau mouse.
+                    </div>
+                </div>
+                <div class="step step-process">
+                    <div class="step-icon">
+                        <i class="fas fa-microchip"></i>
+                    </div>
+                    <div>
+                        <b>2. Process (Proses):</b> CPU (otak komputer) mengolah data sesuai instruksi yang diberikan.
+                    </div>
+                </div>
+                <div class="step step-output">
+                    <div class="step-icon">
+                        <i class="fas fa-desktop"></i>
+                    </div>
+                    <div>
+                        <b>3. Output (Keluaran):</b> Hasil olahan data ditampilkan menjadi informasi yang berguna melalui monitor atau printer.
+                    </div>
+                </div>
+                <div class="step step-storage">
+                    <div class="step-icon">
+                        <i class="fas fa-hdd"></i>
+                    </div>
+                    <div>
+                        <b>4. Storage (Penyimpanan):</b> Data dan informasi disimpan ke media penyimpanan seperti Hard Disk agar bisa digunakan lagi nanti.
                     </div>
                 </div>
             </div>
-
-            <!-- 5. Kesimpulan -->
-            <div class="card shadow">
-                <div class="card-body">
-                    <h4 class="section-title">5. Kesimpulan</h4>
-                    <p>
-                        Sistem komputer merupakan gabungan antara hardware, software, dan brainware 
-                        yang bekerja sama dalam satu kesatuan. Ketiganya memungkinkan data diolah 
-                        menjadi informasi yang berguna melalui proses IPOS. 
-                        Pemahaman tentang hubungan dan fungsi tiap komponen sangat penting 
-                        agar kita dapat menggunakan komputer secara efektif dan efisien.
-                    </p>
-                </div>
-            </div>
-
-            <!-- Tombol Kembali -->
             <div class="text-center mt-5">
-                <a href="{% url 'charts' %}" class="btn btn-secondary">← Kembali</a>
-                <a href="{% url 'latihan1_subbab1' %}" class="btn btn-dark">Mulai Latihan Interaktif →</a>
-                
+                <a href="{% url 'materi' %}" class="btn-kembali mr-2">
+                    <i class="fas fa-arrow-left mr-2"></i>Kembali
+                </a>
+                <a href="{% url 'latihan1_subbab1' %}" class="btn-latihan">
+                    Mulai Latihan<i class="fas fa-arrow-right ml-2"></i>
+                </a>
             </div>
         </div>
     </body>

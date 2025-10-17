@@ -40,16 +40,16 @@
             </li>
 
             <!-- Materi -->
-            <li class="nav-item {% if request.resolver_match.url_name == 'charts' %}active{% endif %}">
-                <a class="nav-link {% if request.resolver_match.url_name == 'charts' %}font-weight-bold{% endif %}" href="{% url 'charts' %}">
+            <li class="nav-item {% if request.resolver_match.url_name == 'materi' %}active{% endif %}">
+                <a class="nav-link {% if request.resolver_match.url_name == 'materi' %}font-weight-bold{% endif %}" href="{% url 'materi' %}">
                     <i class="fas fa-fw fa-chart-bar"></i>
                     <span>Materi</span>
                 </a>
             </li>
 
             <!-- Kuis -->
-            <li class="nav-item {% if request.resolver_match.url_name == 'tables' %}active{% endif %}">
-                <a class="nav-link {% if request.resolver_match.url_name == 'tables' %}font-weight-bold{% endif %}" href="{% url 'tables' %}">
+            <li class="nav-item {% if request.resolver_match.url_name == 'kuis' %}active{% endif %}">
+                <a class="nav-link {% if request.resolver_match.url_name == 'kuis' %}font-weight-bold{% endif %}" href="{% url 'kuis' %}">
                     <i class="fas fa-fw fa-list"></i>
                     <span>Kuis</span>
                 </a>

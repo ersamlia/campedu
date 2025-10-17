@@ -5,8 +5,8 @@ from . import views
 
 urlpatterns = [
     path('dashboard/', views.dashboard, name='dashboard'),
-    path('charts/', views.charts, name='charts'),
-    path('tables/', views.tables, name='tables'),
+    path('materi/', views.charts, name='materi'),
+    path('kuis/', views.kuis, name='kuis'),
     path('subbab1/', views.subbab1, name='subbab1'),
     path('subbab1/latihan1_subbab1/', views.latihan1_subbab1, name='latihan1_subbab1'),
     # URL BARU UNTUK LATIHAN 2
