@@ -1,0 +1,109 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Dashboard Guru - CompEdu</title>
+    <link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,300,400,600,700,800,900" rel="stylesheet">
+    <link href="{% static 'css/sb-admin-2.min.css' %}" rel="stylesheet">
+</head>
+<body id="page-top">
+    <div id="wrapper">
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="[PLACEHOLDER_URL_GURU_DASHBOARD]">
+                <div class="sidebar-brand-icon rotate-n-15"><i class="fas fa-chalkboard-teacher"></i></div>
+                <div class="sidebar-brand-text mx-3">Guru CompEdu</div>
+            </a>
+            <hr class="sidebar-divider my-0">
+        <li class="nav-item active">
+            <a class="nav-link" href="{% url 'guru_dashboard' %}">
+                <i class="fas fa-fw fa-home"></i>
+                <span>Dashboard</span>
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'guru_kelas' %}">
+                <i class="fas fa-fw fa-chalkboard"></i>
+                <span>Kelola Kelas</span>
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'guru_progres' %}">
+                <i class="fas fa-fw fa-chart-line"></i>
+                <span>Progres Siswa</span>
+            </a>
+        </li>
+    </ul>
+
+    <div id="content-wrapper" class="d-flex flex-column">
+        <div id="content">
+            <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                <h5 class="ml-3 mt-2 font-weight-bold text-primary">Dashboard Guru</h5>
+            </nav>
+
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-xl-4 col-md-6 mb-4">
+                        <div class="card border-left-primary shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                    Jumlah Kelas Dibuat
+                                </div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">5</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-4 col-md-6 mb-4">
+                        <div class="card border-left-success shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                    Total Siswa Terdaftar
+                                </div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">132</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-4 col-md-6 mb-4">
+                        <div class="card border-left-warning shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                    Rata-rata Progres Siswa
+                                </div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">78%</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Aktivitas Guru</h6>
+                    </div>
+                    <div class="card-body">
+                        <p>Selamat datang di halaman guru! Di sini Anda bisa membuat kelas baru, menambahkan siswa, dan memantau progres belajar siswa Anda.</p>
+                        <a href="[PLACEHOLDER_URL_GURU_KELAS]" class="btn btn-primary"><i class="fas fa-plus"></i> Buat Kelas</a>
+                        <a href="[PLACEHOLDER_URL_GURU_PROGRES]" class="btn btn-success"><i class="fas fa-chart-bar"></i> Lihat Progres</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer class="sticky-footer bg-white">
+            <div class="container my-auto text-center">
+                <span>© CompEdu 2025 - Dashboard Guru</span>
+            </div>
+        </footer>
+    </div>
+    </div>
+    <script src="[PLACEHOLDER_STATIC_VENDOR_JQUERY_JQUERY_MIN_JS]"></script>
+    <script src="[PLACEHOLDER_STATIC_VENDOR_BOOTSTRAP_BOOTSTRAP_BUNDLE_MIN_JS]"></script>
+    <script src="[PLACEHOLDER_STATIC_VENDOR_JQUERY_EASING_JQUERY_EASING_MIN_JS]"></script>
+    <script src="[PLACEHOLDER_STATIC_JS_SB_ADMIN_2_MIN_JS]"></script>
+</body>
+</html>

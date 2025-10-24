@@ -16,4 +16,14 @@ urlpatterns = [
     path('subbab3/', views.subbab3, name='subbab3'),
     path('subbab4/', views.subbab4, name='subbab4'),
     path('subbab5/', views.subbab5, name='subbab5'),
+
+    # ==========================
+    # URL KHUSUS GURU
+    # ==========================
+    # Halaman guru
+    # Halaman guru
+    path('guru/dashboard/', views.guru_dashboard, name='guru_dashboard'),
+    path('guru/kelas/', views.guru_kelas, name='guru_kelas'),
+    path('guru/progres/', views.guru_progres, name='guru_progres'),
+
 ]

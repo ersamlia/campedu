@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Tambah Siswa</title>
+  <style>
+    body { font-family: Poppins, sans-serif; background: #f7faff; padding: 30px; }
+    input { width: 100%; padding: 10px; margin-bottom: 10px; }
+    button { background: #4CAF50; color: white; padding: 10px 15px; border: none; border-radius: 6px; }
+  </style>
+</head>
+<body>
+  <h2>👨‍🎓 Tambah Siswa ke {{ kelas.nama_kelas }}</h2>
+  <form method="post">
+    {% csrf_token %}
+    <input type="text" name="nama" placeholder="Nama Siswa" required>
+    <input type="email" name="email" placeholder="Email Siswa" required>
+    <button type="submit">Tambah</button>
+  </form>
+</body>
+</html>
+

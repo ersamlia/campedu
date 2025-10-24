@@ -36,3 +36,18 @@ def subbab4(request):
 
 def subbab5(request):
     return render(request, 'subbab5.html')
+
+
+# ==========================
+#  TAMBAHAN UNTUK GURU
+# ==========================
+# === Halaman untuk guru ===
+
+def guru_dashboard(request):
+    return render(request, 'guru-dashboard.html')
+
+def guru_kelas(request):
+    return render(request, 'buat_kelas.html')
+
+def guru_progres(request):
+    return render(request, 'progres_siswa.html')

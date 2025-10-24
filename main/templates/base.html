@@ -1,0 +1,34 @@
+<!-- templates/base.html -->
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>{% block title %}Guru CompEdu{% endblock %}</title>
+  <style>
+    body { font-family: Poppins, sans-serif; margin: 0; background: #f0f4ff; }
+    header { background: #007bff; color: white; padding: 15px; }
+    nav a { color: white; margin-right: 15px; text-decoration: none; }
+    nav a:hover { text-decoration: underline; }
+    footer { background: #222; color: white; text-align: center; padding: 10px; margin-top: 30px; }
+    main { padding: 30px; }
+  </style>
+</head>
+<body>
+  <header>
+    <h2>Guru CompEdu</h2>
+    <nav>
+      <a href="{% url 'dashboard_guru' %}">Dashboard</a>
+      <a href="{% url 'buat_kelas' %}">Kelola Kelas</a>
+      <a href="{% url 'progres_siswa' %}">Progres Siswa</a>
+    </nav>
+  </header>
+
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer>
+    &copy; CompEdu 2025 - Dashboard Guru
+  </footer>
+</body>
+</html>
