@@ -1,0 +1,192 @@
+{% extends 'main/base.html' %}
+{% block title %}Modul 2: {{ subbab.judul }}{% endblock %}
+{% block content %}
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">{{ subbab.judul }}</h1>
+    </div>
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">A. Penjelajah Takson Interaktif</h6>
+        </div>
+        <div class="card-body">
+            <p>Klik setiap tingkatan pada piramida untuk "menemukan" artinya!</p>
+            <style>
+            .piramida { display: flex; flex-direction: column; align-items: center; }
+            .level-takson { 
+                background-color: #4e73df; color: white; margin: 2px 0; 
+                padding: 10px; border-radius: 5px; cursor: pointer;
+                transition: background-color 0.2s;
+            }
+            .level-takson:hover { background-color: #2e59d9; }
+            #kingdom { width: 100%; }
+            #filum { width: 90%; }
+            #kelas { width: 80%; }
+            #ordo { width: 70%; }
+            #famili { width: 60%; }
+            #genus { width: 50%; }
+            #spesies { width: 40%; }
+            </style>
+            <div class="piramida text-center">
+                <div id="kingdom"
+                     class="level-takson"
+                     onclick="showPopup('popup-kingdom')">KINGDOM</div>
+                <div id="filum" class="level-takson" onclick="showPopup('popup-filum')">FILUM / DIVISI</div>
+                <div id="kelas" class="level-takson" onclick="showPopup('popup-kelas')">KELAS</div>
+                <div id="ordo" class="level-takson" onclick="showPopup('popup-ordo')">ORDO</div>
+                <div id="famili" class="level-takson" onclick="showPopup('popup-famili')">FAMILI</div>
+                <div id="genus" class="level-takson" onclick="showPopup('popup-genus')">GENUS</div>
+                <div id="spesies"
+                     class="level-takson"
+                     onclick="showPopup('popup-spesies')">SPESIES</div>
+            </div>
+        </div>
+    </div>
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-danger">B. Fitur Unggulan: Pemandu Identifikasi Interaktif</h6>
+        </div>
+        <div class="card-body" id="pemandu-area"></div>
+    </div>
+    <a id="finish-modul-2-btn"
+       href="{% url 'modul_selesai' subbab.id %}"
+       class="btn btn-success btn-icon-split mt-3"
+       style="display:none">
+        <span class="icon text-white-50"><i class="fas fa-check"></i></span>
+        <span class="text">Selesai Modul 2 & Buka Latihan Soal</span>
+    </a>
+    <div class="modal fade" id="taksonModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="taksonModalTitle"></h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="taksonModalBody"></div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" type="button" data-dismiss="modal">Mengerti</button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block custom_js %}
+    <script>
+    // --- Script untuk Pop-up Piramida ---
+    const popupData = {
+        'popup-kingdom': { title: 'Level 1: KINGDOM', text: 'Tingkat tertinggi dan paling umum. Ciri-cirinya sangat umum. Contoh: Kingdom Animalia (Semua Hewan).' },
+        'popup-filum': { title: 'Level 2: FILUM / DIVISI', text: 'Kelompok di bawah Kingdom. Contoh: Filum Chordata (Hewan bertulang belakang).' },
+        'popup-kelas': { title: 'Level 3: KELAS', text: 'Contoh: Kelas Mamalia (Hewan menyusui).' },
+        'popup-ordo': { title: 'Level 4: ORDO', text: 'Contoh: Ordo Karnivora (Hewan pemakan daging).' },
+        'popup-famili': { title: 'Level 5: FAMILI', text: 'Contoh: Famili Felidae (Keluarga kucing).' },
+        'popup-genus': { title: 'Level 6: GENUS', text: 'Contoh: Genus Panthera (Harimau, Singa, Jaguar).' },
+        'popup-spesies': { title: 'Level 7: SPESIES', text: 'Tingkat terendah dan paling spesifik. Contoh: Panthera tigris (Harimau).' }
+    };
+
+    function showPopup(id) {
+        const data = popupData[id];
+        document.getElementById('taksonModalTitle').innerText = data.title;
+        document.getElementById('taksonModalBody').innerText = data.text;
+        $('#taksonModal').modal('show');
+    }
+
+    // --- Script untuk Fitur Unggulan (Pemandu Identifikasi) ---
+    const pemanduArea = document.getElementById('pemandu-area');
+    const btnSelesai = document.getElementById('finish-modul-2-btn');
+    let organismeTeridentifikasi = 0;
+    const totalOrganisme = 4; // Set jumlah total organisme yang harus diidentifikasi
+
+    // Data Kunci Determinasi (Hardcoded)
+    const kunci = {
+        'start': {
+            teks: "Pilih organisme untuk diidentifikasi:",
+            pilihan: [
+                { teks: "Lumut", img: "{% static 'img/lumut.jpg' %}", next: "kunci_1" },
+                { teks: "Suplir", img: "{% static 'img/suplir.jpg' %}", next: "kunci_1" },
+                { teks: "Jagung", img: "{% static 'img/jagung.jpg' %}", next: "kunci_1" },
+                { teks: "Mawar", img: "{% static 'img/mawar.jpg' %}", next: "kunci_1" }
+            ],
+            isStart: true
+        },
+        'kunci_1': {
+            teks: "Apakah tumbuhan ini berspora?",
+            pilihan: [
+                { teks: "YA, Berspora", next: "kunci_2" },
+                { teks: "TIDAK, Berbiji", next: "kunci_3" }
+            ]
+        },
+        'kunci_2': { // Hasil dari 1a
+            teks: "Apakah memiliki batang yang jelas?",
+            pilihan: [
+                { teks: "YA, Batang Jelas", next: "hasil_suplir" },
+                { teks: "TIDAK, Batang Tidak Jelas", next: "hasil_lumut" }
+            ]
+        },
+        'kunci_3': { // Hasil dari 1b
+            teks: "Apakah bijinya berkeping satu (Monokotil)?",
+            pilihan: [
+                { teks: "YA, Keping Satu", next: "hasil_jagung" },
+                { teks: "TIDAK, Keping Dua", next: "hasil_mawar" }
+            ]
+        },
+        // Halaman Hasil
+        'hasil_lumut': { teks: "TERIDENTIFIKASI: LUMUT (Bryophyta)!", isResult: true },
+        'hasil_suplir': { teks: "TERIDENTIFIKASI: SUPLIR (Pteridophyta)!", isResult: true },
+        'hasil_jagung': { teks: "TERIDENTIFIKASI: JAGUNG (Monokotil)!", isResult: true },
+        'hasil_mawar': { teks: "TERIDENTIFIKASI: MAWAR (Dikotil)!", isResult: true }
+    };
+
+    function tampilkanLangkah(langkahID) {
+        const langkah = kunci[langkahID];
+        pemanduArea.innerHTML = ""; // Kosongkan area
+
+        let teksPertanyaan = document.createElement('h5');
+        teksPertanyaan.className = 'text-gray-900 mb-3';
+        teksPertanyaan.innerText = langkah.teks;
+        pemanduArea.appendChild(teksPertanyaan);
+        
+        let containerPilihan = document.createElement('div');
+        containerPilihan.className = 'd-flex flex-wrap';
+        pemanduArea.appendChild(containerPilihan);
+
+        if (langkah.pilihan) {
+            langkah.pilihan.forEach(pilihan => {
+                let btnPilihan = document.createElement('button');
+                
+                if (langkah.isStart) {
+                    // Tampilkan gambar sebagai pilihan
+                    btnPilihan.className = 'btn btn-outline-primary m-2';
+                    btnPilihan.innerHTML = `<img src="${pilihan.img}" width="100"><br>${pilihan.teks}`;
+                } else {
+                    // Tampilkan tombol teks
+                    btnPilihan.className = 'btn btn-primary m-2';
+                    btnPilihan.innerText = pilihan.teks;
+                }
+                
+                btnPilihan.onclick = () => tampilkanLangkah(pilihan.next);
+                containerPilihan.appendChild(btnPilihan);
+            });
+        } 
+        
+        if (langkah.isResult) {
+            // Ini adalah halaman hasil
+            organismeTeridentifikasi++;
+            
+            let btnKembali = document.createElement('button');
+            btnKembali.innerText = "Identifikasi Lagi";
+            btnKembali.className = 'btn btn-info m-2';
+            btnKembali.onclick = () => tampilkanLangkah('start');
+            containerPilihan.appendChild(btnKembali);
+
+            // Cek jika semua sudah selesai
+            if (organismeTeridentifikasi >= totalOrganisme) {
+                btnSelesai.style.display = 'inline-block';
+            }
+        }
+    }
+    
+    // Mulai Pemandu
+    tampilkanLangkah('start');
+    </script>
+{% endblock %}

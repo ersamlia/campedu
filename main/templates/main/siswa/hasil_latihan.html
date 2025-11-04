@@ -1,0 +1,25 @@
+{% extends 'main/base.html' %}
+{% block title %}Hasil Latihan{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col-lg-6 offset-lg-3">
+            <div class="card shadow mb-4 text-center">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Hasil untuk: {{ latihan.judul }}</h6>
+                </div>
+                <div class="card-body">
+                    <h3 class="text-gray-900">Skor Anda:</h3>
+                    <h1 class="display-1 font-weight-bold {% if hasil.skor >= 70 %}text-success{% else %}text-danger{% endif %}">
+                        {{ hasil.skor|floatformat:0 }}
+                    </h1>
+                    {% if hasil.skor >= 70 %}
+                        <p>Kerja bagus! Anda telah menguasai materi ini.</p>
+                    {% else %}
+                        <p>Anda perlu belajar lagi. Coba ulangi modul interaktifnya.</p>
+                    {% endif %}
+                    <a href="{% url 'siswa_dashboard' %}" class="btn btn-primary mt-3">Kembali ke Dashboard</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

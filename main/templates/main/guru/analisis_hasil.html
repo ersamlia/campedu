@@ -1,0 +1,35 @@
+{% extends 'main/base.html' %}
+{% block title %}Analisis Hasil Belajar{% endblock %}
+{% block content %}
+    <h1 class="h3 mb-4 text-gray-800">Analisis Kesulitan Soal Siswa</h1>
+    <p class="mb-4">
+        Fitur ini membantu Anda melihat soal mana yang paling sering dijawab salah oleh siswa. Ini menunjukkan di mana letak miskonsepsi utama.
+    </p>
+    {% for latihan in analisis_latihan %}
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Analisis untuk: {{ latihan.judul }}</h6>
+            </div>
+            <div class="card-body">
+                {% for p in latihan.pertanyaan %}
+                    <h4 class="small font-weight-bold">
+                        {{ forloop.counter }}. {{ p.teks|truncatewords:15 }}
+                        <span class="float-right">{{ p.persen_salah }}% Salah</span>
+                    </h4>
+                    <div class="progress mb-3">
+                        <div class="progress-bar bg-danger"
+                             role="progressbar"
+                             style="width: {{ p.persen_salah }}%"
+                             aria-valuenow="{{ p.persen_salah }}"
+                             aria-valuemin="0"
+                             aria-valuemax="100"></div>
+                    </div>
+                    <small class="text-gray-700">Dijawab {{ p.total_menjawab }} kali, Salah {{ p.total_salah }} kali.</small>
+                    <hr class="mt-2 mb-3">
+                {% empty %}
+                    <p>Belum ada data jawaban siswa untuk latihan ini.</p>
+                {% endfor %}
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}

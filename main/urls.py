@@ -1,38 +1,35 @@
-# main/urls.py (SUDAH DIPERBAIKI)
-
+# main/urls.py
 from django.urls import path
 from . import views
 
-
 urlpatterns = [
-    path('', views.index, name='halamanUtama'),
-    
-    # ==========================
-    # URL KHUSUS SISWA
-    # ==========================
-    path('siswa/dashboard/', views.dashboard, name='dashboard'),
-    path('siswa/materi/', views.charts, name='materi'),
-    path('siswa/kuis/', views.kuis, name='kuis'),
-    
-    # PERBAIKAN: Tambahkan 'siswa/' di depan
-    path('siswa/subbab1/', views.subbab1, name='subbab1'),
-    
-    # PERBAIKAN: Tambahkan 'siswa/' di depan
-    path('siswa/subbab1/latihan1_subbab1/', views.latihan1_subbab1, name='latihan1_subbab1'),
-    
-    # PERBAIKAN: Tambahkan 'siswa/' di depan
-    path('siswa/subbab1/latihan2_subbab1/', views.latihan2_subbab1, name='latihan2_subbab1'),
-    
-    # PERBAIKAN: Tambahkan 'siswa/' di depan
-    path('siswa/subbab2/', views.subbab2, name='subbab2'),
-    path('siswa/subbab3/', views.subbab3, name='subbab3'),
-    path('siswa/subbab4/', views.subbab4, name='subbab4'),
-    path('siswa/subbab5/', views.subbab5, name='subbab5'),
+    # Halaman Utama & Auth
+    path('', views.halaman_utama_view, name='halaman_utama'),
+    path('register/', views.register_view, name='register'),
+    path('login/', views.login_view, name='login'),
+    path('logout/', views.logout_view, name='logout'),
+    # Lupa password dari file Anda
+    path('forgot-password/', views.forgot_password_view, name='forgot_password'), 
 
-    # ==========================
-    # URL KHUSUS GURU (Ini sudah benar)
-    # ==========================
-    path('guru/dashboard/', views.guru_dashboard, name='guru_dashboard'),
-    path('guru/kelas/', views.guru_kelas, name='guru_kelas'),
-    path('guru/progres/', views.guru_progres, name='guru_progres'),
+    # === ALUR SISWA ===
+    path('siswa/dashboard/', views.siswa_dashboard_view, name='siswa_dashboard'),
+    
+    # Modul Interaktif
+    path('modul/<int:urutan_id>/', views.modul_view, name='modul'),
+    path('modul/selesai/<int:subbab_id>/', views.modul_selesai_view, name='modul_selesai'),
+
+    # Latihan Soal per Sub-Bab
+    path('latihan/<int:latihan_id>/', views.latihan_soal_view, name='latihan_soal'),
+    path('latihan/submit/<int:latihan_id>/', views.submit_latihan_view, name='submit_latihan'),
+    path('latihan/hasil/<int:latihan_id>/', views.hasil_latihan_view, name='hasil_latihan'),
+
+    # Soal Pengayaan
+    path('pengayaan/<int:pengayaan_id>/', views.pengayaan_view, name='pengayaan'),
+    path('pengayaan/submit/<int:pengayaan_id>/', views.submit_pengayaan_view, name='submit_pengayaan'),
+    path('pengayaan/hasil/<int:pengayaan_id>/', views.hasil_pengayaan_view, name='hasil_pengayaan'),
+
+    # === ALUR GURU ===
+    path('guru/dashboard/', views.guru_dashboard_view, name='guru_dashboard'),
+    path('guru/progres/', views.pantau_progres_view, name='pantau_progres'),
+    path('guru/analisis/', views.analisis_hasil_view, name='analisis_hasil'),
 ]

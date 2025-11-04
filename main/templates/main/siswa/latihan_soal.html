@@ -1,0 +1,31 @@
+{% extends 'main/base.html' %}
+{% block title %}Latihan: {{ latihan.judul }}{% endblock %}
+{% block content %}
+    <h1 class="h3 mb-4 text-gray-800">{{ latihan.judul }}</h1>
+    <form method="post" action="{% url 'submit_latihan' latihan.id %}">
+        {% csrf_token %}
+        {% for pertanyaan in latihan.pertanyaan_set.all %}
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Pertanyaan {{ forloop.counter }}</h6>
+                </div>
+                <div class="card-body">
+                    <p>{{ pertanyaan.teks_pertanyaan }}</p>
+                    <hr>
+                    {% for pilihan in pertanyaan.pilihan_set.all %}
+                        <div class="form-check">
+                            <input class="form-check-input"
+                                   type="radio"
+                                   id="pilihan_{{ pilihan.id }}"
+                                   name="pertanyaan_{{ pertanyaan.id }}"
+                                   value="{{ pilihan.id }}"
+                                   required>
+                            <label class="form-check-label" for="pilihan_{{ pilihan.id }}">{{ pilihan.teks_pilihan }}</label>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endfor %}
+        <button type="submit" class="btn btn-success btn-lg">Kumpulkan Jawaban</button>
+    </form>
+{% endblock %}

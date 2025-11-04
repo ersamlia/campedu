@@ -1,0 +1,110 @@
+{% extends 'main/base.html' %}
+{% block title %}Dashboard Siswa{% endblock %}
+{% block content %}
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Peta Belajar: Klasifikasi Makhluk Hidup</h1>
+    </div>
+    <div class="row">
+        {% for status in status_bab %}
+            <div class="col-lg-12">
+                <div class="card shadow mb-4 {% if not status.unlocked %}border-left-secondary{% elif status.latihan_completed %}border-left-success{% else %}border-left-primary{% endif %}">
+                    <a href="#collapseCard-{{ status.subbab.urutan }}"
+                       class="d-block card-header py-3"
+                       data-toggle="collapse"
+                       role="button"
+                       aria-expanded="true"
+                       aria-controls="collapseCard-{{ status.subbab.urutan }}">
+                        <h6 class="m-0 font-weight-bold text-primary">
+                            {{ status.subbab.judul }}
+                            {% if not status.unlocked %}
+                                <span class="float: right; color: #858796;">🔒 Terkunci</span>
+                            {% elif status.latihan_completed %}
+                                <span class="float: right; color: #1cc88a;">✓ Selesai</span>
+                            {% else %}
+                                <span class="float: right; color: #4e73df;">▶ Sedang Dikerjakan</span>
+                            {% endif %}
+                        </h6>
+                    </a>
+                    <div class="collapse show" id="collapseCard-{{ status.subbab.urutan }}">
+                        <div class="card-body">
+                            {% if status.unlocked %}
+                                {% if not status.modul_completed %}
+                                    <a href="{% url 'modul' status.subbab.urutan %}"
+                                       class="btn btn-primary btn-icon-split">
+                                        <span class="icon text-white-50"><i class="fas fa-play"></i></span>
+                                        <span class="text">Mulai Modul Interaktif</span>
+                                    </a>
+                                {% else %}
+                                    <p class="text-success">✓ Modul Interaktif Selesai</p>
+                                {% endif %}
+                                <div style="margin-top: 15px;">
+                                    {% if status.modul_completed %}
+                                        {% if not status.latihan_completed %}
+                                            <a href="{% url 'latihan_soal' status.subbab.latihansoal.id %}"
+                                               class="btn btn-warning btn-icon-split">
+                                                <span class="icon text-white-50"><i class="fas fa-edit"></i></span>
+                                                <span class="text">Mulai Latihan Soal</span>
+                                            </a>
+                                        {% else %}
+                                            <p class="text-success">
+                                                ✓ Latihan Soal Selesai
+                                                (<a href="{% url 'hasil_latihan' status.subbab.latihansoal.id %}">Lihat Skor Anda</a>)
+                                            </p>
+                                        {% endif %}
+                                    {% else %}
+                                        <p class="text-gray-500">🔒 Latihan Soal akan terbuka setelah modul interaktif selesai.</p>
+                                    {% endif %}
+                                </div>
+                            {% else %}
+                                <p class="text-gray-500">🔒 Modul ini akan terbuka setelah Anda menyelesaikan Latihan Soal sebelumnya.</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+        {% if pengayaan %}
+            <div class="col-lg-12">
+                <div class="card shadow mb-4 {% if not semua_latihan_selesai %}border-left-secondary{% elif pengayaan_selesai %}border-left-success{% else %}border-left-danger{% endif %}">
+                    <a href="#collapseCard-Pengayaan"
+                       class="d-block card-header py-3"
+                       data-toggle="collapse"
+                       role="button"
+                       aria-expanded="true"
+                       aria-controls="collapseCard-Pengayaan">
+                        <h6 class="m-0 font-weight-bold text-danger">
+                            {{ pengayaan.judul }}
+                            {% if not semua_latihan_selesai %}
+                                <span class="float: right; color: #858796;">🔒 Terkunci</span>
+                            {% elif pengayaan_selesai %}
+                                <span class="float: right; color: #1cc88a;">✓ Selesai</span>
+                            {% else %}
+                                <span class="float: right; color: #e74a3b;">▶ Siap Dikerjakan</span>
+                            {% endif %}
+                        </h6>
+                    </a>
+                    <div class="collapse show" id="collapseCard-Pengayaan">
+                        <div class="card-body">
+                            {% if semua_latihan_selesai %}
+                                {% if not pengayaan_selesai %}
+                                    <a href="{% url 'pengayaan' pengayaan.id %}"
+                                       class="btn btn-danger btn-icon-split">
+                                        <span class="icon text-white-50"><i class="fas fa-flag"></i></span>
+                                        <span class="text">Mulai Ujian Akhir Bab</span>
+                                    </a>
+                                {% else %}
+                                    <p class="text-success">
+                                        ✓ Ujian Akhir Bab Selesai
+                                        (<a href="{% url 'hasil_pengayaan' pengayaan.id %}">Lihat Skor Anda</a>)
+                                    </p>
+                                {% endif %}
+                            {% else %}
+                                <p class="text-gray-500">🔒 Ujian Akhir akan terbuka setelah semua Latihan Soal sub-bab selesai.</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

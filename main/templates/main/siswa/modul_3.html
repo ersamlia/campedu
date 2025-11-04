@@ -1,0 +1,263 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block title %}Modul 3: {{ subbab.judul }}{% endblock %}
+{% block custom_css %}
+    <style>
+    .compare-container {
+        position: relative;
+        width: 100%;
+        max-width: 600px; /* Batasi lebar maksimum agar terlihat bagus */
+        height: 400px;
+        border: 2px solid #ddd;
+        margin: 20px auto 0 auto;
+        overflow: hidden; /* Penting untuk memotong gambar */
+    }
+    
+    .compare-img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover; /* Memastikan gambar mengisi area */
+    }
+    
+    .compare-slider {
+        position: absolute;
+        top: 0;
+        left: 50%; /* Mulai di tengah */
+        width: 6px;
+        height: 100%;
+        background-color: white;
+        opacity: 0.8;
+        cursor: ew-resize; /* Kursor geser kiri-kanan */
+        z-index: 10;
+        border-left: 2px solid #333;
+        border-right: 2px solid #333;
+        transform: translateX(-3px); /* Menengahkan slider */
+    }
+    
+    /* Gambar di atas (overlay) */
+    .img-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 50%; /* Mulai di tengah */
+        height: 100%;
+        object-fit: cover;
+        overflow: hidden; /* Sembunyikan bagian kanan gambar */
+        z-index: 5;
+    }
+
+    /* Penjelasan teks di bawah slider */
+    .compare-teks {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        max-width: 600px;
+        margin: 10px auto 0 auto;
+    }
+    .teks-kiri, .teks-kanan { 
+        width: 48%; 
+        padding: 10px;
+        background: #f8f9fc;
+        border-radius: 5px;
+    }
+    </style>
+{% endblock %}
+{% block content %}
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Modul Interaktif: {{ subbab.judul }}</h1>
+    </div>
+    <p>Geser garis pemisah (slider) di tengah gambar untuk "menemukan" perbedaannya!</p>
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Perbandingan 1: Monokotil vs. Dikotil</h6>
+        </div>
+        <div class="card-body">
+            <div id="compare-1" class="compare-container">
+                <img class="compare-img"
+                     src="{% static 'img/kacang_tanah.jpg' %}"
+                     alt="Dikotil">
+                <img class="compare-img img-overlay"
+                     src="{% static 'img/jagung.jpg' %}"
+                     alt="Monokotil">
+                <div class="compare-slider"></div>
+            </div>
+            <div class="compare-teks">
+                <div class="teks-kiri">
+                    <strong>Monokotil (Contoh: Jagung)</strong>
+                    <ul>
+                        <li>Biji berkeping satu</li>
+                        <li>Akar Serabut</li>
+                        <li>Daun Sejajar</li>
+                    </ul>
+                </div>
+                <div class="teks-kanan">
+                    <strong>Dikotil (Contoh: Kacang Tanah)</strong>
+                    <ul>
+                        <li>Biji berkeping dua</li>
+                        <li>Akar Tunggang</li>
+                        <li>Daun Menyirip/Menjari</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Perbandingan 2: Tumbuhan vs. Jamur</h6>
+        </div>
+        <div class="card-body">
+            <div id="compare-2" class="compare-container">
+                <img class="compare-img"
+                     src="{% static 'img/jamur.jpg' %}"
+                     alt="Jamur (Fungi)">
+                <img class="compare-img img-overlay"
+                     src="{% static 'img/pohon.jpg' %}"
+                     alt="Tumbuhan (Plantae)">
+                <div class="compare-slider"></div>
+            </div>
+            <div class="compare-teks">
+                <div class="teks-kiri">
+                    <strong>Kingdom Plantae (Tumbuhan)</strong>
+                    <ul>
+                        <li>Memiliki klorofil (Autotrof)</li>
+                        <li>Membuat makanan sendiri (Fotosintesis)</li>
+                        <li>Punya akar, batang, daun sejati (umumnya)</li>
+                    </ul>
+                </div>
+                <div class="teks-kanan">
+                    <strong>Kingdom Fungi (Jamur)</strong>
+                    <ul>
+                        <li>TIDAK memiliki klorofil (Heterotrof)</li>
+                        <li>Mengurai sisa-sisa (Saprofit)</li>
+                        <li>Tubuh terdiri dari benang Hifa</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Perbandingan 3: Vertebrata vs. Invertebrata</h6>
+        </div>
+        <div class="card-body">
+            <div id="compare-3" class="compare-container">
+                <img class="compare-img"
+                     src="{% static 'img/siput.jpg' %}"
+                     alt="Invertebrata">
+                <img class="compare-img img-overlay"
+                     src="{% static 'img/ikan.jpg' %}"
+                     alt="Vertebrata">
+                <div class="compare-slider"></div>
+            </div>
+            <div class="compare-teks">
+                <div class="teks-kiri">
+                    <strong>Vertebrata</strong>
+                    <ul>
+                        <li>Memiliki tulang punggung/belakang</li>
+                        <li>Contoh: Ikan, Katak, Burung, Sapi</li>
+                    </ul>
+                </div>
+                <div class="teks-kanan">
+                    <strong>Invertebrata (Avertebrata)</strong>
+                    <ul>
+                        <li>TIDAK memiliki tulang punggung</li>
+                        <li>Contoh: Cacing, Siput, Bintang Laut, Serangga</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a href="{% url 'modul_selesai' subbab.id %}"
+       class="btn btn-success btn-icon-split mt-3 mb-4">
+        <span class="icon text-white-50"><i class="fas fa-check"></i></span>
+        <span class="text">Selesai Modul 3 & Buka Latihan Soal</span>
+    </a>
+{% endblock %}
+{% block custom_js %}
+    <script>
+document.addEventListener("DOMContentLoaded", function() {
+    // Menerapkan fungsi slider ke semua container yang ada
+    // Anda bisa menambah "compare-4", "compare-5" dst. di HTML 
+    // dan script ini akan otomatis menjalankannya.
+    initSlider("compare-1");
+    initSlider("compare-2");
+    initSlider("compare-3");
+});
+
+function initSlider(containerId) {
+    const container = document.getElementById(containerId);
+    // Jika elemen tidak ditemukan, hentikan fungsi agar tidak error
+    if (!container) return; 
+    
+    const slider = container.querySelector('.compare-slider');
+    const overlay = container.querySelector('.img-overlay');
+    let isDragging = false;
+
+    // Fungsi utama untuk menggerakkan slider
+    const moveSlider = (x) => {
+        const rect = container.getBoundingClientRect();
+        // Dapatkan posisi x mouse/jari relatif terhadap container
+        let newX = x - rect.left;
+        
+        // Batasi gerakan slider agar tidak keluar dari container
+        if (newX < 0) newX = 0;
+        if (newX > rect.width) newX = rect.width;
+        
+        // Terapkan posisi baru ke slider dan lebar gambar overlay
+        slider.style.left = newX + 'px';
+        overlay.style.width = newX + 'px';
+    };
+
+    // --- Event Listeners untuk Mouse (Desktop) ---
+    // Saat slider di-klik
+    slider.addEventListener('mousedown', (e) => {
+        isDragging = true;
+        e.preventDefault(); // Hentikan aksi default browser
+    });
+    
+    // Saat mouse dilepas di mana saja di halaman
+    document.addEventListener('mouseup', () => {
+        isDragging = false;
+    });
+    
+    // Saat mouse keluar dari container
+    container.addEventListener('mouseleave', () => {
+        isDragging = false;
+    });
+
+    // Saat mouse bergerak di dalam container
+    container.addEventListener('mousemove', (e) => {
+        if (isDragging) {
+            moveSlider(e.clientX);
+        }
+    });
+
+    // --- Event Listeners untuk Layar Sentuh (Mobile) ---
+    // Saat slider disentuh
+    slider.addEventListener('touchstart', (e) => {
+        isDragging = true;
+        e.preventDefault();
+    });
+
+    // Saat sentuhan dilepas
+    document.addEventListener('touchend', () => {
+        isDragging = false;
+    });
+
+    // Saat sentuhan dibatalkan
+    document.addEventListener('touchcancel', () => {
+        isDragging = false;
+    });
+
+    // Saat jari bergerak di layar
+    container.addEventListener('touchmove', (e) => {
+        if (isDragging) {
+            moveSlider(e.touches[0].clientX);
+        }
+    });
+}
+    </script>
+{% endblock %}

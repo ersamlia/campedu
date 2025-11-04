@@ -1,0 +1,64 @@
+{% extends 'main/base.html' %}
+{% block title %}Pantau Progres Siswa{% endblock %}
+{% block content %}
+    <h1 class="h3 mb-4 text-gray-800">Pantau Progres Siswa</h1>
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Tabel Progres Keseluruhan</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered"
+                       id="dataTable"
+                       width="100%"
+                       cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th rowspan="2" style="vertical-align: middle;">Nama Siswa</th>
+                            {% for bab in subbabs %}
+                                <th colspan="2" class="text-center">{{ bab.urutan }}. {{ bab.judul|truncatewords:2 }}</th>
+                            {% endfor %}
+                            <th rowspan="2" style="vertical-align: middle;">Pengayaan</th>
+                        </tr>
+                        <tr>
+                            {% for bab in subbabs %}
+                                <th class="text-center">Modul</th>
+                                <th class="text-center">Latihan</th>
+                            {% endfor %}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for progres in data_progres %}
+                            <tr>
+                                <td>{{ progres.nama }}</td>
+                                {% for bab_status in progres.bab %}
+                                    <td class="text-center">
+                                        {% if bab_status.modul_selesai %}
+                                            <span class="badge badge-success">✓</span>
+                                        {% else %}
+                                            <span class="badge badge-danger">X</span>
+                                        {% endif %}
+                                    </td>
+                                    <td class="text-center">
+                                        {% if bab_status.latihan_selesai %}
+                                            <span class="badge badge-success">{{ bab_status.skor|floatformat:0 }}</span>
+                                        {% else %}
+                                            <span class="badge badge-danger">-</span>
+                                        {% endif %}
+                                    </td>
+                                {% endfor %}
+                                <td class="text-center">
+                                    {% if progres.pengayaan.selesai %}
+                                        <span class="badge badge-success">{{ progres.pengayaan.skor|floatformat:0 }}</span>
+                                    {% else %}
+                                        <span class="badge badge-danger">-</span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

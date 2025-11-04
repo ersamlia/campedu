@@ -1,0 +1,137 @@
+{% extends 'main/base.html' %}
+{% block title %}Modul 1: {{ subbab.judul }}{% endblock %}
+{% block content %}
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Modul Interaktif: {{ subbab.judul }}</h1>
+    </div>
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Fitur: Checklist Kehidupan Interaktif</h6>
+        </div>
+        <div class="card-body" id="interactive-area">
+            <p>Ayo kita bedakan! Klik semua tombol ciri untuk menganalisis objek ini.</p>
+            <div class="row">
+                <div class="col-md-5">
+                    <h4 id="obj-title">Objek 1: Kucing</h4>
+                    <img id="obj-img"
+                         src="{% static 'img/kucing.jpg' %}"
+                         alt="Kucing"
+                         class="img-fluid mb-3">
+                </div>
+                <div class="col-md-7">
+                    <h4>Checklist Ciri Kehidupan:</h4>
+                    <div id="checklist"></div>
+                    <h5 id="obj-result" class="mt-3"></h5>
+                    <button id="next-obj-btn" class="btn btn-info" style="display:none;">Lanjut ke Objek Berikutnya</button>
+                </div>
+            </div>
+            <a id="finish-modul-btn"
+               href="{% url 'modul_selesai' subbab.id %}"
+               class="btn btn-success btn-icon-split mt-3"
+               style="display:none">
+                <span class="icon text-white-50"><i class="fas fa-check"></i></span>
+                <span class="text">Selesai Modul 1 & Buka Latihan Soal</span>
+            </a>
+        </div>
+    </div>
+{% endblock %}
+{% block custom_js %}
+    <script>
+    // Data untuk interaktif
+    const objects = {
+        'Kucing': {
+            img: "{% static 'img/kucing.jpg' %}", // Ganti dengan path Anda
+            ciri: {
+                'Bernapas': { 'status': true, 'teks': 'YA! Kucing bernapas dengan paru-paru.' },
+                'Bergerak': { 'status': true, 'teks': 'YA! Kucing bisa berlari dan melompat.' },
+                'Butuh Makan/Nutrisi': { 'status': true, 'teks': 'YA! Kucing makan ikan.' },
+                'Tumbuh & Berkembang': { 'status': true, 'teks': 'YA! Anak kucing tumbuh jadi besar.' },
+                'Berkembang Biak': { 'status': true, 'teks': 'YA! Kucing melahirkan anak.' },
+                'Peka Rangsang': { 'status': true, 'teks': 'YA! Kucing merespons saat dipanggil.' },
+                'Mengeluarkan Zat Sisa': { 'status': true, 'teks': 'YA! Kucing buang air kecil/besar.' }
+            },
+            kesimpulan: "MAKHLUK HIDUP"
+        },
+        'Robot': {
+            img: "{% static 'img/robot.jpg' %}", // Ganti dengan path Anda
+            ciri: {
+                'Bernapas': { 'status': false, 'teks': 'TIDAK! Robot tidak bernapas.' },
+                'Bergerak': { 'status': true, 'teks': 'YA! Robot bisa bergerak dengan baterai.' },
+                'Butuh Makan/Nutrisi': { 'status': false, 'teks': 'TIDAK! Robot butuh listrik/baterai.' },
+                'Tumbuh & Berkembang': { 'status': false, 'teks': 'TIDAK! Ukuran robot tetap.' },
+                'Berkembang Biak': { 'status': false, 'teks': 'TIDAK! Robot tidak bisa punya anak.' },
+                'Peka Rangsang': { 'status': true, 'teks': 'YA! Robot merespons sensor.' },
+                'Mengeluarkan Zat Sisa': { 'status': false, 'teks': 'TIDAK! Robot tidak menghasilkan zat sisa.' }
+            },
+            kesimpulan: "BENDA MATI"
+        }
+    };
+
+    let currentObjectName = 'Kucing';
+    let clickedCount = 0;
+    const totalCiri = 7;
+    const checklistDiv = document.getElementById('checklist');
+    
+    function loadObject(namaObjek) {
+        const obj = objects[namaObjek];
+        document.getElementById('obj-title').innerText = `Objek: ${namaObjek}`;
+        document.getElementById('obj-img').src = obj.img;
+        document.getElementById('obj-result').innerText = "";
+        checklistDiv.innerHTML = "";
+        clickedCount = 0;
+        
+        for (const [ciri, data] of Object.entries(obj.ciri)) {
+            let wrapper = document.createElement('div');
+            wrapper.className = 'mb-2';
+            
+            let btn = document.createElement('button');
+            btn.innerText = `[ ] ${ciri}`;
+            btn.id = `btn-${ciri}`;
+            btn.className = 'btn btn-outline-secondary';
+            btn.onclick = () => checkCiri(namaObjek, ciri, data.status, data.teks);
+            wrapper.appendChild(btn);
+            
+            let teks = document.createElement('span');
+            teks.id = `teks-${ciri}`;
+            teks.style.marginLeft = '10px';
+            teks.className = 'text-gray-700';
+            wrapper.appendChild(teks);
+            
+            checklistDiv.appendChild(wrapper);
+        }
+    }
+
+    function checkCiri(namaObjek, ciri, status, teks) {
+        const btn = document.getElementById(`btn-${ciri}`);
+        const teksSpan = document.getElementById(`teks-${ciri}`);
+        
+        if (status) {
+            btn.innerText = `[✓] ${ciri}`;
+            btn.className = 'btn btn-success';
+        } else {
+            btn.innerText = `[X] ${ciri}`;
+            btn.className = 'btn btn-danger';
+        }
+        teksSpan.innerText = teks;
+        btn.disabled = true;
+        clickedCount++;
+
+        if (clickedCount === totalCiri) {
+            document.getElementById('obj-result').innerText = `KESIMPULAN: ${namaObjek} adalah ${objects[namaObjek].kesimpulan}`;
+            if (namaObjek === 'Kucing') {
+                document.getElementById('next-obj-btn').style.display = 'inline-block';
+            } else {
+                document.getElementById('finish-modul-btn').style.display = 'inline-block';
+            }
+        }
+    }
+
+    document.getElementById('next-obj-btn').onclick = () => {
+        currentObjectName = 'Robot';
+        loadObject(currentObjectName);
+        document.getElementById('next-obj-btn').style.display = 'none';
+    };
+
+    loadObject(currentObjectName);
+    </script>
+{% endblock %}
