@@ -65,23 +65,41 @@ class PilihanPengayaan(models.Model):
     def __str__(self):
         return self.teks_pilihan
 
-# 4. MODEL UNTUK MELACAK PROGRES DAN SKOR SISWA (UNTUK GURU)
-class ProgressSiswa(models.Model):
-    siswa = models.ForeignKey(User, on_delete=models.CASCADE)
-    subbab = models.ForeignKey(SubBab, on_delete=models.CASCADE)
-    modul_completed = models.BooleanField(default=False)
-    latihan_completed = models.BooleanField(default=False)
+# 4. MODEL BARU UNTUK MELACAK PROGRES SISWA (LINEAR)
+#    (Model 'ProgressSiswa' yang lama telah dihapus dan diganti dengan ini)
+class SiswaProgress(models.Model):
+    siswa = models.OneToOneField(User, on_delete=models.CASCADE)
     
-    class Meta:
-        unique_together = ('siswa', 'subbab') # Siswa hanya punya 1 progress per subbab
+    # Kunci Progres (Default=False)
+    # Sub-Bab 1
+    modul_1_completed = models.BooleanField(default=False)
+    latihan_1_completed = models.BooleanField(default=False)
+    
+    # Sub-Bab 2 (Alur baru menyisipkan alat bantu)
+    glosarium_completed = models.BooleanField(default=False)
+    modul_2_completed = models.BooleanField(default=False)
+    latihan_2_completed = models.BooleanField(default=False)
+    
+    # Sub-Bab 3 (Alur baru menyisipkan alat bantu)
+    mikroskop_completed = models.BooleanField(default=False)
+    modul_3_completed = models.BooleanField(default=False)
+    database_completed = models.BooleanField(default=False)
+    latihan_3_completed = models.BooleanField(default=False)
+    
+    # Ujian Akhir
+    pengayaan_completed = models.BooleanField(default=False)
 
+    def __str__(self):
+        return f'Progres untuk {self.siswa.username}'
+
+# 5. MODEL UNTUK MELACAK SKOR DAN JAWABAN
 class HasilLatihan(models.Model):
     siswa = models.ForeignKey(User, on_delete=models.CASCADE)
     latihan = models.ForeignKey(LatihanSoal, on_delete=models.CASCADE)
     skor = models.DecimalField(max_digits=5, decimal_places=2) # Skor 0-100
 
 class JawabanSiswa(models.Model):
-    # Ini adalah model PENTING untuk fitur analisis guru
+    # Model ini PENTING untuk fitur analisis guru
     siswa = models.ForeignKey(User, on_delete=models.CASCADE)
     pertanyaan = models.ForeignKey(Pertanyaan, on_delete=models.CASCADE)
     pilihan_dipilih = models.ForeignKey(PilihanJawaban, on_delete=models.CASCADE)

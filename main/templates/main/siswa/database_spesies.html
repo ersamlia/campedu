@@ -1,0 +1,84 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block title %}Database Spesies{% endblock %}
+{% block custom_css %}
+    <style>
+    /* CSS untuk tombol filter */
+    #filter-container .btn { margin: 5px; }
+    /* CSS untuk kartu gambar */
+    .species-card { display: block; } /* Tampilkan semua secara default */
+    .species-card.hidden { display: none; } /* Sembunyikan jika tidak cocok filter */
+    </style>
+{% endblock %}
+{% block content %}
+    <h1 class="h3 mb-4 text-gray-800">Database Spesies</h1>
+    <p>Gunakan filter di bawah untuk "menemukan" pengelompokan organisme!</p>
+    <div id="filter-container" class="mb-4">
+        <button class="btn btn-primary" onclick="filterSpesies('all')">Tampilkan Semua</button>
+        <hr>
+        <small>Filter Kingdom:</small>
+        <br>
+        <button class="btn btn-outline-success" onclick="filterSpesies('plantae')">Plantae (Tumbuhan)</button>
+        <button class="btn btn-outline-info" onclick="filterSpesies('animalia')">Animalia (Hewan)</button>
+        <hr>
+        <small>Filter Tumbuhan:</small>
+        <br>
+        <button class="btn btn-outline-secondary"
+                onclick="filterSpesies('monokotil')">Monokotil</button>
+        <button class="btn btn-outline-secondary" onclick="filterSpesies('dikotil')">Dikotil</button>
+        <hr>
+        <small>Filter Hewan:</small>
+        <br>
+        <button class="btn btn-outline-dark" onclick="filterSpesies('vertebrata')">Vertebrata</button>
+        <button class="btn btn-outline-dark" onclick="filterSpesies('invertebrata')">Invertebrata</button>
+    </div>
+    <div class="row">
+        <div class="col-xl-3 col-md-6 mb-4 species-card all plantae monokotil">
+            <div class="card shadow h-100">
+                <img src="{% static 'img/jagung.jpg' %}" class="card-img-top" alt="Jagung">
+                <div class="card-body">
+                    <h5 class="card-title">Jagung</h5>
+                    <p class="card-text">Kingdom: Plantae, Tipe: Monokotil.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6 mb-4 species-card all animalia vertebrata">
+            <div class="card shadow h-100">
+                <img src="{% static 'img/ikan.jpg' %}" class="card-img-top" alt="Ikan">
+                <div class="card-body">
+                    <h5 class="card-title">Ikan</h5>
+                    <p class="card-text">Kingdom: Animalia, Tipe: Vertebrata.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6 mb-4 species-card all animalia invertebrata">
+            <div class="card shadow h-100">
+                <img src="{% static 'img/siput.jpg' %}" class="card-img-top" alt="Siput">
+                <div class="card-body">
+                    <h5 class="card-title">Siput</h5>
+                    <p class="card-text">Kingdom: Animalia, Tipe: Invertebrata (Mollusca).</p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block custom_js %}
+    <script>
+function filterSpesies(kategori) {
+    // Dapatkan semua kartu
+    const allCards = document.querySelectorAll('.species-card');
+    
+    allCards.forEach(card => {
+        // Sembunyikan semua kartu terlebih dahulu
+        card.classList.add('hidden');
+        
+        // Jika kartu memiliki kategori yang difilter (atau 'all'), tampilkan
+        if (card.classList.contains(kategori)) {
+            card.classList.remove('hidden');
+        }
+    });
+}
+// Jalankan filter 'all' saat halaman dimuat
+filterSpesies('all');
+    </script>
+{% endblock %}

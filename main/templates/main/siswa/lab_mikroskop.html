@@ -1,0 +1,127 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block title %}Lab Mikroskop Virtual{% endblock %}
+{% block custom_css %}
+    <style>
+    #mikroskop-area {
+        display: flex;
+        flex-wrap: wrap;
+    }
+    #tampilan-lensa {
+        width: 400px;
+        height: 400px;
+        border: 10px solid #333;
+        border-radius: 50%;
+        background-color: #f0f0f0;
+        background-image: url('{% static "img/lensa_kosong.png" %}'); /* Gambar default */
+        background-size: cover;
+        background-position: center;
+        margin-right: 30px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    }
+    #kotak-preparat {
+        width: 300px;
+    }
+    #kotak-preparat .btn {
+        display: block;
+        width: 100%;
+        margin-bottom: 10px;
+    }
+    #info-penemuan {
+        margin-top: 20px;
+        padding: 15px;
+        background-color: #f8f9fc;
+        border-radius: 5px;
+        display: none; /* Sembunyi awalnya */
+    }
+    </style>
+{% endblock %}
+{% block content %}
+    <h1 class="h3 mb-4 text-gray-800">Lab Mikroskop Virtual</h1>
+    <p>Beberapa Kingdom terlalu kecil untuk dilihat. Gunakan mikroskop ini untuk "menemukan" mereka!</p>
+    <div class="row">
+        <div class="col-lg-7">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Tampilan Lensa Okuler</h6>
+                </div>
+                <div class="card-body d-flex justify-content-center">
+                    <div id="tampilan-lensa"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-5">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Kotak Preparat</h6>
+                </div>
+                <div class="card-body" id="kotak-preparat">
+                    <p>Klik preparat untuk mengamatinya:</p>
+                    <button class="btn btn-info" onclick="pilihPreparat('protista')">
+                        <i class="fas fa-fw fa-tint"></i> Preparat 1: Air Kolam
+                    </button>
+                    <button class="btn btn-info" onclick="pilihPreparat('monera')">
+                        <i class="fas fa-fw fa-bacterium"></i> Preparat 2: Bakteri (dari Yoghurt)
+                    </button>
+                    <button class="btn btn-info" onclick="pilihPreparat('fungi')">
+                        <i class="fas fa-fw fa-bread-slice"></i> Preparat 3: Jamur Roti
+                    </button>
+                    <button class="btn btn-secondary" onclick="pilihPreparat('kosong')">
+                        <i class="fas fa-fw fa-times"></i> Lepas Preparat
+                    </button>
+                </div>
+            </div>
+            <div id="info-penemuan" class="card shadow">
+                <h5 id="info-judul" class="text-primary"></h5>
+                <p id="info-teks"></p>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block custom_js %}
+    <script>
+    // Data untuk Mikroskop Virtual
+    const dataPreparat = {
+        'protista': {
+            img: "{% static 'img/protista.jpg' %}", // Gambar Amoeba/Paramecium
+            judul: "PENEMUAN: Kingdom Protista!",
+            teks: "Lihat! Ini adalah Paramecium. Organisme ini bersel satu tapi sudah punya membran inti (eukariotik). Mereka hidup di air."
+        },
+        'monera': {
+            img: "{% static 'img/bakteri.jpg' %}", // Gambar bakteri
+            judul: "PENEMUAN: Kingdom Monera!",
+            teks: "Ini adalah Bakteri. Ciri utamanya adalah bersel satu dan TIDAK punya membran inti (prokariotik)."
+        },
+        'fungi': {
+            img: "{% static 'img/jamur_roti.jpg' %}", // Gambar hifa/sporangium
+            judul: "PENEMUAN: Kingdom Fungi!",
+            teks: "Ini adalah jamur roti. Perhatikan, tubuhnya terdiri dari benang-benang halus (hifa) dan kotak spora (sporangium)."
+        },
+        'kosong': {
+            img: "{% static 'img/lensa_kosong.png' %}",
+            judul: "Meja Preparat Kosong",
+            teks: "Silakan pilih salah satu preparat untuk mulai mengamati."
+        }
+    };
+
+    const lensa = document.getElementById('tampilan-lensa');
+    const infoBox = document.getElementById('info-penemuan');
+    const infoJudul = document.getElementById('info-judul');
+    const infoTeks = document.getElementById('info-teks');
+
+    function pilihPreparat(id) {
+        const data = dataPreparat[id];
+        
+        // 1. Ganti gambar di lensa (Discovery Visual)
+        lensa.style.backgroundImage = `url(${data.img})`;
+        
+        // 2. Tampilkan info (Discovery Konseptual)
+        infoJudul.innerText = data.judul;
+        infoTeks.innerText = data.teks;
+        infoBox.style.display = 'block';
+    }
+
+    // Tampilkan info 'kosong' saat pertama dimuat
+    pilihPreparat('kosong');
+    </script>
+{% endblock %}

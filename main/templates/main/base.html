@@ -1,147 +1,208 @@
 {% load static %}
+{% load custom_tags %}
 <!DOCTYPE html>
 <html lang="id">
-  <head>
+<head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>
-      {% block title %}CampEdu Dashboard{% endblock %}
-    </title>
-    <link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}"
-          rel="stylesheet"
-          type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-          rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>{% block title %}CampEdu Dashboard{% endblock %}</title>
+    <link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
     <link href="{% static 'css/sb-admin-2.min.css' %}" rel="stylesheet">
     {% block custom_css %}{% endblock %}
-  </head>
-  <body id="page-top">
+</head>
+
+<body id="page-top">
     <div id="wrapper">
-      <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion"
-          id="accordionSidebar">
-        <a class="sidebar-brand d-flex align-items-center justify-content-center"
-           href="{% if user.profile.role == 'SISWA' %}{% url 'siswa_dashboard' %}{% else %}{% url 'guru_dashboard' %}{% endif %}">
-          <div class="sidebar-brand-icon rotate-n-15">
-            <i class="fas fa-book-reader"></i>
-          </div>
-          <div class="sidebar-brand-text mx-3">CampEdu</div>
-        </a>
-        <hr class="sidebar-divider my-0">
-        {% if user.profile.role == 'SISWA' %}
-          <li class="nav-item {% if request.resolver_match.url_name == 'siswa_dashboard' %}active{% endif %}">
-            <a class="nav-link" href="{% url 'siswa_dashboard' %}">
-              <i class="fas fa-fw fa-home"></i>
-              <span>Dashboard Belajar</span></a>
-          </li>
-        {% elif user.profile.role == 'GURU' %}
-          <li class="nav-item {% if request.resolver_match.url_name == 'guru_dashboard' %}active{% endif %}">
-            <a class="nav-link" href="{% url 'guru_dashboard' %}">
-              <i class="fas fa-fw fa-tachometer-alt"></i>
-              <span>Dashboard Guru</span></a>
-          </li>
-          <hr class="sidebar-divider">
-          <div class="sidebar-heading">Manajemen Kelas</div>
-          <li class="nav-item {% if request.resolver_match.url_name == 'pantau_progres' %}active{% endif %}">
-            <a class="nav-link" href="{% url 'pantau_progres' %}">
-              <i class="fas fa-fw fa-chart-bar"></i>
-              <span>Pantau Progres Siswa</span></a>
-          </li>
-          <li class="nav-item {% if request.resolver_match.url_name == 'analisis_hasil' %}active{% endif %}">
-            <a class="nav-link" href="{% url 'analisis_hasil' %}">
-              <i class="fas fa-fw fa-diagnoses"></i>
-              <span>Analisis Hasil Belajar</span></a>
-          </li>
-        {% endif %}
-        <hr class="sidebar-divider d-none d-md-block">
-        <div class="text-center d-none d-md-inline">
-          <button class="rounded-circle border-0" id="sidebarToggle"></button>
-        </div>
-      </ul>
-      <div id="content-wrapper" class="d-flex flex-column">
-        <div id="content">
-          <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-            <button id="sidebarToggleTop"
-                    class="btn btn-link d-md-none rounded-circle mr-3">
-              <i class="fa fa-bars"></i>
-            </button>
-            <ul class="navbar-nav ml-auto">
-              <div class="topbar-divider d-none d-sm-block"></div>
-              <li class="nav-item dropdown no-arrow">
-                <a class="nav-link dropdown-toggle"
-                   href="#"
-                   id="userDropdown"
-                   role="button"
-                   data-toggle="dropdown"
-                   aria-haspopup="true"
-                   aria-expanded="false">
-                  <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ user.username }}</span>
-                  <img class="img-profile rounded-circle"
-                       src="{% static 'img/undraw_profile.svg' %}">
-                </a>
-                <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                     aria-labelledby="userDropdown">
-                  <a class="dropdown-item"
-                     href="#"
-                     data-toggle="modal"
-                     data-target="#logoutModal">
-                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                    Logout
-                  </a>
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" 
+               href="{% if user.profile.role == 'SISWA' %}{% url 'siswa_dashboard' %}{% else %}{% url 'guru_dashboard' %}{% endif %}">
+                <div class="sidebar-brand-icon rotate-n-15">
+                    <i class="fas fa-book-reader"></i>
                 </div>
-              </li>
-            </ul>
-          </nav>
-          <div class="container-fluid">
-            {% if messages %}
-              {% for message in messages %}
-                <div class="alert alert-{% if message.tags == 'error' %}danger{% else %}{{ message.tags }}{% endif %}">
-                  {{ message }}
+                <div class="sidebar-brand-text mx-3">CampEdu</div>
+            </a>
+            <hr class="sidebar-divider my-0">
+
+            {% if user.profile.role == 'SISWA' %}
+                
+                <li class="nav-item {% if request.resolver_match.url_name == 'siswa_dashboard' %}active{% endif %}">
+                    <a class="nav-link" href="{% url 'siswa_dashboard' %}">
+                        <i class="fas fa-fw fa-home"></i>
+                        <span>Dashboard Belajar</span></a>
+                </li>
+                
+                <hr class="sidebar-divider">
+                <div class="sidebar-heading">
+                    Alat Bantu Belajar
                 </div>
-              {% endfor %}
+                
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseSubBab1"
+                        aria-expanded="true" aria-controls="collapseSubBab1">
+                        <i class="fas fa-fw fa-book-open"></i>
+                        <span>Sub-Bab 1</span>
+                    </a>
+                    <div id="collapseSubBab1" class="collapse" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <h6 class="collapse-header">Karakteristik:</h6>
+                            <a class="collapse-item" href="{% url 'modul' 1 %}">Modul Ciri Kehidupan</a>
+                            {% get_latihan_id 1 as latihan_1_id %}
+                            <a class="collapse-item" href="{% url 'latihan_soal' latihan_1_id %}">Latihan Soal 1</a>
+                        </div>
+                    </div>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseSubBab2"
+                        aria-expanded="true" aria-controls="collapseSubBab2">
+                        <i class="fas fa-fw fa-sitemap"></i>
+                        <span>Sub-Bab 2</span>
+                    </a>
+                    <div id="collapseSubBab2" class="collapse" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <h6 class="collapse-header">Klasifikasi:</h6>
+                            <a class="collapse-item" href="{% url 'glosarium' %}">Alat: Glosarium</a>
+                            <a class="collapse-item" href="{% url 'modul' 2 %}">Modul Pemandu Identifikasi</a>
+                            {% get_latihan_id 2 as latihan_2_id %}
+                            <a class="collapse-item" href="{% url 'latihan_soal' latihan_2_id %}">Latihan Soal 2</a>
+                        </div>
+                    </div>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseSubBab3"
+                        aria-expanded="true" aria-controls="collapseSubBab3">
+                        <i class="fas fa-fw fa-seedling"></i>
+                        <span>Sub-Bab 3</span>
+                    </a>
+                    <div id="collapseSubBab3" class="collapse" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <h6 class="collapse-header">5 Kingdom:</h6>
+                            <a class="collapse-item" href="{% url 'lab_mikroskop' %}">Alat: Lab Mikroskop</a>
+                            <a class="collapse-item" href="{% url 'modul' 3 %}">Modul Geser-Bandingkan</a>
+                            <a class="collapse-item" href="{% url 'database_spesies' %}">Alat: Database Spesies</a>
+                            {% get_latihan_id 3 as latihan_3_id %}
+                            <a class="collapse-item" href="{% url 'latihan_soal' latihan_3_id %}">Latihan Soal 3</a>
+                        </div>
+                    </div>
+                </li>
+                
+                <hr class="sidebar-divider">
+                <div class="sidebar-heading">
+                    Ujian Akhir
+                </div>
+                <li class="nav-item {% if request.resolver_match.url_name == 'pengayaan' %}active{% endif %}">
+                    {% get_pengayaan_id as pengayaan_id %}
+                    <a class="nav-link" href="{% url 'pengayaan' pengayaan_id %}">
+                        <i class="fas fa-fw fa-flag"></i>
+                        <span>Ujian Akhir Bab</span>
+                    </a>
+                </li>
+            
+            {% elif user.profile.role == 'GURU' %}
+                <li class="nav-item {% if request.resolver_match.url_name == 'guru_dashboard' %}active{% endif %}">
+                    <a class="nav-link" href="{% url 'guru_dashboard' %}">
+                        <i class="fas fa-fw fa-tachometer-alt"></i>
+                        <span>Dashboard Guru</span></a>
+                </li>
+                <hr class="sidebar-divider">
+                <div class="sidebar-heading">
+                    Manajemen Kelas
+                </div>
+                <li class="nav-item {% if request.resolver_match.url_name == 'pantau_progres' %}active{% endif %}">
+                    <a class="nav-link" href="{% url 'pantau_progres' %}">
+                        <i class="fas fa-fw fa-chart-bar"></i>
+                        <span>Pantau Progres Siswa</span></a>
+                </li>
+                <li class="nav-item {% if request.resolver_match.url_name == 'analisis_hasil' %}active{% endif %}">
+                    <a class="nav-link" href="{% url 'analisis_hasil' %}">
+                        <i class="fas fa-fw fa-diagnoses"></i>
+                        <span>Analisis Hasil Belajar</span></a>
+                </li>
             {% endif %}
-            {% block content %}{% endblock %}
-          </div>
-        </div>
-        <footer class="sticky-footer bg-white">
-          <div class="container my-auto">
-            <div class="copyright text-center my-auto">
-              <span>Copyright &copy; CampEdu 2025</span>
+
+            <hr class="sidebar-divider d-none d-md-block">
+            <div class="text-center d-none d-md-inline">
+                <button class="rounded-circle border-0" id="sidebarToggle"></button>
             </div>
-          </div>
-        </footer>
-      </div>
-    </div>
-    <a class="scroll-to-top rounded" href="#page-top">
-      <i class="fas fa-angle-up"></i>
-    </a>
-    <div class="modal fade"
-         id="logoutModal"
-         tabindex="-1"
-         role="dialog"
-         aria-labelledby="exampleModalLabel"
-         aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Yakin ingin keluar?</h5>
-            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">×</span>
-            </button>
-          </div>
-          <div class="modal-body">Pilih "Logout" di bawah jika Anda siap untuk mengakhiri sesi Anda saat ini.</div>
-          <div class="modal-footer">
-            <button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
-            <a class="btn btn-primary" href="{% url 'logout' %}">Logout</a>
-          </div>
+        </ul>
+        <div id="content-wrapper" class="d-flex flex-column">
+            <div id="content">
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <i class="fa fa-bars"></i>
+                    </button>
+                    <ul class="navbar-nav ml-auto">
+                        <div class="topbar-divider d-none d-sm-block"></div>
+                        <li class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ user.username }}</span>
+                                <img class="img-profile rounded-circle" src="{% static 'img/undraw_profile.svg' %}">
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                aria-labelledby="userDropdown">
+                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Logout
+                                </a>
+                            </div>
+                        </li>
+                    </ul>
+                </nav>
+                <div class="container-fluid">
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-{% if message.tags == 'error' %}danger{% elif message.tags == 'success' %}success{% else %}info{% endif %}">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                    
+                    {% block content %}
+                    {% endblock %}
+
+                </div>
+                </div>
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright &copy; CampEdu 2025</span>
+                    </div>
+                </div>
+            </footer>
         </div>
-      </div>
+        </div>
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Yakin ingin keluar?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Pilih "Logout" di bawah jika Anda siap untuk mengakhiri sesi Anda saat ini.</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
+                    <a class="btn btn-primary" href="{% url 'logout' %}">Logout</a>
+                </div>
+            </div>
+        </div>
     </div>
+
     <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
     <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
     <script src="{% static 'vendor/jquery-easing/jquery.easing.min.js' %}"></script>
     <script src="{% static 'js/sb-admin-2.min.js' %}"></script>
+    
     {% block custom_js %}{% endblock %}
-  </body>
+</body>
 </html>

@@ -1,0 +1,101 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block title %}Glosarium Interaktif{% endblock %}
+{% block custom_css %}
+    <style>
+    .card-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+    .flip-card {
+        background-color: transparent;
+        width: 200px;
+        height: 150px;
+        perspective: 1000px; /* Efek 3D */
+    }
+    .flip-card-inner {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        text-align: center;
+        transition: transform 0.6s;
+        transform-style: preserve-3d;
+        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    }
+    /* Saat di-klik, JS akan menambahkan class 'flipped' */
+    .flip-card.flipped .flip-card-inner {
+        transform: rotateY(180deg);
+    }
+    .flip-card-front, .flip-card-back {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+        border-radius: 5px;
+    }
+    .flip-card-front {
+        background-color: #4e73df;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.2rem;
+        font-weight: bold;
+        padding: 10px;
+    }
+    .flip-card-back {
+        background-color: #f8f9fc;
+        color: #5a5c69;
+        transform: rotateY(180deg);
+        padding: 10px;
+        font-size: 0.9rem;
+        overflow-y: auto;
+    }
+    </style>
+{% endblock %}
+{% block content %}
+    <h1 class="h3 mb-4 text-gray-800">Glosarium Interaktif</h1>
+    <p>Klik sebuah istilah untuk "menemukan" artinya!</p>
+    <div class="card-container">
+        <div class="flip-card" onclick="this.classList.toggle('flipped')">
+            <div class="flip-card-inner">
+                <div class="flip-card-front">Prokariotik</div>
+                <div class="flip-card-back">
+                    <p>
+                        Organisme yang TIDAK memiliki membran inti sel. Materi genetiknya (DNA) tersebar di sitoplasma. Contoh: Kingdom Monera (Bakteri).
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="flip-card" onclick="this.classList.toggle('flipped')">
+            <div class="flip-card-inner">
+                <div class="flip-card-front">Eukariotik</div>
+                <div class="flip-card-back">
+                    <p>
+                        Organisme yang MEMILIKI membran inti sel. DNA-nya tersimpan rapi di dalam inti. Contoh: Protista, Fungi, Plantae, Animalia.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="flip-card" onclick="this.classList.toggle('flipped')">
+            <div class="flip-card-inner">
+                <div class="flip-card-front">Saprofit</div>
+                <div class="flip-card-back">
+                    <p>
+                        Makhluk hidup yang memperoleh makanan dengan cara menguraikan sisa-sisa organisme yang telah mati. Contoh: Kingdom Fungi (Jamur).
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<hr>
+<a href="{% url 'selesai_step' 'glosarium' %}"
+   class="btn btn-success btn-icon-split mt-3 mb-4">
+    <span class="icon text-white-50"><i class="fas fa-check"></i></span>
+    <span class="text">Selesai & Lanjut ke Modul 2</span>
+</a>
+{% endblock %}
+{% endblock %}

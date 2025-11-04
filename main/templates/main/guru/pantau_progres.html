@@ -14,45 +14,76 @@
                        cellspacing="0">
                     <thead>
                         <tr>
-                            <th rowspan="2" style="vertical-align: middle;">Nama Siswa</th>
-                            {% for bab in subbabs %}
-                                <th colspan="2" class="text-center">{{ bab.urutan }}. {{ bab.judul|truncatewords:2 }}</th>
-                            {% endfor %}
-                            <th rowspan="2" style="vertical-align: middle;">Pengayaan</th>
-                        </tr>
-                        <tr>
-                            {% for bab in subbabs %}
-                                <th class="text-center">Modul</th>
-                                <th class="text-center">Latihan</th>
-                            {% endfor %}
+                            <th>Siswa</th>
+                            <th>Modul 1</th>
+                            <th>Latihan 1</th>
+                            <th>Glosarium</th>
+                            <th>Modul 2</th>
+                            <th>Latihan 2</th>
+                            <th>Mikroskop</th>
+                            <th>Modul 3</th>
+                            <th>Database</th>
+                            <th>Latihan 3</th>
+                            <th>Pengayaan</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {% for progres in data_progres %}
+                        {% for data in data_progres %}
                             <tr>
-                                <td>{{ progres.nama }}</td>
-                                {% for bab_status in progres.bab %}
-                                    <td class="text-center">
-                                        {% if bab_status.modul_selesai %}
-                                            <span class="badge badge-success">✓</span>
-                                        {% else %}
-                                            <span class="badge badge-danger">X</span>
-                                        {% endif %}
-                                    </td>
-                                    <td class="text-center">
-                                        {% if bab_status.latihan_selesai %}
-                                            <span class="badge badge-success">{{ bab_status.skor|floatformat:0 }}</span>
-                                        {% else %}
-                                            <span class="badge badge-danger">-</span>
-                                        {% endif %}
-                                    </td>
-                                {% endfor %}
-                                <td class="text-center">
-                                    {% if progres.pengayaan.selesai %}
-                                        <span class="badge badge-success">{{ progres.pengayaan.skor|floatformat:0 }}</span>
+                                <td>{{ data.nama }}</td>
+                                <td class="text-center {% if data.progress.modul_1_completed %}table-success{% else %}table-danger{% endif %}">
+                                    {% if data.progress.modul_1_completed %}
+                                        ✓
                                     {% else %}
-                                        <span class="badge badge-danger">-</span>
+                                        X
                                     {% endif %}
+                                </td>
+                                <td class="text-center {% if data.progress.latihan_1_completed %}table-success{% else %}table-danger{% endif %}">
+                                    {{ data.skor_1 }}
+                                </td>
+                                <td class="text-center {% if data.progress.glosarium_completed %}table-success{% else %}table-danger{% endif %}">
+                                    {% if data.progress.glosarium_completed %}
+                                        ✓
+                                    {% else %}
+                                        X
+                                    {% endif %}
+                                </td>
+                                <td class="text-center {% if data.progress.modul_2_completed %}table-success{% else %}table-danger{% endif %}">
+                                    {% if data.progress.modul_2_completed %}
+                                        ✓
+                                    {% else %}
+                                        X
+                                    {% endif %}
+                                </td>
+                                <td class="text-center {% if data.progress.latihan_2_completed %}table-success{% else %}table-danger{% endif %}">
+                                    {{ data.skor_2 }}
+                                </td>
+                                <td class="text-center {% if data.progress.mikroskop_completed %}table-success{% else %}table-danger{% endif %}">
+                                    {% if data.progress.mikroskop_completed %}
+                                        ✓
+                                    {% else %}
+                                        X
+                                    {% endif %}
+                                </td>
+                                <td class="text-center {% if data.progress.modul_3_completed %}table-success{% else %}table-danger{% endif %}">
+                                    {% if data.progress.modul_3_completed %}
+                                        ✓
+                                    {% else %}
+                                        X
+                                    {% endif %}
+                                </td>
+                                <td class="text-center {% if data.progress.database_completed %}table-success{% else %}table-danger{% endif %}">
+                                    {% if data.progress.database_completed %}
+                                        ✓
+                                    {% else %}
+                                        X
+                                    {% endif %}
+                                </td>
+                                <td class="text-center {% if data.progress.latihan_3_completed %}table-success{% else %}table-danger{% endif %}">
+                                    {{ data.skor_3 }}
+                                </td>
+                                <td class="text-center {% if data.progress.pengayaan_completed %}table-success{% else %}table-danger{% endif %}">
+                                    {{ data.skor_p }}
                                 </td>
                             </tr>
                         {% endfor %}
