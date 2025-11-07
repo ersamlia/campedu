@@ -4,68 +4,210 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport"
-              content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Selamat Datang di CampEdu</title>
-        <link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}"
-              rel="stylesheet"
-              type="text/css">
-        <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
               rel="stylesheet">
-        <link href="{% static 'css/sb-admin-2.min.css' %}" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Nunito:300,400,700,900&display=swap"
+              rel="stylesheet">
+        <style>
+        body {
+            background: #f3f6fd;
+            font-family: 'Nunito', sans-serif;
+        }
+        .hero-section {
+            background: #fff;
+            border-radius: 2rem;
+            padding: 65px 54px 65px 54px;
+            margin-top: 2.5rem;
+            margin-bottom: 2.5rem;
+            box-shadow: 0 6px 32px rgba(53, 99, 233, 0.10);
+            max-width: 1200px;
+        }
+        .hero-img {
+            max-width: 480px;
+            width: 98%;
+            background: #fff;
+            border-radius: 1.2rem;
+        }
+        @media (max-width: 991px) {
+            .hero-section {
+                padding: 36px 12px 36px 12px;
+            }
+            .hero-img {
+                max-width: 320px;
+                margin-top: 22px;
+            }
+        }
+        @media (max-width: 575px) {
+            .hero-section {
+                padding: 18px 5px 18px 5px;
+            }
+            .hero-img {
+                max-width: 210px;
+            }
+        }
+        .cards-bg {
+            background: transparent;
+            border-radius: 2rem;
+            padding: 44px 10px 44px 10px;
+            margin-bottom: 2.5rem;
+        }
+        .feature-card {
+            background: #fff;
+            border-radius: 1.25rem;
+            padding: 2.3rem 2rem 2rem 2rem;
+            box-shadow: 0 8px 30px rgba(36,107,253,0.15);
+            height: 100%;
+            min-width: 300px;
+            max-width: 420px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .feature-card:hover {
+            box-shadow: 0 16px 40px rgba(36,107,253,0.18);
+        }
+        .feature-img {
+            width: 88px;
+            height: 88px;
+            object-fit: contain;
+            margin-bottom: 1.2rem;
+            border-radius: 0.8rem;
+            box-shadow: 0 2px 16px rgba(53,99,233,0.10);
+            background: #fff;
+        }
+        .feature-title {
+            font-weight: 700;
+            margin-bottom: .9rem;
+            color: #1c253b;
+            font-size: 1.15rem;
+        }
+        .feature-desc {
+            font-size: 1.07rem;
+        }
+        @media (max-width: 991px) {
+            .feature-card {
+                min-width: 220px;
+                max-width: 100%;
+                padding: 1.2rem;
+            }
+            .feature-img {
+                width: 66px;
+                height: 66px;
+                margin-bottom: .88rem;
+            }
+        }
+        footer {
+            background: #fff;
+            color: #222c5c;
+            padding: 24px 0 16px 0;
+            border-top: 1px solid #e6eaff;
+            margin-top: 3rem;
+        }
+        .footer-link {
+            color: #246bfd;
+            text-decoration: none;
+            font-weight: 600;
+            margin-left: 12px;
+            margin-right: 6px;
+        }
+        .footer-link:hover {
+            text-decoration: underline;
+        }
+        </style>
     </head>
-    <body class="bg-gradient-primary">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-xl-10 col-lg-12 col-md-9">
-                    <div class="card o-hidden border-0 shadow-lg my-5">
-                        <div class="card-body p-0">
-                            <div class="row">
-                                <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
-                                <div class="col-lg-6">
-                                    <div class="p-5">
-                                        <div class="text-center">
-                                            <h1 class="h4 text-gray-900 mb-4">Selamat Datang di CampEdu!</h1>
-                                        </div>
-                                        <p class="text-center">
-                                            Media Pembelajaran Interaktif
-                                            <br>
-                                            Klasifikasi Makhluk Hidup
-                                        </p>
-                                        <hr>
-                                        {% if user.is_authenticated %}
-                                            <p class="text-center">
-                                                Anda sudah login sebagai <strong>{{ user.username }}</strong>.
-                                            </p>
-                                            {% if user.profile.role == 'SISWA' %}
-                                                <a href="{% url 'siswa_dashboard' %}"
-                                                   class="btn btn-primary btn-user btn-block">
-                                                    Masuk ke Dashboard Siswa
-                                                </a>
-                                            {% else %}
-                                                <a href="{% url 'guru_dashboard' %}"
-                                                   class="btn btn-success btn-user btn-block">
-                                                    Masuk ke Dashboard Guru
-                                                </a>
-                                            {% endif %}
-                                            <a href="{% url 'logout' %}"
-                                               class="btn btn-secondary btn-user btn-block">Logout</a>
-                                        {% else %}
-                                            <a href="{% url 'login' %}" class="btn btn-primary btn-user btn-block">Login</a>
-                                            <a href="{% url 'register' %}"
-                                               class="btn btn-secondary btn-user btn-block">Register</a>
-                                        {% endif %}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+    <body>
+        <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm rounded mb-4">
+            <div class="container">
+                <a class="navbar-brand fw-bold" href="#">BioVerse</a>
+                <button class="navbar-toggler"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Beranda</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Materi</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Tentang</a>
+                        </li>
+                    </ul>
+                    <a href="{% url 'login' %}" class="btn btn-primary ms-lg-3">Login</a>
+                </div>
+            </div>
+        </nav>
+        <div class="container hero-section d-flex align-items-center">
+            <div class="row align-items-center w-100">
+                <div class="col-lg-6">
+                    <h1 class="fw-bold mb-3" style="font-size:2.4rem; color:#1c253b;">Mari Belajar Klasifikasi Makhluk Hidup</h1>
+                    <p class="mb-4" style="font-size:1.15rem; color:#495466;">
+                        Selamat datang di BioVerse, solusi belajar interaktif Klasifikasi Makhluk Hidup untuk siswa dan guru. Terstruktur, modern, dan mudah digunakan.
+                    </p>
+                    <a href="{% url 'register' %}"
+                       class="btn btn-primary btn-lg me-2 mb-2 mb-md-0">Daftar Sekarang</a>
+                    <a href="{% url 'login' %}" class="btn btn-outline-secondary btn-lg">Pelajari Lebih Lanjut</a>
+                </div>
+                <div class="col-lg-6 text-center">
+                    <img src="{% static 'img/landing_BioVerse.png' %}"
+                         class="hero-img"
+                         alt="Ilustrasi Siswa">
+                </div>
+            </div>
+        </div>
+        <div class="container cards-bg">
+            <div class="row justify-content-center gx-5 gy-5">
+                <div class="col-lg-4 col-md-6 d-flex">
+                    <div class="feature-card w-100 h-100">
+                        <img src="{% static 'img/materi.png' %}"
+                             class="feature-img"
+                             alt="Materi Terstruktur">
+                        <div class="feature-title">Materi Terstruktur</div>
+                        <p class="text-secondary mb-0 feature-desc">
+                            Pelajari materi dari ciri kehidupan hingga 5 kingdom dalam urutan logis dan mudah dipahami.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 d-flex">
+                    <div class="feature-card w-100 h-100">
+                        <img src="{% static 'img/mikroskop.png' %}"
+                             class="feature-img"
+                             alt="Simulasi Interaktif">
+                        <div class="feature-title">Simulasi Interaktif</div>
+                        <p class="text-secondary mb-0 feature-desc">
+                            Latihan di ruang lab virtual, gunakan mikroskop online & pemandu identifikasi digital.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-12 d-flex">
+                    <div class="feature-card w-100 h-100">
+                        <img src="{% static 'img/latihan.png' %}"
+                             class="feature-img"
+                             alt="Latihan & Uji Pemahaman">
+                        <div class="feature-title">Latihan & Uji Pemahaman</div>
+                        <p class="text-secondary mb-0 feature-desc">
+                            Uji pemahaman di setiap bab untuk membuka level/materi berikutnya dengan latihan terpandu.
+                        </p>
                     </div>
                 </div>
             </div>
         </div>
-        <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
-        <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
-        <script src="{% static 'vendor/jquery-easing/jquery.easing.min.js' %}"></script>
-        <script src="{% static 'js/sb-admin-2.min.js' %}"></script>
+        <footer>
+            <div class="container text-center">
+                <div class="mb-2">
+                    &copy; 2025 BioVerse. Copyright.
+                    
+                </div>
+            </div>
+        </footer>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://kit.fontawesome.com/yourkitid.js"
+                crossorigin="anonymous"></script>
     </body>
 </html>
