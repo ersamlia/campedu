@@ -6,38 +6,124 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>{% block title %}CampEdu Dashboard{% endblock %}</title>
+    <title>{% block title %}BioVerse Dashboard{% endblock %}</title>
     <link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700&display=swap" rel="stylesheet">
     <link href="{% static 'css/sb-admin-2.min.css' %}" rel="stylesheet">
+
+    <style>
+        /* === Tema Hijau untuk BioVerse === */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8fff9;
+        }
+
+        /* Sidebar Hijau */
+        .bg-gradient-primary {
+            background: linear-gradient(180deg, #2e8b57 10%, #3cb371 100%) !important;
+        }
+
+        .sidebar .nav-item .nav-link {
+            color: #ffffff !important;
+        }
+
+        .sidebar .nav-item.active .nav-link {
+            color: #ffffff !important;
+            background-color: rgba(255, 255, 255, 0.15) !important;
+            border-left: 4px solid #d4edda;
+        }
+
+        .sidebar .nav-item:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            transition: 0.3s;
+        }
+
+        /* Topbar */
+        .topbar {
+            background-color: #eafaf0 !important;
+            border-bottom: 1px solid #c6e6c3;
+        }
+
+        /* Logo dan Judul di Sidebar */
+        .sidebar-brand-icon img {
+            border-radius: 8px;
+            box-shadow: 0 0 8px rgba(255, 255, 255, 0.2);
+        }
+        .sidebar-brand-text {
+            font-weight: 600;
+            color: #ffffff !important;
+            letter-spacing: 0.5px;
+        }
+
+        /* Footer */
+        footer.sticky-footer {
+            background-color: #f0fdf4 !important;
+            border-top: 1px solid #c7e8cc;
+        }
+
+        footer img {
+            filter: drop-shadow(0px 2px 3px rgba(0,0,0,0.1));
+        }
+
+        /* Tombol Scroll ke Atas */
+        .scroll-to-top {
+            background-color: #2e8b57 !important;
+        }
+
+        .scroll-to-top:hover {
+            background-color: #3cb371 !important;
+        }
+
+        /* Dropdown dan tombol */
+        .dropdown-menu {
+            border-radius: 10px;
+            border: 1px solid #d4edda;
+        }
+
+        .btn-primary {
+            background-color: #2e8b57 !important;
+            border-color: #2e8b57 !important;
+        }
+
+        .btn-primary:hover {
+            background-color: #3cb371 !important;
+            border-color: #3cb371 !important;
+        }
+
+        /* Heading */
+        .sidebar-heading {
+            color: #d4edda !important;
+        }
+    </style>
+
     {% block custom_css %}{% endblock %}
 </head>
 
 <body id="page-top">
     <div id="wrapper">
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+            <!-- Sidebar Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" 
                href="{% if user.profile.role == 'SISWA' %}{% url 'siswa_dashboard' %}{% else %}{% url 'guru_dashboard' %}{% endif %}">
-                <div class="sidebar-brand-icon rotate-n-15">
-                    <i class="fas fa-book-reader"></i>
+                <div class="sidebar-brand-icon">
+                    <img src="{% static 'img/logo betulan.png' %}" alt="BioVerse Logo" style="width:40px; height:auto;">
                 </div>
-                <div class="sidebar-brand-text mx-3">CampEdu</div>
+                <div class="sidebar-brand-text mx-3">BioVerse</div>
             </a>
+
             <hr class="sidebar-divider my-0">
 
             {% if user.profile.role == 'SISWA' %}
-                
                 <li class="nav-item {% if request.resolver_match.url_name == 'siswa_dashboard' %}active{% endif %}">
                     <a class="nav-link" href="{% url 'siswa_dashboard' %}">
                         <i class="fas fa-fw fa-home"></i>
                         <span>Dashboard Belajar</span></a>
                 </li>
-                
+
                 <hr class="sidebar-divider">
-                <div class="sidebar-heading">
-                    Alat Bantu Belajar
-                </div>
-                
+                <div class="sidebar-heading">Alat Bantu Belajar</div>
+
                 <li class="nav-item">
                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseSubBab1"
                         aria-expanded="true" aria-controls="collapseSubBab1">
@@ -88,11 +174,9 @@
                         </div>
                     </div>
                 </li>
-                
+
                 <hr class="sidebar-divider">
-                <div class="sidebar-heading">
-                    Ujian Akhir
-                </div>
+                <div class="sidebar-heading">Ujian Akhir</div>
                 <li class="nav-item {% if request.resolver_match.url_name == 'pengayaan' %}active{% endif %}">
                     {% get_pengayaan_id as pengayaan_id %}
                     <a class="nav-link" href="{% url 'pengayaan' pengayaan_id %}">
@@ -100,7 +184,7 @@
                         <span>Ujian Akhir Bab</span>
                     </a>
                 </li>
-            
+
             {% elif user.profile.role == 'GURU' %}
                 <li class="nav-item {% if request.resolver_match.url_name == 'guru_dashboard' %}active{% endif %}">
                     <a class="nav-link" href="{% url 'guru_dashboard' %}">
@@ -108,9 +192,7 @@
                         <span>Dashboard Guru</span></a>
                 </li>
                 <hr class="sidebar-divider">
-                <div class="sidebar-heading">
-                    Manajemen Kelas
-                </div>
+                <div class="sidebar-heading">Manajemen Kelas</div>
                 <li class="nav-item {% if request.resolver_match.url_name == 'pantau_progres' %}active{% endif %}">
                     <a class="nav-link" href="{% url 'pantau_progres' %}">
                         <i class="fas fa-fw fa-chart-bar"></i>
@@ -128,6 +210,7 @@
                 <button class="rounded-circle border-0" id="sidebarToggle"></button>
             </div>
         </ul>
+
         <div id="content-wrapper" class="d-flex flex-column">
             <div id="content">
                 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
@@ -152,6 +235,7 @@
                         </li>
                     </ul>
                 </nav>
+
                 <div class="container-fluid">
                     {% if messages %}
                         {% for message in messages %}
@@ -160,21 +244,21 @@
                             </div>
                         {% endfor %}
                     {% endif %}
-                    
-                    {% block content %}
-                    {% endblock %}
+                    {% block content %}{% endblock %}
+                </div>
+            </div>
 
-                </div>
-                </div>
             <footer class="sticky-footer bg-white">
-                <div class="container my-auto">
+                <div class="container my-auto text-center">
+                    <img src="{% static 'img/logo betulan.png' %}" alt="BioVerse Logo" style="width:50px; height:auto; margin-bottom:5px;">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; CampEdu 2025</span>
+                        <span>Copyright &copy; BioVerse 2025</span>
                     </div>
                 </div>
             </footer>
         </div>
-        </div>
+    </div>
+
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
     </a>
@@ -202,7 +286,6 @@
     <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
     <script src="{% static 'vendor/jquery-easing/jquery.easing.min.js' %}"></script>
     <script src="{% static 'js/sb-admin-2.min.js' %}"></script>
-    
     {% block custom_js %}{% endblock %}
 </body>
 </html>
