@@ -1,5 +1,24 @@
 {% extends 'main/base.html' %}
+{% load static %}
 {% block title %}Modul 2: {{ subbab.judul }}{% endblock %}
+{% block custom_css %}
+    <style>
+    .piramida { display: flex; flex-direction: column; align-items: center; }
+    .level-takson { 
+        background-color: #4e73df; color: white; margin: 2px 0; 
+        padding: 10px; border-radius: 5px; cursor: pointer;
+        transition: background-color 0.2s;
+    }
+    .level-takson:hover { background-color: #2e59d9; }
+    #kingdom { width: 100%; }
+    #filum { width: 90%; }
+    #kelas { width: 80%; }
+    #ordo { width: 70%; }
+    #famili { width: 60%; }
+    #genus { width: 50%; }
+    #spesies { width: 40%; }
+    </style>
+{% endblock %}
 {% block content %}
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">{{ subbab.judul }}</h1>
@@ -10,22 +29,6 @@
         </div>
         <div class="card-body">
             <p>Klik setiap tingkatan pada piramida untuk "menemukan" artinya!</p>
-            <style>
-            .piramida { display: flex; flex-direction: column; align-items: center; }
-            .level-takson { 
-                background-color: #4e73df; color: white; margin: 2px 0; 
-                padding: 10px; border-radius: 5px; cursor: pointer;
-                transition: background-color 0.2s;
-            }
-            .level-takson:hover { background-color: #2e59d9; }
-            #kingdom { width: 100%; }
-            #filum { width: 90%; }
-            #kelas { width: 80%; }
-            #ordo { width: 70%; }
-            #famili { width: 60%; }
-            #genus { width: 50%; }
-            #spesies { width: 40%; }
-            </style>
             <div class="piramida text-center">
                 <div id="kingdom"
                      class="level-takson"
@@ -48,7 +51,7 @@
         <div class="card-body" id="pemandu-area"></div>
     </div>
     <a id="finish-modul-2-btn"
-       href="{% url 'modul_selesai' subbab.id %}"
+       href="{% url 'selesai_step' 'modul_2' %}"
        class="btn btn-success btn-icon-split mt-3"
        style="display:none">
         <span class="icon text-white-50"><i class="fas fa-check"></i></span>

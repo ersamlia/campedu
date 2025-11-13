@@ -18,10 +18,12 @@ urlpatterns = [
     # Latihan Soal per Sub-Bab
     path('latihan/<int:latihan_id>/', views.latihan_soal_view, name='latihan_soal'),
     path('latihan/submit/<int:latihan_id>/', views.submit_latihan_view, name='submit_latihan'),
+    path('latihan/hasil/<int:latihan_id>/', views.hasil_latihan_view, name='hasil_latihan'), # <-- TAMBAHKAN INI
 
     # Soal Pengayaan
     path('pengayaan/<int:pengayaan_id>/', views.pengayaan_view, name='pengayaan'),
     path('pengayaan/submit/<int:pengayaan_id>/', views.submit_pengayaan_view, name='submit_pengayaan'),
+    path('pengayaan/hasil/<int:pengayaan_id>/', views.hasil_pengayaan_view, name='hasil_pengayaan'), # <-- TAMBAHKAN INI
 
     # --- ALAT BANTU BELAJAR (DARI SIDEBAR) ---
     path('siswa/glosarium/', views.glosarium_view, name='glosarium'),

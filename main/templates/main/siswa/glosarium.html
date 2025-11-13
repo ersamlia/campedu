@@ -44,6 +44,7 @@
         font-size: 1.2rem;
         font-weight: bold;
         padding: 10px;
+        cursor: pointer;
     }
     .flip-card-back {
         background-color: #f8f9fc;
@@ -52,6 +53,7 @@
         padding: 10px;
         font-size: 0.9rem;
         overflow-y: auto;
+        cursor: pointer;
     }
     </style>
 {% endblock %}
@@ -89,13 +91,22 @@
                 </div>
             </div>
         </div>
+        <div class="flip-card" onclick="this.classList.toggle('flipped')">
+            <div class="flip-card-inner">
+                <div class="flip-card-front">Takson</div>
+                <div class="flip-card-back">
+                    <p>
+                        Tingkatan kelompok makhluk hidup dalam klasifikasi, seperti Kingdom, Filum, Kelas, Ordo, Famili, Genus, dan Spesies.
+                    </p>
+                </div>
+            </div>
+        </div>
     </div>
-</div>
-<hr>
-<a href="{% url 'selesai_step' 'glosarium' %}"
-   class="btn btn-success btn-icon-split mt-3 mb-4">
-    <span class="icon text-white-50"><i class="fas fa-check"></i></span>
-    <span class="text">Selesai & Lanjut ke Modul 2</span>
-</a>
+    <hr>
+    <a href="{% url 'selesai_step' 'glosarium' %}"
+       class="btn btn-success btn-icon-split mt-3 mb-4">
+        <span class="icon text-white-50"><i class="fas fa-check"></i></span>
+        <span class="text">Selesai & Lanjut ke Modul 2</span>
+    </a>
 {% endblock %}
-{% endblock %}
+{% block custom_js %}{% endblock %}

@@ -31,6 +31,9 @@ class LatihanSoal(models.Model):
 class Pertanyaan(models.Model):
     latihan = models.ForeignKey(LatihanSoal, on_delete=models.CASCADE, related_name='pertanyaan_set')
     teks_pertanyaan = models.TextField()
+    
+    # <-- TAMBAHKAN BARIS DI BAWAH INI -->
+    explanation = models.TextField(blank=True, null=True, help_text="Penjelasan/Feedback untuk jawaban yang benar")
 
     def __str__(self):
         return self.teks_pertanyaan
@@ -54,6 +57,9 @@ class PertanyaanPengayaan(models.Model):
     pengayaan = models.ForeignKey(SoalPengayaan, on_delete=models.CASCADE, related_name='pertanyaan_set')
     teks_pertanyaan = models.TextField()
 
+    # <-- TAMBAHKAN BARIS DI BAWAH INI -->
+    explanation = models.TextField(blank=True, null=True, help_text="Penjelasan/Feedback untuk jawaban yang benar")
+
     def __str__(self):
         return self.teks_pertanyaan
 
@@ -66,7 +72,6 @@ class PilihanPengayaan(models.Model):
         return self.teks_pilihan
 
 # 4. MODEL BARU UNTUK MELACAK PROGRES SISWA (LINEAR)
-#    (Model 'ProgressSiswa' yang lama telah dihapus dan diganti dengan ini)
 class SiswaProgress(models.Model):
     siswa = models.OneToOneField(User, on_delete=models.CASCADE)
     

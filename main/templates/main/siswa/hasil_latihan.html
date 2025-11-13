@@ -1,25 +1,165 @@
 {% extends 'main/base.html' %}
 {% block title %}Hasil Latihan{% endblock %}
+
+{% block custom_css %}
+<style>
+@import url('https://fonts.googleapis.com/css?family=Nunito+Sans:400,700,800,900&display=swap');
+body {
+    background: #f3f6fd !important;
+    font-family: 'Nunito Sans', Nunito, sans-serif;
+}
+.page-title-custom {
+    font-family: 'Nunito Sans', Nunito, sans-serif;
+    color: #1c253b;
+    font-size: 2rem;
+    font-weight: 900;
+    letter-spacing: .03em;
+    margin-bottom: 1.8rem;
+    line-height: 1.16;
+}
+.card-score {
+    background: #fff;
+    border-radius: 2.1rem;
+    box-shadow: 0 4px 24px #00968810;
+    margin-bottom: 2.1rem;
+    text-align: center;
+    padding: 2rem 2rem 1.6rem 2rem;
+}
+.card-score .score-circle {
+    width: 100px; height: 100px;
+    border-radius: 50%;
+    background: #f7fafc;
+    margin: 0 auto .8rem auto;
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: #009688;
+    display: flex; align-items: center; justify-content: center;
+    border: 6px solid #c2e4e2;
+}
+.card-score .score-title {
+    font-size: 1.08rem;
+    color: #246bfd;
+    font-weight: 800;
+    margin-bottom: .5rem;
+}
+.card-score .score-note {
+    font-size: 1.12rem;
+    font-weight: 850;
+    color: #009688;
+    margin-top: .4rem;
+    margin-bottom: .3rem;
+}
+.btn-fun-primary {
+    font-family: 'Nunito Sans', Nunito, sans-serif;
+    font-weight: 800;
+    font-size: 1.04rem;
+    border-radius: 1rem;
+    background: #246bfd;
+    border: none;
+    box-shadow: 0 4px 12px #246bfd10;
+    padding: .82rem 2.1rem;
+    color: #fff;
+    margin-top: .7rem;
+}
+.card-review {
+    background: #fff;
+    border-radius: 1.2rem;
+    border: none;
+    margin-bottom: 2rem;   /* JARAK LEBIH BESAR ANTAR CARD */
+    box-shadow: 0 2px 14px #42b2f314;
+    padding: 1.55rem 1.35rem 1.3rem 1.25rem; /* Padding lebar */
+    transition: box-shadow 0.2s;
+}
+.card-review:last-child {
+    margin-bottom: 0;
+}
+.card-review h5 {
+    font-family: 'Nunito Sans', Nunito, sans-serif;
+    font-size: 1.06rem;
+    font-weight: 800;
+    margin-bottom: 0.38rem;
+}
+.review-badge {
+    display: inline-block;
+    padding: .11em .78em;
+    border-radius: .58em;
+    font-size: .89rem;
+    font-weight: 800;
+    margin-right: .48em;
+    margin-bottom: .3em;
+}
+.review-badge.benar { background: #e5fbe9; color: #08b150;}
+.review-badge.salah { background: #fee8e0; color: #ed3e27;}
+.card-review .jawaban-anda {
+    font-weight: 800;
+    color: #495466;
+}
+.card-review .jawaban-anda.benar { color: #1cc88a;}
+.card-review .jawaban-anda.salah { color: #e74c3c;}
+.card-review .jawaban-benar {
+    color: #008a80;
+    font-weight: 800;
+}
+.penjelasan-box {
+    border-radius: 0.8rem;
+    background: #eaf7fd;
+    color: #246bfd;
+    border: none;
+    padding: 0.7rem 1.1rem;
+    font-size: 1rem;
+    margin-top: .81rem;
+}
+hr { border-color: #eaf0fb !important; }
+@media (max-width: 900px) {
+    .page-title-custom { font-size: 1.08rem;}
+    .card-score { padding: 1.13rem .6rem 1rem .6rem; }
+    .card-review { padding: .85rem .4rem .7rem .4rem; }
+}
+</style>
+{% endblock %}
+
 {% block content %}
-    <div class="row">
-        <div class="col-lg-6 offset-lg-3">
-            <div class="card shadow mb-4 text-center">
-                <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Hasil untuk: {{ latihan.judul }}</h6>
-                </div>
-                <div class="card-body">
-                    <h3 class="text-gray-900">Skor Anda:</h3>
-                    <h1 class="display-1 font-weight-bold {% if hasil.skor >= 70 %}text-success{% else %}text-danger{% endif %}">
-                        {{ hasil.skor|floatformat:0 }}
-                    </h1>
-                    {% if hasil.skor >= 70 %}
-                        <p>Kerja bagus! Anda telah menguasai materi ini.</p>
-                    {% else %}
-                        <p>Anda perlu belajar lagi. Coba ulangi modul interaktifnya.</p>
-                    {% endif %}
-                    <a href="{% url 'siswa_dashboard' %}" class="btn btn-primary mt-3">Kembali ke Dashboard</a>
-                </div>
+<div class="page-title-custom mb-1">Hasil Latihan: {{ latihan.judul }}</div>
+<div class="card-score mx-auto">
+    <div class="score-title">Skor Akhir</div>
+    <div class="score-circle">{{ hasil.skor|floatformat:0 }}</div>
+    <div class="score-note">
+        {% if hasil.skor >= 70 %}
+            Selamat! Sudah lulus materi ini.
+        {% else %}
+            Belum lulus. Jangan menyerah ya!
+        {% endif %}
+    </div>
+    <a href="{% url 'siswa_dashboard' %}" class="btn btn-fun-primary">Kembali ke Dashboard</a>
+</div>
+<div>
+    {% for jawaban in jawaban_siswa %}
+        <div class="card-review">
+            <span class="review-badge {% if jawaban.is_benar %}benar{% else %}salah{% endif %}">
+                {% if jawaban.is_benar %}Benar{% else %}Salah{% endif %}
+            </span>
+            <h5>Soal {{ forloop.counter }}: {{ jawaban.pertanyaan.teks_pertanyaan }}</h5>
+            <div>
+                <span class="jawaban-anda {% if jawaban.is_benar %}benar{% else %}salah{% endif %}">
+                Jawaban: {{ jawaban.pilihan_dipilih.teks_pilihan }}
+                {% if jawaban.is_benar %}✓{% else %}×{% endif %}
+                </span>
+                {% if not jawaban.is_benar %}
+                    <br>
+                    <span class="jawaban-benar">
+                        Jawaban benar:
+                        {% for pilihan in jawaban.pertanyaan.pilihan_set.all %}
+                            {% if pilihan.is_benar %}{{ pilihan.teks_pilihan }}{% endif %}
+                        {% endfor %}
+                    </span>
+                {% endif %}
+            </div>
+            <div class="penjelasan-box mt-1">
+                <strong>Penjelasan:</strong>
+                <br>
+                {{ jawaban.pertanyaan.explanation|default:"Penjelasan belum tersedia." }}
             </div>
         </div>
-    </div>
+    {% endfor %}
+</div>
 {% endblock %}

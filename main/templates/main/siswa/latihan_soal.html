@@ -1,13 +1,98 @@
 {% extends 'main/base.html' %}
+{% load static %}
 {% block title %}Latihan: {{ latihan.judul }}{% endblock %}
+
+{% block custom_css %}
+<style>
+@import url('https://fonts.googleapis.com/css?family=Nunito+Sans:400,700,800,900&display=swap');
+body {
+    font-family: 'Nunito Sans', Nunito, sans-serif;
+    background: #f3f6fd !important;
+}
+.page-title-custom {
+    font-family: 'Nunito Sans', Nunito, sans-serif;
+    color: #1c253b;
+    font-size: 2.12rem;
+    font-weight: 800;
+    letter-spacing: .03em;
+    margin-bottom: 1.7rem;
+    line-height: 1.13;
+}
+.card, .card.shadow {
+    background: #fff;
+    border-radius: 2.1rem;
+    box-shadow: 0 8px 24px #246bfd12;
+    border: none !important;
+    font-family: 'Nunito Sans', Nunito, sans-serif;
+}
+.card-header {
+    background: transparent;
+    border: none;
+    border-radius: 2.1rem 2.1rem 0 0;
+    font-weight: 800;
+    padding-top: 1.12rem;
+    padding-bottom: 1rem;
+    padding-left: 1.3rem;
+}
+.card-header h6 {
+    color: #246bfd;
+    font-size: 1.12rem;
+    margin: 0;
+    font-weight: 800;
+    letter-spacing: .01em;
+}
+.card-body > p {
+    font-family: 'Nunito Sans', Nunito, sans-serif;
+    font-size: 1.17rem;
+    font-weight: 750;
+    color: #1a2032;
+    margin-bottom: 0.4rem;
+}
+.form-check {
+    margin-bottom: 0.46rem;
+}
+.form-check-input[type="radio"] {
+    width: 1.18em;
+    height: 1.18em;
+    margin-top: .23em;
+    accent-color: #246bfd;
+}
+.form-check-label {
+    font-family: 'Nunito Sans', Nunito, sans-serif;
+    font-size: 1.09rem;
+    font-weight: 700;
+    color: #495466;
+    margin-left: 0.6em;
+    cursor: pointer;
+}
+.btn-success.btn-lg {
+    font-family: 'Nunito Sans', Nunito, sans-serif;
+    font-size: 1.14rem;
+    font-weight: 800;
+    border-radius: 1.1rem;
+    box-shadow: 0 3px 14px #76e5ab1a;
+    letter-spacing: .02em;
+    padding: 0.78rem 2.16rem;
+    margin-top: 0.7rem;
+}
+hr {
+    border-color: #eaf0fb;
+}
+@media (max-width: 900px) {
+    .page-title-custom { font-size: 1.21rem; }
+    .card-header { padding-left: .7rem; }
+}
+</style>
+{% endblock %}
+
 {% block content %}
-    <h1 class="h3 mb-4 text-gray-800">{{ latihan.judul }}</h1>
+    <h1 class="page-title-custom mb-4">{{ latihan.judul }}</h1>
     <form method="post" action="{% url 'submit_latihan' latihan.id %}">
         {% csrf_token %}
         {% for pertanyaan in latihan.pertanyaan_set.all %}
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Pertanyaan {{ forloop.counter }}</h6>
+                    <h6>Pertanyaan {{ forloop.counter }}</h6>
                 </div>
                 <div class="card-body">
                     <p>{{ pertanyaan.teks_pertanyaan }}</p>
