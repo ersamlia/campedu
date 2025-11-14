@@ -120,7 +120,6 @@ body {
                    href="{% if user.profile.role == 'SISWA' %}{% url 'siswa_dashboard' %}{% else %}{% url 'guru_dashboard' %}{% endif %}">
                     <div class="sidebar-brand-icon d-flex align-items-center justify-content-center">
                         <i class="fas fa-seedling"></i>
->>>>>>> 01062751bddb88ed3a05b0f3ea77f4f269982d29
                     </div>
                     <div class="sidebar-brand-text mx-3">BioVerse</div>
                 </a>
@@ -171,89 +170,6 @@ body {
                                 <a class="collapse-item" href="{% url 'latihan_soal' latihan_2_id %}">Latihan Soal 2</a>
                             </div>
                         </div>
-<<<<<<< HEAD
-                    </div>
-                </li>
-
-                <hr class="sidebar-divider">
-                <div class="sidebar-heading">Ujian Akhir</div>
-                <li class="nav-item {% if request.resolver_match.url_name == 'pengayaan' %}active{% endif %}">
-                    {% get_pengayaan_id as pengayaan_id %}
-                    <a class="nav-link" href="{% url 'pengayaan' pengayaan_id %}">
-                        <i class="fas fa-fw fa-flag"></i>
-                        <span>Ujian Akhir Bab</span>
-                    </a>
-                </li>
-
-            {% elif user.profile.role == 'GURU' %}
-                <li class="nav-item {% if request.resolver_match.url_name == 'guru_dashboard' %}active{% endif %}">
-                    <a class="nav-link" href="{% url 'guru_dashboard' %}">
-                        <i class="fas fa-fw fa-tachometer-alt"></i>
-                        <span>Dashboard Guru</span></a>
-                </li>
-                <hr class="sidebar-divider">
-                <div class="sidebar-heading">Manajemen Kelas</div>
-                <li class="nav-item {% if request.resolver_match.url_name == 'pantau_progres' %}active{% endif %}">
-                    <a class="nav-link" href="{% url 'pantau_progres' %}">
-                        <i class="fas fa-fw fa-chart-bar"></i>
-                        <span>Pantau Progres Siswa</span></a>
-                </li>
-                <li class="nav-item {% if request.resolver_match.url_name == 'analisis_hasil' %}active{% endif %}">
-                    <a class="nav-link" href="{% url 'analisis_hasil' %}">
-                        <i class="fas fa-fw fa-diagnoses"></i>
-                        <span>Analisis Hasil Belajar</span></a>
-                </li>
-            {% endif %}
-
-            <hr class="sidebar-divider d-none d-md-block">
-            <div class="text-center d-none d-md-inline">
-                <button class="rounded-circle border-0" id="sidebarToggle"></button>
-            </div>
-        </ul>
-
-        <div id="content-wrapper" class="d-flex flex-column">
-            <div id="content">
-                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-                        <i class="fa fa-bars"></i>
-                    </button>
-                    <ul class="navbar-nav ml-auto">
-                        <div class="topbar-divider d-none d-sm-block"></div>
-                        <li class="nav-item dropdown no-arrow">
-                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ user.username }}</span>
-                                <img class="img-profile rounded-circle" src="{% static 'img/undraw_profile.svg' %}">
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Logout
-                                </a>
-                            </div>
-                        </li>
-                    </ul>
-                </nav>
-
-                <div class="container-fluid">
-                    {% if messages %}
-                        {% for message in messages %}
-                            <div class="alert alert-{% if message.tags == 'error' %}danger{% elif message.tags == 'success' %}success{% else %}info{% endif %}">
-                                {{ message }}
-                            </div>
-                        {% endfor %}
-                    {% endif %}
-                    {% block content %}{% endblock %}
-                </div>
-            </div>
-
-            <footer class="sticky-footer bg-white">
-                <div class="container my-auto text-center">
-                    <img src="{% static 'img/logo betulan.png' %}" alt="BioVerse Logo" style="width:50px; height:auto; margin-bottom:5px;">
-                    <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; BioVerse 2025</span>
-=======
                     </li>
                     <li class="nav-item">
                         <a class="nav-link collapsed"
@@ -352,7 +268,6 @@ body {
                             {% endfor %}
                         {% endif %}
                         {% block content %}{% endblock %}
->>>>>>> 01062751bddb88ed3a05b0f3ea77f4f269982d29
                     </div>
                 </div>
                 <footer class="sticky-footer bg-white">
@@ -364,39 +279,6 @@ body {
                 </footer>
             </div>
         </div>
-<<<<<<< HEAD
-    </div>
-
-    <a class="scroll-to-top rounded" href="#page-top">
-        <i class="fas fa-angle-up"></i>
-    </a>
-
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Yakin ingin keluar?</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">Pilih "Logout" di bawah jika Anda siap untuk mengakhiri sesi Anda saat ini.</div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
-                    <a class="btn btn-primary" href="{% url 'logout' %}">Logout</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
-    <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
-    <script src="{% static 'vendor/jquery-easing/jquery.easing.min.js' %}"></script>
-    <script src="{% static 'js/sb-admin-2.min.js' %}"></script>
-    {% block custom_js %}{% endblock %}
-</body>
-=======
         <a class="scroll-to-top rounded" href="#page-top">
             <i class="fas fa-angle-up"></i>
         </a>
@@ -428,5 +310,4 @@ body {
         <script src="{% static 'js/sb-admin-2.min.js' %}"></script>
         {% block custom_js %}{% endblock %}
     </body>
->>>>>>> 01062751bddb88ed3a05b0f3ea77f4f269982d29
 </html>

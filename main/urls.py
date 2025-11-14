@@ -38,4 +38,6 @@ urlpatterns = [
     path('guru/dashboard/', views.guru_dashboard_view, name='guru_dashboard'),
     path('guru/progres/', views.pantau_progres_view, name='pantau_progres'),
     path('guru/analisis/', views.analisis_hasil_view, name='analisis_hasil'),
+
+    
 ]
