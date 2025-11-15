@@ -3,27 +3,46 @@
 {% block title %}Glosarium Interaktif{% endblock %}
 {% block custom_css %}
     <style>
+    @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap');
+    body {
+        font-family: 'Nunito', sans-serif;
+        background: #f3f6fd;
+    }
+    .glossary-title {
+        color: #246bfd;
+        font-weight: 900;
+        font-size: 2rem;
+        letter-spacing: .013em;
+        margin-bottom: .6em;
+    }
     .card-container {
         display: flex;
         flex-wrap: wrap;
-        gap: 20px;
+        gap: 30px;
+        justify-content: center;
+        margin-bottom: 2rem;
     }
     .flip-card {
-        background-color: transparent;
-        width: 200px;
-        height: 150px;
-        perspective: 1000px; /* Efek 3D */
+        background: transparent;
+        width: 230px;
+        height: 170px;
+        perspective: 1200px;
+        border-radius: 1.3rem;
+        transition: box-shadow 0.3s;
+        cursor: pointer;
+    }
+    .flip-card:hover {
+        box-shadow: 0 8px 44px 0 rgba(36,107,253,0.16), 0 2px 8px #fff;
     }
     .flip-card-inner {
         position: relative;
         width: 100%;
         height: 100%;
+        border-radius: 1.3rem;
         text-align: center;
-        transition: transform 0.6s;
+        transition: transform 0.65s cubic-bezier(.44,1.31,.55,.95);
         transform-style: preserve-3d;
-        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     }
-    /* Saat di-klik, JS akan menambahkan class 'flipped' */
     .flip-card.flipped .flip-card-inner {
         transform: rotateY(180deg);
     }
@@ -31,72 +50,138 @@
         position: absolute;
         width: 100%;
         height: 100%;
-        -webkit-backface-visibility: hidden;
         backface-visibility: hidden;
-        border-radius: 5px;
-    }
-    .flip-card-front {
-        background-color: #4e73df;
-        color: white;
+        border-radius: 1.3rem;
+        box-shadow: 0 4px 20px 0 rgba(53,99,233,0.12);
         display: flex;
+        flex-direction: column;
         align-items: center;
         justify-content: center;
-        font-size: 1.2rem;
-        font-weight: bold;
-        padding: 10px;
-        cursor: pointer;
+        padding: 26px 15px 18px 15px;
+    }
+    .flip-card-front {
+        background: linear-gradient(135deg, #4e73df 70%, #246bfd 100%);
+        color: #fff;
+        font-size: 1.22rem;
+        font-weight: 900;
+        position: relative;
+        transition: background 0.3s;
     }
     .flip-card-back {
-        background-color: #f8f9fc;
-        color: #5a5c69;
+        background: #f7fbff;
+        color: #155590;
         transform: rotateY(180deg);
-        padding: 10px;
-        font-size: 0.9rem;
+        font-size: 1.01rem;
+        font-weight: 600;
         overflow-y: auto;
-        cursor: pointer;
+        position: relative;
+        box-shadow: 0 2px 10px 0 rgba(36,107,253,0.10);
+    }
+    .glossary-badge {
+        background: #fff;
+        color: #475a91;
+        font-size: 1rem;
+        font-weight: 800;
+        padding: 4px 11px;
+        border-radius: 1.15rem;
+        position: absolute;
+        top: 10px; left: 14px;
+        box-shadow: 0 1px 6px #b7dfff2b;
+    }
+    .flip-front-icon {
+        font-size: 2.2rem;
+        margin-bottom: 8px;
+        color: #fff;
+        opacity: .88;
+        filter: drop-shadow(0 3px 12px rgba(36,107,253,0.24));
+    }
+    @media(max-width: 780px) {
+        .flip-card {
+            width: 90vw;
+            max-width: 330px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .card-container {
+            gap: 18px;
+        }
     }
     </style>
 {% endblock %}
 {% block content %}
-    <h1 class="h3 mb-4 text-gray-800">Glosarium Interaktif</h1>
-    <p>Klik sebuah istilah untuk "menemukan" artinya!</p>
+    <h1 class="glossary-title text-center mb-2">Glosarium Interaktif</h1>
+    <p class="mb-3 text-center text-gray-700">
+        Klik istilah mana saja untuk <b>"menemukan"</b> artinya!
+    </p>
     <div class="card-container">
+        <!-- 1 -->
         <div class="flip-card" onclick="this.classList.toggle('flipped')">
             <div class="flip-card-inner">
-                <div class="flip-card-front">Prokariotik</div>
+                <div class="flip-card-front">
+                    <span class="glossary-badge">1</span>
+                    <span class="flip-front-icon"><i class="fas fa-dna"></i></span>
+                    Prokariotik
+                </div>
                 <div class="flip-card-back">
                     <p>
-                        Organisme yang TIDAK memiliki membran inti sel. Materi genetiknya (DNA) tersebar di sitoplasma. Contoh: Kingdom Monera (Bakteri).
+                        Organisme yang <b>TIDAK</b> memiliki membran inti sel.
+                        <br>
+                        Materi genetiknya (DNA) tersebar di sitoplasma.
+                        <br>
+                        <b>Contoh</b>: Kingdom Monera (Bakteri).
                     </p>
                 </div>
             </div>
         </div>
+        <!-- 2 -->
         <div class="flip-card" onclick="this.classList.toggle('flipped')">
             <div class="flip-card-inner">
-                <div class="flip-card-front">Eukariotik</div>
+                <div class="flip-card-front">
+                    <span class="glossary-badge">2</span>
+                    <span class="flip-front-icon"><i class="fas fa-atom"></i></span>
+                    Eukariotik
+                </div>
                 <div class="flip-card-back">
                     <p>
-                        Organisme yang MEMILIKI membran inti sel. DNA-nya tersimpan rapi di dalam inti. Contoh: Protista, Fungi, Plantae, Animalia.
+                        Organisme yang <b>MEMILIKI</b> membran inti sel.
+                        <br>
+                        DNA-nya tersimpan rapi di dalam inti.
+                        <br>
+                        <b>Contoh</b>: Protista, Fungi, Plantae, Animalia.
                     </p>
                 </div>
             </div>
         </div>
+        <!-- 3 -->
         <div class="flip-card" onclick="this.classList.toggle('flipped')">
             <div class="flip-card-inner">
-                <div class="flip-card-front">Saprofit</div>
+                <div class="flip-card-front">
+                    <span class="glossary-badge">3</span>
+                    <span class="flip-front-icon"><i class="fas fa-leaf"></i></span>
+                    Saprofit
+                </div>
                 <div class="flip-card-back">
                     <p>
-                        Makhluk hidup yang memperoleh makanan dengan cara menguraikan sisa-sisa organisme yang telah mati. Contoh: Kingdom Fungi (Jamur).
+                        Makhluk hidup yang memperoleh makanan dengan cara menguraikan sisa organisme mati.
+                        <br>
+                        <b>Contoh</b>: Kingdom Fungi (Jamur).
                     </p>
                 </div>
             </div>
         </div>
+        <!-- 4 -->
         <div class="flip-card" onclick="this.classList.toggle('flipped')">
             <div class="flip-card-inner">
-                <div class="flip-card-front">Takson</div>
+                <div class="flip-card-front">
+                    <span class="glossary-badge">4</span>
+                    <span class="flip-front-icon"><i class="fas fa-layer-group"></i></span>
+                    Takson
+                </div>
                 <div class="flip-card-back">
                     <p>
-                        Tingkatan kelompok makhluk hidup dalam klasifikasi, seperti Kingdom, Filum, Kelas, Ordo, Famili, Genus, dan Spesies.
+                        Tingkatan kelompok makhluk hidup dalam klasifikasi:
+                        <br>
+                        Kingdom, Filum, Kelas, Ordo, Famili, Genus, Spesies.
                     </p>
                 </div>
             </div>
@@ -109,4 +194,4 @@
         <span class="text">Selesai & Lanjut ke Modul 2</span>
     </a>
 {% endblock %}
-{% block custom_js %}{% endblock %}
+{% block custom_js %}<!-- Pastikan FontAwesome sudah terload di base.html -->{% endblock %}
