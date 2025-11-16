@@ -411,12 +411,23 @@ def hasil_latihan_view(request, latihan_id):
 def pengayaan_view(request, pengayaan_id):
     pengayaan = get_object_or_404(SoalPengayaan, id=pengayaan_id)
     progress = get_object_or_404(SiswaProgress, siswa=request.user)
+    
+    # Cek prasyarat
     if not progress.latihan_3_completed:
         messages.error(request, "Selesaikan semua latihan sub-bab terlebih dahulu!")
         return redirect("siswa_dashboard")
-    pertanyaan = pengayaan.pertanyaan_set.all()
-    context = {"pengayaan": pengayaan, "pertanyaan": pertanyaan}
-    return render(request, "main/siswa/pengayaan.html", context)
+
+    # --- LOGIKA BARU DIMULAI DI SINI ---
+    if request.GET.get("mulai") == "true":
+        # 1. Siswa SUDAH mengklik "Mulai", tampilkan soal
+        pertanyaan = pengayaan.pertanyaan_set.all()
+        context = {"pengayaan": pengayaan, "pertanyaan": pertanyaan}
+        return render(request, "main/siswa/pengayaan.html", context)
+    else:
+        # 2. Siswa BARU tiba, tampilkan petunjuk
+        context = {"pengayaan": pengayaan}
+        # Tampilkan file HTML baru yang Anda buat di Langkah 1
+        return render(request, "main/siswa/pengayaan_petunjuk.html", context)
 
 
 @login_required

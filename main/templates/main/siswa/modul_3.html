@@ -1,15 +1,23 @@
-
 {% extends 'main/base.html' %}
 {% load static %}
 {% block title %}Modul 3: {{ subbab.judul }}{% endblock %}
 {% block custom_css %}
     <style>
     /* === CSS DARI MODUL 2 (UNTUK KONSISTENSI) === */
-    @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&display=swap');
+   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&display=swap');
     body {
         font-family: 'Nunito', sans-serif;
         background: #f3f6fd;
     }
+        
+        /* === CSS BARU UNTUK JUDUL HALAMAN === */
+    .page-title-custom {
+        font-family: 'Nunito', sans-serif !important;
+        color: #1c253b !important;
+        font-weight: 800 !important;
+    }
+    
+    /* PERUBAHAN: Style judul custom dihapus */
 
     .learning-slide { display: none; }
     .learning-slide.active { display: block; }
@@ -175,7 +183,7 @@
 
 {% block content %}
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="page-title-custom">{{ subbab.judul }}</h1>
+        <h1 class="h3 mb-4 text-gray-800 page-title-custom">{{ subbab.judul }}</h1>
     </div>
 
     <div id="slide-1" class="learning-slide active">
