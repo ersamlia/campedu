@@ -53,15 +53,39 @@ class SoalPengayaan(models.Model):
     def __str__(self):
         return self.judul
 
+# class PertanyaanPengayaan(models.Model):
+#     pengayaan = models.ForeignKey(SoalPengayaan, on_delete=models.CASCADE, related_name='pertanyaan_set')
+#     teks_pertanyaan = models.TextField()
+
+#     # <-- TAMBAHKAN BARIS DI BAWAH INI -->
+#     explanation = models.TextField(blank=True, null=True, help_text="Penjelasan/Feedback untuk jawaban yang benar")
+
+#     def __str__(self):
+#         return self.teks_pertanyaan
+
 class PertanyaanPengayaan(models.Model):
     pengayaan = models.ForeignKey(SoalPengayaan, on_delete=models.CASCADE, related_name='pertanyaan_set')
     teks_pertanyaan = models.TextField()
-
-    # <-- TAMBAHKAN BARIS DI BAWAH INI -->
     explanation = models.TextField(blank=True, null=True, help_text="Penjelasan/Feedback untuk jawaban yang benar")
+
+    # === KOLOM BARU ===
+    TIPE_SOAL_CHOICES = [
+        ('PG', 'Pilihan Ganda'),
+        ('ISIAN', 'Isian Singkat'),
+    ]
+    tipe = models.CharField(max_length=10, choices=TIPE_SOAL_CHOICES, default='PG')
+    kunci_jawaban_isian = models.CharField(
+        max_length=255, 
+        blank=True, 
+        null=True, 
+        help_text="Isi kunci jawaban di sini jika tipe soal adalah Isian (tidak case-sensitive)."
+    )
+    # ==================
 
     def __str__(self):
         return self.teks_pertanyaan
+    
+    
 
 class PilihanPengayaan(models.Model):
     pertanyaan = models.ForeignKey(PertanyaanPengayaan, on_delete=models.CASCADE, related_name='pilihan_set')

@@ -411,7 +411,7 @@ def hasil_latihan_view(request, latihan_id):
 def pengayaan_view(request, pengayaan_id):
     pengayaan = get_object_or_404(SoalPengayaan, id=pengayaan_id)
     progress = get_object_or_404(SiswaProgress, siswa=request.user)
-    
+
     # Cek prasyarat
     if not progress.latihan_3_completed:
         messages.error(request, "Selesaikan semua latihan sub-bab terlebih dahulu!")
@@ -442,26 +442,51 @@ def submit_pengayaan_view(request, pengayaan_id):
 
         jawaban_benar = 0
 
-        # (Tambahkan logika untuk menyimpan jawaban pengayaan jika perlu)
-
         for pertanyaan in pertanyaan_list:
-            pilihan_id = request.POST.get(f"pertanyaan_{pertanyaan.id}")
-            if pilihan_id:
-                pilihan_dipilih = get_object_or_404(PilihanPengayaan, id=pilihan_id)
-                if pilihan_dipilih.is_benar:
+            # Ambil input dari form berdasarkan name="pertanyaan_{id}"
+            jawaban_user = request.POST.get(f"pertanyaan_{pertanyaan.id}")
+
+            if not jawaban_user:
+                continue  # Skip jika tidak dijawab
+
+            if pertanyaan.tipe == "PG":
+                # --- LOGIKA PILIHAN GANDA ---
+                # jawaban_user adalah ID dari PilihanPengayaan
+                try:
+                    pilihan_dipilih = PilihanPengayaan.objects.get(id=jawaban_user)
+                    if pilihan_dipilih.is_benar:
+                        jawaban_benar += 1
+                except PilihanPengayaan.DoesNotExist:
+                    pass
+
+            elif pertanyaan.tipe == "ISIAN":
+                # --- LOGIKA ISIAN SINGKAT ---
+                # jawaban_user adalah teks string
+                # Kita bandingkan dengan kunci jawaban (lowercase agar tidak sensitif huruf besar/kecil)
+                kunci = (
+                    pertanyaan.kunci_jawaban_isian.strip().lower()
+                    if pertanyaan.kunci_jawaban_isian
+                    else ""
+                )
+                jawaban_siswa = jawaban_user.strip().lower()
+
+                if jawaban_siswa == kunci:
                     jawaban_benar += 1
 
+        # Hitung Skor Akhir
         skor = (jawaban_benar / total_soal) * 100
 
         HasilPengayaan.objects.update_or_create(
             siswa=request.user, pengayaan=pengayaan, defaults={"skor": skor}
         )
 
+        # Update Progres Siswa
         progress = get_object_or_404(SiswaProgress, siswa=request.user)
         progress.pengayaan_completed = True
         progress.save()
 
         return redirect("hasil_pengayaan", pengayaan_id=pengayaan.id)
+
     return redirect("siswa_dashboard")
 
 
