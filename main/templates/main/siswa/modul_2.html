@@ -8,6 +8,13 @@
         font-family: 'Nunito', sans-serif;
         background: #f3f6fd;
     }
+        
+        /* === CSS BARU UNTUK JUDUL HALAMAN === */
+    .page-title-custom {
+        font-family: 'Nunito', sans-serif !important;
+        color: #1c253b !important;
+        font-weight: 800 !important;
+    }
 
     .learning-slide { display: none; }
     .learning-slide.active { display: block; }
@@ -91,6 +98,7 @@
         padding: 10px; border-radius: 5px; cursor: pointer;
         transition: background-color 0.2s;
         font-weight: 700;
+        font-style: italic; /* Membuat teks latin miring */
     }
     .level-takson:hover { background-color: #2e59d9; }
     #kingdom { width: 100%; }
@@ -113,6 +121,7 @@
         font-weight: 800;
         color: #246bfd;
         margin-bottom: 0.75rem;
+        font-style: italic; /* Judul (Latin) miring */
     }
     #takson-info-box p {
         font-size: 1.1rem;
@@ -121,7 +130,8 @@
     }
     #takson-info-box p strong {
         display: inline-block;
-        width: 140px; /* Ratakan label */
+        width: 150px; /* Ratakan label */
+        font-style: normal;
     }
     /* === AKHIR GAYA BARU === */
 
@@ -129,7 +139,7 @@
 {% endblock %}
 {% block content %}
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="page-title-custom">{{ subbab.judul }}</h1>
+        <h1 h1 class="h3 mb-4 text-gray-800 page-title-custom">{{ subbab.judul }}</h1>
     </div>
     <div id="slide-1" class="learning-slide active">
         <div class="learning-card">
@@ -243,24 +253,24 @@
             </div>
             <div class="card-body">
                 <p>
-                    Ini adalah 7 tingkatan utama (Takson). <strong>Klik setiap level</strong> pada piramida di bawah untuk "menemukan" dan mempelajari istilah Bahasa Latin dan Inggrisnya.
+                    Ini adalah 7 tingkatan utama (Takson). <strong>Klik setiap level</strong> pada piramida di bawah untuk "menemukan" dan mempelajari istilah Bahasa Indonesia dan Inggrisnya.
                 </p>
-                <p>Urutan ini (dari Dunia ke Jenis) didasarkan atas persamaan ciri. Makin ke bawah, persamaan ciri semakin banyak.</p>
+                <p>Urutan ini didasarkan atas persamaan ciri. Makin ke bawah, persamaan ciri semakin banyak.</p>
                 <div class="piramida text-center mt-4">
-                    <div id="kingdom" class="level-takson" onclick="showTaksonInfo('kingdom')">Dunia</div>
-                    <div id="filum" class="level-takson" onclick="showTaksonInfo('filum')">Divisi/Filum</div>
-                    <div id="kelas" class="level-takson" onclick="showTaksonInfo('kelas')">Kelas</div>
-                    <div id="ordo" class="level-takson" onclick="showTaksonInfo('ordo')">Bangsa</div>
-                    <div id="famili" class="level-takson" onclick="showTaksonInfo('famili')">Suku</div>
-                    <div id="genus" class="level-takson" onclick="showTaksonInfo('genus')">Marga</div>
-                    <div id="spesies" class="level-takson" onclick="showTaksonInfo('spesies')">Jenis</div>
+                    <div id="kingdom" class="level-takson" onclick="showTaksonInfo('kingdom')">Regnum</div>
+                    <div id="filum" class="level-takson" onclick="showTaksonInfo('filum')">Divisio/Phyllum</div>
+                    <div id="kelas" class="level-takson" onclick="showTaksonInfo('kelas')">Classis</div>
+                    <div id="ordo" class="level-takson" onclick="showTaksonInfo('ordo')">Ordo</div>
+                    <div id="famili" class="level-takson" onclick="showTaksonInfo('famili')">Familia</div>
+                    <div id="genus" class="level-takson" onclick="showTaksonInfo('genus')">Genus</div>
+                    <div id="spesies" class="level-takson" onclick="showTaksonInfo('spesies')">Species</div>
                 </div>
                 <div id="takson-info-box">
                     <h5 id="takson-info-title">Silakan klik salah satu level di atas.</h5>
-                    <p id="takson-info-latin">
-                        <strong>Bahasa Latin:</strong> -
+                    <p id="takson-info-indo">
+                        <strong>Bahasa Indonesia:</strong> -
                     </p>
-                    <p id="takson-info-english">
+                    <p id="takson-info-eng">
                         <strong>Bahasa Inggris:</strong> -
                     </p>
                 </div>
@@ -280,7 +290,6 @@
             </div>
         </div>
     </div>
-    <div class="modal fade" id="taksonModal" tabindex="-1" role="dialog"></div>
 {% endblock %}
 {% block custom_js %}
     <script>
@@ -303,7 +312,6 @@
 
     // --- LOGIKA BARU UNTUK PIRAMIDA INTERAKTIF (SLIDE 4) ---
     
-    // Data baru berdasarkan Tabel 2.4
     const taksonData = {
         'kingdom': { indo: 'Dunia', latin: 'Regnum', inggris: 'Kingdom' },
         'filum': { indo: 'Divisi/Filum', latin: 'Divisio/Phyllum', inggris: 'Division/Phyllum' },
@@ -316,19 +324,20 @@
 
     let taksonDilihat = new Set();
     
+    // FUNGSI INI TELAH DIUBAH
     function showTaksonInfo(levelName) {
         const data = taksonData[levelName];
         
         // Ambil elemen info box
         const infoBox = document.getElementById('takson-info-box');
         const infoTitle = document.getElementById('takson-info-title');
-        const infoLatin = document.getElementById('takson-info-latin');
-        const infoEnglish = document.getElementById('takson-info-english');
+        const infoIndo = document.getElementById('takson-info-indo');
+        const infoEng = document.getElementById('takson-info-eng');
 
-        // Isi data ke info box
-        infoTitle.innerText = data.indo;
-        infoLatin.innerHTML = `<strong>Bahasa Latin:</strong> ${data.latin}`;
-        infoEnglish.innerHTML = `<strong>Bahasa Inggris:</strong> ${data.inggris}`;
+        // Isi data ke info box (SESUAI PERMINTAAN BARU)
+        infoTitle.innerText = data.latin; // Judul sekarang Latin
+        infoIndo.innerHTML = `<strong>Bahasa Indonesia:</strong> ${data.indo}`;
+        infoEng.innerHTML = `<strong>Bahasa Inggris:</strong> ${data.inggris}`;
         
         // Tampilkan info box
         infoBox.style.display = 'block';
@@ -355,11 +364,10 @@
         
         // Pengecekan penting
         if (!pemanduArea || !btnKeSlide3) {
-             // Ini normal jika elemen tidak ada di halaman ini
              return; 
         }
 
-        const totalOrganisme = 5; // Total organisme sekarang 5
+        const totalOrganisme = 5; 
         let organismeSudahBenar = new Set(); 
 
         const kunci = {
@@ -403,7 +411,7 @@
                 ]
             },
             'hasil_lumut': { teks: "TERIDENTIFIKASI: LUMUT!", isResult: true },
-            'hasil_suplir': { teks: "TERIDENTIFTandaIKASI: SUPLIR!", isResult: true },
+            'hasil_suplir': { teks: "TERIDENTIFIKASI: SUPLIR!", isResult: true },
             'hasil_jagung': { teks: "TERIDENTIFIKASI: JAGUNG!", isResult: true },
             'hasil_mawar': { teks: "TERIDENTIFIKASI: MAWAR!", isResult: true },
             'hasil_melinjo': { teks: "TERIDENTIFIKASI: MELINJO!", isResult: true }

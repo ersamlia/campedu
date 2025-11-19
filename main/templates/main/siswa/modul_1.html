@@ -4,25 +4,26 @@
 
 {% block custom_css %}
 <style>
-body {
-    background: #f3f6fd !important;
-    font-family: 'Nunito', sans-serif;
-}
-/* Judul halaman custom (HEADER UTAMA MODUL) */
-.page-title-custom {
-    font-family: 'Nunito', sans-serif !important;
-    color: #1c253b;
-    font-size: 2.00rem;
-    font-weight: 750;
-    letter-spacing: .02em;
-    margin-bottom: 1.00rem;
-    line-height: 1.24;
-}
-@media (max-width: 768px) {
-    .page-title-custom { font-size: 1.21rem; }
-}
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&display=swap');
+    body {
+        font-family: 'Nunito', sans-serif;
+        background: #f3f6fd;
+    }
+        
+        /* === CSS BARU UNTUK JUDUL HALAMAN === */
+    .page-title-custom {
+        font-family: 'Nunito', sans-serif !important;
+        color: #1c253b !important;
+        font-weight: 800 !important;
+    }
 
-/* Card besar - full lebar konten, seperti card login */
+/* PERUBAHAN: 
+   Style .page-title-custom dihapus. 
+   Kita menggunakan class bawaan template (h3 text-gray-800) di HTML 
+   agar font konsisten dengan halaman lain.
+*/
+
+/* Card besar - full lebar konten */
 .learning-slide { display: none; }
 .learning-slide.active {
     display: block !important;
@@ -96,22 +97,46 @@ body {
     border-color: #eaf0fb;
     margin: 1.13rem 0;
 }
-.learning-card .btn-outline-secondary {
-    border-radius: 0.61rem;
-    margin-bottom: 0.32rem;
-}
 a.btn.disabled {
     pointer-events: none; opacity: 0.65;
 }
+
+/* === CSS KHUSUS MODUL 1 === */
+/* Style untuk gambar di Slide 3 dan 4 */
+.stim-img, #obj-img {
+    height: 180px; /* Menyamakan tinggi gambar */
+    width: 100%;
+    object-fit: cover; /* Memotong gambar agar pas */
+    border-radius: 1.08rem; /* Sudut bulat */
+}
+
+/* Style baru untuk tombol checklist di Slide 4 */
+#checklist .btn {
+    border-radius: 0.85rem;
+    text-align: left;
+    width: 100%;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+#checklist .btn .fa-square {
+    color: #4e73df; /* Biru */
+}
+#checklist .btn .fa-check-square {
+    color: #ffffff; /* Putih (di atas tombol hijau) */
+}
+#checklist .btn .fa-times-circle {
+    color: #ffffff; /* Putih (di atas tombol merah) */
+}
+/* === AKHIR CSS KHUSUS === */
+
 </style>
 {% endblock %}
 
 {% block content %}
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="page-title-custom">{{ subbab.judul }}</h1>
+    <h1 class="h3 mb-4 text-gray-800 page-title-custom">{{ subbab.judul }}</h1>
 </div>
 
-<!-- SLIDE 1 -->
 <div id="slide-1" class="learning-slide active">
     <div class="learning-card">
         <div class="card-header">
@@ -129,7 +154,6 @@ a.btn.disabled {
     </div>
 </div>
 
-<!-- SLIDE 2 -->
 <div id="slide-2" class="learning-slide">
     <div class="learning-card">
         <div class="card-header">
@@ -146,7 +170,6 @@ a.btn.disabled {
     </div>
 </div>
 
-<!-- SLIDE 3 -->
 <div id="slide-3" class="learning-slide">
     <div class="learning-card">
         <div class="card-header">
@@ -156,19 +179,19 @@ a.btn.disabled {
             <p>Perhatikan 4 gambar di bawah ini. Menurutmu, mana yang makhluk hidup dan mana yang benda mati?</p>
             <div class="row text-center">
                 <div class="col-md-3 mb-2">
-                    <img src="{% static 'img/pohon.png' %}" class="img-fluid rounded mb-2" alt="Pohon"><br>
+                    <img src="{% static 'img/pohon.jpg' %}" class="img-fluid rounded mb-2 stim-img" alt="Pohon"><br>
                     <strong>Pohon</strong>
                 </div>
                 <div class="col-md-3 mb-2">
-                    <img src="{% static 'img/batu.png' %}" class="img-fluid rounded mb-2" alt="Batu"><br>
+                    <img src="{% static 'img/batu.jpg' %}" class="img-fluid rounded mb-2 stim-img" alt="Batu"><br>
                     <strong>Batu</strong>
                 </div>
                 <div class="col-md-3 mb-2">
-                    <img src="{% static 'img/burung.png' %}" class="img-fluid rounded mb-2" alt="Burung"><br>
+                    <img src="{% static 'img/burung.jpg' %}" class="img-fluid rounded mb-2 stim-img" alt="Burung"><br>
                     <strong>Burung</strong>
                 </div>
                 <div class="col-md-3 mb-2">
-                    <img src="{% static 'img/mobil.png' %}" class="img-fluid rounded mb-2" alt="Mobil"><br>
+                    <img src="{% static 'img/mobil.jpg' %}" class="img-fluid rounded mb-2 stim-img" alt="Mobil"><br>
                     <strong>Mobil</strong>
                 </div>
             </div>
@@ -186,7 +209,6 @@ a.btn.disabled {
     </div>
 </div>
 
-<!-- SLIDE 4 -->
 <div id="slide-4" class="learning-slide">
     <div class="learning-card">
         <div class="card-header">
@@ -196,12 +218,12 @@ a.btn.disabled {
             <p>Ayo kita kumpulkan data! Klik semua tombol ciri untuk menganalisis objek ini.</p>
             <div class="row">
                 <div class="col-md-4">
-                    <h4 id="obj-title">Objek 1: Kucing</h4>
-                    <img id="obj-img" src="{% static 'img/kucing.png' %}" alt="Kucing" class="img-fluid mb-3 rounded">
-                    <button id="next-obj-btn" class="btn btn-info" style="display:none" onclick="loadObject('Robot')">Analisis Objek Berikutnya <i class="fas fa-arrow-right"></i></button>
+                    <h4 id="obj-title" class="text-gray-900">Objek 1: Kucing</h4>
+                    <img id="obj-img" src="{% static 'img/kucing.jpg' %}" alt="Kucing" class="img-fluid mb-3 rounded">
+                    <button id="next-obj-btn" class="btn btn-info" style="display:none; border-radius: 0.85rem;" onclick="loadObject('Robot')">Analisis Objek Berikutnya <i class="fas fa-arrow-right"></i></button>
                 </div>
                 <div class="col-md-8">
-                    <h4>Checklist Ciri Kehidupan:</h4>
+                    <h4 class="text-gray-900">Checklist Ciri Kehidupan:</h4>
                     <div id="checklist" class="mb-3"></div>
                     <h5 id="obj-result" class="text-gray-900"></h5>
                 </div>
@@ -215,7 +237,6 @@ a.btn.disabled {
     </div>
 </div>
 
-<!-- SLIDE 5 -->
 <div id="slide-5" class="learning-slide">
     <div class="learning-card">
         <div class="card-header">
@@ -265,6 +286,7 @@ function showSlide(slideNumber) {
     document.getElementById('slide-' + currentSlide).classList.add('active');
     if (slideNumber === 5) { checkKesimpulan(); }
 }
+
 function checkKesimpulan() {
     const textarea = document.getElementById('kesimpulan_text');
     const button = document.getElementById('btn_selesai_modul');
@@ -277,6 +299,7 @@ function checkKesimpulan() {
         errorMsg.style.display = textarea.value.length > 0 ? 'block' : 'none';
     }
 }
+
 const objects = {
     'Kucing': {
         img: "{% static 'img/kucing.jpg' %}",
@@ -305,56 +328,73 @@ const objects = {
         kesimpulan: "BENDA MATI"
     }
 };
+
 let clickedCount = 0;
 const totalCiri = 7;
-const checklistDiv = document.getElementById('checklist');
+// Memindahkan referensi checklistDiv ke dalam fungsi agar aman saat loading
+// const checklistDiv = document.getElementById('checklist');
+
 function loadObject(namaObjek) {
     const obj = objects[namaObjek];
-    document.getElementById('obj-title').innerText = `Objek: ${namaObjek}`;
+    document.getElementById('obj-title').innerText = Objek: ${namaObjek};
     document.getElementById('obj-img').src = obj.img;
     document.getElementById('obj-result').innerText = "";
+    
+    const checklistDiv = document.getElementById('checklist'); 
     checklistDiv.innerHTML = "";
     clickedCount = 0;
     document.getElementById('finish-modul-btn').style.display = 'none';
+    document.getElementById('next-obj-btn').style.display = 'none';
+    
     for (const [ciri, data] of Object.entries(obj.ciri)) {
         let wrapper = document.createElement('div');
         wrapper.className = 'mb-2';
         let btn = document.createElement('button');
-        btn.innerText = `[ ] ${ciri}`;
-        btn.id = `btn-${ciri}`;
-        btn.className = 'btn btn-outline-secondary';
+        
+        // Menggunakan Ikon FontAwesome
+        btn.innerHTML = <i class="far fa-square mr-2"></i> ${ciri};
+        btn.id = btn-${ciri};
+        btn.className = 'btn btn-outline-primary'; // Default Biru
+        
         btn.dataset.namaObjek = namaObjek;
         btn.dataset.ciri = ciri;
         btn.dataset.status = data.status;
         btn.dataset.teks = data.teks;
         btn.onclick = function() { checkCiri(this); };
         wrapper.appendChild(btn);
+        
         let teks = document.createElement('span');
-        teks.id = `teks-${ciri}`;
+        teks.id = teks-${ciri};
         teks.style.marginLeft = '10px';
         teks.className = 'text-gray-700';
         wrapper.appendChild(teks);
         checklistDiv.appendChild(wrapper);
     }
 }
+
 function checkCiri(buttonElement) {
     const namaObjek = buttonElement.dataset.namaObjek;
     const ciri = buttonElement.dataset.ciri;
     const status = buttonElement.dataset.status === 'true';
     const teks = buttonElement.dataset.teks;
-    const teksSpan = document.getElementById(`teks-${ciri}`);
+    const teksSpan = document.getElementById(teks-${ciri});
+    
     if (status) {
-        buttonElement.innerText = `[✓] ${ciri}`;
+        // Jika YA (Benar)
+        buttonElement.innerHTML = <i class="fas fa-check-square mr-2"></i> ${ciri};
         buttonElement.className = 'btn btn-success';
     } else {
-        buttonElement.innerText = `[X] ${ciri}`;
+        // Jika TIDAK (Salah)
+        buttonElement.innerHTML = <i class="fas fa-times-circle mr-2"></i> ${ciri};
         buttonElement.className = 'btn btn-danger';
     }
+    
     teksSpan.innerText = teks;
     buttonElement.disabled = true;
     clickedCount++;
+    
     if (clickedCount === totalCiri) {
-        document.getElementById('obj-result').innerText = `KESIMPULAN: ${namaObjek} adalah ${objects[namaObjek].kesimpulan}`;
+        document.getElementById('obj-result').innerText = KESIMPULAN: ${namaObjek} adalah ${objects[namaObjek].kesimpulan};
         if (namaObjek === 'Kucing') {
             document.getElementById('next-obj-btn').style.display = 'inline-block';
         } else {
@@ -362,6 +402,9 @@ function checkCiri(buttonElement) {
         }
     }
 }
-window.addEventListener("DOMContentLoaded", function() { loadObject('Kucing'); });
+
+window.addEventListener("DOMContentLoaded", function() { 
+    loadObject('Kucing'); 
+});
 </script>
 {% endblock %}

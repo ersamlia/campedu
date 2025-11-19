@@ -3,82 +3,484 @@
 {% block title %}Database Spesies{% endblock %}
 {% block custom_css %}
     <style>
-    /* CSS untuk tombol filter */
-    #filter-container .btn { margin: 5px; }
-    /* CSS untuk kartu gambar */
-    .species-card { display: block; } /* Tampilkan semua secara default */
-    .species-card.hidden { display: none; } /* Sembunyikan jika tidak cocok filter */
+    /* === CSS DARI MODUL 2 (UNTUK KONSISTENSI) === */
+    @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&display=swap');
+    body {
+        font-family: 'Nunito', sans-serif;
+        background: #f3f6fd;
+    }
+        
+        /* === CSS BARU UNTUK JUDUL HALAMAN === */
+    .page-title-custom {
+        font-family: 'Nunito', sans-serif !important;
+        color: #1c253b !important;
+        font-weight: 800 !important;
+    }
+    .learning-card {
+        background: #fff;
+        border-radius: 2.2rem;
+        box-shadow: 0 8px 32px rgba(53,99,233,0.10);
+        padding: 2.6rem 5vw 2.2rem 5vw;
+        width: 100%;
+        max-width: 100%;
+        margin: 0 auto 2.5rem auto;
+    }
+    @media (max-width: 900px) {
+        .learning-card { padding: 1.0rem .7rem 1.0rem .7rem; border-radius: 1.08rem; }
+    }
+    .learning-card .card-header {
+        background: transparent;
+        border: none;
+        border-radius: 2.2rem 2.2rem 0 0;
+        font-weight: 800;
+        padding: 0;
+        margin-bottom: 1.02rem;
+    }
+    .learning-card .card-header h6 {
+        color: #246bfd;
+        font-size: 1.13rem;
+        font-weight: 900;
+        font-family: 'Nunito', sans-serif !important;
+        margin-bottom: 0;
+    }
+    .learning-card .card-body h5, .learning-card .card-body h4 {
+        font-family: 'Nunito', sans-serif !important;
+        color: #1c253b;
+        font-size: 1.19rem;
+        font-weight: 800;
+        margin-bottom: .58rem;
+    }
+    .learning-card .btn-success { border-radius: 0.85rem; }
+    /* === AKHIR CSS DARI MODUL 2 === */
+
+    /* CSS untuk Tombol Filter */
+    #filter-container .btn {
+        margin: 5px;
+        border-radius: 0.85rem; /* Sudut bulat */
+        font-weight: 700;
+        transition: background-color 0.2s, color 0.2s; /* Transisi hover */
+    }
+    /* Set warna outline default */
+    #filter-container .btn.btn-kingdom {
+        border-color: #4e73df;
+        color: #4e73df;
+    }
+    #filter-container .btn.btn-kingdom:hover,
+    #filter-container .btn.btn-primary:hover {
+        background-color: #4e73df;
+        color: white;
+    }
+    #filter-container .btn.btn-kingdom.active,
+    #filter-container .btn.btn-primary.active {
+        background-color: #4e73df !important;
+        color: white !important;
+    }
+    /* Warna berbeda untuk sub-filter */
+    #filter-container .btn.btn-subfilter {
+        border-color: #1cc88a;
+        color: #1cc88a;
+    }
+    #filter-container .btn.btn-subfilter:hover {
+        background-color: #1cc88a;
+        color: white;
+    }
+    #filter-container .btn.btn-subfilter.active {
+        background-color: #1cc88a !important;
+        color: white !important;
+    }
+
+    /* CSS untuk Kartu Spesies */
+    .species-card { 
+        display: none; /* Sembunyi by default */
+    }
+    .species-card.visible { 
+        display: block; /* 'visible' akan membuatnya muncul */
+    }
+    
+    .species-card .learning-card {
+        padding: 0;
+        border-radius: 1.08rem;
+        margin-bottom: 1.5rem;
+        height: 100%;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .species-card .learning-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 32px rgba(53,99,233,0.15);
+    }
+    .species-card .card-img-top {
+        border-top-left-radius: 1.08rem;
+        border-top-right-radius: 1.08rem;
+        height: 180px;
+        object-fit: cover;
+    }
+    .species-card .learning-card .card-body {
+        padding: 1.25rem;
+    }
+    .species-card .card-title {
+        font-family: 'Nunito', sans-serif !important;
+        color: #1c253b;
+        font-size: 1.19rem;
+        font-weight: 800;
+        margin-bottom: .58rem;
+    }
+    .species-card .card-text {
+        font-family: 'Nunito', sans-serif !important;
+        color: #495466;
+    }
+    
+    /* === CSS BARU UNTUK SUB-FILTER & INFO BOX === */
+    .sub-filter-group {
+        display: none; /* Sembunyi by default */
+        padding-top: 15px;
+        border-top: 1px solid #e3e6f0; /* Garis pemisah */
+        margin-top: 15px;
+    }
+    #kingdom-info-box {
+        display: none; /* Sembunyi by default */
+        border-left: 5px solid #4e73df;
+        background-color: #f8f9fc;
+        padding: 1.5rem 2rem;
+    }
+    #kingdom-info-box h4 {
+        color: #4e73df;
+    }
+    /* === AKHIR CSS BARU === */
     </style>
 {% endblock %}
 {% block content %}
-    <h1 class="h3 mb-4 text-gray-800">Database Spesies</h1>
-    <p>Gunakan filter di bawah untuk "menemukan" pengelompokan organisme!</p>
-    <div id="filter-container" class="mb-4">
-        <button class="btn btn-primary" onclick="filterSpesies('all')">Tampilkan Semua</button>
-        <hr>
-        <small>Filter Kingdom:</small>
-        <br>
-        <button class="btn btn-outline-success" onclick="filterSpesies('plantae')">Plantae (Tumbuhan)</button>
-        <button class="btn btn-outline-info" onclick="filterSpesies('animalia')">Animalia (Hewan)</button>
-        <hr>
-        <small>Filter Tumbuhan:</small>
-        <br>
-        <button class="btn btn-outline-secondary"
-                onclick="filterSpesies('monokotil')">Monokotil</button>
-        <button class="btn btn-outline-secondary" onclick="filterSpesies('dikotil')">Dikotil</button>
-        <hr>
-        <small>Filter Hewan:</small>
-        <br>
-        <button class="btn btn-outline-dark" onclick="filterSpesies('vertebrata')">Vertebrata</button>
-        <button class="btn btn-outline-dark" onclick="filterSpesies('invertebrata')">Invertebrata</button>
+    <h1 class="h3 mb-4 text-gray-800 page-title-custom">Database Spesies</h1>
+    <p>Klik tombol Kingdom untuk "menemukan" ciri-ciri dan contoh organismenya!</p>
+    
+    <div class="learning-card mb-4">
+        <div id="filter-container">
+            <button class="btn btn-primary" data-is-kingdom="true" data-filter="all" onclick="showKingdom('all', this)">Tampilkan Semua</button>
+            <hr>
+            <small>Filter Kingdom:</small>
+            <br>
+            
+            <button class="btn btn-outline-primary btn-kingdom" data-is-kingdom="true" data-filter="monera" onclick="showKingdom('monera', this)">Monera</button>
+            <button class="btn btn-outline-primary btn-kingdom" data-is-kingdom="true" data-filter="protista" onclick="showKingdom('protista', this)">Protista</button>
+            <button class="btn btn-outline-primary btn-kingdom" data-is-kingdom="true" data-filter="fungi" onclick="showKingdom('fungi', this)">Fungi</button>
+            <button class="btn btn-outline-primary btn-kingdom" data-is-kingdom="true" data-filter="plantae" onclick="showKingdom('plantae', this)">Plantae</button>
+            <button class="btn btn-outline-primary btn-kingdom" data-is-kingdom="true" data-filter="animalia" onclick="showKingdom('animalia', this)">Animalia</button>
+            
+            <div id="sub-filter-monera" class="sub-filter-group">
+                <small>Sub-filter Monera:</small><br>
+                <button class="btn btn-outline-primary btn-subfilter" data-parent-kingdom="monera" data-filter="bakteri" onclick="filterSpesies('bakteri', this)">Bakteri</button>
+                <button class="btn btn-outline-primary btn-subfilter" data-parent-kingdom="monera" data-filter="alga-biru" onclick="filterSpesies('alga-biru', this)">Ganggang Biru (Cyanophyta)</button>
+            </div>
+
+            <div id="sub-filter-protista" class="sub-filter-group">
+                <small>Sub-filter Protista (berdasarkan kemiripan):</small><br>
+                <button class="btn btn-outline-primary btn-subfilter" data-parent-kingdom="protista" data-filter="protista-hewan" onclick="filterSpesies('protista-hewan', this)">Mirip Hewan (Protozoa)</button>
+                <button class="btn btn-outline-primary btn-subfilter" data-parent-kingdom="protista" data-filter="protista-tumbuhan" onclick="filterSpesies('protista-tumbuhan', this)">Mirip Tumbuhan (Alga)</button>
+                <button class="btn btn-outline-primary btn-subfilter" data-parent-kingdom="protista" data-filter="protista-jamur" onclick="filterSpesies('protista-jamur', this)">Mirip Jamur</button>
+            </div>
+
+            <div id="sub-filter-fungi" class="sub-filter-group">
+                <small>Sub-filter Fungi (Jamur) (berdasarkan spora):</small><br>
+                <button class="btn btn-outline-primary btn-subfilter" data-parent-kingdom="fungi" data-filter="zygomycota" onclick="filterSpesies('zygomycota', this)">Zygomycota</button>
+                <button class="btn btn-outline-primary btn-subfilter" data-parent-kingdom="fungi" data-filter="ascomycota" onclick="filterSpesies('ascomycota', this)">Ascomycota</button>
+                <button class="btn btn-outline-primary btn-subfilter" data-parent-kingdom="fungi" data-filter="basidiomycota" onclick="filterSpesies('basidiomycota', this)">Basidiomycota</button>
+                <button class="btn btn-outline-primary btn-subfilter" data-parent-kingdom="fungi" data-filter="deuteromycota" onclick="filterSpesies('deuteromycota', this)">Deuteromycota</button>
+            </div>
+            
+            <div id="sub-filter-plantae" class="sub-filter-group">
+                <small>Sub-filter Plantae (Tumbuhan):</small><br>
+                <button class="btn btn-outline-primary btn-subfilter" data-parent-kingdom="plantae" data-filter="bryophyta" onclick="filterSpesies('bryophyta', this)">Lumut (Bryophyta)</button>
+                <button class="btn btn-outline-primary btn-subfilter" data-parent-kingdom="plantae" data-filter="pteridophyta" onclick="filterSpesies('pteridophyta', this)">Paku (Pteridophyta)</button>
+                <button class="btn btn-outline-primary btn-subfilter" data-parent-kingdom="plantae" data-filter="spermatophyta" onclick="filterSpesies('spermatophyta', this)">Tumbuhan Berbiji (Spermatophyta)</button>
+            </div>
+            
+            <div id="sub-filter-animalia" class="sub-filter-group">
+                <small>Sub-filter Animalia (Hewan):</small><br>
+                <button class="btn btn-outline-primary btn-subfilter" data-parent-kingdom="animalia" data-filter="vertebrata" onclick="filterSpesies('vertebrata', this)">Vertebrata</button>
+                <button class="btn btn-outline-primary btn-subfilter" data-parent-kingdom="animalia" data-filter="invertebrata" onclick="filterSpesies('invertebrata', this)">Invertebrata</button>
+            </div>
+        </div>
     </div>
+
+    <div id="kingdom-info-box" class="learning-card">
+        <div class="card-body" style="padding: 0;">
+            <h4 id="info-title" class="text-gray-900"></h4>
+            <p id="info-text"></p>
+            <p id="info-examples" class="text-gray-800 font-weight-bold"></p>
+        </div>
+    </div>
+    
     <div class="row">
-        <div class="col-xl-3 col-md-6 mb-4 species-card all plantae monokotil">
-            <div class="card shadow h-100">
+        
+        <div class="col-xl-3 col-md-6 species-card all monera bakteri">
+            <div class="learning-card">
+                <img src="{% static 'img/bakteri.jpg' %}" class="card-img-top" alt="Bakteri">
+                <div class="card-body">
+                    <h5 class="card-title">Bakteri (E. coli)</h5>
+                    <p class="card-text">Kingdom: Monera, Divisi: Bakteri</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6 species-card all monera alga-biru">
+            <div class="learning-card">
+                <img src="{% static 'img/oscillatoria.jpg' %}" class="card-img-top" alt="Oscillatoria">
+                <div class="card-body">
+                    <h5 class="card-title">Oscillatoria</h5>
+                    <p class="card-text">Kingdom: Monera, Divisi: Cyanophyta</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6 species-card all protista protista-hewan">
+            <div class="learning-card">
+                <img src="{% static 'img/protista.jpg' %}" class="card-img-top" alt="Paramecium">
+                <div class="card-body">
+                    <h5 class="card-title">Paramecium</h5>
+                    <p class="card-text">Kingdom: Protista (Mirip Hewan)</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6 species-card all protista protista-tumbuhan">
+            <div class="learning-card">
+                <img src="{% static 'img/ulva.jpg' %}" class="card-img-top" alt="Ulva">
+                <div class="card-body">
+                    <h5 class="card-title">Ulva (Alga Hijau)</h5>
+                    <p class="card-text">Kingdom: Protista (Mirip Tumbuhan)</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6 species-card all protista protista-jamur">
+            <div class="learning-card">
+                <img src="{% static 'img/jamur_lendir.jpg' %}" class="card-img-top" alt="Jamur Lendir"> <div class="card-body">
+                    <h5 class="card-title">Jamur Lendir</h5>
+                    <p class="card-text">Kingdom: Protista (Mirip Jamur)</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6 species-card all fungi zygomycota">
+            <div class="learning-card">
+                <img src="{% static 'img/jamur_roti.jpg' %}" class="card-img-top" alt="Jamur Roti">
+                <div class="card-body">
+                    <h5 class="card-title">Jamur Roti</h5>
+                    <p class="card-text">Kingdom: Fungi, Divisi: Zygomycota</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6 species-card all fungi ascomycota">
+            <div class="learning-card">
+                <img src="{% static 'img/ragi.jpg' %}" class="card-img-top" alt="Ragi"> <div class="card-body">
+                    <h5 class="card-title">Ragi (Saccharomyces)</h5>
+                    <p class="card-text">Kingdom: Fungi, Divisi: Ascomycota</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6 species-card all fungi basidiomycota">
+            <div class="learning-card">
+                <img src="{% static 'img/jamur.jpg' %}" class="card-img-top" alt="Jamur Tiram">
+                <div class="card-body">
+                    <h5 class="card-title">Jamur Tiram</h5>
+                    <p class="card-text">Kingdom: Fungi, Divisi: Basidiomycota</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6 species-card all plantae spermatophyta">
+            <div class="learning-card">
                 <img src="{% static 'img/jagung.jpg' %}" class="card-img-top" alt="Jagung">
                 <div class="card-body">
                     <h5 class="card-title">Jagung</h5>
-                    <p class="card-text">Kingdom: Plantae, Tipe: Monokotil.</p>
+                    <p class="card-text">Kingdom: Plantae, Divisi: Spermatophyta</p>
                 </div>
             </div>
         </div>
-        <div class="col-xl-3 col-md-6 mb-4 species-card all animalia vertebrata">
-            <div class="card shadow h-100">
+        <div class="col-xl-3 col-md-6 species-card all plantae spermatophyta">
+            <div class="learning-card">
+                <img src="{% static 'img/mawar.jpg' %}" class="card-img-top" alt="Mawar">
+                <div class="card-body">
+                    <h5 class="card-title">Mawar</h5>
+                    <p class="card-text">Kingdom: Plantae, Divisi: Spermatophyta</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6 species-card all plantae bryophyta">
+            <div class="learning-card">
+                <img src="{% static 'img/lumut.jpg' %}" class="card-img-top" alt="Lumut">
+                <div class="card-body">
+                    <h5 class="card-title">Lumut</h5>
+                    <p class="card-text">Kingdom: Plantae, Divisi: Bryophyta</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6 species-card all plantae pteridophyta">
+            <div class="learning-card">
+                <img src="{% static 'img/suplir.jpg' %}" class="card-img-top" alt="Suplir">
+                <div class="card-body">
+                    <h5 class="card-title">Suplir</h5>
+                    <p class="card-text">Kingdom: Plantae, Divisi: Pteridophyta</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6 species-card all plantae spermatophyta">
+            <div class="learning-card">
+                <img src="{% static 'img/melinjo.jpg' %}" class="card-img-top" alt="Melinjo">
+                <div class="card-body">
+                    <h5 class="card-title">Melinjo</h5>
+                    <p class="card-text">Kingdom: Plantae, Divisi: Spermatophyta</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6 species-card all animalia vertebrata">
+            <div class="learning-card">
                 <img src="{% static 'img/ikan.jpg' %}" class="card-img-top" alt="Ikan">
                 <div class="card-body">
                     <h5 class="card-title">Ikan</h5>
-                    <p class="card-text">Kingdom: Animalia, Tipe: Vertebrata.</p>
+                    <p class="card-text">Kingdom: Animalia, Filum: Vertebrata</p>
                 </div>
             </div>
         </div>
-        <div class="col-xl-3 col-md-6 mb-4 species-card all animalia invertebrata">
-            <div class="card shadow h-100">
+        <div class="col-xl-3 col-md-6 species-card all animalia invertebrata">
+            <div class="learning-card">
                 <img src="{% static 'img/siput.jpg' %}" class="card-img-top" alt="Siput">
                 <div class="card-body">
                     <h5 class="card-title">Siput</h5>
-                    <p class="card-text">Kingdom: Animalia, Tipe: Invertebrata (Mollusca).</p>
+                    <p class="card-text">Kingdom: Animalia, Filum: Invertebrata</p>
+                </div>
+            </div>
+        </div>
+         <div class="col-xl-3 col-md-6 species-card all animalia vertebrata">
+            <div class="learning-card">
+                <img src="{% static 'img/kucing.jpg' %}" class="card-img-top" alt="Kucing">
+                <div class="card-body">
+                    <h5 class="card-title">Kucing</h5>
+                    <p class="card-text">Kingdom: Animalia, Filum: Vertebrata</p>
                 </div>
             </div>
         </div>
     </div>
+    
+    <hr>
+    <a id="finish-btn" 
+       href="{% url 'selesai_step' 'database' %}" 
+       class="btn btn-success btn-icon-split" 
+       style="border-radius: 0.85rem; display: none;"> <span class="icon text-white-70"><i class="fas fa-check"></i></span>
+        <span class="text">Selesai & Lanjut ke Latihan Soal 3</span>
+    </a>
+    
 {% endblock %}
 {% block custom_js %}
     <script>
-function filterSpesies(kategori) {
-    // Dapatkan semua kartu
-    const allCards = document.querySelectorAll('.species-card');
+// Objek data untuk menyimpan materi dari PDF Anda
+const kingdomData = {
+    'monera': {
+        title: "Kingdom Monera",
+        text: "Terdiri atas makhluk hidup bersel satu (uniseluler) yang tidak memiliki inti sel sejati (prokariotik). Monera dapat hidup bebas di lingkungan atau bersifat parasit.",
+        examples: "Contoh: Bakteri, Cyanobacteria (alga hijau biru)."
+    },
+    'protista': {
+        title: "Kingdom Protista",
+        text: "Makhluk hidup dalam kingdom ini sebagian besar juga uniseluler, namun sudah memiliki inti sel sejati (eukariotik). Biasanya hidup di tempat yang lembap atau di perairan.",
+        examples: "Contoh: Amoeba, Euglena, Paramecium."
+    },
+    'fungi': {
+        title: "Kingdom Fungi (Jamur)",
+        text: "Jamur merupakan makhluk hidup tidak berklorofil (heterotrof). Jamur memperoleh makanan dengan cara menyerap zat organik dari organisme lain. Tubuh jamur tersusun atas benang-benang halus yang disebut hifa.",
+        examples: "Contoh: Ragi, jamur roti, dan jamur kuping."
+    },
+    'plantae': {
+        title: "Kingdom Plantae (Tumbuhan)",
+        text: "Tumbuhan merupakan makhluk hidup multiseluler (tersusun atas banyak sel) yang memiliki klorofil, sehingga dapat membuat makanannya sendiri melalui proses fotosintesis (autotrof).",
+        examples: "Contoh: Lumut, tumbuhan paku, dan tumbuhan berbunga."
+    },
+    'animalia': {
+        title: "Kingdom Animalia (Hewan)",
+        text: "Kelompok makhluk hidup multiseluler yang tidak memiliki dinding sel dan bersifat heterotrof (tidak dapat membuat makanan sendiri). Hewan memiliki kemampuan untuk bergerak aktif.",
+        examples: "Contoh: Manusia, ikan, burung, dan kucing."
+    }
+};
+
+// Ambil elemen-elemen penting
+const filterContainer = document.getElementById('filter-container');
+const infoBox = document.getElementById('kingdom-info-box');
+const infoTitle = document.getElementById('info-title');
+const infoText = document.getElementById('info-text');
+const infoExamples = document.getElementById('info-examples');
+const allCards = document.querySelectorAll('.species-card');
+const allKingdomButtons = filterContainer.querySelectorAll('.btn-kingdom');
+const allSubFilterGroups = filterContainer.querySelectorAll('.sub-filter-group');
+const finishButton = document.getElementById('finish-btn');
+
+// Set untuk melacak progres siswa
+let kingdomsClicked = new Set();
+const totalKingdoms = 5;
+
+// Fungsi ini dipanggil oleh Tombol Kingdom (Monera, Plantae, dll.)
+function showKingdom(kingdomName, el) {
     
+    // 1. Tampilkan Info Box dengan materi dari PDF
+    if (kingdomName === 'all') {
+        infoBox.style.display = 'none'; // Sembunyikan jika 'Tampilkan Semua'
+    } else {
+        const data = kingdomData[kingdomName];
+        infoTitle.innerText = data.title;
+        infoText.innerText = data.text;
+        infoExamples.innerText = data.examples;
+        infoBox.style.display = 'block';
+    }
+    
+    // 2. Tampilkan Sub-filter yang sesuai
+    allSubFilterGroups.forEach(sub => {
+        sub.style.display = 'none'; // Sembunyikan semua
+    });
+    const subFilterToShow = document.getElementById('sub-filter-' + kingdomName);
+    if (subFilterToShow) {
+        subFilterToShow.style.display = 'block';
+    }
+    
+    // 3. Jalankan filter kartu
+    filterSpesies(kingdomName, el);
+    
+    // 4. Lacak progres penyelesaian
+    if (kingdomName !== 'all') {
+        kingdomsClicked.add(kingdomName);
+    }
+    if (kingdomsClicked.size >= totalKingdoms) {
+        finishButton.style.display = 'inline-block';
+    }
+}
+
+// Fungsi ini dipanggil oleh SEMUA tombol, termasuk sub-filter
+function filterSpesies(kategori, el) {
+    // Tampilkan kartu yang sesuai
     allCards.forEach(card => {
-        // Sembunyikan semua kartu terlebih dahulu
-        card.classList.add('hidden');
-        
-        // Jika kartu memiliki kategori yang difilter (atau 'all'), tampilkan
         if (card.classList.contains(kategori)) {
             card.classList.remove('hidden');
+            card.classList.add('visible');
+        } else {
+            card.classList.add('hidden');
+            card.classList.remove('visible');
         }
     });
+
+    // Atur tombol mana yang 'aktif' (berwarna biru)
+    
+    // 1. Nonaktifkan semua tombol
+    const allButtons = filterContainer.querySelectorAll('.btn');
+    allButtons.forEach(button => {
+        button.classList.remove('active');
+    });
+    
+    // 2. Aktifkan tombol yang baru diklik
+    el.classList.add('active');
+
+    // 3. Jika yang diklik adalah sub-filter, aktifkan juga Kingdom induknya
+    if (el.classList.contains('btn-subfilter')) {
+        const parentKingdom = el.getAttribute('data-parent-kingdom');
+        const parentButton = filterContainer.querySelector(`.btn-kingdom[data-filter="${parentKingdom}"]`);
+        if (parentButton) {
+            parentButton.classList.add('active');
+        }
+    }
 }
-// Jalankan filter 'all' saat halaman dimuat
-filterSpesies('all');
-    </script>
+</script>
 {% endblock %}

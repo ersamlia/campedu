@@ -4,20 +4,18 @@
 
 {% block custom_css %}
 <style>
-@import url('https://fonts.googleapis.com/css?family=Nunito+Sans:400,700,800,900&display=swap');
-body {
-    font-family: 'Nunito Sans', Nunito, sans-serif;
-    background: #f3f6fd !important;
-}
-.page-title-custom {
-    font-family: 'Nunito Sans', Nunito, sans-serif;
-    color: #1c253b;
-    font-size: 2.12rem;
-    font-weight: 800;
-    letter-spacing: .03em;
-    margin-bottom: 1.7rem;
-    line-height: 1.13;
-}
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&display=swap');
+    body {
+        font-family: 'Nunito', sans-serif;
+        background: #f3f6fd;
+    }
+        
+        /* === CSS BARU UNTUK JUDUL HALAMAN === */
+    .page-title-custom {
+        font-family: 'Nunito', sans-serif !important;
+        color: #1c253b !important;
+        font-weight: 800 !important;
+    }
 .card, .card.shadow {
     background: #fff;
     border-radius: 2.1rem;
@@ -86,7 +84,7 @@ hr {
 {% endblock %}
 
 {% block content %}
-    <h1 class="page-title-custom mb-4">{{ latihan.judul }}</h1>
+    <h1 class="h3 mb-4 text-gray-800 page-title-custom">{{ latihan.judul }}</h1>
     <form method="post" action="{% url 'submit_latihan' latihan.id %}">
         {% csrf_token %}
         {% for pertanyaan in latihan.pertanyaan_set.all %}
