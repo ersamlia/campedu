@@ -3,11 +3,94 @@
 {% block title %}Modul 2: {{ subbab.judul }}{% endblock %}
 {% block custom_css %}
     <style>
+    @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&display=swap');
+    body {
+        font-family: 'Nunito', sans-serif;
+        background: #f3f6fd;
+    }
+
+    .learning-slide { display: none; }
+    .learning-slide.active { display: block; }
+
+    .learning-card {
+        background: #fff;
+        border-radius: 2.2rem;
+        box-shadow: 0 8px 32px rgba(53,99,233,0.10);
+        padding: 2.6rem 5vw 2.2rem 5vw;
+        width: 100%;
+        max-width: 100%;
+        margin: 0 auto 2.5rem auto;
+    }
+    @media (max-width: 900px) {
+        .learning-card { padding: 1.0rem .7rem 1.0rem .7rem; border-radius: 1.08rem; }
+    }
+
+    .learning-card .card-header {
+        background: transparent;
+        border: none;
+        border-radius: 2.2rem 2.2rem 0 0;
+        font-weight: 800;
+        padding: 0;
+        margin-bottom: 1.02rem;
+    }
+    .learning-card .card-header h6 {
+        color: #246bfd;
+        font-size: 1.13rem;
+        font-weight: 900;
+        font-family: 'Nunito', sans-serif !important;
+        margin-bottom: 0;
+        line-height: 1.22;
+        letter-spacing: .007em;
+    }
+    .learning-card .card-body h5, .learning-card .card-body h4 {
+        font-family: 'Nunito', sans-serif !important;
+        color: #1c253b;
+        font-size: 1.19rem;
+        font-weight: 800;
+        margin-bottom: .58rem;
+    }
+    .learning-card ul, .learning-card ol {
+        margin-left: 1.11rem;
+        margin-bottom: 1rem;
+        color: #495466;
+    }
+    .learning-card button.btn-primary {
+        background-color: #246bfd;
+        font-weight: 700;
+        border-radius: 0.85rem;
+        border: none;
+    }
+    .learning-card button.btn-primary:hover,
+    .learning-card button.btn-primary:focus {
+        background-color: #1c519b;
+    }
+    .learning-card button.btn-secondary { border-radius: 0.85rem; }
+
+    /* Gaya untuk Kunci Dikotom TERTULIS (dari PDF) */
+    .kunci-determinasi {
+        padding-left: 0;
+        list-style-type: none;
+    }
+    .kunci-determinasi li {
+        margin-bottom: 5px;
+        padding-left: 20px;
+    }
+    .kunci-determinasi li strong {
+        color: #333;
+    }
+    .kunci-determinasi li span {
+        font-style: italic;
+        color: #007bff;
+        font-weight: bold;
+    }
+    
+    /* === GAYA BARU UNTUK PIRAMIDA & KOTAK INFO (SLIDE 4) === */
     .piramida { display: flex; flex-direction: column; align-items: center; }
-    .level-takson { 
-        background-color: #4e73df; color: white; margin: 2px 0; 
+    .level-takson {
+        background-color: #4e73df; color: white; margin: 2px 0;
         padding: 10px; border-radius: 5px; cursor: pointer;
         transition: background-color 0.2s;
+        font-weight: 700;
     }
     .level-takson:hover { background-color: #2e59d9; }
     #kingdom { width: 100%; }
@@ -17,179 +100,405 @@
     #famili { width: 60%; }
     #genus { width: 50%; }
     #spesies { width: 40%; }
+    
+    #takson-info-box {
+        display: none; /* Sembunyi awalnya */
+        background: #f8f9fc;
+        border: 1px solid #e3e6f0;
+        border-radius: 10px;
+        padding: 1.5rem;
+        margin-top: 1.5rem;
+    }
+    #takson-info-box h5 {
+        font-weight: 800;
+        color: #246bfd;
+        margin-bottom: 0.75rem;
+    }
+    #takson-info-box p {
+        font-size: 1.1rem;
+        margin-bottom: 0.25rem;
+        color: #1c253b;
+    }
+    #takson-info-box p strong {
+        display: inline-block;
+        width: 140px; /* Ratakan label */
+    }
+    /* === AKHIR GAYA BARU === */
+
     </style>
 {% endblock %}
 {% block content %}
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">{{ subbab.judul }}</h1>
+        <h1 class="page-title-custom">{{ subbab.judul }}</h1>
     </div>
-    <div class="card shadow mb-4">
-        <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">A. Penjelajah Takson Interaktif</h6>
-        </div>
-        <div class="card-body">
-            <p>Klik setiap tingkatan pada piramida untuk "menemukan" artinya!</p>
-            <div class="piramida text-center">
-                <div id="kingdom"
-                     class="level-takson"
-                     onclick="showPopup('popup-kingdom')">KINGDOM</div>
-                <div id="filum" class="level-takson" onclick="showPopup('popup-filum')">FILUM / DIVISI</div>
-                <div id="kelas" class="level-takson" onclick="showPopup('popup-kelas')">KELAS</div>
-                <div id="ordo" class="level-takson" onclick="showPopup('popup-ordo')">ORDO</div>
-                <div id="famili" class="level-takson" onclick="showPopup('popup-famili')">FAMILI</div>
-                <div id="genus" class="level-takson" onclick="showPopup('popup-genus')">GENUS</div>
-                <div id="spesies"
-                     class="level-takson"
-                     onclick="showPopup('popup-spesies')">SPESIES</div>
+    <div id="slide-1" class="learning-slide active">
+        <div class="learning-card">
+            <div class="card-header">
+                <h6>Tujuan Pembelajaran (Stimulasi)</h6>
+            </div>
+            <div class="card-body">
+                <p>Selamat datang di modul klasifikasi! Di alam ini terdapat jutaan makhluk hidup yang beragam.</p>
+                <p>Setelah mengikuti kegiatan pembelajaran ini, kamu diharapkan dapat:</p>
+                <ol>
+                    <li>Menjelaskan tujuan dan dasar klasifikasi makhluk hidup.</li>
+                    <li>Menjelaskan apa itu kunci dikotom.</li>
+                    <li>Menggunakan kunci dikotom sederhana untuk mengidentifikasi organisme.</li>
+                    <li>Menjelaskan urutan takson dalam klasifikasi.</li>
+                </ol>
+                <button class="btn btn-primary" onclick="showSlide(2)">
+                    Mulai Penyelidikan <i class="fas fa-arrow-right"></i>
+                </button>
             </div>
         </div>
     </div>
-    <div class="card shadow mb-4">
-        <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-danger">B. Fitur Unggulan: Pemandu Identifikasi Interaktif</h6>
+    <div id="slide-2" class="learning-slide">
+        <div class="learning-card">
+            <div class="card-header">
+                <h6>Aktivitas 1: Penyelidikan Kunci Identitas</h6>
+            </div>
+            <div class="card-body">
+                <p>
+                    Mari kita selidiki. Coba gunakan pemandu interaktif ini untuk mengidentifikasi 5 organisme. Amati ciri-cirinya dan kumpulkan datanya untuk menemukan identitas mereka!
+                </p>
+                <div id="pemandu-area"></div>
+                <hr>
+                <button class="btn btn-secondary" onclick="showSlide(1)">
+                    <i class="fas fa-arrow-left"></i> Kembali
+                </button>
+                <button id="btn-ke-slide-3"
+                        class="btn btn-primary"
+                        onclick="showSlide(3)"
+                        style="display:none">
+                    Apa yang baru saja kita lakukan? <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
         </div>
-        <div class="card-body" id="pemandu-area"></div>
     </div>
-    <a id="finish-modul-2-btn"
-       href="{% url 'selesai_step' 'modul_2' %}"
-       class="btn btn-success btn-icon-split mt-3"
-       style="display:none">
-        <span class="icon text-white-50"><i class="fas fa-check"></i></span>
-        <span class="text">Selesai Modul 2 & Buka Latihan Soal</span>
-    </a>
-    <div class="modal fade" id="taksonModal" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="taksonModalTitle"></h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
+    <div id="slide-3" class="learning-slide">
+        <div class="learning-card">
+            <div class="card-header">
+                <h6>Kesimpulan: Apa itu Klasifikasi & Kunci Dikotom?</h6>
+            </div>
+            <div class="card-body">
+                <h5 class="text-gray-900">1. Apa yang Kamu Lakukan?</h5>
+                <p>
+                    Aktivitas yang baru saja kamu lakukan adalah proses <strong>Klasifikasi</strong>. Klasifikasi adalah suatu cara mengelompokkan makhluk hidup berdasarkan kesamaan ciri yang dimiliki.
+                </p>
+                <h5 class="text-gray-900 mt-4">2. Apa Tujuannya?</h5>
+                <p>
+                    Tujuan kamu melakukan itu adalah untuk <strong>mempermudah mengenali, membandingkan, dan mempelajari</strong> makhluk hidup tersebut.
+                </p>
+                <h5 class="text-gray-900 mt-4">3. Apa Dasarnya?</h5>
+                <p>
+                    Dasar yang kamu gunakan tadi adalah <strong>persamaan dan perbedaan ciri</strong>, khususnya <strong>ciri bentuk tubuh (morfologi)</strong>, seperti 'berbatang jelas' atau 'berkeping satu'.
+                </p>
+                <hr>
+                <h5 class="text-gray-900 mt-4">4. Alat Apa yang Kamu Gunakan?</h5>
+                <p>
+                    Pemandu interaktif tadi adalah simulasi dari **Kunci Dikotom**. Kunci dikotom adalah kunci yang berisi keterangan yang disusun berpasangan dan menunjukkan ciri yang berlawanan.
+                </p>
+                <p>
+                    Bagan yang kamu ikuti di aktivitas 1, jika ditulis dalam bentuk ilmiah akan menjadi **Kunci Determinasi** seperti ini (berdasarkan contoh di PDF hlm. 60-61):
+                </p>
+                <ul class="kunci-determinasi">
+                    <li>
+                        <strong>1. a.</strong> Tumbuhan yang berspora ..... <span>Lanjut ke 2</span>
+                    </li>
+                    <li>
+                        <strong>1. b.</strong> Tumbuhan yang tidak berspora ..... <span>Lanjut ke 3</span>
+                    </li>
+                    <li>
+                        <strong>2. a.</strong> Tumbuhan yang berbatang jelas ..... <strong>Suplir</strong>
+                    </li>
+                    <li>
+                        <strong>2. b.</strong> Tumbuhan yang tidak berbatang jelas ..... <strong>Lumut</strong>
+                    </li>
+                    <li>
+                        <strong>3. a.</strong> Berbiji tertutup ..... <span>Lanjut ke 4</span>
+                    </li>
+                    <li>
+                        <strong>3. b.</strong> Berbiji terbuka ..... <strong>Melinjo</strong>
+                    </li>
+                    <li>
+                        <strong>4. a.</strong> Biji berkeping dua ..... <strong>Mawar</strong> (atau Kedelai)
+                    </li>
+                    <li>
+                        <strong>4. b.</strong> Biji berkeping satu ..... <strong>Jagung</strong>
+                    </li>
+                </ul>
+                <hr>
+                <button class="btn btn-secondary" onclick="showSlide(2)">
+                    <i class="fas fa-arrow-left"></i> Kembali
+                </button>
+                <button class="btn btn-primary" onclick="showSlide(4)">
+                    Bagaimana Ilmuwan Menyusunnya? <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div id="slide-4" class="learning-slide">
+        <div class="learning-card">
+            <div class="card-header">
+                <h6>Aktivitas 2: "Lemari" Klasifikasi (Takson)</h6>
+            </div>
+            <div class="card-body">
+                <p>
+                    Ini adalah 7 tingkatan utama (Takson). <strong>Klik setiap level</strong> pada piramida di bawah untuk "menemukan" dan mempelajari istilah Bahasa Latin dan Inggrisnya.
+                </p>
+                <p>Urutan ini (dari Dunia ke Jenis) didasarkan atas persamaan ciri. Makin ke bawah, persamaan ciri semakin banyak.</p>
+                <div class="piramida text-center mt-4">
+                    <div id="kingdom" class="level-takson" onclick="showTaksonInfo('kingdom')">Dunia</div>
+                    <div id="filum" class="level-takson" onclick="showTaksonInfo('filum')">Divisi/Filum</div>
+                    <div id="kelas" class="level-takson" onclick="showTaksonInfo('kelas')">Kelas</div>
+                    <div id="ordo" class="level-takson" onclick="showTaksonInfo('ordo')">Bangsa</div>
+                    <div id="famili" class="level-takson" onclick="showTaksonInfo('famili')">Suku</div>
+                    <div id="genus" class="level-takson" onclick="showTaksonInfo('genus')">Marga</div>
+                    <div id="spesies" class="level-takson" onclick="showTaksonInfo('spesies')">Jenis</div>
+                </div>
+                <div id="takson-info-box">
+                    <h5 id="takson-info-title">Silakan klik salah satu level di atas.</h5>
+                    <p id="takson-info-latin">
+                        <strong>Bahasa Latin:</strong> -
+                    </p>
+                    <p id="takson-info-english">
+                        <strong>Bahasa Inggris:</strong> -
+                    </p>
+                </div>
+                <hr>
+                <div class="d-flex align-items-center gap-2">
+                    <button class="btn btn-secondary mr-2" onclick="showSlide(3)">
+                        <i class="fas fa-arrow-left"></i> Kembali
                     </button>
-                </div>
-                <div class="modal-body" id="taksonModalBody"></div>
-                <div class="modal-footer">
-                    <button class="btn btn-primary" type="button" data-dismiss="modal">Mengerti</button>
+                    <a id="finish-modul-2-btn"
+                       href="{% url 'selesai_step' 'modul_2' %}"
+                       class="btn btn-success btn-icon-split"
+                       style="display:none">
+                        <span class="icon text-white-70"><i class="fas fa-check"></i></span>
+                        <span class="text">Selesai Modul 2 & Buka Latihan Soal</span>
+                    </a>
                 </div>
             </div>
         </div>
     </div>
+    <div class="modal fade" id="taksonModal" tabindex="-1" role="dialog"></div>
 {% endblock %}
 {% block custom_js %}
     <script>
-    // --- Script untuk Pop-up Piramida ---
-    const popupData = {
-        'popup-kingdom': { title: 'Level 1: KINGDOM', text: 'Tingkat tertinggi dan paling umum. Ciri-cirinya sangat umum. Contoh: Kingdom Animalia (Semua Hewan).' },
-        'popup-filum': { title: 'Level 2: FILUM / DIVISI', text: 'Kelompok di bawah Kingdom. Contoh: Filum Chordata (Hewan bertulang belakang).' },
-        'popup-kelas': { title: 'Level 3: KELAS', text: 'Contoh: Kelas Mamalia (Hewan menyusui).' },
-        'popup-ordo': { title: 'Level 4: ORDO', text: 'Contoh: Ordo Karnivora (Hewan pemakan daging).' },
-        'popup-famili': { title: 'Level 5: FAMILI', text: 'Contoh: Famili Felidae (Keluarga kucing).' },
-        'popup-genus': { title: 'Level 6: GENUS', text: 'Contoh: Genus Panthera (Harimau, Singa, Jaguar).' },
-        'popup-spesies': { title: 'Level 7: SPESIES', text: 'Tingkat terendah dan paling spesifik. Contoh: Panthera tigris (Harimau).' }
-    };
-
-    function showPopup(id) {
-        const data = popupData[id];
-        document.getElementById('taksonModalTitle').innerText = data.title;
-        document.getElementById('taksonModalBody').innerText = data.text;
-        $('#taksonModal').modal('show');
+    // --- FUNGSI GLOBAL ---
+    
+    let currentSlide = 1;
+    function showSlide(slideNumber) {
+        const activeSlide = document.querySelector('.learning-slide.active');
+        if (activeSlide) {
+            activeSlide.classList.remove('active');
+        }
+        const nextSlide = document.getElementById('slide-' + slideNumber);
+        if (nextSlide) {
+            currentSlide = slideNumber;
+            nextSlide.classList.add('active');
+        } else {
+            console.error("Slide " + slideNumber + " tidak ditemukan!");
+        }
     }
 
-    // --- Script untuk Fitur Unggulan (Pemandu Identifikasi) ---
-    const pemanduArea = document.getElementById('pemandu-area');
-    const btnSelesai = document.getElementById('finish-modul-2-btn');
-    let organismeTeridentifikasi = 0;
-    const totalOrganisme = 4; // Set jumlah total organisme yang harus diidentifikasi
-
-    // Data Kunci Determinasi (Hardcoded)
-    const kunci = {
-        'start': {
-            teks: "Pilih organisme untuk diidentifikasi:",
-            pilihan: [
-                { teks: "Lumut", img: "{% static 'img/lumut.jpg' %}", next: "kunci_1" },
-                { teks: "Suplir", img: "{% static 'img/suplir.jpg' %}", next: "kunci_1" },
-                { teks: "Jagung", img: "{% static 'img/jagung.jpg' %}", next: "kunci_1" },
-                { teks: "Mawar", img: "{% static 'img/mawar.jpg' %}", next: "kunci_1" }
-            ],
-            isStart: true
-        },
-        'kunci_1': {
-            teks: "Apakah tumbuhan ini berspora?",
-            pilihan: [
-                { teks: "YA, Berspora", next: "kunci_2" },
-                { teks: "TIDAK, Berbiji", next: "kunci_3" }
-            ]
-        },
-        'kunci_2': { // Hasil dari 1a
-            teks: "Apakah memiliki batang yang jelas?",
-            pilihan: [
-                { teks: "YA, Batang Jelas", next: "hasil_suplir" },
-                { teks: "TIDAK, Batang Tidak Jelas", next: "hasil_lumut" }
-            ]
-        },
-        'kunci_3': { // Hasil dari 1b
-            teks: "Apakah bijinya berkeping satu (Monokotil)?",
-            pilihan: [
-                { teks: "YA, Keping Satu", next: "hasil_jagung" },
-                { teks: "TIDAK, Keping Dua", next: "hasil_mawar" }
-            ]
-        },
-        // Halaman Hasil
-        'hasil_lumut': { teks: "TERIDENTIFIKASI: LUMUT (Bryophyta)!", isResult: true },
-        'hasil_suplir': { teks: "TERIDENTIFIKASI: SUPLIR (Pteridophyta)!", isResult: true },
-        'hasil_jagung': { teks: "TERIDENTIFIKASI: JAGUNG (Monokotil)!", isResult: true },
-        'hasil_mawar': { teks: "TERIDENTIFIKASI: MAWAR (Dikotil)!", isResult: true }
+    // --- LOGIKA BARU UNTUK PIRAMIDA INTERAKTIF (SLIDE 4) ---
+    
+    // Data baru berdasarkan Tabel 2.4
+    const taksonData = {
+        'kingdom': { indo: 'Dunia', latin: 'Regnum', inggris: 'Kingdom' },
+        'filum': { indo: 'Divisi/Filum', latin: 'Divisio/Phyllum', inggris: 'Division/Phyllum' },
+        'kelas': { indo: 'Kelas', latin: 'Classis', inggris: 'Class' },
+        'ordo': { indo: 'Bangsa', latin: 'Ordo', inggris: 'Order' },
+        'famili': { indo: 'Suku', latin: 'Familia', inggris: 'Family' },
+        'genus': { indo: 'Marga', latin: 'Genus', inggris: 'Genus' },
+        'spesies': { indo: 'Jenis', latin: 'Species', inggris: 'Species' }
     };
 
-    function tampilkanLangkah(langkahID) {
-        const langkah = kunci[langkahID];
-        pemanduArea.innerHTML = ""; // Kosongkan area
-
-        let teksPertanyaan = document.createElement('h5');
-        teksPertanyaan.className = 'text-gray-900 mb-3';
-        teksPertanyaan.innerText = langkah.teks;
-        pemanduArea.appendChild(teksPertanyaan);
+    let taksonDilihat = new Set();
+    
+    function showTaksonInfo(levelName) {
+        const data = taksonData[levelName];
         
-        let containerPilihan = document.createElement('div');
-        containerPilihan.className = 'd-flex flex-wrap';
-        pemanduArea.appendChild(containerPilihan);
+        // Ambil elemen info box
+        const infoBox = document.getElementById('takson-info-box');
+        const infoTitle = document.getElementById('takson-info-title');
+        const infoLatin = document.getElementById('takson-info-latin');
+        const infoEnglish = document.getElementById('takson-info-english');
 
-        if (langkah.pilihan) {
-            langkah.pilihan.forEach(pilihan => {
-                let btnPilihan = document.createElement('button');
-                
-                if (langkah.isStart) {
-                    // Tampilkan gambar sebagai pilihan
-                    btnPilihan.className = 'btn btn-outline-primary m-2';
-                    btnPilihan.innerHTML = `<img src="${pilihan.img}" width="100"><br>${pilihan.teks}`;
-                } else {
-                    // Tampilkan tombol teks
-                    btnPilihan.className = 'btn btn-primary m-2';
-                    btnPilihan.innerText = pilihan.teks;
-                }
-                
-                btnPilihan.onclick = () => tampilkanLangkah(pilihan.next);
-                containerPilihan.appendChild(btnPilihan);
-            });
-        } 
+        // Isi data ke info box
+        infoTitle.innerText = data.indo;
+        infoLatin.innerHTML = `<strong>Bahasa Latin:</strong> ${data.latin}`;
+        infoEnglish.innerHTML = `<strong>Bahasa Inggris:</strong> ${data.inggris}`;
         
-        if (langkah.isResult) {
-            // Ini adalah halaman hasil
-            organismeTeridentifikasi++;
-            
-            let btnKembali = document.createElement('button');
-            btnKembali.innerText = "Identifikasi Lagi";
-            btnKembali.className = 'btn btn-info m-2';
-            btnKembali.onclick = () => tampilkanLangkah('start');
-            containerPilihan.appendChild(btnKembali);
-
-            // Cek jika semua sudah selesai
-            if (organismeTeridentifikasi >= totalOrganisme) {
-                btnSelesai.style.display = 'inline-block';
-            }
+        // Tampilkan info box
+        infoBox.style.display = 'block';
+        
+        // Lacak kartu yang sudah diklik
+        taksonDilihat.add(levelName);
+        
+        const btnSelesaiModul = document.getElementById('finish-modul-2-btn');
+        
+        // Tampilkan tombol selesai jika siswa sudah klik minimal 4 level
+        if (taksonDilihat.size >= 4 && btnSelesaiModul) {
+            btnSelesaiModul.style.display = 'inline-block';
         }
     }
     
-    // Mulai Pemandu
-    tampilkanLangkah('start');
+    // --- KODE INISIALISASI (HANYA UNTUK SLIDE 2) ---
+    
+    document.addEventListener('DOMContentLoaded', function() {
+        
+        // --- Setup untuk Slide 2 (Pemandu Identifikasi) ---
+        let organismeAktif = null; 
+        const pemanduArea = document.getElementById('pemandu-area');
+        const btnKeSlide3 = document.getElementById('btn-ke-slide-3'); 
+        
+        // Pengecekan penting
+        if (!pemanduArea || !btnKeSlide3) {
+             // Ini normal jika elemen tidak ada di halaman ini
+             return; 
+        }
+
+        const totalOrganisme = 5; // Total organisme sekarang 5
+        let organismeSudahBenar = new Set(); 
+
+        const kunci = {
+            'start': {
+                teks: "Pilih organisme yang ingin kamu buktikan identitasnya:",
+                pilihan: [
+                    { teks: "Lumut", img: "{% static 'img/lumut.jpg' %}", next: "kunci_1" },
+                    { teks: "Suplir", img: "{% static 'img/suplir.jpg' %}", next: "kunci_1" },
+                    { teks: "Jagung", img: "{% static 'img/jagung.jpg' %}", next: "kunci_1" },
+                    { teks: "Mawar", img: "{% static 'img/mawar.jpg' %}", next: "kunci_1" },
+                    { teks: "Melinjo", img: "{% static 'img/melinjo.jpg' %}", next: "kunci_1" }
+                ],
+                isStart: true
+            },
+            'kunci_1': {
+                teks: "1. Apakah tumbuhan ini berspora?",
+                pilihan: [
+                    { teks: "YA, Berspora (1a)", next: "kunci_2" },
+                    { teks: "TIDAK, Tidak berspora (1b)", next: "kunci_3" }
+                ]
+            },
+            'kunci_2': {
+                teks: "2. Apakah memiliki batang yang jelas?",
+                pilihan: [
+                    { teks: "YA, Batang Jelas (2a)", next: "hasil_suplir" },
+                    { teks: "TIDAK, Batang Tidak Jelas (2b)", next: "hasil_lumut" }
+                ]
+            },
+            'kunci_3': {
+                teks: "3. Apakah bijinya tertutup?",
+                pilihan: [
+                    { teks: "YA, Biji Tertutup (3a)", next: "kunci_4" },
+                    { teks: "TIDAK, Biji Terbuka (3b)", next: "hasil_melinjo" } 
+                ]
+            },
+            'kunci_4': {
+                teks: "4. Apakah bijinya berkeping satu (Monokotil)?",
+                pilihan: [
+                    { teks: "YA, Keping Satu (4b)", next: "hasil_jagung" },
+                    { teks: "TIDAK, Keping Dua (4a)", next: "hasil_mawar" }
+                ]
+            },
+            'hasil_lumut': { teks: "TERIDENTIFIKASI: LUMUT!", isResult: true },
+            'hasil_suplir': { teks: "TERIDENTIFTandaIKASI: SUPLIR!", isResult: true },
+            'hasil_jagung': { teks: "TERIDENTIFIKASI: JAGUNG!", isResult: true },
+            'hasil_mawar': { teks: "TERIDENTIFIKASI: MAWAR!", isResult: true },
+            'hasil_melinjo': { teks: "TERIDENTIFIKASI: MELINJO!", isResult: true }
+        };
+        
+        function tampilkanLangkah(langkahID) {
+            
+            const langkah = kunci[langkahID];
+            if (!langkah) {
+                console.error("Error: Kunci '" + langkahID + "' tidak ditemukan.");
+                tampilkanLangkah('start');
+                return;
+            }
+
+            pemanduArea.innerHTML = "";
+            
+            if (langkah.isResult) {
+                const organismeInfo = kunci.start.pilihan.find(p => p.teks === organismeAktif);
+                if (organismeInfo) {
+                    let imgElement = document.createElement('img');
+                    imgElement.src = organismeInfo.img;
+                    imgElement.className = 'img-thumbnail mb-3';
+                    imgElement.style.maxWidth = '250px';
+                    imgElement.style.display = 'block';
+                    imgElement.style.margin = '0 auto 1rem auto';
+                    pemanduArea.appendChild(imgElement);
+                }
+            } else {
+                let teksPertanyaan = document.createElement('h5');
+                teksPertanyaan.className = 'text-gray-900 mb-3';
+                teksPertanyaan.innerText = langkah.teks;
+                pemanduArea.appendChild(teksPertanyaan);
+            }
+
+            let containerPilihan = document.createElement('div');
+            containerPilihan.className = 'd-flex flex-wrap justify-content-center';
+            pemanduArea.appendChild(containerPilihan);
+
+            if (langkah.pilihan) {
+                langkah.pilihan.forEach(pilihan => {
+                    let btnPilihan = document.createElement('button');
+                    if (langkah.isStart) {
+                        btnPilihan.className = 'btn btn-outline-primary m-2';
+                        btnPilihan.innerHTML = `<img src="${pilihan.img}" width="100" class="img-thumbnail"><br>${pilihan.teks}`;
+                        
+                        if (organismeSudahBenar.has(pilihan.teks)) {
+                            btnPilihan.style.display = 'none';
+                        }
+                        
+                        btnPilihan.onclick = () => { 
+                            organismeAktif = pilihan.teks; 
+                            tampilkanLangkah(pilihan.next); 
+                        };
+                    } else {
+                        btnPilihan.className = 'btn btn-primary m-2';
+                        btnPilihan.innerText = pilihan.teks;
+                        btnPilihan.onclick = () => tampilkanLangkah(pilihan.next);
+                    }
+                    containerPilihan.appendChild(btnPilihan);
+                });
+            }
+
+            if (langkah.isResult) {
+                let hasilYgDiharapkan = 'hasil_' + organismeAktif.toLowerCase();
+                let teksFeedback = document.createElement('h5');
+                teksFeedback.className = 'text-center mb-3 w-100';
+
+                if (langkahID === hasilYgDiharapkan) {
+                    teksFeedback.classList.add('text-success');
+                    teksFeedback.innerText = 'BENAR! ' + langkah.teks;
+                    organismeSudahBenar.add(organismeAktif);
+                } else {
+                    teksFeedback.classList.add('text-danger');
+                    let namaHasilSalah = langkah.teks.replace("TERIDENTIFIKASI: ", "").replace("!", "");
+                    teksFeedback.innerText = `Oops! Pilihanmu membawamu ke ${namaHasilSalah}. Padahal kamu sedang mencari ${organismeAktif}. Coba lagi dari awal.`;
+                }
+                pemanduArea.insertBefore(teksFeedback, containerPilihan); 
+
+                let btnKembali = document.createElement('button');
+                btnKembali.innerText = "Identifikasi Lagi";
+                btnKembali.className = 'btn btn-info m-2';
+                btnKembali.onclick = () => { 
+                    organismeAktif = null; 
+                    tampilkanLangkah('start'); 
+                };
+                containerPilihan.appendChild(btnKembali);
+
+                if (organismeSudahBenar.size >= totalOrganisme && btnKeSlide3) {
+                     btnKeSlide3.style.display = 'inline-block';
+                }
+            }
+        }
+        
+        tampilkanLangkah('start');
+
+    }); // Akhir dari DOMContentLoaded
     </script>
 {% endblock %}

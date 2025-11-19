@@ -71,10 +71,22 @@
                     </button>
                 </div>
             </div>
-            <div id="info-penemuan" class="card shadow">
-                <h5 id="info-judul" class="text-primary"></h5>
-                <p id="info-teks"></p>
+            <div id="info-penemuan" class="card shadow mb-3">
+                <div class="card-body">
+                    <h5 id="info-judul" class="text-primary font-weight-bold"></h5>
+                    <p id="info-teks" class="mb-0"></p>
+                </div>
             </div>
+            <a href="{% url 'selesai_step' 'modul_3' %}"
+               id="tombol-lanjut-modul-3"
+               class="btn btn-success btn-icon-split"
+               style="display:none;
+                      width: 100%">
+                <span class="icon text-white-50">
+                    <i class="fas fa-check"></i>
+                </span>
+                <span class="text">Selesai Lab & Lanjut ke Modul 3</span>
+            </a>
         </div>
     </div>
 {% endblock %}
@@ -109,6 +121,14 @@
     const infoJudul = document.getElementById('info-judul');
     const infoTeks = document.getElementById('info-teks');
 
+    // --- LOGIKA BARU DIMULAI DI SINI ---
+
+    // BARU: Set untuk melacak preparat unik yang telah dilihat
+    let preparatDilihat = new Set();
+    
+    // BARU: Ambil tombol lanjut
+    const tombolLanjut = document.getElementById('tombol-lanjut-modul-3');
+
     function pilihPreparat(id) {
         const data = dataPreparat[id];
         
@@ -119,6 +139,19 @@
         infoJudul.innerText = data.judul;
         infoTeks.innerText = data.teks;
         infoBox.style.display = 'block';
+
+        // BARU: Tambahkan preparat ke Set (abaikan 'kosong')
+        if (id !== 'kosong') {
+            preparatDilihat.add(id);
+        }
+
+        // BARU: Cek apakah semua 3 preparat (protista, monera, fungi) sudah dilihat
+        if (preparatDilihat.size >= 3) {
+            tombolLanjut.style.display = 'block'; // Tampilkan tombol lanjut!
+            
+            // Opsional: Tambahkan pesan di info box bahwa lab sudah selesai
+            infoTeks.innerText = data.teks + "\n\n🎉 Kerja bagus! Anda telah menemukan semua spesimen. Silakan lanjut ke modul berikutnya.";
+        }
     }
 
     // Tampilkan info 'kosong' saat pertama dimuat
