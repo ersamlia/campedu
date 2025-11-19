@@ -1,7 +1,6 @@
 {% extends 'main/base.html' %}
 {% load static %}
 {% block title %}Ujian Akhir Bab{% endblock %}
-
 {% block custom_css %}
     <style>
     /* Mengambil gaya dari modul-modul sebelumnya */
@@ -57,6 +56,8 @@
         color: #1c253b;
         margin-bottom: 1rem;
     }
+    
+    /* Gaya Pilihan Ganda */
     .choice-label {
         display: block;
         background: #f8f9fc;
@@ -76,6 +77,18 @@
     .choice-label input[type="radio"] {
         margin-right: 12px;
         transform: scale(1.2);
+    }
+
+    /* Gaya Isian Singkat */
+    .form-control-lg {
+        border-radius: 0.85rem;
+        border: 2px solid #e3e6f0;
+        padding: 1rem 1.5rem;
+        font-size: 1.1rem;
+    }
+    .form-control-lg:focus {
+        border-color: #4e73df;
+        box-shadow: 0 0 0 0.2rem rgba(78, 115, 223, 0.25);
     }
     
     /* === CSS UNTUK TIMER === */
@@ -100,62 +113,68 @@
     }
     </style>
 {% endblock %}
-
 {% block content %}
     <div class="quiz-header">
         <h1 class="h3 text-gray-800 mb-0">Ujian Akhir Bab: {{ pengayaan.judul }}</h1>
         <div class="timer-badge">
-            <i class="fas fa-clock"></i> Sisa Waktu: <span id="timer-display">30:00</span> </div>
+            <i class="fas fa-clock"></i> Sisa Waktu: <span id="timer-display">30:00</span>
+        </div>
     </div>
-
     <div class="learning-card">
         <div class="card-body" style="padding: 1rem 1.5rem;">
-            
-            <form id="quiz-form" action="{% url 'submit_pengayaan' pengayaan.id %}" method="POST">
+            <form id="quiz-form"
+                  action="{% url 'submit_pengayaan' pengayaan.id %}"
+                  method="POST">
                 {% csrf_token %}
-                
                 {% for pertanyaan in pertanyaan %}
                     <div class="question-block">
                         <p class="question-text">{{ forloop.counter }}. {{ pertanyaan.teks_pertanyaan }}</p>
-                        
-                        <div class="choices">
-                            {% for pilihan in pertanyaan.pilihanpengayaan_set.all %}
-                            <label class="choice-label">
-                                <input type="radio" 
-                                       name="pertanyaan_{{ pertanyaan.id }}" 
-                                       value="{{ pilihan.id }}" 
+                        {% if pertanyaan.tipe == 'PG' %}
+                            <div class="choices">
+                                {% for pilihan in pertanyaan.pilihanpengayaan_set.all %}
+                                    <label class="choice-label">
+                                        <input type="radio"
+                                               name="pertanyaan_{{ pertanyaan.id }}"
+                                               value="{{ pilihan.id }}"
+                                               required>
+                                        {{ pilihan.teks_pilihan }}
+                                    </label>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            <div class="form-group">
+                                <input type="text"
+                                       class="form-control form-control-lg"
+                                       name="pertanyaan_{{ pertanyaan.id }}"
+                                       placeholder="Ketik jawaban Anda di sini..."
+                                       autocomplete="off"
                                        required>
-                                {{ pilihan.teks_pilihan }}
-                            </label>
-                            {% endfor %}
-                        </div>
+                            </div>
+                        {% endif %}
                     </div>
                 {% empty %}
-                    <div class="alert alert-warning">
-                        Belum ada pertanyaan yang ditambahkan untuk ujian pengayaan ini.
-                    </div>
+                    <div class="alert alert-warning">Belum ada pertanyaan yang ditambahkan untuk ujian pengayaan ini.</div>
                 {% endfor %}
-                
                 <hr>
-                
                 {% if pertanyaan %}
-                <button type="submit" class="btn btn-success btn-icon-split" style="border-radius: 0.85rem;">
-                    <span class="icon text-white-70"><i class="fas fa-check"></i></span>
-                    <span class="text">Kirim Jawaban</span>
-                </button>
+                    <button type="submit"
+                            class="btn btn-success btn-icon-split"
+                            style="border-radius: 0.85rem">
+                        <span class="icon text-white-70"><i class="fas fa-check"></i></span>
+                        <span class="text">Kirim Jawaban</span>
+                    </button>
                 {% endif %}
             </form>
         </div>
     </div>
 {% endblock %}
-
 {% block custom_js %}
-<script>
+    <script>
 // --- JAVASCRIPT UNTUK TIMER ---
 
 document.addEventListener('DOMContentLoaded', function() {
     
-    // PERUBAHAN DI SINI: Durasi diubah ke 30 menit
+    // Durasi 30 menit
     const durationInSeconds = 30 * 60; 
     let timer = durationInSeconds;
     
@@ -183,5 +202,5 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }, 1000); 
 });
-</script>
+    </script>
 {% endblock %}

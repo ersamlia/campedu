@@ -103,11 +103,13 @@ a.btn.disabled {
 
 /* === CSS KHUSUS MODUL 1 === */
 /* Style untuk gambar di Slide 3 dan 4 */
-.stim-img, #obj-img {
-    height: 180px; /* Menyamakan tinggi gambar */
+#obj-img {
     width: 100%;
-    object-fit: cover; /* Memotong gambar agar pas */
-    border-radius: 1.08rem; /* Sudut bulat */
+    max-height: 250px;
+    object-fit: contain;
+    background: #ffffff;
+    border-radius: 1.08rem;
+    padding: 10px;
 }
 
 /* Style baru untuk tombol checklist di Slide 4 */
@@ -179,19 +181,19 @@ a.btn.disabled {
             <p>Perhatikan 4 gambar di bawah ini. Menurutmu, mana yang makhluk hidup dan mana yang benda mati?</p>
             <div class="row text-center">
                 <div class="col-md-3 mb-2">
-                    <img src="{% static 'img/pohon.jpg' %}" class="img-fluid rounded mb-2 stim-img" alt="Pohon"><br>
+                    <img src="{% static 'img/pohon.png' %}" class="img-fluid rounded mb-2 stim-img" alt="Pohon"><br>
                     <strong>Pohon</strong>
                 </div>
                 <div class="col-md-3 mb-2">
-                    <img src="{% static 'img/batu.jpg' %}" class="img-fluid rounded mb-2 stim-img" alt="Batu"><br>
+                    <img src="{% static 'img/batu.png' %}" class="img-fluid rounded mb-2 stim-img" alt="Batu"><br>
                     <strong>Batu</strong>
                 </div>
                 <div class="col-md-3 mb-2">
-                    <img src="{% static 'img/burung.jpg' %}" class="img-fluid rounded mb-2 stim-img" alt="Burung"><br>
+                    <img src="{% static 'img/burung.png' %}" class="img-fluid rounded mb-2 stim-img" alt="Burung"><br>
                     <strong>Burung</strong>
                 </div>
                 <div class="col-md-3 mb-2">
-                    <img src="{% static 'img/mobil.jpg' %}" class="img-fluid rounded mb-2 stim-img" alt="Mobil"><br>
+                    <img src="{% static 'img/mobil.png' %}" class="img-fluid rounded mb-2 stim-img" alt="Mobil"><br>
                     <strong>Mobil</strong>
                 </div>
             </div>
@@ -302,7 +304,7 @@ function checkKesimpulan() {
 
 const objects = {
     'Kucing': {
-        img: "{% static 'img/kucing.jpg' %}",
+        img: "{% static 'img/kucing.png' %}",
         ciri: {
             'Bernapas': { 'status': true, 'teks': 'YA! Kucing bernapas dengan paru-paru.' },
             'Bergerak': { 'status': true, 'teks': 'YA! Kucing bisa berlari dan melompat.' },
@@ -315,7 +317,7 @@ const objects = {
         kesimpulan: "MAKHLUK HIDUP"
     },
     'Robot': {
-        img: "{% static 'img/robot.jpg' %}",
+        img: "{% static 'img/robot.png' %}",
         ciri: {
             'Bernapas': { 'status': false, 'teks': 'TIDAK! Robot tidak bernapas.' },
             'Bergerak': { 'status': true, 'teks': 'YA! Robot bisa bergerak dengan baterai.' },
@@ -336,7 +338,7 @@ const totalCiri = 7;
 
 function loadObject(namaObjek) {
     const obj = objects[namaObjek];
-    document.getElementById('obj-title').innerText = Objek: ${namaObjek};
+    document.getElementById('obj-title').innerText = `Objek: ${namaObjek}`;
     document.getElementById('obj-img').src = obj.img;
     document.getElementById('obj-result').innerText = "";
     
@@ -352,8 +354,8 @@ function loadObject(namaObjek) {
         let btn = document.createElement('button');
         
         // Menggunakan Ikon FontAwesome
-        btn.innerHTML = <i class="far fa-square mr-2"></i> ${ciri};
-        btn.id = btn-${ciri};
+        btn.innerHTML = `<i class="far fa-square mr-2"></i> ${ciri}`;
+        btn.id = `btn-${ciri}`;
         btn.className = 'btn btn-outline-primary'; // Default Biru
         
         btn.dataset.namaObjek = namaObjek;
@@ -364,7 +366,7 @@ function loadObject(namaObjek) {
         wrapper.appendChild(btn);
         
         let teks = document.createElement('span');
-        teks.id = teks-${ciri};
+        teks.id = `teks-${ciri}`;
         teks.style.marginLeft = '10px';
         teks.className = 'text-gray-700';
         wrapper.appendChild(teks);
@@ -377,15 +379,15 @@ function checkCiri(buttonElement) {
     const ciri = buttonElement.dataset.ciri;
     const status = buttonElement.dataset.status === 'true';
     const teks = buttonElement.dataset.teks;
-    const teksSpan = document.getElementById(teks-${ciri});
+    const teksSpan = document.getElementById(`teks-${ciri}`);
     
     if (status) {
         // Jika YA (Benar)
-        buttonElement.innerHTML = <i class="fas fa-check-square mr-2"></i> ${ciri};
+        buttonElement.innerHTML = `<i class="fas fa-check-square mr-2"></i> ${ciri}`;
         buttonElement.className = 'btn btn-success';
     } else {
         // Jika TIDAK (Salah)
-        buttonElement.innerHTML = <i class="fas fa-times-circle mr-2"></i> ${ciri};
+        buttonElement.innerHTML = `<i class="fas fa-times-circle mr-2"></i> ${ciri}`;
         buttonElement.className = 'btn btn-danger';
     }
     
@@ -394,7 +396,7 @@ function checkCiri(buttonElement) {
     clickedCount++;
     
     if (clickedCount === totalCiri) {
-        document.getElementById('obj-result').innerText = KESIMPULAN: ${namaObjek} adalah ${objects[namaObjek].kesimpulan};
+        document.getElementById('obj-result').innerText = `KESIMPULAN: ${namaObjek} adalah ${objects[namaObjek].kesimpulan}`;
         if (namaObjek === 'Kucing') {
             document.getElementById('next-obj-btn').style.display = 'inline-block';
         } else {

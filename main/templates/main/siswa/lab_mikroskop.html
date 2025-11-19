@@ -77,16 +77,16 @@
     }
     /* === AKHIR CSS DARI MODUL 2 === */
 
-    /* CSS Khusus untuk Halaman Ini */
+    /* CSS Khusus untuk Halaman Ini - Disesuaikan untuk VIDEO */
     #tampilan-lensa {
         width: 400px;
         height: 400px;
         border: 10px solid #333;
-        border-radius: 50%;
+        border-radius: 50%; /* Membuat tampilan melingkar */
         background-color: #f0f0f0;
-        background-image: url('{% static "img/lensa_kosong.png" %}');
-        background-size: cover;
-        background-position: center;
+        /* Hapus properti background-image lama yang digunakan untuk DIV */
+        /* background-image: url('{% static "img/lensa_kosong.png" %}'); */ 
+        object-fit: cover; /* Penting agar video mengisi lingkaran */
         margin: 0 auto; /* Dibuat auto agar center di card-body */
         box-shadow: 0 4px 15px rgba(0,0,0,0.2);
     }
@@ -113,10 +113,15 @@
                     <h6>Tampilan Lensa Okuler</h6>
                 </div>
                 <div class="card-body d-flex justify-content-center"
-                     style="min-height: 430px;
+                    style="min-height: 430px;
                             align-items: center;
                             padding: 0">
-                    <div id="tampilan-lensa"></div>
+                    <video id="tampilan-lensa"
+                           poster="{% static 'img/lensa_kosong.png' %}"
+                           autoplay
+                           loop
+                           muted
+                           playsinline></video>
                 </div>
             </div>
         </div>
@@ -143,19 +148,19 @@
                 </div>
             </div>
             <div id="info-penemuan"
-                 class="learning-card mb-3"
-                 style="padding: 1.5rem 1.8rem;
-                        display: none">
+                    class="learning-card mb-3"
+                    style="padding: 1.5rem 1.8rem;
+                            display: none">
                 <div class="card-body" style="padding: 0;">
                     <h5 id="info-judul" class="text-primary"></h5>
                     <p id="info-teks" class="mb-0"></p>
                 </div>
             </div>
             <a href="{% url 'selesai_step' 'mikroskop' %}"
-               id="tombol-lanjut-modul-3"
-               class="btn btn-success btn-icon-split"
-               style="display:none;
-                      border-radius: 0.85rem">
+                id="tombol-lanjut-modul-3"
+                class="btn btn-success btn-icon-split"
+                style="display:none;
+                        border-radius: 0.85rem">
                 <span class="icon text-white-50">
                     <i class="fas fa-check"></i>
                 </span>
@@ -166,30 +171,31 @@
 {% endblock %}
 {% block custom_js %}
     <script>
-    // Data untuk Mikroskop Virtual
+    // Data untuk Mikroskop Virtual - Menggunakan 'video_url'
     const dataPreparat = {
         'protista': {
-            img: "{% static 'img/protista.jpg' %}",
+            video_url: "{% static 'video/airkolam.mp4' %}", // Ganti dengan path video Anda
             judul: "PENEMUAN: Kingdom Protista!",
-            teks: "Lihat! Ini adalah Paramecium. Organisme ini bersel satu tapi sudah punya membran inti (eukariotik). Mereka hidup di air."
+            teks: "Lihat! Ini adalah Paramecium yang bergerak aktif. Organisme ini bersel satu tapi sudah punya membran inti (eukariotik). Mereka hidup di air."
         },
         'monera': {
-            img: "{% static 'img/bakteri.jpg' %}",
+            video_url: "{% static 'video/bakteri.mp4' %}", // Ganti dengan path video Anda
             judul: "PENEMUAN: Kingdom Monera!",
             teks: "Ini adalah Bakteri. Ciri utamanya adalah bersel satu dan TIDAK punya membran inti (prokariotik)."
         },
         'fungi': {
-            img: "{% static 'img/jamur_roti.jpg' %}",
+            video_url: "{% static 'video/jamurroti.mp4' %}", // Ganti dengan path video Anda
             judul: "PENEMUAN: Kingdom Fungi!",
             teks: "Ini adalah jamur roti. Perhatikan, tubuhnya terdiri dari benang-benang halus (hifa) dan kotak spora (sporangium)."
         },
         'kosong': {
-            img: "{% static 'img/lensa_kosong.png' %}",
+            video_url: null, // Null menandakan tidak ada video
             judul: "Meja Preparat Kosong",
             teks: "Silakan pilih salah satu preparat untuk mulai mengamati."
         }
     };
 
+    // Mendapatkan elemen VIDEO
     const lensa = document.getElementById('tampilan-lensa');
     const infoBox = document.getElementById('info-penemuan');
     const infoJudul = document.getElementById('info-judul');
@@ -201,9 +207,19 @@
     function pilihPreparat(id) {
         const data = dataPreparat[id];
         
-        // 1. Ganti gambar di lensa
-        lensa.style.backgroundImage = `url(${data.img})`;
-        
+        // 1. Ganti sumber video di lensa dan putar
+        if (data.video_url) {
+            lensa.src = data.video_url;
+            // Video akan otomatis looping karena atribut 'loop' di tag <video>
+            lensa.play().catch(e => console.log("Autoplay diblokir:", e));
+        } else {
+            // Untuk 'kosong', hentikan video dan tampilkan gambar placeholder
+            lensa.pause();
+            lensa.removeAttribute('src'); 
+            lensa.load(); // Muat ulang elemen video
+            lensa.poster = "{% static 'img/lensa_kosong.png' %}"; // Tampilkan poster/placeholder
+        }
+
         // 2. Siapkan data untuk info box
         infoJudul.innerText = data.judul;
         let baseTeks = data.teks; 

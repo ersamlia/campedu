@@ -1,5 +1,3 @@
-# main/admin.py
-
 from django.contrib import admin
 from .models import (
     Profile, SubBab, LatihanSoal, Pertanyaan, PilihanJawaban,
@@ -8,48 +6,48 @@ from .models import (
     HasilLatihan, JawabanSiswa, HasilPengayaan
 )
 
-# Struktur ini membantu melihat relasi di admin
+# --- 1. Admin untuk Latihan Soal (Sub-bab) ---
 class PilihanJawabanInline(admin.TabularInline):
     model = PilihanJawaban
-    extra = 4 # Tampilkan 4 slot pilihan kosong
+    extra = 4 
 
 class PertanyaanAdmin(admin.ModelAdmin):
     inlines = [PilihanJawabanInline]
     list_display = ('teks_pertanyaan', 'latihan')
+    list_filter = ('latihan',)  # Memudahkan filter per Latihan
     
-    # ==========================================================
-    # PERBARUI/TAMBAHKAN BLOK 'fieldsets' INI
-    # ==========================================================
-    # Ini akan mengatur tampilan form admin saat Anda menambah/mengedit pertanyaan
     fieldsets = (
         (None, {
-            # Tampilkan field ini di bagian atas
             'fields': ('latihan', 'teks_pertanyaan', 'explanation') 
         }),
     )
-    # ==========================================================
-    
 
+# --- 2. Admin untuk Soal Pengayaan (Ujian Akhir) ---
 class PilihanPengayaanInline(admin.TabularInline):
     model = PilihanPengayaan
     extra = 4
 
 class PertanyaanPengayaanAdmin(admin.ModelAdmin):
     inlines = [PilihanPengayaanInline]
-    list_display = ('teks_pertanyaan', 'pengayaan')
+    # Menampilkan kolom Tipe di daftar soal
+    list_display = ('teks_pertanyaan', 'tipe', 'pengayaan')
+    # Menambahkan filter di samping kanan agar mudah mencari soal PG/Isian
+    list_filter = ('pengayaan', 'tipe')
+    search_fields = ('teks_pertanyaan',)
 
-    # ==========================================================
-    # PERBARUI/TAMBAHKAN BLOK 'fieldsets' INI JUGA
-    # ==========================================================
+    # Mengatur tampilan form agar lebih rapi
     fieldsets = (
-        (None, {
-            'fields': ('pengayaan', 'teks_pertanyaan', 'explanation')
+        ('Detail Soal', {
+            'fields': ('pengayaan', 'tipe', 'teks_pertanyaan', 'explanation')
+        }),
+        ('Kunci Jawaban (Khusus Isian)', {
+            'classes': ('collapse',), # Membuat bagian ini bisa ditutup/buka
+            'fields': ('kunci_jawaban_isian',),
+            'description': 'Isi kolom ini <b>HANYA</b> jika Tipe Soal adalah "Isian Singkat". Biarkan kosong jika Pilihan Ganda.'
         }),
     )
-    # ==========================================================
 
-
-# --- Daftarkan Model Anda ---
+# --- Daftarkan Model ---
 admin.site.register(Profile)
 admin.site.register(SubBab)
 admin.site.register(LatihanSoal)
@@ -59,8 +57,10 @@ admin.site.register(SoalPengayaan)
 admin.site.register(Pertanyaan, PertanyaanAdmin)
 admin.site.register(PertanyaanPengayaan, PertanyaanPengayaanAdmin)
 
-# Model untuk melacak progres
+# Model untuk melacak progres & hasil
 admin.site.register(SiswaProgress) 
 admin.site.register(HasilLatihan)
 admin.site.register(JawabanSiswa)
 admin.site.register(HasilPengayaan)
+# admin.site.register(PilihanJawaban) # Opsional: Biasanya tidak perlu didaftarkan terpisah karena sudah ada di Inline
+# admin.site.register(PilihanPengayaan) # Opsional
