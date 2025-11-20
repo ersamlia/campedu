@@ -3,52 +3,67 @@
 {% block title %}Modul 2: {{ subbab.judul }}{% endblock %}
 {% block custom_css %}
     <style>
-    @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&display=swap');
-    body {
-        font-family: 'Nunito', sans-serif;
-        background: #f3f6fd;
-    }
-        
-        /* === CSS BARU UNTUK JUDUL HALAMAN === */
-    .page-title-custom {
-        font-family: 'Nunito', sans-serif !important;
-        color: #1c253b !important;
-        font-weight: 800 !important;
-    }
-
-    .learning-slide { display: none; }
-    .learning-slide.active { display: block; }
-
-    .learning-card {
-        background: #fff;
-        border-radius: 2.2rem;
-        box-shadow: 0 8px 32px rgba(53,99,233,0.10);
-        padding: 2.6rem 5vw 2.2rem 5vw;
-        width: 100%;
-        max-width: 100%;
-        margin: 0 auto 2.5rem auto;
-    }
-    @media (max-width: 900px) {
-        .learning-card { padding: 1.0rem .7rem 1.0rem .7rem; border-radius: 1.08rem; }
-    }
-
-    .learning-card .card-header {
-        background: transparent;
-        border: none;
-        border-radius: 2.2rem 2.2rem 0 0;
-        font-weight: 800;
-        padding: 0;
-        margin-bottom: 1.02rem;
-    }
-    .learning-card .card-header h6 {
-        color: #246bfd;
-        font-size: 1.13rem;
-        font-weight: 900;
-        font-family: 'Nunito', sans-serif !important;
-        margin-bottom: 0;
-        line-height: 1.22;
-        letter-spacing: .007em;
-    }
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&display=swap');
+body {
+    font-family: 'Nunito', sans-serif;
+    background: #f3f6fd;
+}
+.modul-header-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.6rem;
+    background: #fff;
+    padding: 1.1rem 1.5rem;
+    border-radius: 1.2rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+}
+.modul-header-title {
+    font-family: 'Nunito', sans-serif;
+    color: #22356f;
+    font-weight: 900;
+    font-size: 1.28rem;
+    margin-bottom: 3px;
+}
+.modul-header-keterangan {
+    font-size: 0.92rem;
+    color: #7a849c;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+.learning-slide { display: none; }
+.learning-slide.active { display: block; }
+.learning-card {
+    background: #fff;
+    border-radius: 2.2rem;
+    box-shadow: 0 8px 32px rgba(53,99,233,0.10);
+    padding: 2.6rem 5vw 2.2rem 5vw;
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto 2.5rem auto;
+}
+@media (max-width: 900px) {
+    .learning-card { padding: 1.0rem .7rem 1.0rem .7rem; border-radius: 1.08rem; }
+    .modul-header-card { padding: 0.7rem;}
+    .modul-header-title { font-size: 1.12rem;}
+}
+.learning-card .card-header {
+    background: transparent;
+    border: none;
+    border-radius: 2.2rem 2.2rem 0 0;
+    font-weight: 800;
+    padding: 0;
+    margin-bottom: 1.02rem;
+}
+.learning-card .card-header h6 {
+    color: #246bfd;
+    font-size: 1.13rem;
+    font-weight: 900;
+    font-family: 'Nunito', sans-serif !important;
+    margin-bottom: 0;
+    line-height: 1.22;
+    letter-spacing: .007em;
+}
     .learning-card .card-body h5, .learning-card .card-body h4 {
         font-family: 'Nunito', sans-serif !important;
         color: #1c253b;
@@ -138,9 +153,14 @@
     </style>
 {% endblock %}
 {% block content %}
-    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 h1 class="h3 mb-4 text-gray-800 page-title-custom">{{ subbab.judul }}</h1>
+<div class="modul-header-card">
+    <div>
+        <div class="modul-header-title">Modul 2: {{ subbab.judul }}</div>
+        <div class="modul-header-keterangan">
+            {{ subbab.deskripsi|default:"Kerjakan materi berikut dengan sungguh-sungguh dan catat hal penting." }}
+        </div>
     </div>
+</div>
     <div id="slide-1" class="learning-slide active">
         <div class="learning-card">
             <div class="card-header">
