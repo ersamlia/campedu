@@ -4,52 +4,52 @@
 
 {% block custom_css %}
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&display=swap');
-body {
-    font-family: 'Nunito', sans-serif;
-    background: #f3f6fd;
-}
-.lab-header-card {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1.5rem;
-    background: #fff;
-    padding: 1rem 1.5rem;
-    border-radius: 1.25rem;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.03);
-}
-.lab-header-title {
-    font-family: 'Nunito', sans-serif;
-    color: #22356f;
-    font-weight: 900;
-    font-size: 1.24rem;
-    margin-bottom: 3px;
-}
-.lab-header-desc {
-    font-size: 0.97rem;
-    color: #7a849c;
-    font-weight: 600;
-    letter-spacing: 0.5px;
-}
+    @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&display=swap');
+    body {
+        font-family: 'Nunito', sans-serif;
+        background: #f3f6fd;
+    }
 
-/* lanjutan style sebelumnya, biarkan tetap seperti di bawah */
-.learning-card {
-    background: #fff;
-    border-radius: 2.2rem;
-    box-shadow: 0 8px 32px rgba(53,99,233,0.10);
-    padding: 2.6rem 5vw 2.2rem 5vw;
-    width: 100%;
-    max-width: 100%;
-    margin: 0 auto 2.5rem auto;
-}
-@media (max-width: 900px) {
-    .learning-card { padding: 1.0rem .7rem 1.0rem .7rem; border-radius: 1.08rem; }
-    .lab-header-card { padding: .75rem; }
-    .lab-header-title { font-size: 1.07rem;}
-}
+    /* === HEADER === */
+    .lab-header-card {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1.5rem;
+        background: #fff;
+        padding: 1rem 1.5rem;
+        border-radius: 1.25rem;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+    }
+    .lab-header-title {
+        font-family: 'Nunito', sans-serif;
+        color: #22356f;
+        font-weight: 900;
+        font-size: 1.24rem;
+        margin-bottom: 3px;
+    }
+    .lab-header-desc {
+        font-size: 0.97rem;
+        color: #7a849c;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+    }
 
-<<<<<<< Updated upstream
+    /* === LEARNING CARD === */
+    .learning-card {
+        background: #fff;
+        border-radius: 2.2rem;
+        box-shadow: 0 8px 32px rgba(53,99,233,0.10);
+        padding: 2.6rem 5vw 2.2rem 5vw;
+        width: 100%;
+        max-width: 100%;
+        margin: 0 auto 2.5rem auto;
+    }
+    @media (max-width: 900px) {
+        .learning-card { padding: 1.0rem .7rem 1.0rem .7rem; border-radius: 1.08rem; }
+        .lab-header-card { padding: .75rem; flex-direction: column; align-items: flex-start; }
+    }
+
     .learning-card .card-header {
         background: transparent;
         border: none;
@@ -67,132 +67,48 @@ body {
         line-height: 1.22;
         letter-spacing: .007em;
     }
-    .learning-card .card-body h5, .learning-card .card-body h4 {
-        font-family: 'Nunito', sans-serif !important;
-        color: #1c253b;
-        font-size: 1.19rem;
-        font-weight: 800;
-        margin-bottom: .58rem;
-    }
-    .learning-card ul, .learning-card ol {
-        margin-left: 1.11rem;
-        margin-bottom: 1rem;
-        color: #495466;
-    }
-    .learning-card button.btn-primary {
-        background-color: #246bfd;
-        font-weight: 700;
-        border-radius: 0.85rem;
-        border: none;
-    }
-    .learning-card button.btn-primary:hover,
-    .learning-card button.btn-primary:focus {
-        background-color: #1c519b;
-    }
+    .learning-card button.btn-info { border-radius: 0.85rem; }
     .learning-card button.btn-secondary { border-radius: 0.85rem; }
-    
-    .learning-card button.btn-info {
-        border-radius: 0.85rem;
-    }
-    /* === AKHIR CSS DARI MODUL 2 === */
+    .learning-card button.btn-success { border-radius: 0.85rem; }
 
-    /* CSS Khusus untuk Halaman Ini - Disesuaikan untuk VIDEO */
-    #tampilan-lensa {
+    /* === AREA MIKROSKOP (VIDEO) === */
+    .lens-container {
         width: 400px;
         height: 400px;
         border: 10px solid #333;
-        border-radius: 50%; /* Membuat tampilan melingkar */
-        background-color: #f0f0f0;
-        /* Hapus properti background-image lama yang digunakan untuk DIV */
-        /* background-image: url('{% static "img/lensa_kosong.png" %}'); */ 
-        object-fit: cover; /* Penting agar video mengisi lingkaran */
-        margin: 0 auto; /* Dibuat auto agar center di card-body */
+        border-radius: 50%;
+        overflow: hidden;
+        background-color: #000;
         box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        position: relative;
     }
     
+    #tampilan-lensa {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+    }
+
     #kotak-preparat .btn {
         display: block;
         width: 100%;
         margin-bottom: 10px;
-        text-align: left; /* Teks rata kiri */
+        text-align: left;
     }
-    #info-penemuan {
-        margin-top: 20px;
-        display: none; /* Sembunyi awalnya */
-    }
-    </style>
-=======
-.learning-card .card-header {
-    background: transparent;
-    border: none;
-    border-radius: 2.2rem 2.2rem 0 0;
-    font-weight: 800;
-    padding: 0;
-    margin-bottom: 1.02rem;
-}
-.learning-card .card-header h6 {
-    color: #246bfd;
-    font-size: 1.13rem;
-    font-weight: 900;
-    font-family: 'Nunito', sans-serif !important;
-    margin-bottom: 0;
-    line-height: 1.22;
-    letter-spacing: .007em;
-}
-.learning-card .card-body h5, .learning-card .card-body h4 {
-    font-family: 'Nunito', sans-serif !important;
-    color: #1c253b;
-    font-size: 1.19rem;
-    font-weight: 800;
-    margin-bottom: .58rem;
-}
-.learning-card ul, .learning-card ol {
-    margin-left: 1.11rem;
-    margin-bottom: 1rem;
-    color: #495466;
-}
-.learning-card button.btn-primary {
-    background-color: #246bfd;
-    font-weight: 700;
-    border-radius: 0.85rem;
-    border: none;
-}
-.learning-card button.btn-primary:hover, .learning-card button.btn-primary:focus {
-    background-color: #1c519b;
-}
-.learning-card button.btn-secondary { border-radius: 0.85rem; }
-.learning-card button.btn-info { border-radius: 0.85rem; }
-/* Tambahkan style khusus halaman anda di bawah sini (tampilan lensa dll) ...  */
-#tampilan-lensa {
-    width: 400px;
-    height: 400px;
-    border: 10px solid #333;
-    border-radius: 50%;
-    background-color: #f0f0f0;
-    background-image: url('{% static "img/lensa_kosong.png" %}');
-    background-size: cover;
-    background-position: center;
-    margin: 0 auto;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-}
-#kotak-preparat .btn {
-    display: block;
-    width: 100%;
-    margin-bottom: 10px;
-    text-align: left;
-}
-#info-penemuan {
-    margin-top: 20px;
-    display: none;
-}
 </style>
->>>>>>> Stashed changes
 {% endblock %}
 
 {% block content %}
-<<<<<<< Updated upstream
-    <h1 class="h3 mb-4 text-gray-800 page-title-custom">Lab Mikroskop Virtual</h1>
-    <p>Beberapa Kingdom terlalu kecil untuk dilihat. Gunakan mikroskop ini untuk "menemukan" mereka!</p>
+    <div class="lab-header-card">
+        <div>
+            <div class="lab-header-title">Lab Mikroskop Virtual</div>
+            <div class="lab-header-desc">
+                Amati pergerakan mikroorganisme hidup melalui video mikroskop ini.
+            </div>
+        </div>
+    </div>
+
     <div class="row">
         <div class="col-lg-7">
             <div class="learning-card">
@@ -200,18 +116,23 @@ body {
                     <h6>Tampilan Lensa Okuler</h6>
                 </div>
                 <div class="card-body d-flex justify-content-center"
-                    style="min-height: 430px;
-                            align-items: center;
-                            padding: 0">
-                    <video id="tampilan-lensa"
-                           poster="{% static 'img/lensa_kosong.png' %}"
-                           autoplay
-                           loop
-                           muted
-                           playsinline></video>
+                     style="min-height: 430px; align-items: center; padding: 0;">
+                    
+                    <div class="lens-container">
+                        <video id="tampilan-lensa" 
+                               poster="{% static 'img/lensa_kosong.png' %}" 
+                               autoplay 
+                               loop 
+                               muted 
+                               playsinline>
+                            Browser Anda tidak mendukung tag video.
+                        </video>
+                    </div>
+
                 </div>
             </div>
         </div>
+
         <div class="col-lg-5">
             <div class="learning-card">
                 <div class="card-header">
@@ -219,6 +140,7 @@ body {
                 </div>
                 <div class="card-body" id="kotak-preparat">
                     <p>Klik preparat untuk mengamatinya:</p>
+                    
                     <button class="btn btn-info" onclick="pilihPreparat('protista')">
                         <i class="fas fa-fw fa-tint"></i> Preparat 1: Air Kolam
                     </button>
@@ -228,223 +150,110 @@ body {
                     <button class="btn btn-info" onclick="pilihPreparat('fungi')">
                         <i class="fas fa-fw fa-bread-slice"></i> Preparat 3: Jamur Roti
                     </button>
+                    
                     <hr class="my-3">
+                    
                     <button class="btn btn-secondary" onclick="pilihPreparat('kosong')">
                         <i class="fas fa-fw fa-times"></i> Lepas Preparat
                     </button>
                 </div>
             </div>
+
             <div id="info-penemuan"
-                    class="learning-card mb-3"
-                    style="padding: 1.5rem 1.8rem;
-                            display: none">
+                 class="learning-card mb-3"
+                 style="padding: 1.5rem 1.8rem; display: none;">
                 <div class="card-body" style="padding: 0;">
                     <h5 id="info-judul" class="text-primary"></h5>
                     <p id="info-teks" class="mb-0"></p>
                 </div>
             </div>
+
             <a href="{% url 'selesai_step' 'mikroskop' %}"
-                id="tombol-lanjut-modul-3"
-                class="btn btn-success btn-icon-split"
-                style="display:none;
-                        border-radius: 0.85rem">
+               id="tombol-lanjut-modul-3"
+               class="btn btn-success btn-icon-split"
+               style="display:none; border-radius: 0.85rem;">
                 <span class="icon text-white-50">
                     <i class="fas fa-check"></i>
                 </span>
                 <span class="text">Selesai Lab & Lanjut ke Modul 3</span>
             </a>
-=======
-<div class="lab-header-card">
-    <div>
-        <div class="lab-header-title">Lab Mikroskop Virtual</div>
-        <div class="lab-header-desc">
-            Amati preparat kingdom yang mikroskopis di laboratorium virtual ini. Lihat ciri unik tiap kingdom sebelum melanjutkan.
->>>>>>> Stashed changes
         </div>
     </div>
-</div>
-<div class="row">
-    <div class="col-lg-7">
-        <div class="learning-card">
-            <div class="card-header">
-                <h6>Tampilan Lensa Okuler</h6>
-            </div>
-            <div class="card-body d-flex justify-content-center"
-                 style="min-height: 430px;
-                        align-items: center;
-                        padding: 0">
-                <div id="tampilan-lensa"></div>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-5">
-        <div class="learning-card">
-            <div class="card-header">
-                <h6>Kotak Preparat</h6>
-            </div>
-            <div class="card-body" id="kotak-preparat">
-                <p>Klik preparat untuk mengamatinya:</p>
-                <button class="btn btn-info" onclick="pilihPreparat('protista')">
-                    <i class="fas fa-fw fa-tint"></i> Preparat 1: Air Kolam
-                </button>
-                <button class="btn btn-info" onclick="pilihPreparat('monera')">
-                    <i class="fas fa-fw fa-bacterium"></i> Preparat 2: Bakteri
-                </button>
-                <button class="btn btn-info" onclick="pilihPreparat('fungi')">
-                    <i class="fas fa-fw fa-bread-slice"></i> Preparat 3: Jamur Roti
-                </button>
-                <hr class="my-3">
-                <button class="btn btn-secondary" onclick="pilihPreparat('kosong')">
-                    <i class="fas fa-fw fa-times"></i> Lepas Preparat
-                </button>
-            </div>
-        </div>
-        <div id="info-penemuan"
-             class="learning-card mb-3"
-             style="padding: 1.5rem 1.8rem; display: none">
-            <div class="card-body" style="padding: 0;">
-                <h5 id="info-judul" class="text-primary"></h5>
-                <p id="info-teks" class="mb-0"></p>
-            </div>
-        </div>
-        <a href="{% url 'selesai_step' 'mikroskop' %}"
-           id="tombol-lanjut-modul-3"
-           class="btn btn-success btn-icon-split"
-           style="display:none; border-radius: 0.85rem">
-            <span class="icon text-white-50">
-                <i class="fas fa-check"></i>
-            </span>
-            <span class="text">Selesai Lab & Lanjut ke Modul 3</span>
-        </a>
-    </div>
-</div>
 {% endblock %}
 
 {% block custom_js %}
-<<<<<<< Updated upstream
-    <script>
-    // Data untuk Mikroskop Virtual - Menggunakan 'video_url'
+<script>
+    // Data untuk Mikroskop Virtual (Versi Video)
     const dataPreparat = {
         'protista': {
-            video_url: "{% static 'video/airkolam.mp4' %}", // Ganti dengan path video Anda
+            video_url: "{% static 'video/airkolam.mp4' %}", 
             judul: "PENEMUAN: Kingdom Protista!",
             teks: "Lihat! Ini adalah Paramecium yang bergerak aktif. Organisme ini bersel satu tapi sudah punya membran inti (eukariotik). Mereka hidup di air."
         },
         'monera': {
-            video_url: "{% static 'video/bakteri.mp4' %}", // Ganti dengan path video Anda
+            video_url: "{% static 'video/bakteri.mp4' %}",
             judul: "PENEMUAN: Kingdom Monera!",
-            teks: "Ini adalah Bakteri. Ciri utamanya adalah bersel satu dan TIDAK punya membran inti (prokariotik)."
+            teks: "Ini adalah Bakteri. Perhatikan ukurannya yang sangat kecil dibandingkan Protista. Ciri utamanya adalah bersel satu dan TIDAK punya membran inti (prokariotik)."
         },
         'fungi': {
-            video_url: "{% static 'video/jamurroti.mp4' %}", // Ganti dengan path video Anda
+            video_url: "{% static 'video/jamurroti.mp4' %}",
             judul: "PENEMUAN: Kingdom Fungi!",
-            teks: "Ini adalah jamur roti. Perhatikan, tubuhnya terdiri dari benang-benang halus (hifa) dan kotak spora (sporangium)."
+            teks: "Ini adalah jamur roti di bawah mikroskop. Perhatikan, tubuhnya terdiri dari benang-benang halus (hifa) dan kotak spora (sporangium) yang bulat."
         },
         'kosong': {
-            video_url: null, // Null menandakan tidak ada video
+            video_url: null, 
             judul: "Meja Preparat Kosong",
             teks: "Silakan pilih salah satu preparat untuk mulai mengamati."
         }
     };
 
-    // Mendapatkan elemen VIDEO
     const lensa = document.getElementById('tampilan-lensa');
     const infoBox = document.getElementById('info-penemuan');
     const infoJudul = document.getElementById('info-judul');
     const infoTeks = document.getElementById('info-teks');
-=======
-<script>
-// Data untuk Mikroskop Virtual
-const dataPreparat = {
-    'protista': {
-        img: "{% static 'img/protista.jpg' %}",
-        judul: "PENEMUAN: Kingdom Protista!",
-        teks: "Lihat! Ini adalah Paramecium. Organisme ini bersel satu tapi sudah punya membran inti (eukariotik). Mereka hidup di air."
-    },
-    'monera': {
-        img: "{% static 'img/bakteri.jpg' %}",
-        judul: "PENEMUAN: Kingdom Monera!",
-        teks: "Ini adalah Bakteri. Ciri utamanya adalah bersel satu dan TIDAK punya membran inti (prokariotik)."
-    },
-    'fungi': {
-        img: "{% static 'img/jamur_roti.jpg' %}",
-        judul: "PENEMUAN: Kingdom Fungi!",
-        teks: "Ini adalah jamur roti. Perhatikan, tubuhnya terdiri dari benang-benang halus (hifa) dan kotak spora (sporangium)."
-    },
-    'kosong': {
-        img: "{% static 'img/lensa_kosong.png' %}",
-        judul: "Meja Preparat Kosong",
-        teks: "Silakan pilih salah satu preparat untuk mulai mengamati."
-    }
-};
+    const tombolLanjut = document.getElementById('tombol-lanjut-modul-3');
+    
+    let preparatDilihat = new Set();
 
-const lensa = document.getElementById('tampilan-lensa');
-const infoBox = document.getElementById('info-penemuan');
-const infoJudul = document.getElementById('info-judul');
-const infoTeks = document.getElementById('info-teks');
->>>>>>> Stashed changes
-
-let preparatDilihat = new Set();
-const tombolLanjut = document.getElementById('tombol-lanjut-modul-3');
-
-<<<<<<< Updated upstream
     function pilihPreparat(id) {
         const data = dataPreparat[id];
         
-        // 1. Ganti sumber video di lensa dan putar
+        // 1. Ganti Video di Lensa
         if (data.video_url) {
             lensa.src = data.video_url;
-            // Video akan otomatis looping karena atribut 'loop' di tag <video>
-            lensa.play().catch(e => console.log("Autoplay diblokir:", e));
+            lensa.load(); 
+            lensa.play().catch(e => console.log("Autoplay diblokir browser, interaksi user diperlukan."));
         } else {
-            // Untuk 'kosong', hentikan video dan tampilkan gambar placeholder
             lensa.pause();
-            lensa.removeAttribute('src'); 
-            lensa.load(); // Muat ulang elemen video
-            lensa.poster = "{% static 'img/lensa_kosong.png' %}"; // Tampilkan poster/placeholder
+            lensa.src = ""; 
+            lensa.load();
+            lensa.setAttribute("poster", "{% static 'img/lensa_kosong.png' %}"); 
         }
 
-        // 2. Siapkan data untuk info box
+        // 2. Tampilkan Info
         infoJudul.innerText = data.judul;
         let baseTeks = data.teks; 
         infoBox.style.display = 'block';
-=======
-function pilihPreparat(id) {
-    const data = dataPreparat[id];
->>>>>>> Stashed changes
 
-    // 1. Ganti gambar di lensa
-    lensa.style.backgroundImage = `url(${data.img})`;
-
-    // 2. Siapkan data untuk info box
-    infoJudul.innerText = data.judul;
-    let baseTeks = data.teks; 
-    infoBox.style.display = 'block';
-
-    // 3. Lacak progres
-    if (id !== 'kosong') {
-        preparatDilihat.add(id);
-    }
-
-<<<<<<< Updated upstream
-    // Tampilkan info 'kosong' saat pertama dimuat
-    pilihPreparat('kosong');
-    </script>
-{% endblock %}
-=======
-    // 4. Cek apakah sudah selesai
-    if (preparatDilihat.size >= 3) {
-        tombolLanjut.style.display = 'inline-block'; 
+        // 3. Lacak Progres
         if (id !== 'kosong') {
-            baseTeks += "\n\n🎉 Kerja bagus! Anda telah menemukan semua spesimen. Silakan lanjut ke modul berikutnya.";
+            preparatDilihat.add(id);
         }
-    }
-    // 5. Tampilkan teks di info box
-    infoTeks.innerText = baseTeks;
-}
 
-// Tampilkan info 'kosong' saat pertama dimuat
-pilihPreparat('kosong');
+        // 4. Cek Selesai
+        if (preparatDilihat.size >= 3) {
+            // Menggunakan inline-block agar tombol menyesuaikan konten, tidak full width
+            tombolLanjut.style.display = 'inline-block'; 
+            
+            if (id !== 'kosong') {
+                baseTeks += "\n\n🎉 Kerja bagus! Anda telah menemukan semua spesimen. Silakan lanjut ke modul berikutnya.";
+            }
+        }
+        
+        // 5. Update Teks
+        infoTeks.innerText = baseTeks;
+    }
+
+    pilihPreparat('kosong');
 </script>
 {% endblock %}
->>>>>>> Stashed changes

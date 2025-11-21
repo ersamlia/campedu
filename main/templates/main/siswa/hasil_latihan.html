@@ -1,165 +1,177 @@
 {% extends 'main/base.html' %}
+{% load static %}
 {% block title %}Hasil Latihan{% endblock %}
 
 {% block custom_css %}
 <style>
-@import url('https://fonts.googleapis.com/css?family=Nunito+Sans:400,700,800,900&display=swap');
-body {
-    background: #f3f6fd !important;
-    font-family: 'Nunito Sans', Nunito, sans-serif;
-}
-.page-title-custom {
-    font-family: 'Nunito Sans', Nunito, sans-serif;
-    color: #1c253b;
-    font-size: 2rem;
-    font-weight: 900;
-    letter-spacing: .03em;
-    margin-bottom: 1.8rem;
-    line-height: 1.16;
-}
-.card-score {
-    background: #fff;
-    border-radius: 2.1rem;
-    box-shadow: 0 4px 24px #00968810;
-    margin-bottom: 2.1rem;
-    text-align: center;
-    padding: 2rem 2rem 1.6rem 2rem;
-}
-.card-score .score-circle {
-    width: 100px; height: 100px;
-    border-radius: 50%;
-    background: #f7fafc;
-    margin: 0 auto .8rem auto;
-    font-size: 2.5rem;
-    font-weight: 900;
-    color: #009688;
-    display: flex; align-items: center; justify-content: center;
-    border: 6px solid #c2e4e2;
-}
-.card-score .score-title {
-    font-size: 1.08rem;
-    color: #246bfd;
-    font-weight: 800;
-    margin-bottom: .5rem;
-}
-.card-score .score-note {
-    font-size: 1.12rem;
-    font-weight: 850;
-    color: #009688;
-    margin-top: .4rem;
-    margin-bottom: .3rem;
-}
-.btn-fun-primary {
-    font-family: 'Nunito Sans', Nunito, sans-serif;
-    font-weight: 800;
-    font-size: 1.04rem;
-    border-radius: 1rem;
-    background: #246bfd;
-    border: none;
-    box-shadow: 0 4px 12px #246bfd10;
-    padding: .82rem 2.1rem;
-    color: #fff;
-    margin-top: .7rem;
-}
-.card-review {
-    background: #fff;
-    border-radius: 1.2rem;
-    border: none;
-    margin-bottom: 2rem;   /* JARAK LEBIH BESAR ANTAR CARD */
-    box-shadow: 0 2px 14px #42b2f314;
-    padding: 1.55rem 1.35rem 1.3rem 1.25rem; /* Padding lebar */
-    transition: box-shadow 0.2s;
-}
-.card-review:last-child {
-    margin-bottom: 0;
-}
-.card-review h5 {
-    font-family: 'Nunito Sans', Nunito, sans-serif;
-    font-size: 1.06rem;
-    font-weight: 800;
-    margin-bottom: 0.38rem;
-}
-.review-badge {
-    display: inline-block;
-    padding: .11em .78em;
-    border-radius: .58em;
-    font-size: .89rem;
-    font-weight: 800;
-    margin-right: .48em;
-    margin-bottom: .3em;
-}
-.review-badge.benar { background: #e5fbe9; color: #08b150;}
-.review-badge.salah { background: #fee8e0; color: #ed3e27;}
-.card-review .jawaban-anda {
-    font-weight: 800;
-    color: #495466;
-}
-.card-review .jawaban-anda.benar { color: #1cc88a;}
-.card-review .jawaban-anda.salah { color: #e74c3c;}
-.card-review .jawaban-benar {
-    color: #008a80;
-    font-weight: 800;
-}
-.penjelasan-box {
-    border-radius: 0.8rem;
-    background: #eaf7fd;
-    color: #246bfd;
-    border: none;
-    padding: 0.7rem 1.1rem;
-    font-size: 1rem;
-    margin-top: .81rem;
-}
-hr { border-color: #eaf0fb !important; }
-@media (max-width: 900px) {
-    .page-title-custom { font-size: 1.08rem;}
-    .card-score { padding: 1.13rem .6rem 1rem .6rem; }
-    .card-review { padding: .85rem .4rem .7rem .4rem; }
-}
+    @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap');
+    body {
+        font-family: 'Nunito', sans-serif;
+        background: #f3f6fd;
+    }
+
+    /* === KARTU SKOR UTAMA (FULL WIDTH) === */
+    .learning-card {
+        background: #fff;
+        border-radius: 2.2rem;
+        box-shadow: 0 8px 32px rgba(53,99,233,0.10);
+        padding: 3rem 2rem;
+        width: 100%;
+        max-width: 100%;
+        margin: 0 auto 2.5rem auto;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+        border: none;
+    }
+    
+    /* Lingkaran Dekorasi */
+    .learning-card::before {
+        content: '';
+        position: absolute;
+        top: -50px;
+        right: -50px;
+        width: 150px;
+        height: 150px;
+        background: linear-gradient(135deg, rgba(28, 200, 138, 0.1), rgba(28, 200, 138, 0));
+        border-radius: 50%;
+        z-index: 0;
+    }
+
+    .score-circle {
+        width: 160px;
+        height: 160px;
+        border-radius: 50%;
+        background: #f8f9fc;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 2rem auto;
+        position: relative;
+        box-shadow: inset 0 0 20px rgba(0,0,0,0.05);
+    }
+    
+    .score-value {
+        font-size: 3.5rem;
+        font-weight: 900;
+        line-height: 1;
+        z-index: 2;
+    }
+    
+    .score-circle.pass { border: 10px solid #1cc88a; color: #1cc88a; }
+    .score-circle.fail { border: 10px solid #e74a3b; color: #e74a3b; }
+
+    .result-title {
+        font-size: 1.8rem;
+        font-weight: 800;
+        color: #2c3e50;
+        margin-bottom: 0.5rem;
+    }
+    
+    .result-desc {
+        color: #858796;
+        font-size: 1.1rem;
+        max-width: 700px;
+        margin: 0 auto 2rem auto;
+    }
+
+    /* === STATISTIK JAWABAN === */
+    .stats-container {
+        display: flex;
+        justify-content: center;
+        gap: 2rem;
+        margin-bottom: 2.5rem;
+        padding-bottom: 2rem;
+        border-bottom: 1px solid #eff2f7;
+    }
+    .stat-box {
+        background: #fff;
+        border: 1px solid #e3e6f0;
+        border-radius: 1rem;
+        padding: 1rem 2rem;
+        min-width: 140px;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+    }
+    .stat-value {
+        font-size: 1.8rem;
+        font-weight: 800;
+        display: block;
+    }
+    .stat-label {
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        font-weight: 700;
+        color: #858796;
+    }
+    .text-green { color: #1cc88a; }
+    .text-red { color: #e74a3b; }
+    
+    /* Tombol Aksi */
+    .action-buttons {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+    }
+    .btn-custom {
+        border-radius: 0.85rem;
+        padding: 0.8rem 2.5rem;
+        font-weight: 700;
+        font-size: 1.1rem;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        transition: transform 0.2s;
+    }
+    .btn-custom:hover {
+        transform: translateY(-3px);
+    }
 </style>
 {% endblock %}
 
 {% block content %}
-<div class="page-title-custom mb-1">Hasil Latihan: {{ latihan.judul }}</div>
-<div class="card-score mx-auto">
-    <div class="score-title">Skor Akhir</div>
-    <div class="score-circle">{{ hasil.skor|floatformat:0 }}</div>
-    <div class="score-note">
+
+    <div class="learning-card">
+        
+        <h4 class="text-uppercase text-muted mb-4 font-weight-bold" style="letter-spacing: 1px;">
+            Latihan Soal: {{ latihan.judul }}
+        </h4>
+        
+        <div class="score-circle {% if hasil.skor >= 70 %}pass{% else %}fail{% endif %}">
+            <span class="score-value">{{ hasil.skor|floatformat:0 }}</span>
+        </div>
+
         {% if hasil.skor >= 70 %}
-            Selamat! Sudah lulus materi ini.
+            <h2 class="result-title text-success">Luar Biasa! 🎉</h2>
+            <p class="result-desc">
+                Selamat! Anda telah berhasil menuntaskan latihan ini dengan sangat baik.
+            </p>
         {% else %}
-            Belum lulus. Jangan menyerah ya!
+            <h2 class="result-title text-danger">Jangan Menyerah! 💪</h2>
+            <p class="result-desc">
+                Nilai Anda belum mencapai target kelulusan (70). Pelajari kembali materi modul dan coba lagi.
+            </p>
         {% endif %}
-    </div>
-    <a href="{% url 'siswa_dashboard' %}" class="btn btn-fun-primary">Kembali ke Dashboard</a>
-</div>
-<div>
-    {% for jawaban in jawaban_siswa %}
-        <div class="card-review">
-            <span class="review-badge {% if jawaban.is_benar %}benar{% else %}salah{% endif %}">
-                {% if jawaban.is_benar %}Benar{% else %}Salah{% endif %}
-            </span>
-            <h5>Soal {{ forloop.counter }}: {{ jawaban.pertanyaan.teks_pertanyaan }}</h5>
-            <div>
-                <span class="jawaban-anda {% if jawaban.is_benar %}benar{% else %}salah{% endif %}">
-                Jawaban: {{ jawaban.pilihan_dipilih.teks_pilihan }}
-                {% if jawaban.is_benar %}✓{% else %}×{% endif %}
-                </span>
-                {% if not jawaban.is_benar %}
-                    <br>
-                    <span class="jawaban-benar">
-                        Jawaban benar:
-                        {% for pilihan in jawaban.pertanyaan.pilihan_set.all %}
-                            {% if pilihan.is_benar %}{{ pilihan.teks_pilihan }}{% endif %}
-                        {% endfor %}
-                    </span>
-                {% endif %}
+        
+        <div class="stats-container">
+            <div class="stat-box">
+                <span class="stat-value text-green">{{ jawaban_benar }}</span>
+                <span class="stat-label">Benar</span>
             </div>
-            <div class="penjelasan-box mt-1">
-                <strong>Penjelasan:</strong>
-                <br>
-                {{ jawaban.pertanyaan.explanation|default:"Penjelasan belum tersedia." }}
+            <div class="stat-box">
+                <span class="stat-value text-red">{{ jawaban_salah }}</span>
+                <span class="stat-label">Salah</span>
             </div>
         </div>
-    {% endfor %}
-</div>
+
+        <div class="action-buttons">
+            <a href="{% url 'siswa_dashboard' %}" class="btn btn-secondary btn-custom">
+                <i class="fas fa-home mr-2"></i> Dashboard
+            </a>
+            {% if hasil.skor < 70 %}
+            <a href="{% url 'latihan_soal' latihan.id %}" class="btn btn-danger btn-custom">
+                <i class="fas fa-redo mr-2"></i> Ulangi Latihan
+            </a>
+            {% endif %}
+        </div>
+
+    </div>
 {% endblock %}
