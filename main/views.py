@@ -398,11 +398,24 @@ def hasil_latihan_view(request, latihan_id):
     latihan = get_object_or_404(LatihanSoal, id=latihan_id)
     hasil = get_object_or_404(HasilLatihan, siswa=request.user, latihan=latihan)
 
+    # Ambil semua jawaban siswa untuk latihan ini
     jawaban_siswa = JawabanSiswa.objects.filter(
         siswa=request.user, pertanyaan__latihan=latihan
     ).select_related("pertanyaan", "pilihan_dipilih")
 
-    context = {"latihan": latihan, "hasil": hasil, "jawaban_siswa": jawaban_siswa}
+    # --- TAMBAHAN: Hitung Statistik ---
+    total_soal = jawaban_siswa.count()
+    jawaban_benar = jawaban_siswa.filter(is_benar=True).count()
+    jawaban_salah = total_soal - jawaban_benar
+    # ----------------------------------
+
+    context = {
+        "latihan": latihan, 
+        "hasil": hasil, 
+        "jawaban_siswa": jawaban_siswa,
+        "jawaban_benar": jawaban_benar, # Kirim ke template
+        "jawaban_salah": jawaban_salah  # Kirim ke template
+    }
     return render(request, "main/siswa/hasil_latihan.html", context)
 
 
@@ -411,7 +424,7 @@ def hasil_latihan_view(request, latihan_id):
 def pengayaan_view(request, pengayaan_id):
     pengayaan = get_object_or_404(SoalPengayaan, id=pengayaan_id)
     progress = get_object_or_404(SiswaProgress, siswa=request.user)
-
+    
     # Cek prasyarat
     if not progress.latihan_3_completed:
         messages.error(request, "Selesaikan semua latihan sub-bab terlebih dahulu!")
@@ -420,15 +433,20 @@ def pengayaan_view(request, pengayaan_id):
     # --- LOGIKA BARU DIMULAI DI SINI ---
     if request.GET.get("mulai") == "true":
         # 1. Siswa SUDAH mengklik "Mulai", tampilkan soal
+        
+        # Ambil semua pertanyaan yang terkait dengan pengayaan ini
         pertanyaan = pengayaan.pertanyaan_set.all()
-        context = {"pengayaan": pengayaan, "pertanyaan": pertanyaan}
+        
+        # Kirim ke template
+        context = {
+            "pengayaan": pengayaan, 
+            "pertanyaan": pertanyaan  # <--- INI YANG SEBELUMNYA HILANG
+        }
         return render(request, "main/siswa/pengayaan.html", context)
     else:
         # 2. Siswa BARU tiba, tampilkan petunjuk
         context = {"pengayaan": pengayaan}
-        # Tampilkan file HTML baru yang Anda buat di Langkah 1
         return render(request, "main/siswa/pengayaan_petunjuk.html", context)
-
 
 @login_required
 def submit_pengayaan_view(request, pengayaan_id):
@@ -494,7 +512,28 @@ def submit_pengayaan_view(request, pengayaan_id):
 def hasil_pengayaan_view(request, pengayaan_id):
     pengayaan = get_object_or_404(SoalPengayaan, id=pengayaan_id)
     hasil = get_object_or_404(HasilPengayaan, siswa=request.user, pengayaan=pengayaan)
-    context = {"pengayaan": pengayaan, "hasil": hasil}
+    pertanyaan_list = pengayaan.pertanyaan_set.all()
+    
+    # --- LOGIKA BARU: MENGHITUNG JUMLAH BENAR/SALAH ---
+    total_soal = pertanyaan_list.count()
+    
+    # Hitung mundur jumlah benar dari skor yang tersimpan
+    # Rumus: (Skor / 100) * Total Soal
+    if total_soal > 0:
+        jawaban_benar = round((hasil.skor * total_soal) / 100)
+        jawaban_salah = total_soal - jawaban_benar
+    else:
+        jawaban_benar = 0
+        jawaban_salah = 0
+        
+    context = {
+        "pengayaan": pengayaan, 
+        "hasil": hasil,
+        "pertanyaan_list": pertanyaan_list,
+        "jawaban_benar": int(jawaban_benar), # Pastikan jadi integer
+        "jawaban_salah": int(jawaban_salah),
+        "total_soal": total_soal
+    }
     return render(request, "main/siswa/hasil_pengayaan.html", context)
 
 

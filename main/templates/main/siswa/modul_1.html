@@ -5,25 +5,35 @@
 {% block custom_css %}
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&display=swap');
-    body {
-        font-family: 'Nunito', sans-serif;
-        background: #f3f6fd;
-    }
-        
-        /* === CSS BARU UNTUK JUDUL HALAMAN === */
-    .page-title-custom {
-        font-family: 'Nunito', sans-serif !important;
-        color: #1c253b !important;
-        font-weight: 800 !important;
-    }
+body {
+    font-family: 'Nunito', sans-serif;
+    background: #f3f6fd;
+}
 
-/* PERUBAHAN: 
-   Style .page-title-custom dihapus. 
-   Kita menggunakan class bawaan template (h3 text-gray-800) di HTML 
-   agar font konsisten dengan halaman lain.
-*/
-
-/* Card besar - full lebar konten */
+/* CARD JUDUL HEADER CONSISTENT */
+.modul-header-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.6rem;
+    background: #fff;
+    padding: 1.1rem 1.5rem;
+    border-radius: 1.2rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+}
+.modul-header-title {
+    font-family: 'Nunito', sans-serif;
+    color: #22356f;
+    font-weight: 900;
+    font-size: 1.28rem;
+    margin-bottom: 3px;
+}
+.modul-header-keterangan {
+    font-size: 0.92rem;
+    color: #7a849c;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
 .learning-slide { display: none; }
 .learning-slide.active {
     display: block !important;
@@ -41,8 +51,9 @@
 }
 @media (max-width: 900px) {
     .learning-card { padding: 1.0rem .7rem 1.0rem .7rem; border-radius: 1.08rem;}
+    .modul-header-card { padding: 0.7rem;}
+    .modul-header-title { font-size: 1.12rem;}
 }
-
 .learning-card .card-header {
     background: transparent;
     border: none;
@@ -100,6 +111,7 @@
 a.btn.disabled {
     pointer-events: none; opacity: 0.65;
 }
+<<<<<<< Updated upstream
 
 /* === CSS KHUSUS MODUL 1 === */
 /* Style untuk gambar di Slide 3 dan 4 */
@@ -110,9 +122,14 @@ a.btn.disabled {
     background: #ffffff;
     border-radius: 1.08rem;
     padding: 10px;
+=======
+.stim-img, #obj-img {
+    height: 180px;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 1.08rem;
+>>>>>>> Stashed changes
 }
-
-/* Style baru untuk tombol checklist di Slide 4 */
 #checklist .btn {
     border-radius: 0.85rem;
     text-align: left;
@@ -120,23 +137,20 @@ a.btn.disabled {
     font-weight: 700;
     margin-bottom: 0.5rem;
 }
-#checklist .btn .fa-square {
-    color: #4e73df; /* Biru */
-}
-#checklist .btn .fa-check-square {
-    color: #ffffff; /* Putih (di atas tombol hijau) */
-}
-#checklist .btn .fa-times-circle {
-    color: #ffffff; /* Putih (di atas tombol merah) */
-}
-/* === AKHIR CSS KHUSUS === */
-
+#checklist .btn .fa-square { color: #4e73df; }
+#checklist .btn .fa-check-square { color: #ffffff; }
+#checklist .btn .fa-times-circle { color: #ffffff; }
 </style>
 {% endblock %}
 
 {% block content %}
-<div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-4 text-gray-800 page-title-custom">{{ subbab.judul }}</h1>
+<div class="modul-header-card">
+    <div>
+        <div class="modul-header-title">Modul 1: {{ subbab.judul }}</div>
+        <div class="modul-header-keterangan">
+            {{ subbab.deskripsi|default:"Kerjakan modul berikut dengan jujur dan sungguh-sungguh." }}
+        </div>
+    </div>
 </div>
 
 <div id="slide-1" class="learning-slide active">

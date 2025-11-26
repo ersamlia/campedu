@@ -109,6 +109,15 @@ body {
     border-radius: 1.37rem !important;
     border: none !important;
 }
+
+/* HEADER CARD KHUSUS DASHBOARD */
+.dashboard-header-card {
+    margin-bottom: 2.1rem;
+    transition: box-shadow .2s;
+}
+.dashboard-header-card:hover {
+    box-shadow: 0 14px 38px #00b09b17, 0 2px 8px #00968819;
+}
         </style>
         {% block custom_css %}{% endblock %}
     </head>
@@ -140,7 +149,7 @@ body {
                            aria-expanded="true"
                            aria-controls="collapseSubBab1">
                             <i class="fas fa-book-open"></i>
-                            <span>Sub-Bab 1</span>
+                            <span>Karakteristik Makhluk Hidup</span>
                         </a>
                         <div id="collapseSubBab1" class="collapse" data-parent="#accordionSidebar">
                             <div class="bg-white py-2 collapse-inner rounded">
@@ -159,7 +168,7 @@ body {
                            aria-expanded="true"
                            aria-controls="collapseSubBab2">
                             <i class="fas fa-sitemap"></i>
-                            <span>Sub-Bab 2</span>
+                            <span>Klasifikasi Makhluk Hidup</span>
                         </a>
                         <div id="collapseSubBab2" class="collapse" data-parent="#accordionSidebar">
                             <div class="bg-white py-2 collapse-inner rounded">
@@ -179,7 +188,7 @@ body {
                            aria-expanded="true"
                            aria-controls="collapseSubBab3">
                             <i class="fas fa-seedling"></i>
-                            <span>Sub-Bab 3</span>
+                            <span>Klasifikasi 5 Kingdom</span>
                         </a>
                         <div id="collapseSubBab3" class="collapse" data-parent="#accordionSidebar">
                             <div class="bg-white py-2 collapse-inner rounded">
@@ -267,13 +276,48 @@ body {
                                 </div>
                             {% endfor %}
                         {% endif %}
-                        {% block content %}{% endblock %}
+                        {% block content %}
+<!-- HEADER CARD -->
+<div class="dashboard-header-card" style="
+    background: linear-gradient(97deg, #d7f9f2 28%, #f5faff 100%);
+    border-radius: 1.4rem;
+    box-shadow: 0 8px 28px #00b09b18;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.47rem 2rem 1.47rem 1.3rem;
+    margin-bottom: 2.1rem;
+    flex-wrap: wrap;
+">
+    <div style="display: flex; align-items: center;">
+        <div style="background:#0096881a; border-radius:1.1rem; padding:.85rem; margin-right:17px;">
+            <i class="fas fa-seedling" style="font-size:2.25rem; color:#009688;"></i>
+        </div>
+        <div>
+            <div style="font-family:'Nunito',sans-serif;font-weight:900;letter-spacing:.019em;font-size:1.32rem;color:#183849;">
+                BioVerse Dashboard
+            </div>
+            <div style="font-size:1.06rem;color:#5c727d;font-weight:600;margin-top:2px;">
+                Selamat datang, {{ user.first_name|default:user.username }}!  
+                Pantau progres belajarmu & akses seluruh alat bantu BioVerse dengan mudah.
+            </div>
+        </div>
+    </div>
+    <div style="display:flex;align-items:center;gap:20px; margin-left:1.2rem;">
+        <div style="padding:.48rem 1.15rem; border-radius:1em; font-size:1.07rem; background:#009688; color:white; font-weight:800; display:flex;align-items:center;gap:.6em;">
+            <i class="fas fa-leaf mr-2"></i>
+            Mode Belajar Aktif
+        </div>
+    </div>
+</div>
+<!-- Lanjutkan seluruh konten dashboard Anda di bawah sini -->
+{% endblock %}
                     </div>
                 </div>
                 <footer class="sticky-footer bg-white">
                     <div class="container my-auto">
                         <div class="copyright text-center my-auto">
-                            <span>Copyright &copy; CampEdu 2025</span>
+                            <span>Copyright &copy; BioVerse 2025</span>
                         </div>
                     </div>
                 </footer>

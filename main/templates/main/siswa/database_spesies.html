@@ -3,53 +3,70 @@
 {% block title %}Database Spesies{% endblock %}
 {% block custom_css %}
     <style>
-    /* === CSS DARI MODUL 2 (UNTUK KONSISTENSI) === */
-    @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&display=swap');
-    body {
-        font-family: 'Nunito', sans-serif;
-        background: #f3f6fd;
-    }
-        
-        /* === CSS BARU UNTUK JUDUL HALAMAN === */
-    .page-title-custom {
-        font-family: 'Nunito', sans-serif !important;
-        color: #1c253b !important;
-        font-weight: 800 !important;
-    }
-    .learning-card {
-        background: #fff;
-        border-radius: 2.2rem;
-        box-shadow: 0 8px 32px rgba(53,99,233,0.10);
-        padding: 2.6rem 5vw 2.2rem 5vw;
-        width: 100%;
-        max-width: 100%;
-        margin: 0 auto 2.5rem auto;
-    }
-    @media (max-width: 900px) {
-        .learning-card { padding: 1.0rem .7rem 1.0rem .7rem; border-radius: 1.08rem; }
-    }
-    .learning-card .card-header {
-        background: transparent;
-        border: none;
-        border-radius: 2.2rem 2.2rem 0 0;
-        font-weight: 800;
-        padding: 0;
-        margin-bottom: 1.02rem;
-    }
-    .learning-card .card-header h6 {
-        color: #246bfd;
-        font-size: 1.13rem;
-        font-weight: 900;
-        font-family: 'Nunito', sans-serif !important;
-        margin-bottom: 0;
-    }
-    .learning-card .card-body h5, .learning-card .card-body h4 {
-        font-family: 'Nunito', sans-serif !important;
-        color: #1c253b;
-        font-size: 1.19rem;
-        font-weight: 800;
-        margin-bottom: .58rem;
-    }
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&display=swap');
+body {
+    font-family: 'Nunito', sans-serif;
+    background: #f3f6fd;
+}
+.db-header-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    background: #fff;
+    padding: 1rem 1.5rem;
+    border-radius: 1.2rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+}
+.db-header-title {
+    font-family: 'Nunito', sans-serif;
+    color: #22356f;
+    font-weight: 900;
+    font-size: 1.22rem;
+    margin-bottom: 3px;
+}
+.db-header-desc {
+    font-size: 0.97rem;
+    color: #7a849c;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+.learning-card {
+    background: #fff;
+    border-radius: 2.2rem;
+    box-shadow: 0 8px 32px rgba(53,99,233,0.10);
+    padding: 2.6rem 5vw 2.2rem 5vw;
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto 2.5rem auto;
+}
+@media (max-width: 900px) {
+    .learning-card { padding: 1.0rem .7rem 1.0rem .7rem; border-radius: 1.08rem; }
+    .db-header-card { padding: .7rem; }
+    .db-header-title { font-size: 1.08rem;}
+}
+.learning-card .card-header {
+    background: transparent;
+    border: none;
+    border-radius: 2.2rem 2.2rem 0 0;
+    font-weight: 800;
+    padding: 0;
+    margin-bottom: 1.02rem;
+}
+.learning-card .card-header h6 {
+    color: #246bfd;
+    font-size: 1.13rem;
+    font-weight: 900;
+    font-family: 'Nunito', sans-serif !important;
+    margin-bottom: 0;
+}
+.learning-card .card-body h5, .learning-card .card-body h4 {
+    font-family: 'Nunito', sans-serif !important;
+    color: #1c253b;
+    font-size: 1.19rem;
+    font-weight: 800;
+    margin-bottom: .58rem;
+}
     .learning-card .btn-success { border-radius: 0.85rem; }
     /* === AKHIR CSS DARI MODUL 2 === */
 
@@ -149,9 +166,14 @@
     </style>
 {% endblock %}
 {% block content %}
-    <h1 class="h3 mb-4 text-gray-800 page-title-custom">Database Spesies</h1>
-    <p>Klik tombol Kingdom untuk "menemukan" ciri-ciri dan contoh organismenya!</p>
-    
+<div class="db-header-card">
+    <div>
+        <div class="db-header-title">Database Spesies</div>
+        <div class="db-header-desc">
+            Temukan ciri serta contoh spesies dari tiap kingdom. Gunakan filter untuk eksplorasi!
+        </div>
+    </div>
+</div>
     <div class="learning-card mb-4">
         <div id="filter-container">
             <button class="btn btn-primary" data-is-kingdom="true" data-filter="all" onclick="showKingdom('all', this)">Tampilkan Semua</button>

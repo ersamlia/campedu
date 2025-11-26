@@ -1,20 +1,37 @@
 {% extends 'main/base.html' %}
 {% load static %}
 {% block title %}Petunjuk Latihan: {{ latihan.judul }}{% endblock %}
+
 {% block custom_css %}
-    <style>
+<style>
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&display=swap');
-    body {
-        font-family: 'Nunito', sans-serif;
-        background: #f3f6fd;
-    }
-        
-        /* === CSS BARU UNTUK JUDUL HALAMAN === */
-    .page-title-custom {
-        font-family: 'Nunito', sans-serif !important;
-        color: #1c253b !important;
-        font-weight: 800 !important;
-    }
+body {
+    font-family: 'Nunito', sans-serif;
+    background: #f3f6fd;
+}
+.petunjuk-header-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    background: #fff;
+    padding: 1rem 1.5rem;
+    border-radius: 1.2rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+}
+.petunjuk-header-title {
+    font-family: 'Nunito', sans-serif;
+    color: #22356f;
+    font-weight: 900;
+    font-size: 1.25rem;
+    margin-bottom: 3px;
+}
+.petunjuk-header-keterangan {
+    font-size: 0.96rem;
+    color: #7a849c;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
 .petunjuk-card-full {
     background: #fff;
     border-radius: 2.2rem;
@@ -70,45 +87,53 @@
 }
 hr { border-color: #eaf0fb; }
 @media (max-width: 900px) {
+    .petunjuk-header-card { padding: 0.7rem; }
+    .petunjuk-header-title { font-size: 1.12rem;}
     .petunjuk-card-full { padding: 1rem .5rem 1rem .5rem; border-radius: 1.1rem;}
-    .page-title-custom { font-size: 1.15rem;}
 }
-    </style>
+</style>
 {% endblock %}
+
 {% block content %}
-    <div class="h3 mb-4 text-gray-800 page-title-custom">Petunjuk: {{ latihan.judul }}</div>
-    <div class="petunjuk-card-full">
-        <div class="card-header">
-            <h6>Petunjuk Pengerjaan</h6>
-        </div>
-        <div class="card-body">
-            <div class="text-center mb-3">
-                <img src="{% static 'img/quiz2.png' %}"
-                     style="width:200px;
-                            max-width:100%"
-                     alt="Ilustrasi Kuis">
-            </div>
-            <h5>Harap dibaca sebelum memulai:</h5>
-            <ul>
-                <li>
-                    Latihan ini terdiri dari <strong>{{ latihan.pertanyaan_set.count }} soal</strong> pilihan ganda.
-                </li>
-                <li>Pilihlah satu jawaban yang Anda anggap paling benar.</li>
-                <li>Pastikan semua soal telah terjawab sebelum menekan tombol "Kumpulkan Jawaban".</li>
-                <li>Setelah selesai, Anda akan melihat halaman hasil dan umpan balik atas setiap jawaban.</li>
-                <li>Menyelesaikan latihan ini akan membuka alur belajar berikutnya.</li>
-            </ul>
-            <p class="mt-4 mb-3">
-                <strong>Kerjakan dengan teliti dan jujur. Selamat mengerjakan!</strong>
-            </p>
-            <hr>
-            <div class="d-flex flex-wrap justify-content-between gap-2">
-                <a href="{% url 'latihan_soal' latihan.id %}?mulai=true"
-                   class="btn btn-primary btn-lg">
-                    <i class="fas fa-play mr-1"></i> Mulai Kerjakan Soal
-                </a>
-                <a href="{% url 'siswa_dashboard' %}" class="btn btn-secondary btn-lg">Kembali</a>
-            </div>
+<div class="petunjuk-header-card">
+    <div>
+        <div class="petunjuk-header-title">{{ latihan.judul }}</div>
+        <div class="petunjuk-header-keterangan">
+            Baca dengan saksama sebelum memulai latihan berikut. Kumpulkan jawaban setelah selesai.
         </div>
     </div>
+</div>
+<div class="petunjuk-card-full">
+    <div class="card-header">
+        <h6>Petunjuk Pengerjaan</h6>
+    </div>
+    <div class="card-body">
+        <div class="text-center mb-3">
+            <img src="{% static 'img/quiz2.png' %}"
+                 style="width:200px; max-width:100%"
+                 alt="Ilustrasi Kuis">
+        </div>
+        <h5>Harap dibaca sebelum memulai:</h5>
+        <ul>
+            <li>
+                Latihan ini terdiri dari <strong>{{ latihan.pertanyaan_set.count }} soal</strong> pilihan ganda.
+            </li>
+            <li>Pilihlah satu jawaban yang Anda anggap paling benar.</li>
+            <li>Pastikan semua soal telah terjawab sebelum menekan tombol "Kumpulkan Jawaban".</li>
+            <li>Setelah selesai, Anda akan melihat halaman hasil dan umpan balik atas setiap jawaban.</li>
+            <li>Menyelesaikan latihan ini akan membuka alur belajar berikutnya.</li>
+        </ul>
+        <p class="mt-4 mb-3">
+            <strong>Kerjakan dengan teliti dan jujur. Selamat mengerjakan!</strong>
+        </p>
+        <hr>
+        <div class="d-flex flex-wrap justify-content-between gap-2">
+            <a href="{% url 'latihan_soal' latihan.id %}?mulai=true"
+               class="btn btn-primary btn-lg">
+                <i class="fas fa-play mr-1"></i> Mulai Kerjakan Soal
+            </a>
+            <a href="{% url 'siswa_dashboard' %}" class="btn btn-secondary btn-lg">Kembali</a>
+        </div>
+    </div>
+</div>
 {% endblock %}

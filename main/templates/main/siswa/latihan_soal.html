@@ -5,23 +5,47 @@
 {% block custom_css %}
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&display=swap');
-    body {
-        font-family: 'Nunito', sans-serif;
-        background: #f3f6fd;
-    }
-        
-        /* === CSS BARU UNTUK JUDUL HALAMAN === */
-    .page-title-custom {
-        font-family: 'Nunito', sans-serif !important;
-        color: #1c253b !important;
-        font-weight: 800 !important;
-    }
-.card, .card.shadow {
+body {
+    font-family: 'Nunito', sans-serif;
+    background: #f3f6fd;
+}
+.latihan-header-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    background: #fff;
+    padding: 1rem 1.5rem;
+    border-radius: 1.2rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+}
+.latihan-header-title {
+    font-family: 'Nunito', sans-serif;
+    color: #22356f;
+    font-weight: 800;
+    font-size: 1.28rem;
+    margin-bottom: 3px;
+}
+.latihan-header-keterangan {
+    font-size: 0.92rem;
+    color: #7a849c;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+.card-latihan-soal {
     background: #fff;
     border-radius: 2.1rem;
     box-shadow: 0 8px 24px #246bfd12;
     border: none !important;
     font-family: 'Nunito Sans', Nunito, sans-serif;
+    margin-bottom: 2rem;
+    display: none;
+    animation: fadeIn 0.4s ease-in;
+}
+.card-latihan-soal.active { display: block; }
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(14px);}
+    to { opacity: 1; transform: translateY(0);}
 }
 .card-header {
     background: transparent;
@@ -73,42 +97,105 @@
     padding: 0.78rem 2.16rem;
     margin-top: 0.7rem;
 }
-hr {
-    border-color: #eaf0fb;
+.nav-slide-latihan {
+    margin-top: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
 }
+.btn-slide-latihan {
+    border-radius: 0.82rem;
+    font-size: 1rem;
+    font-weight: 700;
+    padding: 0.7rem 1.6rem;
+}
+hr { border-color: #eaf0fb; }
 @media (max-width: 900px) {
-    .page-title-custom { font-size: 1.21rem; }
+    .latihan-header-card { padding: 0.7rem; }
+    .latihan-header-title { font-size: 1.08rem;}
     .card-header { padding-left: .7rem; }
 }
 </style>
 {% endblock %}
 
+
 {% block content %}
-    <h1 class="h3 mb-4 text-gray-800 page-title-custom">{{ latihan.judul }}</h1>
-    <form method="post" action="{% url 'submit_latihan' latihan.id %}">
-        {% csrf_token %}
-        {% for pertanyaan in latihan.pertanyaan_set.all %}
-            <div class="card shadow mb-4">
-                <div class="card-header py-3">
-                    <h6>Pertanyaan {{ forloop.counter }}</h6>
-                </div>
-                <div class="card-body">
-                    <p>{{ pertanyaan.teks_pertanyaan }}</p>
-                    <hr>
-                    {% for pilihan in pertanyaan.pilihan_set.all %}
-                        <div class="form-check">
-                            <input class="form-check-input"
-                                   type="radio"
-                                   id="pilihan_{{ pilihan.id }}"
-                                   name="pertanyaan_{{ pertanyaan.id }}"
-                                   value="{{ pilihan.id }}"
-                                   required>
-                            <label class="form-check-label" for="pilihan_{{ pilihan.id }}">{{ pilihan.teks_pilihan }}</label>
-                        </div>
-                    {% endfor %}
-                </div>
+<div class="latihan-header-card">
+    <div>
+        <div class="latihan-header-title">{{ latihan.judul }}</div>
+        <div class="latihan-header-keterangan">
+            {{ latihan.deskripsi|default:"Kerjakan latihan ini dengan teliti dan jujur." }}
+        </div>
+    </div>
+</div>
+
+<form method="post" action="{% url 'submit_latihan' latihan.id %}" id="form-latihan-soal">
+    {% csrf_token %}
+    {% for pertanyaan in latihan.pertanyaan_set.all %}
+    <div class="card-latihan-soal {% if forloop.first %}active{% endif %}" 
+         id="latihan-slide-{{ forloop.counter0 }}">
+        <div class="card-header py-3">
+            <h6>Pertanyaan {{ forloop.counter }} dari {{ latihan.pertanyaan_set.count }}</h6>
+        </div>
+        <div class="card-body">
+            <p>{{ pertanyaan.teks_pertanyaan }}</p>
+            <hr>
+            {% for pilihan in pertanyaan.pilihan_set.all %}
+            <div class="form-check">
+                <input class="form-check-input"
+                       type="radio"
+                       id="pilihan_{{ pilihan.id }}"
+                       name="pertanyaan_{{ pertanyaan.id }}"
+                       value="{{ pilihan.id }}"
+                       required>
+                <label class="form-check-label" for="pilihan_{{ pilihan.id }}">{{ pilihan.teks_pilihan }}</label>
             </div>
-        {% endfor %}
-        <button type="submit" class="btn btn-success btn-lg">Kumpulkan Jawaban</button>
-    </form>
+            {% endfor %}
+        </div>
+    </div>
+    {% endfor %}
+
+    <div class="nav-slide-latihan">
+        <button type="button" id="btn-slide-prev" class="btn btn-secondary btn-slide-latihan" style="visibility: hidden;">
+            &larr; Sebelumnya
+        </button>
+        <button type="button" id="btn-slide-next" class="btn btn-primary btn-slide-latihan">
+            Selanjutnya &rarr;
+        </button>
+        <button type="submit" id="btn-slide-submit" class="btn btn-success btn-slide-latihan" style="display: none;">
+            Kumpulkan Jawaban
+        </button>
+    </div>
+</form>
+{% endblock %}
+
+{% block custom_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const slides = document.querySelectorAll('.card-latihan-soal');
+    const prevBtn = document.getElementById('btn-slide-prev');
+    const nextBtn = document.getElementById('btn-slide-next');
+    const submitBtn = document.getElementById('btn-slide-submit');
+    let current = 0;
+    const total = slides.length;
+    function updateSlide() {
+        slides.forEach((s, i) => s.classList.toggle('active', i === current));
+        prevBtn.style.visibility = current === 0 ? 'hidden' : 'visible';
+        if (current === total - 1) {
+            nextBtn.style.display = 'none';
+            submitBtn.style.display = 'inline-block';
+        } else {
+            nextBtn.style.display = 'inline-block';
+            submitBtn.style.display = 'none';
+        }
+    }
+    prevBtn.addEventListener('click', function() {
+        if (current > 0) { current--; updateSlide(); }
+    });
+    nextBtn.addEventListener('click', function() {
+        if (current < total - 1) { current++; updateSlide(); }
+    });
+    updateSlide();
+});
+</script>
 {% endblock %}
