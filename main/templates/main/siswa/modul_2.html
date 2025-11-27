@@ -3,67 +3,67 @@
 {% block title %}Modul 2: {{ subbab.judul }}{% endblock %}
 {% block custom_css %}
     <style>
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&display=swap');
-body {
-    font-family: 'Nunito', sans-serif;
-    background: #f3f6fd;
-}
-.modul-header-card {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1.6rem;
-    background: #fff;
-    padding: 1.1rem 1.5rem;
-    border-radius: 1.2rem;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.03);
-}
-.modul-header-title {
-    font-family: 'Nunito', sans-serif;
-    color: #22356f;
-    font-weight: 900;
-    font-size: 1.28rem;
-    margin-bottom: 3px;
-}
-.modul-header-keterangan {
-    font-size: 0.92rem;
-    color: #7a849c;
-    font-weight: 600;
-    letter-spacing: 0.5px;
-}
-.learning-slide { display: none; }
-.learning-slide.active { display: block; }
-.learning-card {
-    background: #fff;
-    border-radius: 2.2rem;
-    box-shadow: 0 8px 32px rgba(53,99,233,0.10);
-    padding: 2.6rem 5vw 2.2rem 5vw;
-    width: 100%;
-    max-width: 100%;
-    margin: 0 auto 2.5rem auto;
-}
-@media (max-width: 900px) {
-    .learning-card { padding: 1.0rem .7rem 1.0rem .7rem; border-radius: 1.08rem; }
-    .modul-header-card { padding: 0.7rem;}
-    .modul-header-title { font-size: 1.12rem;}
-}
-.learning-card .card-header {
-    background: transparent;
-    border: none;
-    border-radius: 2.2rem 2.2rem 0 0;
-    font-weight: 800;
-    padding: 0;
-    margin-bottom: 1.02rem;
-}
-.learning-card .card-header h6 {
-    color: #246bfd;
-    font-size: 1.13rem;
-    font-weight: 900;
-    font-family: 'Nunito', sans-serif !important;
-    margin-bottom: 0;
-    line-height: 1.22;
-    letter-spacing: .007em;
-}
+    @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&display=swap');
+    body {
+        font-family: 'Nunito', sans-serif;
+        background: #f3f6fd;
+    }
+    .modul-header-card {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1.6rem;
+        background: #fff;
+        padding: 1.1rem 1.5rem;
+        border-radius: 1.2rem;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+    }
+    .modul-header-title {
+        font-family: 'Nunito', sans-serif;
+        color: #22356f;
+        font-weight: 900;
+        font-size: 1.28rem;
+        margin-bottom: 3px;
+    }
+    .modul-header-keterangan {
+        font-size: 0.92rem;
+        color: #7a849c;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+    }
+    .learning-slide { display: none; }
+    .learning-slide.active { display: block; }
+    .learning-card {
+        background: #fff;
+        border-radius: 2.2rem;
+        box-shadow: 0 8px 32px rgba(53,99,233,0.10);
+        padding: 2.6rem 5vw 2.2rem 5vw;
+        width: 100%;
+        max-width: 100%;
+        margin: 0 auto 2.5rem auto;
+    }
+    @media (max-width: 900px) {
+        .learning-card { padding: 1.0rem .7rem 1.0rem .7rem; border-radius: 1.08rem; }
+        .modul-header-card { padding: 0.7rem;}
+        .modul-header-title { font-size: 1.12rem;}
+    }
+    .learning-card .card-header {
+        background: transparent;
+        border: none;
+        border-radius: 2.2rem 2.2rem 0 0;
+        font-weight: 800;
+        padding: 0;
+        margin-bottom: 1.02rem;
+    }
+    .learning-card .card-header h6 {
+        color: #246bfd;
+        font-size: 1.13rem;
+        font-weight: 900;
+        font-family: 'Nunito', sans-serif !important;
+        margin-bottom: 0;
+        line-height: 1.22;
+        letter-spacing: .007em;
+    }
     .learning-card .card-body h5, .learning-card .card-body h4 {
         font-family: 'Nunito', sans-serif !important;
         color: #1c253b;
@@ -94,19 +94,29 @@ body {
         list-style-type: none;
     }
     .kunci-determinasi li {
-        margin-bottom: 5px;
+        margin-bottom: 8px; /* Jarak antar baris diperlebar sedikit */
         padding-left: 20px;
     }
     .kunci-determinasi li strong {
         color: #333;
+        margin-right: 5px;
     }
     .kunci-determinasi li span {
-        font-style: italic;
-        color: #007bff;
+        font-style: normal; /* Agar lebih mudah dibaca */
+        color: #fff;
+        background-color: #4e73df;
+        padding: 2px 8px;
+        border-radius: 4px;
         font-weight: bold;
+        font-size: 0.9em;
+        margin-left: 5px;
+    }
+    /* Warna khusus untuk hasil akhir (nama organisme) */
+    .kunci-determinasi li span.hasil-akhir {
+        background-color: #1cc88a; /* Hijau */
     }
     
-    /* === GAYA BARU UNTUK PIRAMIDA & KOTAK INFO (SLIDE 4) === */
+    /* === GAYA BARU UNTUK PIRAMIDA & KOTAK INFO (SLIDE 5) === */
     .piramida { display: flex; flex-direction: column; align-items: center; }
     .level-takson {
         background-color: #4e73df; color: white; margin: 2px 0;
@@ -148,10 +158,49 @@ body {
         width: 150px; /* Ratakan label */
         font-style: normal;
     }
+    
+    /* Gaya untuk Kunci Hirarki (Materi Singkat) */
+    .kunci-hirarki {
+        list-style-type: none;
+        padding-left: 0;
+    }
+    .kunci-hirarki li {
+        position: relative;
+        padding-left: 30px;
+        margin-top: 10px;
+    }
+    .kunci-hirarki li::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        border-left: 1px dashed #4e73df;
+        border-bottom: 1px dashed #4e73df;
+        width: 20px;
+        height: 20px;
+    }
+    .kunci-hirarki li::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 20px;
+        border-left: 1px dashed #4e73df;
+        height: 100%;
+    }
+    .kunci-hirarki li:last-child::after { display: none; }
+    .kunci-hirarki li strong { color: #4e73df; }
+    .kunci-hirarki li span {
+        background-color: #1cc88a;
+        color: white;
+        padding: 2px 8px;
+        border-radius: 4px;
+        font-weight: bold;
+    }
     /* === AKHIR GAYA BARU === */
 
     </style>
 {% endblock %}
+
 {% block content %}
 <div class="modul-header-card">
     <div>
@@ -161,13 +210,13 @@ body {
         </div>
     </div>
 </div>
+
     <div id="slide-1" class="learning-slide active">
         <div class="learning-card">
             <div class="card-header">
                 <h6>Tujuan Pembelajaran (Stimulasi)</h6>
             </div>
             <div class="card-body">
-                <p>Selamat datang di modul klasifikasi! Di alam ini terdapat jutaan makhluk hidup yang beragam.</p>
                 <p>Setelah mengikuti kegiatan pembelajaran ini, kamu diharapkan dapat:</p>
                 <ol>
                     <li>Menjelaskan tujuan dan dasar klasifikasi makhluk hidup.</li>
@@ -176,12 +225,93 @@ body {
                     <li>Menjelaskan urutan takson dalam klasifikasi.</li>
                 </ol>
                 <button class="btn btn-primary" onclick="showSlide(2)">
-                    Mulai Penyelidikan <i class="fas fa-arrow-right"></i>
+                    Mulai Belajar <i class="fas fa-arrow-right"></i>
                 </button>
             </div>
         </div>
     </div>
+
     <div id="slide-2" class="learning-slide">
+        <div class="learning-card">
+            <div class="card-header">
+                <h6>Materi Pembelajaran Singkat</h6>
+            </div>
+            <div class="card-body">
+                <h5 class="text-gray-900">1. Pengertian Klasifikasi Makhluk Hidup</h5>
+                <p>Klasifikasi adalah pengelompokan makhluk hidup berdasarkan persamaan dan perbedaan cirinya.</p>
+                <p>Tujuan klasifikasi adalah:</p>
+                <ul>
+                    <li>Mempermudah mengenali dan mempelajari makhluk hidup.</li>
+                    <li>Mengetahui hubungan kekerabatannya antar makhluk hidup.</li>
+                    <li>Mengelompokkan makhluk hidup ke dalam kategori tertentu (jenis, genus, famili, dan seterusnya).</li>
+                </ul>
+
+                <h5 class="text-gray-900 mt-4">2. Dasar Klasifikasi Makhluk Hidup</h5>
+                <p>Makhluk hidup diklasifikasikan berdasarkan beberapa dasar pengelompokan, antara lain:</p>
+                <ol>
+                    <li>Bentuk tubuh dan struktur organ.</li>
+                    <li>Jenis makanan dan cara mendapatkan makanan.</li>
+                    <li>Habitat atau tempat hidupnya.</li>
+                    <li>Cara berkembang biak.</li>
+                    <li>Persamaan ciri morfologi dan fisiologi.</li>
+                </ol>
+
+                <h5 class="text-gray-900 mt-4">3. Kunci Dikotom</h5>
+                <p>
+                    Kunci dikotom adalah alat bantu untuk mengidentifikasi makhluk hidup berdasarkan dua pilihan ciri yang saling bertentangan (dua cabang).
+                </p>
+                <p class="mt-2">
+                    <strong>Contoh Penggunaan Kunci Dikotom (Bagan):</strong>
+                </p>
+                <ul class="kunci-hirarki">
+                    <li>
+                        <strong>(1) Apakah tumbuhan berspora?</strong>
+                        <ul>
+                            <li>
+                                <strong>YA (1a):</strong>
+                                <ul>
+                                    <li>
+                                        <strong>(2a) Berbatang jelas:</strong> <span>Suplir</span>
+                                    </li>
+                                    <li>
+                                        <strong>(2b) Tidak berbatang jelas:</strong> <span>Lumut</span>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <strong>TIDAK (1b):</strong>
+                                <ul>
+                                    <li>
+                                        <strong>(3a) Berbiji tertutup:</strong>
+                                        <ul>
+                                            <li>
+                                                <strong>(4a) Biji keping dua:</strong> <span>Mawar</span>
+                                            </li>
+                                            <li>
+                                                <strong>(4b) Biji keping satu:</strong> <span>Jagung</span>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <strong>(3b) Berbiji terbuka:</strong> <span>Melinjo</span>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <hr>
+                <button class="btn btn-secondary" onclick="showSlide(1)">
+                    <i class="fas fa-arrow-left"></i> Kembali
+                </button>
+                <button class="btn btn-primary" onclick="showSlide(3)">
+                    Lanjut ke Aktivitas <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="slide-3" class="learning-slide">
         <div class="learning-card">
             <div class="card-header">
                 <h6>Aktivitas 1: Penyelidikan Kunci Identitas</h6>
@@ -192,81 +322,97 @@ body {
                 </p>
                 <div id="pemandu-area"></div>
                 <hr>
-                <button class="btn btn-secondary" onclick="showSlide(1)">
-                    <i class="fas fa-arrow-left"></i> Kembali
+                <button class="btn btn-secondary" onclick="showSlide(2)">
+                    <i class="fas fa-arrow-left"></i> Kembali ke Materi
                 </button>
-                <button id="btn-ke-slide-3"
+                <button id="btn-ke-slide-4"
                         class="btn btn-primary"
-                        onclick="showSlide(3)"
+                        onclick="showSlide(4)"
                         style="display:none">
                     Apa yang baru saja kita lakukan? <i class="fas fa-arrow-right"></i>
                 </button>
             </div>
         </div>
     </div>
-    <div id="slide-3" class="learning-slide">
+
+    <div id="slide-4" class="learning-slide">
         <div class="learning-card">
             <div class="card-header">
-                <h6>Kesimpulan: Apa itu Klasifikasi & Kunci Dikotom?</h6>
+                <h6>Kesimpulan: Konsep Klasifikasi & Kunci Dikotom</h6>
             </div>
             <div class="card-body">
-                <h5 class="text-gray-900">1. Apa yang Kamu Lakukan?</h5>
+                <h5 class="text-gray-900">1. Hakekat Klasifikasi Makhluk Hidup</h5>
                 <p>
-                    Aktivitas yang baru saja kamu lakukan adalah proses <strong>Klasifikasi</strong>. Klasifikasi adalah suatu cara mengelompokkan makhluk hidup berdasarkan kesamaan ciri yang dimiliki.
+                    Aktivitas yang telah kamu lakukan adalah simulasi dari proses <strong>Klasifikasi</strong>. 
+                    Klasifikasi bukan hanya sekadar mengelompokkan, tetapi merupakan proses sistematis untuk memisahkan makhluk hidup berdasarkan 
+                    <strong>persamaan ciri</strong> yang umum hingga ke ciri yang paling khusus.
                 </p>
-                <h5 class="text-gray-900 mt-4">2. Apa Tujuannya?</h5>
                 <p>
-                    Tujuan kamu melakukan itu adalah untuk <strong>mempermudah mengenali, membandingkan, dan mempelajari</strong> makhluk hidup tersebut.
+                    Dasar utamanya adalah <strong>Morfologi</strong> (bentuk luar tubuh, seperti bentuk daun atau paruh) dan 
+                    <strong>Anatomi</strong> (struktur dalam tubuh).
                 </p>
-                <h5 class="text-gray-900 mt-4">3. Apa Dasarnya?</h5>
+
+                <h5 class="text-gray-900 mt-4">2. Tujuan Klasifikasi</h5>
+                <ul style="color: #495466;">
+                    <li><strong>Mempermudah Studi:</strong> Membuat keanekaragaman hayati yang sangat banyak menjadi lebih mudah dipelajari.</li>
+                    <li><strong>Mengetahui Hubungan Kekerabatan:</strong> Mengetahui seberapa dekat hubungan antara satu organisme dengan organisme lainnya.</li>
+                    <li><strong>Pemberian Nama (Nomenklatur):</strong> Memberikan nama ilmiah yang diakui secara universal.</li>
+                </ul>
+
+                <h5 class="text-gray-900 mt-4">3. Prinsip Kunci Dikotom</h5>
                 <p>
-                    Dasar yang kamu gunakan tadi adalah <strong>persamaan dan perbedaan ciri</strong>, khususnya <strong>ciri bentuk tubuh (morfologi)</strong>, seperti 'berbatang jelas' atau 'berkeping satu'.
+                    Alat bantu yang kamu gunakan tadi disebut <strong>Kunci Dikotom</strong>. Prinsip kerjanya adalah:
                 </p>
+                <ul>
+                    <li>Selalu terdiri dari <strong>dua pernyataan yang berlawanan</strong>.</li>
+                    <li>Setiap pilihan akan membawamu ke langkah berikutnya yang lebih spesifik hingga nama organisme ditemukan.</li>
+                </ul>
+
                 <hr>
-                <h5 class="text-gray-900 mt-4">4. Alat Apa yang Kamu Gunakan?</h5>
+                <h5 class="text-gray-900 mt-4">4. Hasil Identifikasi (Kunci Determinasi)</h5>
                 <p>
-                    Pemandu interaktif tadi adalah simulasi dari **Kunci Dikotom**. Kunci dikotom adalah kunci yang berisi keterangan yang disusun berpasangan dan menunjukkan ciri yang berlawanan.
+                    Berdasarkan aktivitasmu, berikut adalah contoh <strong>Kunci Determinasi</strong> yang disusun dengan bahasa yang lebih sederhana:
                 </p>
-                <p>
-                    Bagan yang kamu ikuti di aktivitas 1, jika ditulis dalam bentuk ilmiah akan menjadi **Kunci Determinasi** seperti ini (berdasarkan contoh di PDF hlm. 60-61):
-                </p>
+                
                 <ul class="kunci-determinasi">
                     <li>
-                        <strong>1. a.</strong> Tumbuhan yang berspora ..... <span>Lanjut ke 2</span>
+                        <strong>1. a.</strong> Tumbuhan yang berspora ..... <span>Periksa ciri pada nomor 2</span>
                     </li>
                     <li>
-                        <strong>1. b.</strong> Tumbuhan yang tidak berspora ..... <span>Lanjut ke 3</span>
+                        <strong>1. b.</strong> Tumbuhan yang tidak berspora ..... <span>Periksa ciri pada nomor 3</span>
                     </li>
                     <li>
-                        <strong>2. a.</strong> Tumbuhan yang berbatang jelas ..... <strong>Suplir</strong>
+                        <strong>2. a.</strong> Tumbuhan yang berbatang jelas ..... <span class="hasil-akhir">Suplir (Pteridophyta)</span>
                     </li>
                     <li>
-                        <strong>2. b.</strong> Tumbuhan yang tidak berbatang jelas ..... <strong>Lumut</strong>
+                        <strong>2. b.</strong> Tumbuhan yang tidak berbatang jelas ..... <span class="hasil-akhir">Lumut (Bryophyta)</span>
                     </li>
                     <li>
-                        <strong>3. a.</strong> Berbiji tertutup ..... <span>Lanjut ke 4</span>
+                        <strong>3. a.</strong> Berbiji tertutup (Angiospermae) ..... <span>Periksa ciri pada nomor 4</span>
                     </li>
                     <li>
-                        <strong>3. b.</strong> Berbiji terbuka ..... <strong>Melinjo</strong>
+                        <strong>3. b.</strong> Berbiji terbuka (Gymnospermae) ..... <span class="hasil-akhir">Melinjo</span>
                     </li>
                     <li>
-                        <strong>4. a.</strong> Biji berkeping dua ..... <strong>Mawar</strong> (atau Kedelai)
+                        <strong>4. a.</strong> Biji berkeping dua ..... <span class="hasil-akhir">Mawar (Dikotil)</span>
                     </li>
                     <li>
-                        <strong>4. b.</strong> Biji berkeping satu ..... <strong>Jagung</strong>
+                        <strong>4. b.</strong> Biji berkeping satu ..... <span class="hasil-akhir">Jagung (Monokotil)</span>
                     </li>
                 </ul>
+                
                 <hr>
-                <button class="btn btn-secondary" onclick="showSlide(2)">
+                <button class="btn btn-secondary" onclick="showSlide(3)">
                     <i class="fas fa-arrow-left"></i> Kembali
                 </button>
-                <button class="btn btn-primary" onclick="showSlide(4)">
-                    Bagaimana Ilmuwan Menyusunnya? <i class="fas fa-arrow-right"></i>
+                <button class="btn btn-primary" onclick="showSlide(5)">
+                    Bagaimana Itu disusun? <i class="fas fa-arrow-right"></i>
                 </button>
             </div>
         </div>
     </div>
-    <div id="slide-4" class="learning-slide">
+
+    <div id="slide-5" class="learning-slide">
         <div class="learning-card">
             <div class="card-header">
                 <h6>Aktivitas 2: "Lemari" Klasifikasi (Takson)</h6>
@@ -296,7 +442,7 @@ body {
                 </div>
                 <hr>
                 <div class="d-flex align-items-center gap-2">
-                    <button class="btn btn-secondary mr-2" onclick="showSlide(3)">
+                    <button class="btn btn-secondary mr-2" onclick="showSlide(4)">
                         <i class="fas fa-arrow-left"></i> Kembali
                     </button>
                     <a id="finish-modul-2-btn"
@@ -311,6 +457,7 @@ body {
         </div>
     </div>
 {% endblock %}
+
 {% block custom_js %}
     <script>
     // --- FUNGSI GLOBAL ---
@@ -330,7 +477,7 @@ body {
         }
     }
 
-    // --- LOGIKA BARU UNTUK PIRAMIDA INTERAKTIF (SLIDE 4) ---
+    // --- LOGIKA BARU UNTUK PIRAMIDA INTERAKTIF (SLIDE 5) ---
     
     const taksonData = {
         'kingdom': { indo: 'Dunia', latin: 'Regnum', inggris: 'Kingdom' },
@@ -373,17 +520,17 @@ body {
         }
     }
     
-    // --- KODE INISIALISASI (HANYA UNTUK SLIDE 2) ---
+    // --- KODE INISIALISASI (HANYA UNTUK SLIDE 3 - AKTIVITAS 1) ---
     
     document.addEventListener('DOMContentLoaded', function() {
         
-        // --- Setup untuk Slide 2 (Pemandu Identifikasi) ---
+        // --- Setup untuk Slide 3 (Pemandu Identifikasi) ---
         let organismeAktif = null; 
         const pemanduArea = document.getElementById('pemandu-area');
-        const btnKeSlide3 = document.getElementById('btn-ke-slide-3'); 
+        const btnKeSlide4 = document.getElementById('btn-ke-slide-4'); // ID baru (ke slide 4)
         
         // Pengecekan penting
-        if (!pemanduArea || !btnKeSlide3) {
+        if (!pemanduArea) {
              return; 
         }
 
@@ -454,7 +601,11 @@ body {
                     let imgElement = document.createElement('img');
                     imgElement.src = organismeInfo.img;
                     imgElement.className = 'img-thumbnail mb-3';
-                    imgElement.style.maxWidth = '250px';
+                    
+                    // PERUBAHAN DI SINI: Ukuran gambar diperbesar
+                    imgElement.style.maxWidth = '400px'; // Naik dari 250px ke 400px
+                    imgElement.style.width = '100%'; // Responsif agar tidak overflow di HP
+                    
                     imgElement.style.display = 'block';
                     imgElement.style.margin = '0 auto 1rem auto';
                     pemanduArea.appendChild(imgElement);
@@ -475,7 +626,9 @@ body {
                     let btnPilihan = document.createElement('button');
                     if (langkah.isStart) {
                         btnPilihan.className = 'btn btn-outline-primary m-2';
-                        btnPilihan.innerHTML = `<img src="${pilihan.img}" width="100" class="img-thumbnail"><br>${pilihan.teks}`;
+                        
+                        // PERUBAHAN DI SINI: Ukuran gambar thumbnail di menu awal juga diperbesar
+                        btnPilihan.innerHTML = `<img src="${pilihan.img}" width="150" class="img-thumbnail"><br>${pilihan.teks}`; // Naik dari 100px ke 150px
                         
                         if (organismeSudahBenar.has(pilihan.teks)) {
                             btnPilihan.style.display = 'none';
@@ -519,8 +672,8 @@ body {
                 };
                 containerPilihan.appendChild(btnKembali);
 
-                if (organismeSudahBenar.size >= totalOrganisme && btnKeSlide3) {
-                     btnKeSlide3.style.display = 'inline-block';
+                if (organismeSudahBenar.size >= totalOrganisme && btnKeSlide4) {
+                     btnKeSlide4.style.display = 'inline-block';
                 }
             }
         }

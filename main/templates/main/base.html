@@ -17,107 +17,108 @@
               rel="stylesheet">
         <link href="{% static 'css/sb-admin-2.min.css' %}" rel="stylesheet">
         <style>
-body {
-    background: #f6fcff !important;
-    font-family: 'Nunito', sans-serif;
-}
-/* -- SIDEBAR COLOR -- */
-.sidebar,
-.sidebar.sidebar-dark.accordion,
-.navbar-nav.sidebar.sidebar-dark.accordion {
-    background: #009688 !important;     /* TEAL cyan utama */
-    min-height: 100vh;
-    border-right: 1px solid #42a5f5 !important; /* Sky blue accent */
-    font-family: 'Nunito', sans-serif !important;
-}
-.sidebar .sidebar-brand {
-    color: #ffffff !important;          /* Sky blue untuk brand/teks utama */
-    font-size: 1.32rem;
-    font-weight: 900;
-    letter-spacing: .04em;
-    text-transform: none;
-}
-.sidebar .sidebar-brand-icon {
-    color: #cddc39 !important;          /* Lime/chartreuse accent pada icon */
-    font-size: 1.9rem !important;
-    margin-right: 8px;
-}
-.sidebar .sidebar-heading {
-    text-transform: none !important;
-    /* Sudah ada, diulang agar override default Bootstrap/SB Admin */
-    font-weight: 700;
-    font-size: 1.06rem;
-    letter-spacing: .01em;
-    margin: 10px 0 6px 2px;
-    text-transform: capitalize !important;
-}
-.sidebar .nav-link,
-.sidebar .nav-link span {
-    color: #ffffff !important;
-    font-weight: 600;
-    font-size: 1.09rem;
-    padding: 8px 12px 8px 13px;
-    border-radius: 0.85rem;
-    transition: background .17s, color .13s;
-    text-transform: none;
-    letter-spacing: .01em;
-}
-.sidebar .nav-link.active,
-.sidebar .nav-link:focus,
-.sidebar .nav-link:hover,
-.sidebar .nav-item.active > .nav-link {
-    background: #A8BBA3  !important;         /* Biru langit menu aktif */
-    color: #009688 !important;
-    font-weight: 800;
-    border-radius: 0.92rem;
-}
-.sidebar .nav-link.active i,
-.sidebar .nav-item.active i {
-    color: #626F47 !important;
-}
-.sidebar .nav-link:not(.active):hover {
-    background: #A8BBA3 !important;
-    color: #626F47 ;
-}
-.sidebar .nav-link:not(.active):hover i {
-    color: #626F47 !important;
-}
-.sidebar-divider {
-    border-color: #cddc39 !important;  /* Lime accent untuk garis */
-}
-.sidebar .collapse-inner {
-    background: #e4f7fa;
-    border-radius: 0.6rem;
-    font-size: 1.01rem;
-}
-.sidebar .collapse-header {
-    color: #A8BBA3  !important;         /* sky blue untuk header collapse */
-    font-weight: 700;
-    font-size: 0.99rem;
-    text-transform: none;
-}
-.sidebar .nav-link i {
-    color: #FFF6DA !important;        /* semua icon lime/chartreuse */
-    margin-right: 10px;
-    font-size: 1.14rem;
-    vertical-align: middle;
-    transition: color .18s;
-}
-/* Topbar, card, dan konten utama tetap putih/abu muda agar sidebar menonjol, dashboard terasa lapang */
-.card, .card.bg-white, .card.bg-light {
-    background: #fff !important;
-    border-radius: 1.37rem !important;
-    border: none !important;
-}
-
-/* HEADER CARD KHUSUS DASHBOARD */
-.dashboard-header-card {
-    margin-bottom: 2.1rem;
-    transition: box-shadow .2s;
-}
-.dashboard-header-card:hover {
-    box-shadow: 0 14px 38px #00b09b17, 0 2px 8px #00968819;
-}
+            body {
+                background: #f6fcff !important;
+                font-family: 'Nunito', sans-serif;
+            }
+            /* -- SIDEBAR COLOR -- */
+            .sidebar,
+            .sidebar.sidebar-dark.accordion,
+            .navbar-nav.sidebar.sidebar-dark.accordion {
+                background: #009688 !important;     /* TEAL cyan utama */
+                min-height: 100vh;
+                border-right: 1px solid #42a5f5 !important; /* Sky blue accent */
+                font-family: 'Nunito', sans-serif !important;
+            }
+            .sidebar .sidebar-brand {
+                color: #ffffff !important;          /* Sky blue untuk brand/teks utama */
+                font-size: 1.32rem;
+                font-weight: 900;
+                letter-spacing: .04em;
+                text-transform: none;
+            }
+            .sidebar .sidebar-brand-icon {
+                color: #cddc39 !important;          /* Lime/chartreuse accent pada icon */
+                font-size: 1.9rem !important;
+                margin-right: 8px;
+            }
+            .sidebar .sidebar-heading {
+                text-transform: none !important;
+                font-weight: 700;
+                font-size: 0.95rem;
+                letter-spacing: .01em;
+                margin: 15px 0 5px 0;
+                text-transform: uppercase !important;
+                opacity: 0.8;
+            }
+            .sidebar .nav-link,
+            .sidebar .nav-link span {
+                color: #ffffff !important;
+                font-weight: 600;
+                font-size: 1.05rem;
+                padding: 10px 15px;
+                border-radius: 0.85rem;
+                transition: background .17s, color .13s;
+                text-transform: none;
+                letter-spacing: .01em;
+            }
+            .sidebar .nav-link.active,
+            .sidebar .nav-link:focus,
+            .sidebar .nav-link:hover,
+            .sidebar .nav-item.active > .nav-link {
+                background: #A8BBA3  !important;         /* Biru langit menu aktif */
+                color: #009688 !important;
+                font-weight: 800;
+                border-radius: 0.92rem;
+            }
+            .sidebar .nav-link.active i,
+            .sidebar .nav-item.active i {
+                color: #626F47 !important;
+            }
+            .sidebar .nav-link:not(.active):hover {
+                background: rgba(168, 187, 163, 0.2) !important;
+                color: #fff ;
+            }
+            .sidebar .nav-link:not(.active):hover i {
+                color: #fff !important;
+            }
+            .sidebar-divider {
+                border-color: #cddc39 !important;  /* Lime accent untuk garis */
+                opacity: 0.3;
+                margin: 10px 1rem !important;
+            }
+            .sidebar .collapse-inner {
+                background: #e4f7fa;
+                border-radius: 0.6rem;
+                font-size: 0.95rem;
+            }
+            .sidebar .collapse-header {
+                color: #009688  !important;        
+                font-weight: 800;
+                font-size: 0.85rem;
+                text-transform: uppercase;
+            }
+            .sidebar .nav-link i {
+                color: #FFF6DA !important;        /* semua icon lime/chartreuse */
+                margin-right: 10px;
+                font-size: 1.1rem;
+                vertical-align: middle;
+                width: 20px;
+                text-align: center;
+            }
+            .card, .card.bg-white, .card.bg-light {
+                background: #fff !important;
+                border-radius: 1.37rem !important;
+                border: none !important;
+            }
+            /* HEADER CARD KHUSUS DASHBOARD */
+            .dashboard-header-card {
+                margin-bottom: 2.1rem;
+                transition: box-shadow .2s;
+            }
+            .dashboard-header-card:hover {
+                box-shadow: 0 14px 38px #00b09b17, 0 2px 8px #00968819;
+            }
         </style>
         {% block custom_css %}{% endblock %}
     </head>
@@ -139,9 +140,12 @@ body {
                             <i class="fas fa-home"></i>
                             <span>Dashboard Belajar</span></a>
                     </li>
+                    
                     <hr class="sidebar-divider">
-                    <div class="sidebar-heading">Alat Bantu Belajar</div>
-                    <li class="nav-item">
+
+                    <div class="sidebar-heading">Materi Pembelajaran</div>
+                    
+                    <li class="nav-item {% if 'modul/1' in request.path or 'latihan/1' in request.path %}active{% endif %}">
                         <a class="nav-link collapsed"
                            href="#"
                            data-toggle="collapse"
@@ -149,18 +153,19 @@ body {
                            aria-expanded="true"
                            aria-controls="collapseSubBab1">
                             <i class="fas fa-book-open"></i>
-                            <span>Karakteristik Makhluk Hidup</span>
+                            <span>1. Karakteristik</span>
                         </a>
                         <div id="collapseSubBab1" class="collapse" data-parent="#accordionSidebar">
                             <div class="bg-white py-2 collapse-inner rounded">
-                                <h6 class="collapse-header">Karakteristik:</h6>
-                                <a class="collapse-item" href="{% url 'modul' 1 %}">Modul Ciri Kehidupan</a>
+                                <h6 class="collapse-header">Sub-Bab 1:</h6>
+                                <a class="collapse-item" href="{% url 'modul' 1 %}">📚 Modul Materi</a>
                                 {% get_latihan_id 1 as latihan_1_id %}
-                                <a class="collapse-item" href="{% url 'latihan_soal' latihan_1_id %}">Latihan Soal 1</a>
+                                <a class="collapse-item" href="{% url 'latihan_soal' latihan_1_id %}">📝 Latihan Soal 1</a>
                             </div>
                         </div>
                     </li>
-                    <li class="nav-item">
+
+                    <li class="nav-item {% if 'modul/2' in request.path or 'latihan/2' in request.path %}active{% endif %}">
                         <a class="nav-link collapsed"
                            href="#"
                            data-toggle="collapse"
@@ -168,48 +173,74 @@ body {
                            aria-expanded="true"
                            aria-controls="collapseSubBab2">
                             <i class="fas fa-sitemap"></i>
-                            <span>Klasifikasi Makhluk Hidup</span>
+                            <span>2. Klasifikasi</span>
                         </a>
                         <div id="collapseSubBab2" class="collapse" data-parent="#accordionSidebar">
                             <div class="bg-white py-2 collapse-inner rounded">
-                                <h6 class="collapse-header">Klasifikasi:</h6>
-                                <a class="collapse-item" href="{% url 'glosarium' %}">Alat: Glosarium</a>
-                                <a class="collapse-item" href="{% url 'modul' 2 %}">Modul Pemandu Identifikasi</a>
+                                <h6 class="collapse-header">Sub-Bab 2:</h6>
+                                <a class="collapse-item" href="{% url 'modul' 2 %}">📚 Modul Materi</a>
                                 {% get_latihan_id 2 as latihan_2_id %}
-                                <a class="collapse-item" href="{% url 'latihan_soal' latihan_2_id %}">Latihan Soal 2</a>
+                                <a class="collapse-item" href="{% url 'latihan_soal' latihan_2_id %}">📝 Latihan Soal 2</a>
                             </div>
                         </div>
                     </li>
-                    <li class="nav-item">
+
+                    <li class="nav-item {% if 'modul/3' in request.path or 'latihan/3' in request.path %}active{% endif %}">
                         <a class="nav-link collapsed"
                            href="#"
                            data-toggle="collapse"
                            data-target="#collapseSubBab3"
                            aria-expanded="true"
                            aria-controls="collapseSubBab3">
-                            <i class="fas fa-seedling"></i>
-                            <span>Klasifikasi 5 Kingdom</span>
+                            <i class="fas fa-paw"></i>
+                            <span>3. Lima Kingdom</span>
                         </a>
                         <div id="collapseSubBab3" class="collapse" data-parent="#accordionSidebar">
                             <div class="bg-white py-2 collapse-inner rounded">
-                                <h6 class="collapse-header">5 Kingdom:</h6>
-                                <a class="collapse-item" href="{% url 'lab_mikroskop' %}">Alat: Lab Mikroskop</a>
-                                <a class="collapse-item" href="{% url 'modul' 3 %}">Modul Geser-Bandingkan</a>
-                                <a class="collapse-item" href="{% url 'database_spesies' %}">Alat: Database Spesies</a>
+                                <h6 class="collapse-header">Sub-Bab 3:</h6>
+                                <a class="collapse-item" href="{% url 'modul' 3 %}">📚 Modul Materi</a>
                                 {% get_latihan_id 3 as latihan_3_id %}
-                                <a class="collapse-item" href="{% url 'latihan_soal' latihan_3_id %}">Latihan Soal 3</a>
+                                <a class="collapse-item" href="{% url 'latihan_soal' latihan_3_id %}">📝 Latihan Soal 3</a>
                             </div>
                         </div>
                     </li>
+
                     <hr class="sidebar-divider">
-                    <div class="sidebar-heading">Ujian Akhir</div>
+                    
+                    <div class="sidebar-heading">Alat Bantu Belajar</div>
+
+                    <li class="nav-item {% if 'glosarium' in request.path %}active{% endif %}">
+                        <a class="nav-link" href="{% url 'glosarium' %}">
+                            <i class="fas fa-book"></i>
+                            <span>Glosarium</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item {% if 'mikroskop' in request.path %}active{% endif %}">
+                        <a class="nav-link" href="{% url 'lab_mikroskop' %}">
+                            <i class="fas fa-microscope"></i>
+                            <span>Lab Mikroskop</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item {% if 'database' in request.path %}active{% endif %}">
+                        <a class="nav-link" href="{% url 'database_spesies' %}">
+                            <i class="fas fa-database"></i>
+                            <span>Database Spesies</span>
+                        </a>
+                    </li>
+
+                    <hr class="sidebar-divider">
+                    
+                    <div class="sidebar-heading">Evaluasi Akhir</div>
                     <li class="nav-item {% if request.resolver_match.url_name == 'pengayaan' %}active{% endif %}">
                         {% get_pengayaan_id as pengayaan_id %}
                         <a class="nav-link" href="{% url 'pengayaan' pengayaan_id %}">
-                            <i class="fas fa-flag"></i>
+                            <i class="fas fa-flag-checkered"></i>
                             <span>Ujian Akhir Bab</span>
                         </a>
                     </li>
+
                 {% elif user.profile.role == 'GURU' %}
                     <li class="nav-item {% if request.resolver_match.url_name == 'guru_dashboard' %}active{% endif %}">
                         <a class="nav-link" href="{% url 'guru_dashboard' %}">
@@ -229,11 +260,13 @@ body {
                             <span>Analisis Hasil Belajar</span></a>
                     </li>
                 {% endif %}
+                
                 <hr class="sidebar-divider d-none d-md-block">
                 <div class="text-center d-none d-md-inline">
                     <button class="rounded-circle border-0" id="sidebarToggle"></button>
                 </div>
             </ul>
+            
             <div id="content-wrapper" class="d-flex flex-column">
                 <div id="content">
                     <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
@@ -277,41 +310,7 @@ body {
                             {% endfor %}
                         {% endif %}
                         {% block content %}
-<!-- HEADER CARD -->
-<div class="dashboard-header-card" style="
-    background: linear-gradient(97deg, #d7f9f2 28%, #f5faff 100%);
-    border-radius: 1.4rem;
-    box-shadow: 0 8px 28px #00b09b18;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 1.47rem 2rem 1.47rem 1.3rem;
-    margin-bottom: 2.1rem;
-    flex-wrap: wrap;
-">
-    <div style="display: flex; align-items: center;">
-        <div style="background:#0096881a; border-radius:1.1rem; padding:.85rem; margin-right:17px;">
-            <i class="fas fa-seedling" style="font-size:2.25rem; color:#009688;"></i>
-        </div>
-        <div>
-            <div style="font-family:'Nunito',sans-serif;font-weight:900;letter-spacing:.019em;font-size:1.32rem;color:#183849;">
-                BioVerse Dashboard
-            </div>
-            <div style="font-size:1.06rem;color:#5c727d;font-weight:600;margin-top:2px;">
-                Selamat datang, {{ user.first_name|default:user.username }}!  
-                Pantau progres belajarmu & akses seluruh alat bantu BioVerse dengan mudah.
-            </div>
-        </div>
-    </div>
-    <div style="display:flex;align-items:center;gap:20px; margin-left:1.2rem;">
-        <div style="padding:.48rem 1.15rem; border-radius:1em; font-size:1.07rem; background:#009688; color:white; font-weight:800; display:flex;align-items:center;gap:.6em;">
-            <i class="fas fa-leaf mr-2"></i>
-            Mode Belajar Aktif
-        </div>
-    </div>
-</div>
-<!-- Lanjutkan seluruh konten dashboard Anda di bawah sini -->
-{% endblock %}
+                        {% endblock %}
                     </div>
                 </div>
                 <footer class="sticky-footer bg-white">

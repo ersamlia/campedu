@@ -4,304 +4,319 @@
 
 {% block custom_css %}
 <style>
-body {
-    background: #f3f6fd !important;
-    font-family: 'Nunito', sans-serif;
-}
-/* Judul dashboard */
-.page-title-custom {
-    font-family: 'Nunito', sans-serif !important;
-    color: #1c253b;
-    font-size: 2.00rem;
-    font-weight: 750;
-    letter-spacing: .03em;
-    margin-bottom: 1.0rem;
-    line-height: 1.2;
-}
-@media (max-width: 768px) {
-    .page-title-custom { font-size: 1.13rem; }
-}
-/* Card utama dashboard */
-.card, .card.shadow, .card.bg-white {
-    background: #fff;
-    border-radius: 2.1rem;
-    box-shadow: 0 8px 32px rgba(53,99,233,0.09);
-    border: none !important;
-    font-family: 'Nunito', sans-serif;
-}
-.card-header, .card-header.py-3 {
-    background: transparent;
-    border: none;
-    border-radius: 2.1rem 2.1rem 0 0;
-    font-weight: 800;
-    padding-top: 1.13rem;
-    padding-bottom: 1rem;
-    padding-left: 1.2rem;
-}
-.card-header h6 {
-    color: #246bfd;
-    font-size: 1.09rem;
-    font-weight: 900;
-    margin-bottom: 0;
-    letter-spacing: .007em;
-}
-.card-body h4, .card-body h5 {
-    font-family: 'Nunito', sans-serif;
-    color: #009688;
-    font-weight: 900;
-    font-size: 1.19rem;
-    margin-bottom: .54rem;
-}
-.card .progress {
-    border-radius: 1.1rem;
-    background: #f3f6fd;
-    height: 0.9rem;
-}
-.card .progress-bar {
-    border-radius: 1.1rem;
-    font-weight: 800;
-}
-/* Card Info Welcome */
-.card-welcome {
-    background: linear-gradient(105deg, #e0f2f1 60%, #b6e2f3 100%);
-    padding: 1.8rem 2.1rem 1.7rem 2.1rem;
-    border-radius: 1.8rem;
-    box-shadow: 0 2px 8px #00968818;
-    border: none;
-    margin-bottom: 1.4rem;
-}
-.card-welcome h5 {
-    color: #009688;
-    font-weight: 900;
-    font-size: 1.18rem;
-}
-.card-welcome p { color: #525a66; font-size: 1.07rem; }
-.badge-fun {
-    background: #fff6da;
-    color: #a37f00;
-    border-radius: 0.8rem;
-    padding: .25em .98em;
-    font-size: 0.93rem;
-    font-weight: 800;
-    margin-right: 0.61rem;
-    margin-bottom: 0.8rem;
-}
-.card .text-xs {
-    font-size: 0.98rem;
-    color: #a6b8c8;
-    letter-spacing: .03em;
-}
-/* Card border warna */
-.card.border-left-primary { border-left: .43rem solid #246bfd !important; }
-.card.border-left-info { border-left: .43rem solid #009688 !important; }
-.card.border-left-success { border-left: .43rem solid #49bd7c !important; }
-/* Progress & stat font */
-.h5, .h5.mb-0, .h4 { color: #1c253b; font-weight: 850; font-family: 'Nunito', sans-serif; }
-.small, .text-xs, .text-gray-500 { font-family: 'Nunito', sans-serif; font-weight: 600; }
-/* Icon cards besar, fun untuk anak SMP */
-.card .col-auto i.fa-2x {
-    font-size: 2.27em;
-    color: #ffeaa5 !important;
-    filter: drop-shadow(0 2px 9px #246bfd13);
-}
-.border-left-primary .col-auto i { color: #4fc3f7 !important; }
-.border-left-info .col-auto i { color: #81e6cf !important; }
-.border-left-success .col-auto i { color: #a7eeac !important; }
-/* PieChart legend */
-.chart-pie .fas.fa-circle { font-size: 1.01rem; }
-/* Button fun */
-.btn-warning { border-radius: 0.9rem; font-weight: 800; }
-.btn-warning.btn-sm { font-size: .98rem; padding: 0.5rem 1.3rem; color: #ad8700; }
+    /* === GAYA UMUM === */
+    body {
+        font-family: 'Nunito', sans-serif;
+        background-color: #f0f2f5; /* Background sedikit lebih gelap agar kartu pop-up */
+        color: #444;
+    }
+    
+    /* === HERO SECTION (SAPAAN) === */
+    /* Desain: Gradient Biru-Ungu yang Fun */
+    .hero-welcome {
+        background: linear-gradient(120deg, #558776 100%); /* Blue Gradient */
+        /* Atau opsi lain: linear-gradient(120deg, #e0c3fc 0%, #8ec5fc 100%); (Purple-Blue) */
+        color: #fff;
+        border-radius: 1.5rem;
+        padding: 2.5rem;
+        margin-bottom: 2rem;
+        box-shadow: 0 8px 20px rgba(102, 166, 255, 0.3);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        position: relative;
+        overflow: hidden;
+    }
+   
+  
+    .hero-text { z-index: 1; text-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+    .hero-text h1 {
+        font-weight: 800;
+        font-size: 2rem;
+        margin-bottom: 0.5rem;
+    }
+    .hero-text p {
+        font-size: 1.1rem;
+        margin-bottom: 0;
+        font-weight: 600;
+    }
+    .hero-icon {
+        font-size: 3.5rem;
+        background: rgba(255, 255, 255, 0.25);
+        padding: 15px;
+        border-radius: 20px;
+        backdrop-filter: blur(5px);
+        z-index: 1;
+    }
+
+    /* === STAT CARDS (KARTU DATA) === */
+    /* Desain: Warna-warni cerah */
+    .stat-card {
+        background: #ffffff;
+        border-radius: 1.2rem;
+        padding: 1.5rem;
+        border: none;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        transition: transform 0.2s;
+    }
+    .stat-card:hover {
+        transform: translateY(-5px);
+    }
+    .stat-content { flex: 1; }
+    .stat-label {
+        font-size: 0.85rem;
+        color: #888;
+        font-weight: 700;
+        text-transform: uppercase;
+        margin-bottom: 0.3rem;
+    }
+    .stat-value {
+        font-size: 1.3rem;
+        font-weight: 800;
+        color: #2d3e50;
+    }
+    .stat-icon-box {
+        width: 55px; height: 55px;
+        border-radius: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    /* Warna Spesifik Kartu */
+    /* 1. Langkah (Kuning/Oranye - Semangat) */
+    .card-step .stat-icon-box { background: linear-gradient(135deg, #ffd200 0%, #f7971e 100%); color: white; }
+    /* 2. Progres (Biru - Tenang) */
+    .card-progress .stat-icon-box { background: linear-gradient(135deg, #00c6ff 0%, #0072ff 100%); color: white; }
+    /* 3. Skor (Pink/Merah - Prestasi) */
+    .card-score .stat-icon-box { background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 99%, #fecfef 100%); color: white; }
+    /* Note: Gradient pink di atas agar teks putih terlihat jelas, bisa diganti solid color */
+    .card-score .stat-icon-box { background: linear-gradient(135deg, #ff758c 0%, #ff7eb3 100%); color: white; }
+
+
+    /* === ALUR BELAJAR (LIST) === */
+    .timeline-container {
+        background: #ffffff;
+        border-radius: 1.5rem;
+        padding: 2rem;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+        border: none;
+    }
+    .timeline-header {
+        font-weight: 800;
+        color: #4e73df; /* Biru primer */
+        font-size: 1.3rem;
+        margin-bottom: 1.5rem;
+        padding-bottom: 0.8rem;
+        border-bottom: 2px dashed #e3e6f0;
+    }
+
+    /* Item List Styling */
+    .learning-item {
+        display: flex;
+        align-items: center;
+        padding: 1.2rem;
+        margin-bottom: 1rem;
+        border-radius: 1rem;
+        background-color: #fff;
+        border: 2px solid #f0f2f5;
+        transition: all 0.2s;
+    }
+
+    /* 1. Selesai (Hijau Mint Segar) */
+    .item-done {
+        background-color: #e8f5e9; /* Mint sangat muda */
+        border-color: #c8e6c9;
+        color: #2e7d32;
+    }
+    .item-done .icon-status {
+        color: #4caf50;
+        font-size: 1.4rem;
+    }
+    .item-done .badge-custom {
+        background: #a5d6a7; color: #1b5e20;
+    }
+
+    /* 2. Aktif (Ungu/Biru - Fokus Utama) */
+    .item-active {
+        border: 2px solid #667eea; /* Ungu Biru */
+        background-color: #fff;
+        box-shadow: 0 8px 20px rgba(102, 126, 234, 0.15);
+        transform: scale(1.01);
+    }
+    .item-active .title {
+        font-size: 1.15rem;
+        font-weight: 800;
+        color: #5a67d8;
+    }
+    .item-active .badge-status {
+        font-size: 0.75rem;
+        background-color: #ebf4ff;
+        color: #5a67d8;
+        padding: 4px 8px;
+        border-radius: 6px;
+        font-weight: 700;
+        text-transform: uppercase;
+        margin-bottom: 5px;
+        display: inline-block;
+    }
+
+    /* 3. Terkunci (Abu-abu) */
+    .item-locked {
+        background-color: #f8f9fa;
+        color: #adb5bd;
+        border-color: #f1f3f5;
+    }
+    .item-locked .icon-status { color: #dfe6ed; font-size: 1.2rem; }
+
+    /* Tombol Lanjut (Rounded & Gradient) */
+    .btn-continue {
+        background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border-radius: 50px;
+        padding: 0.6rem 1.8rem;
+        font-weight: 700;
+        font-size: 0.95rem;
+        text-decoration: none;
+        display: inline-block;
+        box-shadow: 0 4px 10px rgba(118, 75, 162, 0.3);
+        transition: transform 0.2s;
+    }
+    .btn-continue:hover {
+        color: #B0CE88;
+        transform: scale(1.05);
+        text-decoration: none;
+    }
+    .badge-custom {
+        padding: 5px 12px;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 700;
+    }
 
 </style>
 {% endblock %}
 
 {% block content %}
-<div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="page-title-custom">Dashboard Belajar</h1>
-</div>
-<div class="row">
-    <div class="col-xl-4 col-md-6 mb-4">
-        <div class="card border-left-primary shadow h-100 py-2">
-            <div class="card-body">
-                <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-primary mb-1">Langkah Berikutnya <span class="badge-fun">+</span></div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">
-                            {% if next_step %}
-                                {{ next_step.nama }}
-                            {% else %}
-                                Bab Selesai!
-                            {% endif %}
-                        </div>
-                    </div>
-                    <div class="col-auto">
-                        <i class="fas fa-play fa-2x"></i>
-                    </div>
-                </div>
-                {% if next_step %}<a href="{{ next_step.url }}" class="stretched-link"></a>{% endif %}
-            </div>
-        </div>
+
+<!-- HERO SECTION -->
+<div class="hero-welcome">
+    <div class="hero-text">
+        <h1>Halo, {{ user.first_name|default:user.username }}! 🚀</h1>
+        <p>Siap berpetualang di dunia biologi hari ini?</p>
     </div>
-    <div class="col-xl-4 col-md-6 mb-4">
-        <div class="card border-left-info shadow h-100 py-2">
-            <div class="card-body">
-                <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-info mb-1">Progres Bab <span class="badge-fun"><i class="fas fa-leaf"></i></span></div>
-                        <div class="row no-gutters align-items-center">
-                            <div class="col-auto">
-                                <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{ progress_percentage }}%</div>
-                            </div>
-                            <div class="col">
-                                <div class="progress progress-sm mr-2">
-                                    <div class="progress-bar bg-info"
-                                         role="progressbar"
-                                         style="width: {{ progress_percentage }}%"
-                                         aria-valuenow="{{ progress_percentage }}"
-                                         aria-valuemin="0"
-                                         aria-valuemax="100"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="text-xs mt-1">({{ completed_steps }} dari {{ total_steps }} langkah selesai)</div>
-                    </div>
-                    <div class="col-auto">
-                        <i class="fas fa-tasks fa-2x"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-xl-4 col-md-6 mb-4">
-        <div class="card border-left-success shadow h-100 py-2">
-            <div class="card-body">
-                <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-success mb-1">Skor Latihan Terakhir <span class="badge-fun"><i class="fas fa-trophy"></i></span></div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ skor_terakhir }}</div>
-                    </div>
-                    <div class="col-auto">
-                        <i class="fas fa-medal fa-2x"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <div class="hero-icon">
+        <i class="fas fa-user-astronaut"></i>
     </div>
 </div>
-<div class="row">
-    <div class="col-lg-7">
-        <div class="card shadow mb-4">
-            <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Alur Belajar Anda</h6>
-            </div>
-            <div class="card-body">
-                {% for item in alur_belajar_data %}
-                    {% if item.status == 'selesai' %}
-                        <h4 class="small font-weight-bold">
-                            {{ item.nama }} <span class="float-right text-success">✓ Selesai!</span>
-                        </h4>
-                        <div class="progress mb-3">
-                            <div class="progress-bar bg-success"
-                                 role="progressbar"
-                                 style="width: 100%"
-                                 aria-valuenow="100"
-                                 aria-valuemin="0"
-                                 aria-valuemax="100"></div>
-                        </div>
-                    {% elif item.status == 'aktif' %}
-                        <h4 class="small font-weight-bold text-info">
-                            {{ item.nama }} <span class="float-right text-warning">▶ Sedang Aktif!</span>
-                        </h4>
-                        <div class="progress mb-3">
-                            <div class="progress-bar bg-warning"
-                                 role="progressbar"
-                                 style="width: 55%"
-                                 aria-valuenow="55"
-                                 aria-valuemin="0"
-                                 aria-valuemax="100"></div>
-                        </div>
-                        <a href="{{ item.url }}" class="btn btn-warning btn-sm mb-3">Lanjutkan Belajar</a>
+
+<!-- STAT CARDS -->
+<div class="row mb-4">
+    <div class="col-xl-4 col-md-6 mb-3">
+        <div class="stat-card card-step">
+            <div class="stat-content">
+                <div class="stat-label">Langkah Saat Ini</div>
+                <div class="stat-value">
+                    {% if next_step %}
+                        {{ next_step.nama }}
                     {% else %}
-                        <h4 class="small font-weight-bold text-gray-500">
-                            {{ item.nama }} <span class="float-right text-gray-500">🔒 Terkunci</span>
-                        </h4>
-                        <div class="progress mb-3">
-                            <div class="progress-bar bg-light"
-                                 role="progressbar"
-                                 style="width: 0%"
-                                 aria-valuenow="0"
-                                 aria-valuemin="0"
-                                 aria-valuemax="100"></div>
-                        </div>
+                        Selesai! 🏁
                     {% endif %}
-                {% endfor %}
+                </div>
+            </div>
+            <div class="stat-icon-box">
+                <i class="fas fa-map-signs"></i>
             </div>
         </div>
     </div>
-    <div class="col-lg-5">
-        <div class="card-welcome mb-4">
-            <h5>Selamat Datang, {{ user.first_name|default:user.username }}! 👋</h5>
-            <p class="mb-0">Dashboard ini membantu kamu melacak progres dan membuka materi baru di setiap langkah.</p>
-            <p>Tips: Klik menu <span class="badge-fun"><i class="fas fa-bars"></i> Sidebar</span> untuk alat bantu, latihan, dan BioVerse tools seru lainnya!</p>
-        </div>
-        <div class="card shadow mb-4">
-            <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Komposisi Alur Belajar</h6>
+
+    <div class="col-xl-4 col-md-6 mb-3">
+        <div class="stat-card card-progress">
+            <div class="stat-content">
+                <div class="stat-label">Total Progres</div>
+                <div class="stat-value">{{ progress_percentage }}%</div>
             </div>
-            <div class="card-body">
-                <div class="chart-pie pt-4">
-                    <canvas id="myPieChart"></canvas>
-                </div>
-                <div class="mt-4 text-center small">
-                    <span class="mr-2">
-                        <i class="fas fa-circle text-primary"></i> Modul
-                    </span>
-                    <span class="mr-2">
-                        <i class="fas fa-circle text-success"></i> Latihan
-                    </span>
-                    <span class="mr-2">
-                        <i class="fas fa-circle text-info"></i> Alat Bantu
-                    </span>
-                </div>
+            <div class="stat-icon-box">
+                <i class="fas fa-rocket"></i>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-4 col-md-6 mb-3">
+        <div class="stat-card card-score">
+            <div class="stat-content">
+                <div class="stat-label">Skor Latihan</div>
+                <div class="stat-value">{{ skor_terakhir }}</div>
+            </div>
+            <div class="stat-icon-box">
+                <i class="fas fa-crown"></i>
             </div>
         </div>
     </div>
 </div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="timeline-container">
+            <div class="timeline-header">
+                <i class="fas fa-list-ul mr-2"></i> Misi Belajar Kamu
+            </div>
+
+            {% for item in alur_belajar_data %}
+                
+                {% if item.status == 'selesai' %}
+                <div class="learning-item item-done">
+                    <div class="mr-3 icon-status">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div class="flex-grow-1">
+                        <span style="font-weight: 700;">{{ item.nama }}</span>
+                    </div>
+                    <div>
+                        <span class="badge-custom">Selesai</span>
+                    </div>
+                </div>
+
+                {% elif item.status == 'aktif' %}
+                <div class="learning-item item-active my-3">
+                    <div class="mr-4 icon-status text-center">
+                        <i class="fas fa-star fa-lg text-warning" style="color: #f6e05e;"></i>
+                    </div>
+                    <div class="flex-grow-1">
+                        <span class="badge-status">Sedang Berlangsung</span>
+                        <div class="title">{{ item.nama }}</div>
+                    </div>
+                    <div>
+                        <a href="{{ item.url }}" class="btn-continue">
+                            Mulai <i class="fas fa-arrow-right ml-1"></i>
+                        </a>
+                    </div>
+                </div>
+
+                {% else %}
+                <div class="learning-item item-locked">
+                    <div class="mr-3 icon-status">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <div class="flex-grow-1">
+                        {{ item.nama }}
+                    </div>
+                </div>
+                {% endif %}
+
+            {% endfor %}
+
+        </div>
+    </div>
+</div>
+
 {% endblock %}
 
 {% block custom_js %}
-<script src="{% static 'vendor/chart.js/Chart.min.js' %}"></script>
-<script>
-Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
-Chart.defaults.global.defaultFontColor = '#858796';
-var ctx = document.getElementById("myPieChart");
-var myPieChart = new Chart(ctx, {
- type: 'doughnut',
- data: {
-   labels: ["Modul Interaktif", "Latihan Soal", "Alat Bantu"],
-   datasets: [{
-     data: [3, 4, 3],
-     backgroundColor: ['#4e73df', '#1cc88a', '#36b9cc'],
-     hoverBackgroundColor: ['#2e59d9', '#17a673', '#2c9faf'],
-     hoverBorderColor: "rgba(234, 236, 244, 1)",
-   }],
- },
- options: {
-   maintainAspectRatio: false,
-   tooltips: {
-     backgroundColor: "rgb(255,255,255)",
-     bodyFontColor: "#858796",
-     borderColor: '#dddfeb',
-     borderWidth: 1,
-     xPadding: 15,
-     yPadding: 15,
-     displayColors: false,
-     caretPadding: 10,
-   },
-   legend: { display: false },
-   cutoutPercentage: 80,
- },
-});
-</script>
 {% endblock %}

@@ -1,35 +1,183 @@
 {% extends 'main/base.html' %}
 {% block title %}Analisis Hasil Belajar{% endblock %}
+
+{% block custom_css %}
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap');
+    body {
+        font-family: 'Nunito', sans-serif;
+        background: #f3f6fd;
+    }
+
+    /* === HEADER === */
+    .page-header-card {
+        background: #fff;
+        border-radius: 1.2rem;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+        padding: 1.5rem 2rem;
+        margin-bottom: 2rem;
+        border-left: 5px solid #1cc88a; /* Hijau untuk Analisis */
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .page-title {
+        color: #2c3e50;
+        font-weight: 800;
+        font-size: 1.4rem;
+        margin: 0;
+    }
+    .page-desc {
+        color: #858796;
+        font-size: 0.95rem;
+        margin-top: 5px;
+    }
+
+    /* === KARTU ANALISIS === */
+    .analysis-card {
+        background: #fff;
+        border-radius: 1.2rem;
+        box-shadow: 0 8px 20px rgba(53, 99, 233, 0.05);
+        border: none;
+        height: 100%;
+        transition: transform 0.2s;
+    }
+    .analysis-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 12px 25px rgba(53, 99, 233, 0.1);
+    }
+    
+    .card-header-custom {
+        background-color: #f8f9fc;
+        padding: 1.2rem 1.5rem;
+        border-bottom: 1px solid #eff2f7;
+        border-radius: 1.2rem 1.2rem 0 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .latihan-title {
+        font-weight: 800;
+        color: #4e73df;
+        font-size: 1rem;
+        margin: 0;
+    }
+
+    /* === ITEM SOAL === */
+    .question-item {
+        padding: 1.2rem 1.5rem;
+        border-bottom: 1px dashed #e3e6f0;
+    }
+    .question-item:last-child {
+        border-bottom: none;
+    }
+    
+    .question-text {
+        font-size: 0.95rem;
+        color: #2c3e50;
+        font-weight: 700;
+        margin-bottom: 0.8rem;
+        line-height: 1.5;
+    }
+    
+    /* Progress Bar Custom */
+    .progress-custom {
+        height: 0.6rem;
+        border-radius: 1rem;
+        background-color: #eaecf4;
+        margin-bottom: 0.8rem;
+    }
+    
+    /* Statistik Kecil */
+    .stat-badge {
+        font-size: 0.75rem;
+        padding: 4px 10px;
+        background-color: #f1f3f5;
+        color: #6c757d;
+        border-radius: 5px;
+        font-weight: 600;
+        display: inline-block;
+        margin-right: 5px;
+    }
+    .stat-badge i { margin-right: 4px; }
+
+    /* Warna Progress Bar Dinamis */
+    .bg-danger-custom { background-color: #e74a3b !important; } /* Sulit (>50%) */
+    .bg-warning-custom { background-color: #f6c23e !important; } /* Sedang (20-50%) */
+    .bg-success-custom { background-color: #1cc88a !important; } /* Mudah (<20%) */
+
+</style>
+{% endblock %}
+
 {% block content %}
-    <h1 class="h3 mb-4 text-gray-800">Analisis Kesulitan Soal Siswa</h1>
-    <p class="mb-4">
-        Fitur ini membantu Anda melihat soal mana yang paling sering dijawab salah oleh siswa. Ini menunjukkan di mana letak miskonsepsi utama.
-    </p>
-    {% for latihan in analisis_latihan %}
-        <div class="card shadow mb-4">
-            <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Analisis untuk: {{ latihan.judul }}</h6>
-            </div>
-            <div class="card-body">
-                {% for p in latihan.pertanyaan %}
-                    <h4 class="small font-weight-bold">
-                        {{ forloop.counter }}. {{ p.teks|truncatewords:15 }}
-                        <span class="float-right">{{ p.persen_salah }}% Salah</span>
-                    </h4>
-                    <div class="progress mb-3">
-                        <div class="progress-bar bg-danger"
-                             role="progressbar"
-                             style="width: {{ p.persen_salah }}%"
-                             aria-valuenow="{{ p.persen_salah }}"
-                             aria-valuemin="0"
-                             aria-valuemax="100"></div>
-                    </div>
-                    <small class="text-gray-700">Dijawab {{ p.total_menjawab }} kali, Salah {{ p.total_salah }} kali.</small>
-                    <hr class="mt-2 mb-3">
-                {% empty %}
-                    <p>Belum ada data jawaban siswa untuk latihan ini.</p>
-                {% endfor %}
-            </div>
+
+    <div class="page-header-card">
+        <div>
+            <h1 class="page-title">Analisis Kesulitan Soal</h1>
+            <div class="page-desc">Identifikasi soal yang paling sering dijawab salah untuk menemukan miskonsepsi siswa.</div>
         </div>
-    {% endfor %}
+        <div>
+            <i class="fas fa-microscope fa-3x text-gray-300"></i>
+        </div>
+    </div>
+
+    <div class="row">
+        {% for latihan in analisis_latihan %}
+            <div class="col-xl-6 mb-4">
+                <div class="card analysis-card">
+                    <div class="card-header-custom">
+                        <h6 class="latihan-title">
+                            <i class="fas fa-file-alt mr-2"></i> {{ latihan.judul }}
+                        </h6>
+                        <span class="badge badge-primary badge-pill">{{ latihan.pertanyaan|length }} Soal</span>
+                    </div>
+
+                    <div class="card-body p-0">
+                        {% for p in latihan.pertanyaan %}
+                            <div class="question-item">
+                                <div class="d-flex justify-content-between align-items-end mb-1">
+                                    <span class="small text-gray-500 font-weight-bold text-uppercase">Soal No. {{ forloop.counter }}</span>
+                                    <span class="small font-weight-bold {% if p.persen_salah > 50 %}text-danger{% elif p.persen_salah > 20 %}text-warning{% else %}text-success{% endif %}">
+                                        {{ p.persen_salah }}% Salah
+                                    </span>
+                                </div>
+
+                                <p class="question-text">
+                                    {{ p.teks|truncatewords:20 }}
+                                </p>
+
+                                <div class="progress progress-custom">
+                                    <div class="progress-bar 
+                                        {% if p.persen_salah > 50 %}bg-danger-custom
+                                        {% elif p.persen_salah > 20 %}bg-warning-custom
+                                        {% else %}bg-success-custom{% endif %}" 
+                                        role="progressbar" 
+                                        style="width: {{ p.persen_salah }}%" 
+                                        aria-valuenow="{{ p.persen_salah }}" 
+                                        aria-valuemin="0" 
+                                        aria-valuemax="100">
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <span class="stat-badge">
+                                        <i class="fas fa-users"></i> Dijawab: <strong>{{ p.total_menjawab }}</strong>
+                                    </span>
+                                    <span class="stat-badge">
+                                        <i class="fas fa-times-circle text-danger"></i> Salah: <strong>{{ p.total_salah }}</strong>
+                                    </span>
+                                </div>
+                            </div>
+                        {% empty %}
+                            <div class="p-4 text-center text-muted">
+                                <i class="fas fa-info-circle mb-2"></i><br>
+                                Belum ada data jawaban siswa untuk latihan ini.
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
 {% endblock %}

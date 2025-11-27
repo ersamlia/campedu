@@ -1,201 +1,313 @@
 {% extends 'main/base.html' %}
 {% load static %}
 {% block title %}Dashboard Guru{% endblock %}
+
+{% block custom_css %}
+<style>
+    /* === GAYA UMUM (Konsisten dengan Siswa) === */
+    body {
+        font-family: 'Nunito', sans-serif;
+        background-color: #f3f6fd;
+        color: #444;
+    }
+
+    /* === HERO SECTION (SAPAAN) === */
+    .hero-welcome {
+        background: linear-gradient(135deg, #009688 0%, #26a69a 100%); /* Teal Gradient */
+        color: #fff;
+        border-radius: 1.5rem;
+        padding: 2.5rem;
+        margin-bottom: 2rem;
+        box-shadow: 0 8px 20px rgba(0, 150, 136, 0.25);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        position: relative;
+        overflow: hidden;
+    }
+    .hero-welcome::before {
+        content: ''; position: absolute; width: 250px; height: 250px;
+        background: rgba(255,255,255,0.1); border-radius: 50%;
+        top: -80px; right: -40px;
+    }
+    .hero-text h1 { font-weight: 800; font-size: 2rem; margin-bottom: 0.5rem; }
+    .hero-text p { font-size: 1.1rem; margin-bottom: 0; font-weight: 600; opacity: 0.95; }
+    .hero-icon {
+        font-size: 3.5rem;
+        background: rgba(255, 255, 255, 0.2);
+        padding: 15px; border-radius: 20px;
+        color: #fff; z-index: 1;
+    }
+
+    /* === STAT CARDS (KARTU DATA) === */
+    .stat-card {
+        background: #ffffff;
+        border-radius: 1.2rem;
+        padding: 1.5rem;
+        border: none;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        transition: transform 0.2s;
+        border-left: 5px solid transparent;
+    }
+    .stat-card:hover { transform: translateY(-5px); }
+
+    .stat-content { flex: 1; }
+    .stat-label {
+        font-size: 0.85rem; color: #888; font-weight: 700;
+        text-transform: uppercase; margin-bottom: 0.3rem;
+    }
+    .stat-value { font-size: 1.5rem; font-weight: 800; color: #2d3e50; }
+    .stat-sub { font-size: 0.8rem; margin-top: 5px; font-weight: 600; color: #009688; }
+    
+    .stat-icon-box {
+        width: 55px; height: 55px; border-radius: 15px;
+        display: flex; align-items: center; justify-content: center;
+        font-size: 1.5rem; box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    /* Warna Card */
+    .card-users { border-left-color: #4facfe; }
+    .card-users .stat-icon-box { background: #e3f2fd; color: #4facfe; }
+
+    .card-progress { border-left-color: #009688; }
+    .card-progress .stat-icon-box { background: #e0f2f1; color: #009688; }
+
+    .card-score { border-left-color: #6f42c1; }
+    .card-score .stat-icon-box { background: #f3e5f5; color: #6f42c1; }
+
+    .card-alert { border-left-color: #ff9800; }
+    .card-alert .stat-icon-box { background: #fff3e0; color: #ff9800; }
+
+    /* === CONTENT CARDS (CHART & WIDGETS) === */
+    .content-card {
+        background: #fff;
+        border-radius: 1.5rem;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+        margin-bottom: 2rem;
+        overflow: hidden;
+        border: 1px solid #eff2f7;
+    }
+    .card-header {
+        background-color: #fff;
+        border-bottom: 1px solid #f0f2f5;
+        padding: 1.2rem 2rem;
+    }
+    .card-title {
+        margin: 0; font-weight: 800; color: #00796b; font-size: 1.1rem;
+    }
+    .card-body { padding: 2rem; }
+
+    /* Insight Box (Soal Sulit) */
+    .insight-box {
+        background: #fff5f5;
+        border-left: 4px solid #fc8181;
+        padding: 1.2rem;
+        border-radius: 0.8rem;
+    }
+    .insight-title { font-weight: 800; color: #c53030; margin-bottom: 0.5rem; }
+
+    /* Tombol Aksi Cepat */
+    .btn-dashboard {
+        border-radius: 50px; padding: 0.8rem 1.5rem; font-weight: 700;
+        transition: all 0.2s; border: none; display: block; text-align: center;
+        text-decoration: none; margin-bottom: 0.8rem; width: 100%;
+        font-size: 0.95rem;
+    }
+    .btn-teal {
+        background-color: #009688; color: #fff;
+        box-shadow: 0 4px 10px rgba(0, 150, 136, 0.2);
+    }
+    .btn-teal:hover { background-color: #00796b; color: #fff; transform: translateY(-2px); }
+
+    .btn-blue {
+        background-color: #42a5f5; color: #fff;
+        box-shadow: 0 4px 10px rgba(66, 165, 245, 0.2);
+    }
+    .btn-blue:hover { background-color: #1e88e5; color: #fff; transform: translateY(-2px); }
+
+</style>
+{% endblock %}
+
 {% block content %}
-    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Dashboard Guru</h1>
+
+<div class="hero-welcome">
+    <div class="hero-text">
+        <h1>Dashboard Guru 👨‍🏫</h1>
+        <p>Selamat datang, {{ user.first_name|default:user.username }}. Pantau perkembangan kelas dan hasil belajar siswa.</p>
     </div>
-    <div class="row">
-        <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card border-left-primary shadow h-100 py-2">
-                <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Total Siswa</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ total_siswa }} Siswa</div>
-                        </div>
-                        <div class="col-auto">
-                            <i class="fas fa-users fa-2x text-gray-300"></i>
-                        </div>
-                    </div>
-                </div>
+    <div class="hero-icon">
+        <i class="fas fa-chalkboard-teacher"></i>
+    </div>
+</div>
+
+<div class="row">
+    
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="stat-card card-users">
+            <div class="stat-content">
+                <div class="stat-label">Total Siswa</div>
+                <div class="stat-value">{{ total_siswa }}</div>
+                <div class="stat-sub text-primary">Terdaftar</div>
             </div>
-        </div>
-        <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card border-left-info shadow h-100 py-2">
-                <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Progres Kelas (Rata-rata)</div>
-                            <div class="row no-gutters align-items-center">
-                                <div class="col-auto">
-                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{ progres_rata_rata }}%</div>
-                                </div>
-                                <div class="col">
-                                    <div class="progress progress-sm mr-2">
-                                        <div class="progress-bar bg-info"
-                                             role="progressbar"
-                                             style="width: {{ progres_rata_rata }}%"
-                                             aria-valuenow="{{ progres_rata_rata }}"
-                                             aria-valuemin="0"
-                                             aria-valuemax="100"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-auto">
-                            <i class="fas fa-tasks fa-2x text-gray-300"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card border-left-success shadow h-100 py-2">
-                <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Skor Latihan (Rata-rata)</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ skor_rata_rata }}%</div>
-                        </div>
-                        <div class="col-auto">
-                            <i class="fas fa-percent fa-2x text-gray-300"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card border-left-danger shadow h-100 py-2">
-                <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">Modul Paling Sulit</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                {% if modul_sulit %}
-                                    {{ modul_sulit.judul|truncatewords:2 }}
-                                {% else %}
-                                    -
-                                {% endif %}
-                            </div>
-                        </div>
-                        <div class="col-auto">
-                            <i class="fas fa-exclamation-triangle fa-2x text-gray-300"></i>
-                        </div>
-                    </div>
-                </div>
+            <div class="stat-icon-box">
+                <i class="fas fa-users"></i>
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-xl-8 col-lg-7">
-            <div class="card shadow mb-4">
-                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-primary">Bagan Progres Penyelesaian Latihan</h6>
-                </div>
-                <div class="card-body">
-                    <div class="chart-bar">
-                        <canvas id="myBarChart"></canvas>
-                    </div>
+
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="stat-card card-progress">
+            <div class="stat-content">
+                <div class="stat-label">Rata-rata Progres</div>
+                <div class="stat-value">{{ progres_rata_rata }}%</div>
+                <div class="progress mt-2" style="height: 6px; border-radius:10px;">
+                    <div class="progress-bar bg-info" role="progressbar" style="width: {{ progres_rata_rata }}%"></div>
                 </div>
             </div>
+            <div class="stat-icon-box">
+                <i class="fas fa-chart-line"></i>
+            </div>
         </div>
-        <div class="col-xl-4 col-lg-5">
-            <div class="card shadow mb-4">
-                <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Soal Paling Sulit Se-Kelas</h6>
-                </div>
-                <div class="card-body">
-                    {% if soal_sulit %}
-                        <h5 class->{{ soal_sulit.latihan.judul }}</h5>
-                        <p class="text-gray-800">{{ soal_sulit.teks_pertanyaan }}</p>
-                        <p class="font-weight-bold text-danger">{{ soal_sulit.num_salah }} siswa menjawab salah.</p>
-                        <a href="{% url 'analisis_hasil' %}">Lihat analisis lengkap &rarr;</a>
+    </div>
+
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="stat-card card-score">
+            <div class="stat-content">
+                <div class="stat-label">Rata-rata Skor</div>
+                <div class="stat-value">{{ skor_rata_rata }}</div>
+                <div class="stat-sub" style="color: #6f42c1;">Dari semua latihan</div>
+            </div>
+            <div class="stat-icon-box">
+                <i class="fas fa-star"></i>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="stat-card card-alert">
+            <div class="stat-content">
+                <div class="stat-label">Materi Tersulit</div>
+                <div class="stat-value" style="font-size: 1.1rem;">
+                    {% if modul_sulit %}
+                        {{ modul_sulit.judul|truncatewords:2 }}
                     {% else %}
-                        <p>Belum ada data jawaban siswa yang salah.</p>
+                        -
                     {% endif %}
                 </div>
+                <div class="stat-sub text-warning">Perlu evaluasi</div>
             </div>
-            <div class="card shadow mb-4">
-                <div class="card-body">
-                    <p>Gunakan link ini untuk melihat detail lengkap:</p>
-                    <a href="{% url 'pantau_progres' %}"
-                       class="btn btn-primary btn-icon-split btn-block">
-                        <span class="icon text-white-50">
-                            <i class="fas fa-chart-bar"></i>
-                        </span>
-                        <span class="text">Pantau Progres Siswa (Lengkap)</span>
-                    </a>
-                    <a href="{% url 'analisis_hasil' %}"
-                       class="btn btn-success btn-icon-split btn-block mt-2">
-                        <span class="icon text-white-50">
-                            <i class="fas fa-diagnoses"></i>
-                        </span>
-                        <span class="text">Analisis Hasil Belajar (Lengkap)</span>
-                    </a>
+            <div class="stat-icon-box">
+                <i class="fas fa-exclamation-triangle"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    
+    <div class="col-lg-8">
+        <div class="content-card">
+            <div class="card-header">
+                <h6 class="card-title">📊 Statistik Penyelesaian Latihan</h6>
+            </div>
+            <div class="card-body">
+                <div class="chart-bar" style="height: 300px;">
+                    <canvas id="myBarChart"></canvas>
                 </div>
             </div>
         </div>
     </div>
+
+    <div class="col-lg-4">
+        
+        <div class="content-card">
+            <div class="card-header">
+                <h6 class="card-title">⚠️ Analisis Soal</h6>
+            </div>
+            <div class="card-body">
+                {% if soal_sulit %}
+                    <div class="insight-box">
+                        <div class="insight-title">{{ soal_sulit.latihan.judul }}</div>
+                        <p class="mb-2" style="font-size: 0.9rem; color: #555; font-style: italic;">
+                            "{{ soal_sulit.teks_pertanyaan|truncatewords:10 }}"
+                        </p>
+                        <hr class="my-2" style="border-top: 1px dashed #fc8181;">
+                        <div class="d-flex align-items-center text-danger font-weight-bold">
+                            <i class="fas fa-times-circle mr-2"></i> {{ soal_sulit.num_salah }} Siswa Salah
+                        </div>
+                    </div>
+                    <div class="mt-3 text-center">
+                        <small class="text-muted">Banyak siswa kesulitan pada soal ini.</small>
+                    </div>
+                {% else %}
+                    <p class="text-muted text-center my-4">Belum ada data yang cukup.</p>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="content-card">
+            <div class="card-header">
+                <h6 class="card-title">⚡ Menu Cepat</h6>
+            </div>
+            <div class="card-body">
+                <a href="{% url 'pantau_progres' %}" class="btn-dashboard btn-teal">
+                    <i class="fas fa-eye mr-2"></i> Pantau Progres Siswa
+                </a>
+                <a href="{% url 'analisis_hasil' %}" class="btn-dashboard btn-blue">
+                    <i class="fas fa-chart-pie mr-2"></i> Analisis Hasil Detail
+                </a>
+            </div>
+        </div>
+
+    </div>
+</div>
+
 {% endblock %}
+
 {% block custom_js %}
-    <script src="{% static 'vendor/chart.js/Chart.min.js' %}"></script>
-    <script>
-// Set new default font family and font color
+<script src="{% static 'vendor/chart.js/Chart.min.js' %}"></script>
+<script>
 Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
 Chart.defaults.global.defaultFontColor = '#858796';
 
-// Bar Chart
 var ctx = document.getElementById("myBarChart");
 var myBarChart = new Chart(ctx, {
   type: 'bar',
   data: {
     labels: ["Latihan 1", "Latihan 2", "Latihan 3", "Ujian Akhir"],
     datasets: [{
-      label: "Jumlah Siswa Selesai",
-      backgroundColor: "#4e73df",
-      hoverBackgroundColor: "#2e59d9",
-      borderColor: "#4e73df",
+      label: "Siswa Selesai",
+      backgroundColor: "#009688", /* Warna Teal BioVerse */
+      hoverBackgroundColor: "#00796b",
+      borderColor: "#009688",
       data: [
           {{ chart_data.l1_count }}, 
           {{ chart_data.l2_count }}, 
           {{ chart_data.l3_count }}, 
           {{ chart_data.p_count }}
       ],
+      barPercentage: 0.6,
     }],
   },
   options: {
     maintainAspectRatio: false,
-    layout: {
-      padding: {
-        left: 10,
-        right: 25,
-        top: 25,
-        bottom: 0
-      }
-    },
+    layout: { padding: { left: 10, right: 25, top: 25, bottom: 0 } },
     scales: {
       xAxes: [{
-        gridLines: {
-          display: false,
-          drawBorder: false
-        },
-        ticks: {
-          maxTicksLimit: 6
-        },
+        gridLines: { display: false, drawBorder: false },
+        ticks: { maxTicksLimit: 6 },
         maxBarThickness: 25,
       }],
       yAxes: [{
         ticks: {
           min: 0,
-          max: {{ total_siswa }}, // Batas atas adalah total siswa
+          max: {{ total_siswa }},
           padding: 10,
-          // Include a dollar sign in the ticks
-          callback: function(value, index, values) {
-            if (Math.floor(value) === value) {
-                 return value; // Hanya tampilkan angka bulat
-            }
-          }
+          callback: function(value) { if (value % 1 === 0) {return value;} }
         },
         gridLines: {
           color: "rgb(234, 236, 244)",
@@ -206,18 +318,20 @@ var myBarChart = new Chart(ctx, {
         }
       }],
     },
-    legend: {
-      display: false
-    },
+    legend: { display: false },
     tooltips: {
-      callbacks: {
-        label: function(tooltipItem, chart) {
-          var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
-          return datasetLabel + ': ' + tooltipItem.yLabel + ' siswa';
-        }
-      }
+      backgroundColor: "rgb(255,255,255)",
+      bodyFontColor: "#858796",
+      titleFontColor: "#6e707e",
+      borderColor: '#dddfeb',
+      borderWidth: 1,
+      xPadding: 15, yPadding: 15,
+      displayColors: false,
+      intersect: false,
+      mode: 'index',
+      caretPadding: 10,
     },
   }
 });
-    </script>
+</script>
 {% endblock %}
