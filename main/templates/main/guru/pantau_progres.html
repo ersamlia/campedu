@@ -1,95 +1,284 @@
 {% extends 'main/base.html' %}
 {% block title %}Pantau Progres Siswa{% endblock %}
+
+{% block custom_css %}
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap');
+    
+    body {
+        font-family: 'Nunito', sans-serif;
+        background: #f3f6fd;
+    }
+
+    /* === HEADER HALAMAN === */
+    .page-header-card {
+        background: #fff;
+        border-radius: 1rem;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+        padding: 1.5rem 2rem;
+        margin-bottom: 1.5rem;
+        border-left: 5px solid #4e73df;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    /* === CONTAINER TABEL === */
+    .table-container {
+        background: #fff;
+        border-radius: 1rem;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        overflow: hidden; 
+        border: 1px solid #d1d3e2;
+        position: relative;
+    }
+
+    .table-responsive {
+        overflow-x: auto;
+        width: 100%;
+    }
+
+    /* === TABEL UTAMA === */
+    .table-custom {
+        margin-bottom: 0;
+        width: 100%;
+        border-collapse: separate; 
+        border-spacing: 0;
+        font-size: 0.9rem;
+        color: #444;
+    }
+
+    .table-custom th,
+    .table-custom td {
+        padding: 12px 15px;
+        vertical-align: middle;
+        border-bottom: 1px solid #e3e6f0;
+        border-right: 1px solid #f0f1f5; /* Grid vertikal halus */
+    }
+
+    /* Hilangkan border kanan di ujung tabel */
+    .table-custom th:last-child,
+    .table-custom td:last-child {
+        border-right: none;
+    }
+
+    /* === HEADER STYLES === */
+    .table-custom thead th {
+        font-weight: 800;
+        text-transform: uppercase;
+        font-size: 0.75rem;
+        letter-spacing: 0.5px;
+        position: sticky;
+        top: 0;
+        z-index: 5;
+        border-bottom: 2px solid #d1d3e2;
+    }
+
+    /* Baris header kedua (judul kolom) */
+    .table-custom thead tr:nth-child(2) th {
+        top: 48px; /* Sesuaikan tinggi baris pertama */
+        background-color: #fff;
+        z-index: 5;
+        border-bottom: 2px solid #d1d3e2;
+    }
+
+    /* === KOLOM NAMA (STICKY) === */
+    .sticky-col {
+        position: sticky;
+        left: 0;
+        background-color: #fff;
+        z-index: 10;
+        width: 240px;
+        min-width: 240px;
+        max-width: 240px;
+        box-shadow: 4px 0 5px -2px rgba(0,0,0,0.1); /* Efek bayangan */
+        border-right: 1px solid #d1d3e2 !important;
+    }
+
+    thead .sticky-col {
+        background-color: #f8f9fc;
+        z-index: 20; 
+        border-bottom: 2px solid #d1d3e2;
+    }
+
+    /* === WARNA GROUP HEADER === */
+    .bg-group-1 { background-color: #ebf2ff !important; color: #2e59d9; }
+    .bg-group-2 { background-color: #e0f7fa !important; color: #00897b; }
+    .bg-group-3 { background-color: #f3e5f5 !important; color: #8e24aa; }
+    .bg-group-4 { background-color: #fff3e0 !important; color: #e65100; }
+
+    /* === PEMISAH SUB-BAB (GARIS TEBAL) === */
+    .sep-right {
+        border-right: 2px solid #d1d3e2 !important;
+    }
+
+    /* === HOVER EFFECTS === */
+    tbody tr:hover td { background-color: #f1f3f9; }
+    tbody tr:hover .sticky-col { background-color: #f1f3f9; }
+
+    /* === INDIKATOR & STATUS === */
+    .status-check { color: #1cc88a; font-size: 1.1rem; }
+    .status-dash { color: #d1d3e2; font-weight: bold; font-size: 1.2rem; }
+    
+    .score-badge {
+        display: inline-block;
+        padding: 2px 8px;
+        min-width: 35px;
+        border-radius: 6px;
+        font-weight: 700;
+        font-size: 0.8rem;
+        text-align: center;
+    }
+    .score-pass { background-color: #e8f5e9; color: #2e7d32; border: 1px solid #c8e6c9; }
+    .score-fail { background-color: #ffebee; color: #c62828; border: 1px solid #ffcdd2; }
+    .score-none { color: #b0bec5; font-style: italic; font-size: 0.8rem; }
+
+    /* === LEGEND (KETERANGAN) === */
+    .legend-box {
+        display: flex; gap: 20px; margin-top: 15px;
+        font-size: 0.85rem; color: #666; justify-content: flex-end;
+    }
+    .legend-item { display: flex; align-items: center; gap: 6px; }
+</style>
+{% endblock %}
+
 {% block content %}
-    <h1 class="h3 mb-4 text-gray-800">Pantau Progres Siswa</h1>
-    <div class="card shadow mb-4">
-        <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Tabel Progres Keseluruhan</h6>
+
+    <div class="page-header-card">
+        <div>
+            <h1 class="h4 font-weight-bold text-dark mb-1">Pantau Progres Siswa</h1>
+            <small class="text-muted">Geser tabel ke kanan untuk melihat detail lengkap per Bab.</small>
         </div>
-        <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-bordered"
-                       id="dataTable"
-                       width="100%"
-                       cellspacing="0">
-                    <thead>
+        <i class="fas fa-chart-line fa-2x text-gray-300"></i>
+    </div>
+
+    <div class="table-container">
+        <div class="table-responsive">
+            <table class="table-custom" id="dataTable">
+                <thead>
+                    <tr>
+                        <th rowspan="2" class="sticky-col text-center align-middle">NAMA SISWA</th>
+                        
+                        <th colspan="3" class="text-center bg-group-1 sep-right">SUB-BAB 1: KARAKTERISTIK</th>
+                        <th colspan="3" class="text-center bg-group-2 sep-right">SUB-BAB 2: KLASIFIKASI</th>
+                        <th colspan="3" class="text-center bg-group-3 sep-right">SUB-BAB 3: 5 KINGDOM</th>
+                        
+                        <th rowspan="2" class="text-center bg-group-4 align-middle">UJIAN</th>
+                    </tr>
+                    
+                    <tr>
+                        <th class="text-center">Modul</th>
+                        <th class="text-center">Latihan</th>
+                        <th class="text-center sep-right">Glosarium</th>
+                        
+                        <th class="text-center">Modul</th>
+                        <th class="text-center">Latihan</th>
+                        <th class="text-center sep-right">Mikroskop</th>
+                        
+                        <th class="text-center">Modul</th> 
+                        <th class="text-center">Database</th>
+                        <th class="text-center sep-right">Latihan</th>
+                    </tr>
+                </thead>
+                
+                <tbody>
+                    {% for data in data_progres %}
                         <tr>
-                            <th>Siswa</th>
-                            <th>Modul 1</th>
-                            <th>Latihan 1</th>
-                            <th>Glosarium</th>
-                            <th>Modul 2</th>
-                            <th>Latihan 2</th>
-                            <th>Mikroskop</th>
-                            <th>Modul 3</th>
-                            <th>Database</th>
-                            <th>Latihan 3</th>
-                            <th>Pengayaan</th>
+                            <td class="sticky-col">
+                                <div class="d-flex align-items-center">
+                                    <div class="rounded-circle text-white d-flex align-items-center justify-content-center mr-3" 
+                                         style="width: 35px; height: 35px; font-size: 0.85rem; font-weight: bold; background-color: #4e73df; flex-shrink: 0;">
+                                         {{ data.nama|make_list|first|upper }}
+                                    </div>
+                                    <div class="text-dark font-weight-bold" style="line-height: 1.2;">
+                                        {{ data.nama }}
+                                    </div>
+                                </div>
+                            </td>
+
+                            <td class="text-center">
+                                {% if data.progress.modul_1_completed %}<i class="fas fa-check-circle status-check"></i>{% else %}<span class="status-dash">-</span>{% endif %}
+                            </td>
+                            <td class="text-center">
+                                {% if data.skor_1 != "-" %}
+                                    <span class="score-badge {% if data.skor_1 >= 70 %}score-pass{% else %}score-fail{% endif %}">{{ data.skor_1 }}</span>
+                                {% else %}<span class="score-none">-</span>{% endif %}
+                            </td>
+                            <td class="text-center sep-right">
+                                {% if data.progress.glosarium_completed %}<i class="fas fa-check-circle status-check"></i>{% else %}<span class="status-dash">-</span>{% endif %}
+                            </td>
+
+                            <td class="text-center">
+                                 {% if data.progress.modul_2_completed %}<i class="fas fa-check-circle status-check"></i>{% else %}<span class="status-dash">-</span>{% endif %}
+                            </td>
+                            <td class="text-center">
+                                {% if data.skor_2 != "-" %}
+                                    <span class="score-badge {% if data.skor_2 >= 70 %}score-pass{% else %}score-fail{% endif %}">{{ data.skor_2 }}</span>
+                                {% else %}<span class="score-none">-</span>{% endif %}
+                            </td>
+                            <td class="text-center sep-right">
+                                {% if data.progress.mikroskop_completed %}<i class="fas fa-check-circle status-check"></i>{% else %}<span class="status-dash">-</span>{% endif %}
+                            </td>
+                            <td class="text-center">
+                                {% if data.progress.modul_3_completed %}
+                                    <i class="fas fa-check-circle status-check"></i>
+                                {% else %}
+                                    <span class="status-dash">-</span>
+                                {% endif %}
+                            </td>
+                            
+                            <td class="text-center">
+                                {% if data.progress.database_completed %}
+                                    <i class="fas fa-check-circle status-check"></i>
+                                {% else %}
+                                    <span class="status-dash">-</span>
+                                {% endif %}
+                            </td>
+                            
+                            <td class="text-center sep-right">
+                                {% if data.skor_3 != "-" %}
+                                    <span class="score-badge {% if data.skor_3 >= 70 %}score-pass{% else %}score-fail{% endif %}">{{ data.skor_3 }}</span>
+                                {% else %}
+                                    <span class="score-none">-</span>
+                                {% endif %}
+                            </td>
+
+                            <td class="text-center bg-white">
+                                {% if data.skor_p != "-" %}
+                                    <span class="score-badge {% if data.skor_p >= 70 %}score-pass{% else %}score-fail{% endif %}">{{ data.skor_p }}</span>
+                                {% else %}<span class="score-none">Belum</span>{% endif %}
+                            </td>
                         </tr>
-                    </thead>
-                    <tbody>
-                        {% for data in data_progres %}
-                            <tr>
-                                <td>{{ data.nama }}</td>
-                                <td class="text-center {% if data.progress.modul_1_completed %}table-success{% else %}table-danger{% endif %}">
-                                    {% if data.progress.modul_1_completed %}
-                                        ✓
-                                    {% else %}
-                                        X
-                                    {% endif %}
-                                </td>
-                                <td class="text-center {% if data.progress.latihan_1_completed %}table-success{% else %}table-danger{% endif %}">
-                                    {{ data.skor_1 }}
-                                </td>
-                                <td class="text-center {% if data.progress.glosarium_completed %}table-success{% else %}table-danger{% endif %}">
-                                    {% if data.progress.glosarium_completed %}
-                                        ✓
-                                    {% else %}
-                                        X
-                                    {% endif %}
-                                </td>
-                                <td class="text-center {% if data.progress.modul_2_completed %}table-success{% else %}table-danger{% endif %}">
-                                    {% if data.progress.modul_2_completed %}
-                                        ✓
-                                    {% else %}
-                                        X
-                                    {% endif %}
-                                </td>
-                                <td class="text-center {% if data.progress.latihan_2_completed %}table-success{% else %}table-danger{% endif %}">
-                                    {{ data.skor_2 }}
-                                </td>
-                                <td class="text-center {% if data.progress.mikroskop_completed %}table-success{% else %}table-danger{% endif %}">
-                                    {% if data.progress.mikroskop_completed %}
-                                        ✓
-                                    {% else %}
-                                        X
-                                    {% endif %}
-                                </td>
-                                <td class="text-center {% if data.progress.modul_3_completed %}table-success{% else %}table-danger{% endif %}">
-                                    {% if data.progress.modul_3_completed %}
-                                        ✓
-                                    {% else %}
-                                        X
-                                    {% endif %}
-                                </td>
-                                <td class="text-center {% if data.progress.database_completed %}table-success{% else %}table-danger{% endif %}">
-                                    {% if data.progress.database_completed %}
-                                        ✓
-                                    {% else %}
-                                        X
-                                    {% endif %}
-                                </td>
-                                <td class="text-center {% if data.progress.latihan_3_completed %}table-success{% else %}table-danger{% endif %}">
-                                    {{ data.skor_3 }}
-                                </td>
-                                <td class="text-center {% if data.progress.pengayaan_completed %}table-success{% else %}table-danger{% endif %}">
-                                    {{ data.skor_p }}
-                                </td>
-                            </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
+                    {% empty %}
+                        <tr>
+                            <td colspan="12" class="text-center py-5 text-muted">
+                                <i class="fas fa-user-slash fa-3x mb-3 text-gray-300"></i><br>
+                                Belum ada siswa yang terdaftar.
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
         </div>
     </div>
+
+    <div class="legend-box">
+        <div class="legend-item">
+            <i class="fas fa-check-circle status-check"></i>
+            <span>Selesai</span>
+        </div>
+        <div class="legend-item">
+            <span class="status-dash">-</span>
+            <span>Belum</span>
+        </div>
+        <div class="legend-item">
+            <span class="score-badge score-pass">85</span>
+            <span>Tuntas (≥70)</span>
+        </div>
+        <div class="legend-item">
+            <span class="score-badge score-fail">60</span>
+            <span>Remedial (<70)</span>
+        </div>
+    </div>
+
 {% endblock %}
