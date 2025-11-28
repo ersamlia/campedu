@@ -92,10 +92,7 @@
 
     /* === CARD SPESIES === */
     .species-card { 
-        display: none; /* Sembunyi default */
-    }
-    .species-card.visible { 
-        display: block; /* Muncul lewat JS */
+        display: none; /* Sembunyi default (AWAL KOSONG) */
     }
     
     .species-card .learning-card {
@@ -159,14 +156,14 @@
     <div>
         <div class="db-header-title">Database Spesies</div>
         <div class="db-header-desc">
-            Temukan ciri serta contoh spesies dari tiap kingdom. Gunakan filter untuk eksplorasi!
+            Temukan ciri serta contoh spesies dari tiap kingdom. Klik tombol di bawah untuk mulai!
         </div>
     </div>
 </div>
 
 <div class="learning-card mb-4">
     <div id="filter-container">
-        <button class="btn btn-primary active" data-is-kingdom="true" data-filter="all" onclick="showKingdom('all', this)">Tampilkan Semua</button>
+        <button class="btn btn-primary" data-is-kingdom="true" data-filter="all" onclick="showKingdom('all', this)">Tampilkan Semua</button>
         <hr>
         
         <small class="text-muted font-weight-bold text-uppercase">Filter Kingdom:</small>
@@ -222,9 +219,8 @@
     </div>
 </div>
 
-<div class="row">
-    
-    <div class="col-xl-3 col-md-6 species-card visible all monera bakteri">
+<div class="row" id="species-container">
+    <div class="col-xl-3 col-md-6 species-card all monera bakteri">
         <div class="learning-card">
             <img src="{% static 'img/bakteriecoli.jpeg' %}" class="card-img-top" alt="E. coli">
             <div class="card-body">
@@ -233,7 +229,7 @@
             </div>
         </div>
     </div>
-    <div class="col-xl-3 col-md-6 species-card visible all monera bakteri">
+    <div class="col-xl-3 col-md-6 species-card all monera bakteri">
         <div class="learning-card">
             <img src="{% static 'img/Lactobacillus.jpg' %}" class="card-img-top" alt="Lactobacillus">
             <div class="card-body">
@@ -242,7 +238,7 @@
             </div>
         </div>
     </div>
-    <div class="col-xl-3 col-md-6 species-card visible all monera bakteri">
+    <div class="col-xl-3 col-md-6 species-card all monera bakteri">
         <div class="learning-card">
             <img src="{% static 'img/Salmonella.jpg' %}" class="card-img-top" alt="Salmonella">
             <div class="card-body">
@@ -252,7 +248,7 @@
         </div>
     </div>
 
-    <div class="col-xl-3 col-md-6 species-card visible all monera alga-biru">
+    <div class="col-xl-3 col-md-6 species-card all monera alga-biru">
         <div class="learning-card">
             <img src="{% static 'img/oscillatoria.jpg' %}" class="card-img-top" alt="Oscillatoria">
             <div class="card-body">
@@ -261,7 +257,7 @@
             </div>
         </div>
     </div>
-    <div class="col-xl-3 col-md-6 species-card visible all monera alga-biru">
+    <div class="col-xl-3 col-md-6 species-card all monera alga-biru">
         <div class="learning-card">
             <img src="{% static 'img/Spirulina.jpg' %}" class="card-img-top" alt="Spirulina">
             <div class="card-body">
@@ -270,7 +266,7 @@
             </div>
         </div>
     </div>
-    <div class="col-xl-3 col-md-6 species-card visible all monera alga-biru">
+    <div class="col-xl-3 col-md-6 species-card all monera alga-biru">
         <div class="learning-card">
             <img src="{% static 'img/Anabaena.jpg' %}" class="card-img-top" alt="Anabaena">
             <div class="card-body">
@@ -280,7 +276,7 @@
         </div>
     </div>
 
-    <div class="col-xl-3 col-md-6 species-card visible all protista protista-hewan">
+    <div class="col-xl-3 col-md-6 species-card all protista protista-hewan">
         <div class="learning-card">
             <img src="{% static 'img/paramecium.jpg' %}" class="card-img-top" alt="Paramecium">
             <div class="card-body">
@@ -289,7 +285,7 @@
             </div>
         </div>
     </div>
-    <div class="col-xl-3 col-md-6 species-card visible all protista protista-hewan">
+    <div class="col-xl-3 col-md-6 species-card all protista protista-hewan">
         <div class="learning-card">
             <img src="{% static 'img/Amoeba.jpeg' %}" class="card-img-top" alt="Amoeba">
             <div class="card-body">
@@ -298,7 +294,7 @@
             </div>
         </div>
     </div>
-    <div class="col-xl-3 col-md-6 species-card visible all protista protista-hewan">
+    <div class="col-xl-3 col-md-6 species-card all protista protista-hewan">
         <div class="learning-card">
             <img src="{% static 'img/Plasmodium.webp' %}" class="card-img-top" alt="Plasmodium">
             <div class="card-body">
@@ -308,7 +304,7 @@
         </div>
     </div>
 
-    <div class="col-xl-3 col-md-6 species-card visible all protista protista-tumbuhan">
+    <div class="col-xl-3 col-md-6 species-card all protista protista-tumbuhan">
         <div class="learning-card">
             <img src="{% static 'img/algahijau.jpg' %}" class="card-img-top" alt="Ulva">
             <div class="card-body">
@@ -317,7 +313,7 @@
             </div>
         </div>
     </div>
-    <div class="col-xl-3 col-md-6 species-card visible all protista protista-tumbuhan">
+    <div class="col-xl-3 col-md-6 species-card all protista protista-tumbuhan">
         <div class="learning-card">
             <img src="{% static 'img/Spirogyra.jpg' %}" class="card-img-top" alt="Spirogyra">
             <div class="card-body">
@@ -326,7 +322,7 @@
             </div>
         </div>
     </div>
-    <div class="col-xl-3 col-md-6 species-card visible all protista protista-tumbuhan">
+    <div class="col-xl-3 col-md-6 species-card all protista protista-tumbuhan">
         <div class="learning-card">
             <img src="{% static 'img/Eucheuma.jpg' %}" class="card-img-top" alt="Eucheuma">
             <div class="card-body">
@@ -336,7 +332,7 @@
         </div>
     </div>
 
-    <div class="col-xl-3 col-md-6 species-card visible all protista protista-jamur">
+    <div class="col-xl-3 col-md-6 species-card all protista protista-jamur">
         <div class="learning-card">
             <img src="{% static 'img/jamurlendir.jpg' %}" class="card-img-top" alt="Jamur Lendir">
             <div class="card-body">
@@ -345,7 +341,7 @@
             </div>
         </div>
     </div>
-    <div class="col-xl-3 col-md-6 species-card visible all protista protista-jamur">
+    <div class="col-xl-3 col-md-6 species-card all protista protista-jamur">
         <div class="learning-card">
             <img src="{% static 'img/Saprolegnia.jpg' %}" class="card-img-top" alt="Jamur Air">
             <div class="card-body">
@@ -354,7 +350,7 @@
             </div>
         </div>
     </div>
-    <div class="col-xl-3 col-md-6 species-card visible all protista protista-jamur">
+    <div class="col-xl-3 col-md-6 species-card all protista protista-jamur">
         <div class="learning-card">
             <img src="{% static 'img/Phytophthora.webp' %}" class="card-img-top" alt="Phytophthora">
             <div class="card-body">
@@ -364,7 +360,7 @@
         </div>
     </div>
 
-    <div class="col-xl-3 col-md-6 species-card visible all fungi zygomycota">
+    <div class="col-xl-3 col-md-6 species-card all fungi zygomycota">
         <div class="learning-card">
             <img src="{% static 'img/jamurroti.jpg' %}" class="card-img-top" alt="Rhizopus">
             <div class="card-body">
@@ -373,7 +369,7 @@
             </div>
         </div>
     </div>
-    <div class="col-xl-3 col-md-6 species-card visible all fungi zygomycota">
+    <div class="col-xl-3 col-md-6 species-card all fungi zygomycota">
         <div class="learning-card">
             <img src="{% static 'img/Mucor.jpg' %}" class="card-img-top" alt="Mucor">
             <div class="card-body">
@@ -382,7 +378,7 @@
             </div>
         </div>
     </div>
-    <div class="col-xl-3 col-md-6 species-card visible all fungi zygomycota">
+    <div class="col-xl-3 col-md-6 species-card all fungi zygomycota">
         <div class="learning-card">
             <img src="{% static 'img/Pilobolus.jpg' %}" class="card-img-top" alt="Pilobolus">
             <div class="card-body">
@@ -392,7 +388,7 @@
         </div>
     </div>
 
-    <div class="col-xl-3 col-md-6 species-card visible all fungi ascomycota">
+    <div class="col-xl-3 col-md-6 species-card all fungi ascomycota">
         <div class="learning-card">
             <img src="{% static 'img/ragi.jpg' %}" class="card-img-top" alt="Saccharomyces">
             <div class="card-body">
@@ -401,7 +397,7 @@
             </div>
         </div>
     </div>
-    <div class="col-xl-3 col-md-6 species-card visible all fungi ascomycota">
+    <div class="col-xl-3 col-md-6 species-card all fungi ascomycota">
         <div class="learning-card">
             <img src="{% static 'img/Penicillium.jpg' %}" class="card-img-top" alt="Penicillium">
             <div class="card-body">
@@ -410,7 +406,7 @@
             </div>
         </div>
     </div>
-    <div class="col-xl-3 col-md-6 species-card visible all fungi ascomycota">
+    <div class="col-xl-3 col-md-6 species-card all fungi ascomycota">
         <div class="learning-card">
             <img src="{% static 'img/Neurospora.png' %}" class="card-img-top" alt="Neurospora">
             <div class="card-body">
@@ -420,7 +416,7 @@
         </div>
     </div>
 
-    <div class="col-xl-3 col-md-6 species-card visible all fungi basidiomycota">
+    <div class="col-xl-3 col-md-6 species-card all fungi basidiomycota">
         <div class="learning-card">
             <img src="{% static 'img/jamurtiram.jpg' %}" class="card-img-top" alt="Jamur Tiram">
             <div class="card-body">
@@ -429,7 +425,7 @@
             </div>
         </div>
     </div>
-    <div class="col-xl-3 col-md-6 species-card visible all fungi basidiomycota">
+    <div class="col-xl-3 col-md-6 species-card all fungi basidiomycota">
         <div class="learning-card">
             <img src="{% static 'img/jamurMerang.webp' %}" class="card-img-top" alt="Volvariella">
             <div class="card-body">
@@ -438,7 +434,7 @@
             </div>
         </div>
     </div>
-    <div class="col-xl-3 col-md-6 species-card visible all fungi basidiomycota">
+    <div class="col-xl-3 col-md-6 species-card all fungi basidiomycota">
         <div class="learning-card">
             <img src="{% static 'img/JamurKuping.jpeg' %}" class="card-img-top" alt="Auricularia">
             <div class="card-body">
@@ -448,7 +444,7 @@
         </div>
     </div>
 
-    <div class="col-xl-3 col-md-6 species-card visible all fungi deuteromycota">
+    <div class="col-xl-3 col-md-6 species-card all fungi deuteromycota">
         <div class="learning-card">
             <img src="{% static 'img/TineaVersicolor.webp' %}" class="card-img-top" alt="Tinea">
             <div class="card-body">
@@ -457,7 +453,7 @@
             </div>
         </div>
     </div>
-    <div class="col-xl-3 col-md-6 species-card visible all fungi deuteromycota">
+    <div class="col-xl-3 col-md-6 species-card all fungi deuteromycota">
         <div class="learning-card">
             <img src="{% static 'img/CandidaAlbicans.webp' %}" class="card-img-top" alt="Candida">
             <div class="card-body">
@@ -466,7 +462,7 @@
             </div>
         </div>
     </div>
-    <div class="col-xl-3 col-md-6 species-card visible all fungi deuteromycota">
+    <div class="col-xl-3 col-md-6 species-card all fungi deuteromycota">
         <div class="learning-card">
             <img src="{% static 'img/Epidermophyton.webp' %}" class="card-img-top" alt="Epidermophyton">
             <div class="card-body">
@@ -476,7 +472,7 @@
         </div>
     </div>
 
-    <div class="col-xl-3 col-md-6 species-card visible all plantae bryophyta">
+    <div class="col-xl-3 col-md-6 species-card all plantae bryophyta">
         <div class="learning-card">
             <img src="{% static 'img/lumut.jpeg' %}" class="card-img-top" alt="Lumut Daun">
             <div class="card-body">
@@ -485,7 +481,7 @@
             </div>
         </div>
     </div>
-    <div class="col-xl-3 col-md-6 species-card visible all plantae bryophyta">
+    <div class="col-xl-3 col-md-6 species-card all plantae bryophyta">
         <div class="learning-card">
             <img src="{% static 'img/LumutHati.webp' %}" class="card-img-top" alt="Lumut Hati">
             <div class="card-body">
@@ -494,7 +490,7 @@
             </div>
         </div>
     </div>
-    <div class="col-xl-3 col-md-6 species-card visible all plantae bryophyta">
+    <div class="col-xl-3 col-md-6 species-card all plantae bryophyta">
         <div class="learning-card">
             <img src="{% static 'img/LumutTanduk.png' %}" class="card-img-top" alt="Lumut Tanduk">
             <div class="card-body">
@@ -504,7 +500,7 @@
         </div>
     </div>
 
-    <div class="col-xl-3 col-md-6 species-card visible all plantae pteridophyta">
+    <div class="col-xl-3 col-md-6 species-card all plantae pteridophyta">
         <div class="learning-card">
             <img src="{% static 'img/suplir.jpeg' %}" class="card-img-top" alt="Suplir">
             <div class="card-body">
@@ -513,7 +509,7 @@
             </div>
         </div>
     </div>
-    <div class="col-xl-3 col-md-6 species-card visible all plantae pteridophyta">
+    <div class="col-xl-3 col-md-6 species-card all plantae pteridophyta">
         <div class="learning-card">
             <img src="{% static 'img/Paku.jpg' %}" class="card-img-top" alt="Ekor Kuda">
             <div class="card-body">
@@ -522,7 +518,7 @@
             </div>
         </div>
     </div>
-    <div class="col-xl-3 col-md-6 species-card visible all plantae pteridophyta">
+    <div class="col-xl-3 col-md-6 species-card all plantae pteridophyta">
         <div class="learning-card">
             <img src="{% static 'img/Semanggi.png' %}" class="card-img-top" alt="Semanggi">
             <div class="card-body">
@@ -532,7 +528,7 @@
         </div>
     </div>
 
-    <div class="col-xl-3 col-md-6 species-card visible all plantae spermatophyta">
+    <div class="col-xl-3 col-md-6 species-card all plantae spermatophyta">
         <div class="learning-card">
             <img src="{% static 'img/jagung3.jpg' %}" class="card-img-top" alt="Jagung">
             <div class="card-body">
@@ -541,7 +537,7 @@
             </div>
         </div>
     </div>
-    <div class="col-xl-3 col-md-6 species-card visible all plantae spermatophyta">
+    <div class="col-xl-3 col-md-6 species-card all plantae spermatophyta">
         <div class="learning-card">
             <img src="{% static 'img/mawar.jpeg' %}" class="card-img-top" alt="Mawar">
             <div class="card-body">
@@ -550,7 +546,7 @@
             </div>
         </div>
     </div>
-    <div class="col-xl-3 col-md-6 species-card visible all plantae spermatophyta">
+    <div class="col-xl-3 col-md-6 species-card all plantae spermatophyta">
         <div class="learning-card">
             <img src="{% static 'img/melinjo.jpeg' %}" class="card-img-top" alt="Melinjo">
             <div class="card-body">
@@ -560,7 +556,7 @@
         </div>
     </div>
 
-    <div class="col-xl-3 col-md-6 species-card visible all animalia vertebrata">
+    <div class="col-xl-3 col-md-6 species-card all animalia vertebrata">
         <div class="learning-card">
             <img src="{% static 'img/ikan2.jpeg' %}" class="card-img-top" alt="Ikan">
             <div class="card-body">
@@ -569,7 +565,7 @@
             </div>
         </div>
     </div>
-    <div class="col-xl-3 col-md-6 species-card visible all animalia vertebrata">
+    <div class="col-xl-3 col-md-6 species-card all animalia vertebrata">
         <div class="learning-card">
             <img src="{% static 'img/kucing.jpeg' %}" class="card-img-top" alt="Kucing">
             <div class="card-body">
@@ -578,7 +574,7 @@
             </div>
         </div>
     </div>
-    <div class="col-xl-3 col-md-6 species-card visible all animalia vertebrata">
+    <div class="col-xl-3 col-md-6 species-card all animalia vertebrata">
         <div class="learning-card">
             <img src="{% static 'img/Katak.jpg' %}" class="card-img-top" alt="Katak">
             <div class="card-body">
@@ -587,7 +583,7 @@
             </div>
         </div>
     </div>
-    <div class="col-xl-3 col-md-6 species-card visible all animalia vertebrata">
+    <div class="col-xl-3 col-md-6 species-card all animalia vertebrata">
         <div class="learning-card">
             <img src="{% static 'img/Elang.jpg' %}" class="card-img-top" alt="Elang">
             <div class="card-body">
@@ -597,7 +593,7 @@
         </div>
     </div>
 
-    <div class="col-xl-3 col-md-6 species-card visible all animalia invertebrata">
+    <div class="col-xl-3 col-md-6 species-card all animalia invertebrata">
         <div class="learning-card">
             <img src="{% static 'img/siput2.jpeg' %}" class="card-img-top" alt="Siput">
             <div class="card-body">
@@ -606,7 +602,7 @@
             </div>
         </div>
     </div>
-    <div class="col-xl-3 col-md-6 species-card visible all animalia invertebrata">
+    <div class="col-xl-3 col-md-6 species-card all animalia invertebrata">
         <div class="learning-card">
             <img src="{% static 'img/Kupu.jpg' %}" class="card-img-top" alt="Kupu-kupu">
             <div class="card-body">
@@ -615,7 +611,7 @@
             </div>
         </div>
     </div>
-    <div class="col-xl-3 col-md-6 species-card visible all animalia invertebrata">
+    <div class="col-xl-3 col-md-6 species-card all animalia invertebrata">
         <div class="learning-card">
             <img src="{% static 'img/Bintang.webp' %}" class="card-img-top" alt="Bintang Laut">
             <div class="card-body">
@@ -681,7 +677,10 @@ const finishButton = document.getElementById('finish-btn');
 let kingdomsClicked = new Set();
 const totalKingdoms = 5;
 
+// --- FUNGSI UTAMA FILTER ---
 function showKingdom(kingdomName, el) {
+    
+    // 1. Tampilkan/Sembunyikan Info Box
     if (kingdomName === 'all') {
         infoBox.style.display = 'none';
     } else {
@@ -692,14 +691,17 @@ function showKingdom(kingdomName, el) {
         infoBox.style.display = 'block';
     }
     
+    // 2. Reset Sub-filter
     allSubFilterGroups.forEach(sub => sub.style.display = 'none');
     const subFilterToShow = document.getElementById('sub-filter-' + kingdomName);
     if (subFilterToShow) {
         subFilterToShow.style.display = 'block';
     }
     
+    // 3. Jalankan Filter Spesies
     filterSpesies(kingdomName, el);
     
+    // 4. Cek Progres (Tombol Selesai)
     if (kingdomName !== 'all') {
         kingdomsClicked.add(kingdomName);
     }
@@ -709,28 +711,44 @@ function showKingdom(kingdomName, el) {
 }
 
 function filterSpesies(kategori, el) {
+    // Loop semua kartu untuk show/hide
     allCards.forEach(card => {
-        if (card.classList.contains(kategori)) {
-            card.classList.remove('hidden');
-            card.classList.add('visible');
-            card.style.display = 'block'; // Paksa display block
+        // Logika khusus untuk 'all': Tampilkan SEMUA kartu yang punya class 'all' (yaitu semua card)
+        if (kategori === 'all') {
+             card.style.display = 'block';
+        } 
+        // Logika filter spesifik
+        else if (card.classList.contains(kategori)) {
+            card.style.display = 'block';
         } else {
-            card.classList.add('hidden');
-            card.classList.remove('visible');
-            card.style.display = 'none'; // Paksa display none
+            card.style.display = 'none';
         }
     });
 
-    // Logic highlight tombol
+    // Logic highlight tombol aktif
     const allButtons = filterContainer.querySelectorAll('.btn');
     allButtons.forEach(button => button.classList.remove('active'));
-    el.classList.add('active');
+    el.classList.add('active'); // Highlight tombol yang diklik
 
+    // Jika yang diklik adalah sub-filter, highlight juga tombol kingdom induknya
     if (el.classList.contains('btn-subfilter')) {
         const parentKingdom = el.getAttribute('data-parent-kingdom');
         const parentButton = filterContainer.querySelector(`.btn-kingdom[data-filter="${parentKingdom}"]`);
         if (parentButton) parentButton.classList.add('active');
     }
 }
+
+// --- INISIALISASI SAAT LOAD ---
+// Pastikan semua kartu tersembunyi saat pertama buka
+window.addEventListener('DOMContentLoaded', (event) => {
+    // Reset tombol aktif (hapus 'active' dari tombol 'Tampilkan Semua' di HTML awal jika ada)
+    const allButtons = filterContainer.querySelectorAll('.btn');
+    allButtons.forEach(button => button.classList.remove('active'));
+    
+    // Sembunyikan semua card
+    allCards.forEach(card => {
+        card.style.display = 'none';
+    });
+});
 </script>
 {% endblock %}
