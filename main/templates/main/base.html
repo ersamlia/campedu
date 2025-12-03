@@ -126,6 +126,7 @@
         <div id="wrapper">
             <ul class="navbar-nav sidebar sidebar-dark accordion"
                 id="accordionSidebar">
+                
                 <a class="sidebar-brand d-flex align-items-center justify-content-center"
                    href="{% if user.profile.role == 'SISWA' %}{% url 'siswa_dashboard' %}{% else %}{% url 'guru_dashboard' %}{% endif %}">
                     <div class="sidebar-brand-icon d-flex align-items-center justify-content-center">
@@ -133,7 +134,9 @@
                     </div>
                     <div class="sidebar-brand-text mx-3">BioVerse</div>
                 </a>
+
                 <hr class="sidebar-divider my-0">
+                
                 {% if user.profile.role == 'SISWA' %}
                     <li class="nav-item {% if request.resolver_match.url_name == 'siswa_dashboard' %}active{% endif %}">
                         <a class="nav-link" href="{% url 'siswa_dashboard' %}">
@@ -145,7 +148,7 @@
 
                     <div class="sidebar-heading">Materi Pembelajaran</div>
                     
-                    <li class="nav-item {% if 'modul/1' in request.path or 'latihan/1' in request.path %}active{% endif %}">
+                    <li class="nav-item {% if 'modul/1' in request.path or 'latihan/1' in request.path or 'glosarium' in request.path %}active{% endif %}">
                         <a class="nav-link collapsed"
                            href="#"
                            data-toggle="collapse"
@@ -157,15 +160,19 @@
                         </a>
                         <div id="collapseSubBab1" class="collapse" data-parent="#accordionSidebar">
                             <div class="bg-white py-2 collapse-inner rounded">
-                                <h6 class="collapse-header">Sub-Bab 1:</h6>
+                                <h6 class="collapse-header">Materi & Latihan:</h6>
                                 <a class="collapse-item" href="{% url 'modul' 1 %}">📚 Modul Materi</a>
                                 {% get_latihan_id 1 as latihan_1_id %}
                                 <a class="collapse-item" href="{% url 'latihan_soal' latihan_1_id %}">📝 Latihan Soal 1</a>
+                                
+                                <div class="collapse-divider"></div>
+                                <h6 class="collapse-header">Alat Bantu:</h6>
+                                <a class="collapse-item" href="{% url 'glosarium' %}">📖 Glosarium</a>
                             </div>
                         </div>
                     </li>
 
-                    <li class="nav-item {% if 'modul/2' in request.path or 'latihan/2' in request.path %}active{% endif %}">
+                    <li class="nav-item {% if 'modul/2' in request.path or 'latihan/2' in request.path or 'mikroskop' in request.path %}active{% endif %}">
                         <a class="nav-link collapsed"
                            href="#"
                            data-toggle="collapse"
@@ -177,15 +184,19 @@
                         </a>
                         <div id="collapseSubBab2" class="collapse" data-parent="#accordionSidebar">
                             <div class="bg-white py-2 collapse-inner rounded">
-                                <h6 class="collapse-header">Sub-Bab 2:</h6>
+                                <h6 class="collapse-header">Materi & Latihan:</h6>
                                 <a class="collapse-item" href="{% url 'modul' 2 %}">📚 Modul Materi</a>
                                 {% get_latihan_id 2 as latihan_2_id %}
                                 <a class="collapse-item" href="{% url 'latihan_soal' latihan_2_id %}">📝 Latihan Soal 2</a>
+                                
+                                <div class="collapse-divider"></div>
+                                <h6 class="collapse-header">Alat Bantu:</h6>
+                                <a class="collapse-item" href="{% url 'lab_mikroskop' %}">🔬 Lab Mikroskop</a>
                             </div>
                         </div>
                     </li>
 
-                    <li class="nav-item {% if 'modul/3' in request.path or 'latihan/3' in request.path %}active{% endif %}">
+                    <li class="nav-item {% if 'modul/3' in request.path or 'latihan/3' in request.path or 'database' in request.path %}active{% endif %}">
                         <a class="nav-link collapsed"
                            href="#"
                            data-toggle="collapse"
@@ -197,37 +208,16 @@
                         </a>
                         <div id="collapseSubBab3" class="collapse" data-parent="#accordionSidebar">
                             <div class="bg-white py-2 collapse-inner rounded">
-                                <h6 class="collapse-header">Sub-Bab 3:</h6>
+                                <h6 class="collapse-header">Materi & Latihan:</h6>
                                 <a class="collapse-item" href="{% url 'modul' 3 %}">📚 Modul Materi</a>
                                 {% get_latihan_id 3 as latihan_3_id %}
                                 <a class="collapse-item" href="{% url 'latihan_soal' latihan_3_id %}">📝 Latihan Soal 3</a>
+
+                                <div class="collapse-divider"></div>
+                                <h6 class="collapse-header">Alat Bantu:</h6>
+                                <a class="collapse-item" href="{% url 'database_spesies' %}">🗃️ Database Spesies</a>
                             </div>
                         </div>
-                    </li>
-
-                    <hr class="sidebar-divider">
-                    
-                    <div class="sidebar-heading">Alat Bantu Belajar</div>
-
-                    <li class="nav-item {% if 'glosarium' in request.path %}active{% endif %}">
-                        <a class="nav-link" href="{% url 'glosarium' %}">
-                            <i class="fas fa-book"></i>
-                            <span>Glosarium</span>
-                        </a>
-                    </li>
-
-                    <li class="nav-item {% if 'mikroskop' in request.path %}active{% endif %}">
-                        <a class="nav-link" href="{% url 'lab_mikroskop' %}">
-                            <i class="fas fa-microscope"></i>
-                            <span>Lab Mikroskop</span>
-                        </a>
-                    </li>
-
-                    <li class="nav-item {% if 'database' in request.path %}active{% endif %}">
-                        <a class="nav-link" href="{% url 'database_spesies' %}">
-                            <i class="fas fa-database"></i>
-                            <span>Database Spesies</span>
-                        </a>
                     </li>
 
                     <hr class="sidebar-divider">

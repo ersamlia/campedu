@@ -1,16 +1,18 @@
 {% extends 'main/base.html' %}
 {% load static %}
+
 {% block title %}Modul 1: {{ subbab.judul }}{% endblock %}
 
 {% block custom_css %}
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap');
+
 body {
     font-family: 'Nunito', sans-serif;
     background: #f3f6fd;
 }
 
-/* CARD JUDUL HEADER CONSISTENT */
+/* === HEADER CARD === */
 .modul-header-card {
     display: flex;
     justify-content: space-between;
@@ -34,112 +36,145 @@ body {
     font-weight: 600;
     letter-spacing: 0.5px;
 }
+
+/* === LEARNING CARD & SLIDES === */
 .learning-slide { display: none; }
-.learning-slide.active {
-    display: block !important;
-    width: 100%;
+.learning-slide.active { display: block !important; width: 100%; animation: fadeInSlide 0.5s; }
+
+@keyframes fadeInSlide {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
 }
+
 .learning-card {
     background: #fff;
     border-radius: 2.2rem;
     box-shadow: 0 8px 32px rgba(53,99,233,0.10);
     padding: 2.6rem 5vw 2.2rem 5vw;
     width: 100%;
-    max-width: 100%;
     margin: 0 auto 2.5rem auto;
-    font-family: 'Nunito', sans-serif;
 }
+
+/* Responsive Padding */
 @media (max-width: 900px) {
-    .learning-card { padding: 1.0rem .7rem 1.0rem .7rem; border-radius: 1.08rem;}
-    .modul-header-card { padding: 0.7rem;}
-    .modul-header-title { font-size: 1.12rem;}
+    .learning-card { padding: 1.5rem 1rem; border-radius: 1.2rem; }
+    .modul-header-card { padding: 0.8rem; }
 }
+
 .learning-card .card-header {
     background: transparent;
     border: none;
-    border-radius: 2.2rem 2.2rem 0 0;
-    font-weight: 800;
     padding: 0;
-    margin-bottom: 1.02rem;
+    margin-bottom: 1.2rem;
 }
 .learning-card .card-header h6 {
     color: #246bfd;
-    font-size: 1.13rem;
-    font-weight: 900;
-    font-family: 'Nunito', sans-serif !important;
-    margin-bottom: 0;
-    line-height: 1.22;
-    letter-spacing: .007em;
-}
-.learning-card .card-body h5, .learning-card .card-body h4 {
-    font-family: 'Nunito', sans-serif !important;
-    color: #1c253b;
-    font-size: 1.19rem;
+    font-size: 1.1rem;
     font-weight: 800;
-    margin-bottom: .58rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
-.learning-card ul, .learning-card ol {
-    margin-left: 1.11rem;
-    margin-bottom: 1rem;
+
+/* Typography Content */
+.learning-card h4, .learning-card h5 {
+    color: #1c253b;
+    font-weight: 800;
+    margin-bottom: 0.8rem;
+}
+.learning-card p, .learning-card li {
     color: #495466;
+    font-size: 1.05rem;
+    line-height: 1.6;
 }
-.learning-card button.btn-primary {
-    background-color: #246bfd;
-    font-weight: 700;
-    border-radius: 0.85rem;
-    border: none;
-}
-.learning-card button.btn-primary:hover, .learning-card button.btn-primary:focus {
-    background-color: #1c519b;
-}
-.learning-card button.btn-secondary { border-radius: 0.85rem; }
-.learning-card .form-control {
+
+/* Buttons & Forms */
+.btn { border-radius: 0.85rem; font-weight: 700; padding: 0.6rem 1.2rem; transition: all 0.2s; }
+.btn-primary { background-color: #246bfd; border: none; }
+.btn-primary:hover { background-color: #1a54ca; transform: translateY(-2px); }
+.form-control {
     border-radius: 0.8rem;
     border: 1px solid #eaf0fb;
-    font-size: 1.1rem;
-    padding: 0.9rem 1.1rem;
+    padding: 1rem;
     background: #f7fbff;
 }
-.learning-card .form-control:focus {
-    border-color: #246bfd;
-    background: #fff;
-}
-.learning-card hr {
-    border-color: #eaf0fb;
-    margin: 1.13rem 0;
-}
-a.btn.disabled {
-    pointer-events: none; opacity: 0.65;
-}
-<<<<<<< Updated upstream
+.form-control:focus { background: #fff; border-color: #246bfd; box-shadow: none; }
 
-/* === CSS KHUSUS MODUL 1 === */
-/* Style untuk gambar di Slide 3 dan 4 */
+/* === KHUSUS CHECKLIST INTERAKTIF === */
+.checklist-container {
+    background: #fff;
+    border: 1px solid #e3e6f0;
+    border-radius: 1rem;
+    overflow: hidden;
+}
+.ciri-item {
+    padding: 1rem 1.2rem;
+    border-bottom: 1px solid #f0f2f5;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    transition: background 0.3s;
+}
+.ciri-item:last-child { border-bottom: none; }
+.ciri-item:hover { background-color: #fcfdfe; }
+
+.ciri-label {
+    font-weight: 700;
+    color: #2e59d9;
+    font-size: 1rem;
+    display: block;
+}
+.ciri-text {
+    font-size: 0.9rem;
+    margin-top: 8px;
+    display: none;
+    border-radius: 0.6rem;
+    padding: 0.6rem 0.8rem;
+}
+.ciri-text.show { display: block; animation: fadeInText 0.4s; }
+
+@keyframes fadeInText {
+    from { opacity: 0; transform: translateY(-5px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.btn-cek {
+    border-radius: 50px;
+    padding: 0.3rem 1.2rem;
+    font-size: 0.85rem;
+}
+
+/* === STYLE GAMBAR YANG DIPERBESAR & FULL === */
+
+/* Gambar Thumbnail di Slide 3 */
+.stim-img {
+    height: 220px; /* Lebih tinggi dari sebelumnya */
+    width: 100%;
+    object-fit: cover; /* Mengisi penuh kotak (crop jika perlu) */
+    border-radius: 1rem;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+    padding: 0; /* Hapus padding agar full ke pinggir */
+    border: none;
+}
+
+/* Gambar Utama di Slide 4 (Analisis) */
 #obj-img {
     width: 100%;
-    max-height: 250px;
-    object-fit: contain;
-    background: #ffffff;
-    border-radius: 1.08rem;
-    padding: 10px;
-=======
-.stim-img, #obj-img {
-    height: 180px;
-    width: 100%;
-    object-fit: cover;
-    border-radius: 1.08rem;
->>>>>>> Stashed changes
+    height: 350px; /* Ukuran FIX yang besar */
+    object-fit: contain; /* Pastikan seluruh objek terlihat (tidak terpotong) */
+    background-color: #fff; 
+    border-radius: 1rem;
+    padding: 0; /* Full box */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    border: 1px solid #f0f0f0;
 }
-#checklist .btn {
-    border-radius: 0.85rem;
-    text-align: left;
-    width: 100%;
-    font-weight: 700;
-    margin-bottom: 0.5rem;
+
+/* Container text dibawah gambar Slide 3 */
+.caption-img {
+    margin-top: 10px;
+    font-weight: 800;
+    color: #4e73df;
+    font-size: 1.1rem;
 }
-#checklist .btn .fa-square { color: #4e73df; }
-#checklist .btn .fa-check-square { color: #ffffff; }
-#checklist .btn .fa-times-circle { color: #ffffff; }
 </style>
 {% endblock %}
 
@@ -148,7 +183,7 @@ a.btn.disabled {
     <div>
         <div class="modul-header-title">Modul 1: {{ subbab.judul }}</div>
         <div class="modul-header-keterangan">
-            {{ subbab.deskripsi|default:"Kerjakan modul berikut dengan jujur dan sungguh-sungguh." }}
+            {{ subbab.deskripsi|default:"Mengenal Ciri-Ciri Makhluk Hidup" }}
         </div>
     </div>
 </div>
@@ -159,13 +194,15 @@ a.btn.disabled {
             <h6>Tujuan Pembelajaran</h6>
         </div>
         <div class="card-body">
-            <p>Setelah menyelesaikan modul ini, Anda diharapkan mampu:</p>
+            <h4 class="mb-4">Selamat Datang!</h4>
+            <p>Setelah menyelesaikan modul interaktif ini, Anda diharapkan mampu:</p>
             <ul>
                 <li>Membedakan benda hidup dan benda mati berdasarkan pengamatan.</li>
-                <li>Mengidentifikasi ciri-ciri yang dimiliki oleh makhluk hidup.</li>
-                <li>Menyimpulkan pengertian dari makhluk hidup berdasarkan ciri-cirinya.</li>
+                <li>Mengidentifikasi 7 ciri utama yang dimiliki oleh makhluk hidup.</li>
+                <li>Menyimpulkan pengertian makhluk hidup berdasarkan data yang dikumpulkan.</li>
             </ul>
-            <button class="btn btn-primary" onclick="showSlide(2)">Mulai Belajar <i class="fas fa-arrow-right"></i></button>
+            <hr class="my-4">
+            <button class="btn btn-primary btn-lg shadow-sm" onclick="showSlide(2)">Mulai Belajar <i class="fas fa-arrow-right ml-2"></i></button>
         </div>
     </div>
 </div>
@@ -176,12 +213,18 @@ a.btn.disabled {
             <h6>Pemaparan Materi Singkat</h6>
         </div>
         <div class="card-body">
-            <h5 class="text-gray-900">Apa itu Makhluk Hidup?</h5>
-            <p>Di sekitar kita, terdapat banyak sekali benda. Ada benda yang dapat bergerak sendiri, bernapas, dan tumbuh besar, seperti kucing. Ada juga benda yang tidak bisa melakukan itu, seperti batu.</p>
-            <p>Benda-benda yang memiliki kemampuan untuk bernapas, bergerak, makan, tumbuh, dan berkembang biak kita sebut sebagai <b>makhluk hidup</b>. Benda yang tidak memilikinya kita sebut <b>benda mati</b>.</p>
-            <p>Sekarang, ayo kita temukan sendiri apa saja ciri-ciri pasti dari makhluk hidup melalui aktivitas berikut!</p>
-            <button class="btn btn-secondary" onclick="showSlide(1)"><i class="fas fa-arrow-left"></i> Kembali</button>
-            <button class="btn btn-primary" onclick="showSlide(3)">Lanjut ke Aktivitas <i class="fas fa-arrow-right"></i></button>
+            <h5>Apa itu Makhluk Hidup?</h5>
+            <p>Di sekitar kita, terdapat banyak sekali benda. Ada benda yang dapat tumbuh besar dan bergerak sendiri seperti Kucing. Ada juga benda yang diam saja seperti Batu.</p>
+            <p class="mb-4">Benda-benda yang memiliki kemampuan untuk bernapas, bergerak, makan, tumbuh, dan berkembang biak kita sebut sebagai <b>makhluk hidup</b>. Benda yang tidak memilikinya kita sebut <b>benda mati</b>.</p>
+            
+            <div class="alert alert-info border-0 shadow-sm" role="alert">
+                <i class="fas fa-info-circle mr-2"></i> <strong>Tantangan:</strong> Ayo kita temukan sendiri apa saja ciri-ciri pasti dari makhluk hidup!
+            </div>
+            
+            <div class="mt-4">
+                <button class="btn btn-light text-primary mr-2" onclick="showSlide(1)"><i class="fas fa-arrow-left"></i> Kembali</button>
+                <button class="btn btn-primary" onclick="showSlide(3)">Lanjut ke Aktivitas <i class="fas fa-arrow-right"></i></button>
+            </div>
         </div>
     </div>
 </div>
@@ -189,38 +232,41 @@ a.btn.disabled {
 <div id="slide-3" class="learning-slide">
     <div class="learning-card">
         <div class="card-header">
-            <h6>Tahap 1: Materi Singkat</h6>
+            <h6>Tahap 1: Pengamatan</h6>
         </div>
         <div class="card-body">
             <p>Perhatikan 4 gambar di bawah ini. Menurutmu, mana yang makhluk hidup dan mana yang benda mati?</p>
-            <div class="row text-center">
-                <div class="col-md-3 mb-2">
-                    <img src="{% static 'img/pohon.png' %}" class="img-fluid rounded mb-2 stim-img" alt="Pohon"><br>
-                    <strong>Pohon</strong>
+            <div class="row text-center mt-4">
+                <div class="col-md-3 mb-4">
+                    <img src="{% static 'img/pohon2.jpg' %}" class="img-fluid stim-img" alt="Pohon">
+                    <div class="caption-img">Pohon</div>
                 </div>
-                <div class="col-md-3 mb-2">
-                    <img src="{% static 'img/batu.png' %}" class="img-fluid rounded mb-2 stim-img" alt="Batu"><br>
-                    <strong>Batu</strong>
+                <div class="col-md-3 mb-4">
+                    <img src="{% static 'img/batu2.jpg' %}" class="img-fluid stim-img" alt="Batu">
+                    <div class="caption-img">Batu</div>
                 </div>
-                <div class="col-md-3 mb-2">
-                    <img src="{% static 'img/burung.png' %}" class="img-fluid rounded mb-2 stim-img" alt="Burung"><br>
-                    <strong>Burung</strong>
+                <div class="col-md-3 mb-4">
+                    <img src="{% static 'img/burung.png' %}" class="img-fluid stim-img" alt="Burung">
+                    <div class="caption-img">Burung</div>
                 </div>
-                <div class="col-md-3 mb-2">
-                    <img src="{% static 'img/mobil.png' %}" class="img-fluid rounded mb-2 stim-img" alt="Mobil"><br>
-                    <strong>Mobil</strong>
+                <div class="col-md-3 mb-4">
+                    <img src="{% static 'img/mobil2.jpg' %}" class="img-fluid stim-img" alt="Mobil">
+                    <div class="caption-img">Mobil</div>
                 </div>
             </div>
-            <hr>
-            <h5 class="text-gray-900">Perumusan Masalah</h5>
-            <p>Dari gambar di atas, kita bisa bertanya:</p>
-            <ul>
-                <li>"Apa perbedaan utama antara Burung dan Mobil? Keduanya sama-sama bisa bergerak."</li>
-                <li>"Apa yang dimiliki Pohon tapi tidak dimiliki Batu?"</li>
-            </ul>
-            <p>Sekarang, ayo kita kumpulkan data untuk menjawabnya di tahap berikutnya!</p>
-            <button class="btn btn-secondary" onclick="showSlide(2)"><i class="fas fa-arrow-left"></i> Kembali</button>
-            <button class="btn btn-primary" onclick="showSlide(4)">Lanjut ke Eksplorasi <i class="fas fa-arrow-right"></i></button>
+            
+            <div class="bg-light p-3 rounded mt-2">
+                <h6 class="text-primary font-weight-bold">Pertanyaan Pemantik:</h6>
+                <ul class="mb-0">
+                    <li>"Pohon diam saja, apakah dia hidup?"</li>
+                    <li>"Mobil bisa bergerak, Burung juga bergerak. Apakah keduanya makhluk hidup?"</li>
+                </ul>
+            </div>
+
+            <div class="mt-4">
+                <button class="btn btn-light text-primary mr-2" onclick="showSlide(2)"><i class="fas fa-arrow-left"></i> Kembali</button>
+                <button class="btn btn-primary" onclick="showSlide(4)">Lanjut ke Eksplorasi <i class="fas fa-arrow-right"></i></button>
+            </div>
         </div>
     </div>
 </div>
@@ -231,24 +277,39 @@ a.btn.disabled {
             <h6>Tahap 2: Eksplorasi & Penemuan (Data Collection)</h6>
         </div>
         <div class="card-body" id="interactive-area">
-            <p>Ayo kita kumpulkan data! Klik semua tombol ciri untuk menganalisis objek ini.</p>
+            <p>Mari kita buktikan! Klik tombol <b>"Cek"</b> pada setiap ciri untuk melihat apakah objek tersebut memilikinya.</p>
+            
             <div class="row">
-                <div class="col-md-4">
-                    <h4 id="obj-title" class="text-gray-900">Objek 1: Kucing</h4>
-                    <img id="obj-img" src="{% static 'img/kucing.jpg' %}" alt="Kucing" class="img-fluid mb-3 rounded">
-                    <button id="next-obj-btn" class="btn btn-info" style="display:none; border-radius: 0.85rem;" onclick="loadObject('Robot')">Analisis Objek Berikutnya <i class="fas fa-arrow-right"></i></button>
+                <div class="col-md-5 text-center mb-4">
+                    <div class="p-3 bg-light rounded border sticky-top" style="top: 20px; z-index: 1;">
+                        <h4 id="obj-title" class="text-gray-900 font-weight-bold mb-3">Objek 1: Pohon</h4>
+                        
+                        <img id="obj-img" src="{% static 'img/pohon.png' %}" alt="Objek">
+                        
+                        <div id="result-area" style="display:none;" class="mt-4">
+                            <h6 class="font-weight-bold text-gray-800">Hasil Analisis:</h6>
+                            <div id="obj-result-badge" class="badge badge-success p-3" style="font-size: 1.1rem; width: 100%;">MAKHLUK HIDUP</div>
+                        </div>
+
+                        <button id="next-obj-btn" class="btn btn-info btn-block mt-3 py-2" style="display:none;">
+                            Analisis Objek Berikutnya <i class="fas fa-arrow-right"></i>
+                        </button>
+                         <button id="finish-modul-btn" class="btn btn-success btn-block mt-3 py-2" style="display:none;" onclick="showSlide(5)">
+                            Lanjut ke Kesimpulan <i class="fas fa-check"></i>
+                        </button>
+                    </div>
                 </div>
-                <div class="col-md-8">
-                    <h4 class="text-gray-900">Checklist Ciri Kehidupan:</h4>
-                    <div id="checklist" class="mb-3"></div>
-                    <h5 id="obj-result" class="text-gray-900"></h5>
+
+                <div class="col-md-7">
+                    <h5 class="text-gray-900 mb-3 ml-1">Daftar Ciri-Ciri:</h5>
+                    <div id="checklist-container" class="checklist-container shadow-sm">
+                        <div class="p-5 text-center text-muted">Memuat data...</div>
+                    </div>
                 </div>
             </div>
-            <hr>
-            <button class="btn btn-secondary" onclick="showSlide(3)"><i class="fas fa-arrow-left"></i> Kembali</button>
-            <button id="finish-modul-btn" class="btn btn-primary" style="display:none" onclick="showSlide(5)">
-                Lanjut ke Kesimpulan <i class="fas fa-arrow-right"></i>
-            </button>
+
+            <hr class="mt-5">
+            <button class="btn btn-light text-primary" onclick="showSlide(3)"><i class="fas fa-arrow-left"></i> Kembali</button>
         </div>
     </div>
 </div>
@@ -259,35 +320,56 @@ a.btn.disabled {
             <h6>Tahap 3: Verifikasi & Kesimpulan</h6>
         </div>
         <div class="card-body">
-            <h5 class="text-gray-900">Verifikasi</h5>
-            <p>Dari aktivitas sebelumnya, Anda "menemukan" bahwa Kucing memiliki semua 7 ciri, sedangkan Robot hanya memiliki beberapa. Ini membuktikan bahwa sebuah benda baru disebut <b>makhluk hidup</b> jika memiliki <b>SEMUA</b> ciri-ciri berikut:</p>
-            <ol>
+            <h5>Verifikasi Data</h5>
+            <p>Dari aktivitas sebelumnya, kita telah menganalisis Pohon, Batu, Burung, dan Mobil. Hasilnya:</p>
+            <div class="row mb-3">
+                <div class="col-md-6 mb-2">
+                    <div class="alert alert-success">
+                        <strong>Makhluk Hidup:</strong> <br> Burung & Pohon. <small>(Memiliki 7 Ciri)</small>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-2">
+                    <div class="alert alert-secondary">
+                        <strong>Benda Mati:</strong> <br> Batu & Mobil. <small>(Tidak memiliki ciri biologis)</small>
+                    </div>
+                </div>
+            </div>
+            
+            <p>Jadi, syarat mutlak makhluk hidup adalah memiliki ciri:</p>
+            <ol class="columns-2" style="column-count: 2;">
                 <li>Bernapas</li>
                 <li>Bergerak</li>
                 <li>Butuh Makan (Nutrisi)</li>
-                <li>Tumbuh dan Berkembang</li>
-                <li>Berkembang Biak (Reproduksi)</li>
-                <li>Peka Terhadap Rangsang (Iritabilitas)</li>
-                <li>Mengeluarkan Zat Sisa (Ekskresi)</li>
+                <li>Tumbuh & Berkembang</li>
+                <li>Berkembang Biak</li>
+                <li>Peka Terhadap Rangsang</li>
+                <li>Ekskresi (Zat Sisa)</li>
             </ol>
             <hr>
-            <h5 class="text-gray-900">Kesimpulan (Generalization)</h5>
-            <p>Berdasarkan seluruh kegiatan di modul ini, tuliskan kesimpulanmu tentang apa itu makhluk hidup:</p>
+            
+            <h5>Kesimpulan Akhir</h5>
+            <p>Berdasarkan pemahamanmu, tuliskan pengertian makhluk hidup:</p>
             <form>
-                <textarea class="form-control" rows="3"
-                          placeholder="Makhluk hidup adalah..."
-                          id="kesimpulan_text"
-                          oninput="checkKesimpulan()"></textarea>
-                <small id="kesimpulan_error" class="text-danger" style="display: none;">Anda harus menulis kesimpulan (minimal 10 karakter) untuk melanjutkan.</small>
+                <div class="form-group">
+                    <textarea class="form-control" rows="3" 
+                              placeholder="Menurut saya, Makhluk hidup adalah..." 
+                              id="kesimpulan_text" 
+                              oninput="checkKesimpulan()"></textarea>
+                    <small id="kesimpulan_error" class="text-danger mt-1" style="display: none;">
+                        <i class="fas fa-exclamation-circle"></i> Mohon tulis kesimpulan minimal 10 karakter.
+                    </small>
+                </div>
             </form>
-            <br>
-            <button class="btn btn-secondary" onclick="showSlide(4)"><i class="fas fa-arrow-left"></i> Kembali</button>
-            <a href="{% url 'selesai_step' 'modul_1' %}"
-               id="btn_selesai_modul"
-               class="btn btn-success btn-icon-split disabled">
-                <span class="icon text-white-50"><i class="fas fa-check"></i></span>
-                <span class="text">Selesai Modul & Buka Latihan 1</span>
-            </a>
+            
+            <div class="d-flex justify-content-between align-items-center mt-4">
+                <button class="btn btn-light text-primary" onclick="showSlide(4)"><i class="fas fa-arrow-left"></i> Kembali</button>
+                
+                <a href="{% url 'selesai_step' 'modul_1' %}" 
+                   id="btn_selesai_modul" 
+                   class="btn btn-success disabled shadow-sm">
+                    Selesai & Lanjut <i class="fas fa-check-circle ml-2"></i>
+                </a>
+            </div>
         </div>
     </div>
 </div>
@@ -295,51 +377,95 @@ a.btn.disabled {
 
 {% block custom_js %}
 <script>
+/* === LOGIKA NAVIGASI SLIDE === */
 let currentSlide = 1;
+
 function showSlide(slideNumber) {
     document.getElementById('slide-' + currentSlide).classList.remove('active');
     currentSlide = slideNumber;
     document.getElementById('slide-' + currentSlide).classList.add('active');
+    document.querySelector('.modul-header-card').scrollIntoView({ behavior: 'smooth' });
     if (slideNumber === 5) { checkKesimpulan(); }
 }
 
+/* === LOGIKA VALIDASI KESIMPULAN === */
 function checkKesimpulan() {
     const textarea = document.getElementById('kesimpulan_text');
     const button = document.getElementById('btn_selesai_modul');
     const errorMsg = document.getElementById('kesimpulan_error');
-    if (textarea.value.trim().length > 10) {
+    
+    if (textarea.value.trim().length >= 10) {
         button.classList.remove('disabled');
+        button.style.pointerEvents = 'auto';
+        button.style.opacity = '1';
         errorMsg.style.display = 'none';
     } else {
         button.classList.add('disabled');
-        errorMsg.style.display = textarea.value.length > 0 ? 'block' : 'none';
+        button.style.pointerEvents = 'none';
+        button.style.opacity = '0.6';
+        if(textarea.value.length > 0) {
+            errorMsg.style.display = 'block';
+        } else {
+            errorMsg.style.display = 'none';
+        }
     }
 }
 
+/* === DATA OBJEK (4 OBJEK: POHON, BATU, BURUNG, MOBIL) === */
 const objects = {
-    'Kucing': {
-        img: "{% static 'img/kucing.png' %}",
+    'Pohon': {
+        img: "{% static 'img/pohon.png' %}",
+        type: 'living', 
         ciri: {
-            'Bernapas': { 'status': true, 'teks': 'YA! Kucing bernapas dengan paru-paru.' },
-            'Bergerak': { 'status': true, 'teks': 'YA! Kucing bisa berlari dan melompat.' },
-            'Butuh Makan/Nutrisi': { 'status': true, 'teks': 'YA! Kucing makan ikan.' },
-            'Tumbuh & Berkembang': { 'status': true, 'teks': 'YA! Anak kucing tumbuh jadi besar.' },
-            'Berkembang Biak': { 'status': true, 'teks': 'YA! Kucing melahirkan anak.' },
-            'Peka Terhadap Rangsang': { 'status': true, 'teks': 'YA! Kucing merespons saat dipanggil.' },
-            'Mengeluarkan Zat Sisa': { 'status': true, 'teks': 'YA! Kucing buang air kecil/besar.' }
+            'Bernapas': { status: true, teks: 'YA! Tumbuhan bernapas melalui pori-pori daun (stomata).' },
+            'Bergerak': { status: true, teks: 'YA! Tumbuhan bergerak tumbuh ke arah cahaya, walau tidak berpindah tempat.' },
+            'Butuh Makan/Nutrisi': { status: true, teks: 'YA! Tumbuhan membuat makanan sendiri (fotosintesis) dan menyerap zat hara.' },
+            'Tumbuh & Berkembang': { status: true, teks: 'YA! Dari biji kecil tumbuh menjadi pohon besar.' },
+            'Berkembang Biak': { status: true, teks: 'YA! Pohon menghasilkan biji atau tunas.' },
+            'Peka Terhadap Rangsang': { status: true, teks: 'YA! Akar peka terhadap air, daun peka terhadap cahaya.' },
+            'Mengeluarkan Zat Sisa': { status: true, teks: 'YA! Tumbuhan mengeluarkan uap air dan oksigen.' }
         },
         kesimpulan: "MAKHLUK HIDUP"
     },
-    'Robot': {
-        img: "{% static 'img/robot.png' %}",
+    'Batu': {
+        img: "{% static 'img/batu.png' %}",
+        type: 'non-living',
         ciri: {
-            'Bernapas': { 'status': false, 'teks': 'TIDAK! Robot tidak bernapas.' },
-            'Bergerak': { 'status': true, 'teks': 'YA! Robot bisa bergerak dengan baterai.' },
-            'Butuh Makan/Nutrisi': { 'status': false, 'teks': 'TIDAK! Robot butuh listrik/baterai.' },
-            'Tumbuh & Berkembang': { 'status': false, 'teks': 'TIDAK! Ukuran robot tetap.' },
-            'Berkembang Biak': { 'status': false, 'teks': 'TIDAK! Robot tidak bisa punya anak.' },
-            'Peka Terhadap Rangsang': { 'status': true, 'teks': 'YA! Robot merespons sensor.' },
-            'Mengeluarkan Zat Sisa': { 'status': false, 'teks': 'TIDAK! Robot tidak menghasilkan zat sisa.' }
+            'Bernapas': { status: false, teks: 'TIDAK! Batu adalah benda padat yang tidak bernapas.' },
+            'Bergerak': { status: false, teks: 'TIDAK! Batu diam saja, kecuali dilempar atau terkena gempa.' },
+            'Butuh Makan/Nutrisi': { status: false, teks: 'TIDAK! Batu tidak butuh makanan.' },
+            'Tumbuh & Berkembang': { status: false, teks: 'TIDAK! Ukuran batu tidak bertambah besar dengan sendirinya.' },
+            'Berkembang Biak': { status: false, teks: 'TIDAK! Batu tidak bisa punya anak batu.' },
+            'Peka Terhadap Rangsang': { status: false, teks: 'TIDAK! Batu tidak bereaksi jika dipukul (selain pecah).' },
+            'Mengeluarkan Zat Sisa': { status: false, teks: 'TIDAK! Batu tidak mengeluarkan kotoran.' }
+        },
+        kesimpulan: "BENDA MATI"
+    },
+    'Burung': {
+        img: "{% static 'img/burung.png' %}",
+        type: 'living', 
+        ciri: {
+            'Bernapas': { status: true, teks: 'YA! Burung bernapas menghirup oksigen dengan paru-paru.' },
+            'Bergerak': { status: true, teks: 'YA! Burung terbang menggunakan sayap dan ototnya.' },
+            'Butuh Makan/Nutrisi': { status: true, teks: 'YA! Burung perlu makan biji atau serangga untuk energi.' },
+            'Tumbuh & Berkembang': { status: true, teks: 'YA! Dari telur menetas menjadi burung kecil lalu dewasa.' },
+            'Berkembang Biak': { status: true, teks: 'YA! Burung bertelur menghasilkan keturunan.' },
+            'Peka Terhadap Rangsang': { status: true, teks: 'YA! Burung kabur jika melihat pemangsa mendekat.' },
+            'Mengeluarkan Zat Sisa': { status: true, teks: 'YA! Burung mengeluarkan kotoran dari tubuhnya.' }
+        },
+        kesimpulan: "MAKHLUK HIDUP"
+    },
+    'Mobil': {
+        img: "{% static 'img/mobil.png' %}",
+        type: 'non-living',
+        ciri: {
+            'Bernapas': { status: false, teks: 'TIDAK! Asap knalpot itu polusi, bukan pernapasan sel.' },
+            'Bergerak': { status: true, teks: 'YA! Mobil bergerak, TAPI harus digerakkan mesin & manusia.' },
+            'Butuh Makan/Nutrisi': { status: false, teks: 'TIDAK! Bensin adalah bahan bakar, bukan nutrisi biologis.' },
+            'Tumbuh & Berkembang': { status: false, teks: 'TIDAK! Mobil tidak bisa bertambah besar sendiri.' },
+            'Berkembang Biak': { status: false, teks: 'TIDAK! Mobil dibuat di pabrik, tidak bisa beranak.' },
+            'Peka Terhadap Rangsang': { status: false, teks: 'TIDAK! Sensor mobil adalah listrik, bukan rasa sakit/takut.' },
+            'Mengeluarkan Zat Sisa': { status: false, teks: 'TIDAK! Sisa pembakaran mesin berbeda dengan ekskresi.' }
         },
         kesimpulan: "BENDA MATI"
     }
@@ -347,80 +473,114 @@ const objects = {
 
 let clickedCount = 0;
 const totalCiri = 7;
-// Memindahkan referensi checklistDiv ke dalam fungsi agar aman saat loading
-// const checklistDiv = document.getElementById('checklist');
 
+/* === LOGIKA INTERAKTIF (LOAD OBJEK) === */
 function loadObject(namaObjek) {
     const obj = objects[namaObjek];
+    const container = document.getElementById('checklist-container');
+    const nextBtn = document.getElementById('next-obj-btn');
+    
+    // 1. Reset Tampilan
     document.getElementById('obj-title').innerText = `Objek: ${namaObjek}`;
     document.getElementById('obj-img').src = obj.img;
-    document.getElementById('obj-result').innerText = "";
-    
-    const checklistDiv = document.getElementById('checklist'); 
-    checklistDiv.innerHTML = "";
-    clickedCount = 0;
+    document.getElementById('result-area').style.display = 'none';
+    nextBtn.style.display = 'none';
     document.getElementById('finish-modul-btn').style.display = 'none';
-    document.getElementById('next-obj-btn').style.display = 'none';
     
-    for (const [ciri, data] of Object.entries(obj.ciri)) {
-        let wrapper = document.createElement('div');
-        wrapper.className = 'mb-2';
-        let btn = document.createElement('button');
-        
-        // Menggunakan Ikon FontAwesome
-        btn.innerHTML = `<i class="far fa-square mr-2"></i> ${ciri}`;
-        btn.id = `btn-${ciri}`;
-        btn.className = 'btn btn-outline-primary'; // Default Biru
-        
-        btn.dataset.namaObjek = namaObjek;
-        btn.dataset.ciri = ciri;
-        btn.dataset.status = data.status;
-        btn.dataset.teks = data.teks;
-        btn.onclick = function() { checkCiri(this); };
-        wrapper.appendChild(btn);
-        
-        let teks = document.createElement('span');
-        teks.id = `teks-${ciri}`;
-        teks.style.marginLeft = '10px';
-        teks.className = 'text-gray-700';
-        wrapper.appendChild(teks);
-        checklistDiv.appendChild(wrapper);
+    // Set Target Tombol Berikutnya
+    if(namaObjek === 'Pohon') {
+        nextBtn.onclick = function() { loadObject('Batu'); };
+    } else if (namaObjek === 'Batu') {
+        nextBtn.onclick = function() { loadObject('Burung'); };
+    } else if (namaObjek === 'Burung') {
+        nextBtn.onclick = function() { loadObject('Mobil'); };
+    }
+    
+    container.innerHTML = "";
+    clickedCount = 0;
+    
+    // 2. Generate Item Checklist
+    for (const [ciriName, data] of Object.entries(obj.ciri)) {
+        const safeID = ciriName.replace(/\s/g, '').replace(/\//g, '');
+        const itemHTML = `
+            <div class="ciri-item">
+                <div style="flex-grow: 1;">
+                    <span class="ciri-label">${ciriName}?</span>
+                    <div id="res-text-${safeID}" class="ciri-text alert alert-light border mt-2">
+                        ${data.teks}
+                    </div>
+                </div>
+                <div style="margin-left: 15px; min-width: 100px; text-align: right;">
+                    <button class="btn btn-outline-primary btn-cek shadow-sm" 
+                            id="btn-cek-${safeID}"
+                            onclick="checkCiri(this, '${namaObjek}', '${safeID}', ${data.status})">
+                        <i class="fas fa-search mr-1"></i> Cek
+                    </button>
+                    <span id="badge-${safeID}" style="display:none;" class="badge p-2 animated bounceIn"></span>
+                </div>
+            </div>
+        `;
+        container.insertAdjacentHTML('beforeend', itemHTML);
     }
 }
 
-function checkCiri(buttonElement) {
-    const namaObjek = buttonElement.dataset.namaObjek;
-    const ciri = buttonElement.dataset.ciri;
-    const status = buttonElement.dataset.status === 'true';
-    const teks = buttonElement.dataset.teks;
-    const teksSpan = document.getElementById(`teks-${ciri}`);
+/* === LOGIKA SAAT TOMBOL CEK DIKLIK === */
+function checkCiri(btnElement, namaObjek, safeID, status) {
+    const textDiv = document.getElementById(`res-text-${safeID}`);
+    const badgeSpan = document.getElementById(`badge-${safeID}`);
+    
+    btnElement.style.display = 'none';
+    badgeSpan.style.display = 'inline-block';
     
     if (status) {
-        // Jika YA (Benar)
-        buttonElement.innerHTML = `<i class="fas fa-check-square mr-2"></i> ${ciri}`;
-        buttonElement.className = 'btn btn-success';
+        badgeSpan.className = 'badge badge-success p-2';
+        badgeSpan.innerHTML = '<i class="fas fa-check"></i> YA';
+        textDiv.classList.remove('alert-light');
+        textDiv.classList.add('alert-success');
     } else {
-        // Jika TIDAK (Salah)
-        buttonElement.innerHTML = `<i class="fas fa-times-circle mr-2"></i> ${ciri}`;
-        buttonElement.className = 'btn btn-danger';
+        badgeSpan.className = 'badge badge-danger p-2';
+        badgeSpan.innerHTML = '<i class="fas fa-times"></i> TIDAK';
+        textDiv.classList.remove('alert-light');
+        textDiv.classList.add('alert-danger');
     }
     
-    teksSpan.innerText = teks;
-    buttonElement.disabled = true;
+    textDiv.classList.add('show');
     clickedCount++;
     
     if (clickedCount === totalCiri) {
-        document.getElementById('obj-result').innerText = `KESIMPULAN: ${namaObjek} adalah ${objects[namaObjek].kesimpulan}`;
-        if (namaObjek === 'Kucing') {
-            document.getElementById('next-obj-btn').style.display = 'inline-block';
-        } else {
-            document.getElementById('finish-modul-btn').style.display = 'inline-block';
-        }
+        setTimeout(() => showConclusion(namaObjek), 800);
     }
 }
 
+/* === TAMPILKAN KESIMPULAN OBJEK === */
+function showConclusion(namaObjek) {
+    const resultArea = document.getElementById('result-area');
+    const resultBadge = document.getElementById('obj-result-badge');
+    const objData = objects[namaObjek];
+
+    resultArea.style.display = 'block';
+    resultBadge.innerText = objData.kesimpulan;
+    
+    if (objData.kesimpulan === "MAKHLUK HIDUP") {
+        resultBadge.className = "badge badge-success p-3 w-100 shadow";
+    } else {
+        resultBadge.className = "badge badge-secondary p-3 w-100 shadow";
+    }
+
+    // Logic Tombol Lanjut
+    if (namaObjek === 'Mobil') {
+        document.getElementById('finish-modul-btn').style.display = 'block';
+        document.getElementById('finish-modul-btn').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    } else {
+        const nextBtn = document.getElementById('next-obj-btn');
+        nextBtn.style.display = 'block';
+        nextBtn.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+}
+
+// Init Load
 window.addEventListener("DOMContentLoaded", function() { 
-    loadObject('Kucing'); 
+    loadObject('Pohon'); 
 });
 </script>
 {% endblock %}
