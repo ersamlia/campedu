@@ -1,271 +1,311 @@
 {% extends 'main/base.html' %}
 {% load static %}
 
-{% block title %}Modul 1: {{ subbab.judul }}{% endblock %}
+{% block title %}Modul 1: Ciri-Ciri Makhluk Hidup{% endblock %}
 
 {% block custom_css %}
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap');
 
-body {
-    font-family: 'Nunito', sans-serif;
-    background: #f3f6fd;
-}
+body { font-family: 'Nunito', sans-serif; background: #f0f8ff; }
 
-/* === HEADER CARD === */
+/* === HEADER === */
 .modul-header-card {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1.6rem;
-    background: #fff;
-    padding: 1.1rem 1.5rem;
-    border-radius: 1.2rem;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+    background: white; padding: 1.2rem; border-radius: 1rem;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 2rem;
+    border-left: 6px solid #4e73df; display: flex; justify-content: space-between; align-items: center;
 }
-.modul-header-title {
-    font-family: 'Nunito', sans-serif;
-    color: #22356f;
-    font-weight: 900;
-    font-size: 1.28rem;
-    margin-bottom: 3px;
-}
-.modul-header-keterangan {
-    font-size: 0.92rem;
-    color: #7a849c;
-    font-weight: 600;
-    letter-spacing: 0.5px;
+.step-badge {
+    background: #eef2ff; color: #4e73df; padding: 8px 16px; border-radius: 30px;
+    font-weight: 800; letter-spacing: 0.5px; border: 1px solid #d1d3e2;
 }
 
-/* === LEARNING CARD & SLIDES === */
-.learning-slide { display: none; }
-.learning-slide.active { display: block !important; width: 100%; animation: fadeInSlide 0.5s; }
-
-@keyframes fadeInSlide {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-}
+/* === SLIDES === */
+.learning-slide { display: none; opacity: 0; transition: opacity 0.5s ease-in-out; }
+.learning-slide.active { display: block; opacity: 1; }
 
 .learning-card {
-    background: #fff;
-    border-radius: 2.2rem;
-    box-shadow: 0 8px 32px rgba(53,99,233,0.10);
-    padding: 2.6rem 5vw 2.2rem 5vw;
-    width: 100%;
-    margin: 0 auto 2.5rem auto;
+    background: white; border-radius: 1.5rem; box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    padding: 3rem; position: relative; overflow: hidden;
 }
 
-/* Responsive Padding */
-@media (max-width: 900px) {
-    .learning-card { padding: 1.5rem 1rem; border-radius: 1.2rem; }
-    .modul-header-card { padding: 0.8rem; }
+h3.title-highlight { color: #2e59d9; font-weight: 900; margin-bottom: 1rem; }
+p.text-content { font-size: 1.1rem; color: #555; line-height: 1.8; }
+
+/* === GAMBAR & SUMBER === */
+.img-container {
+    position: relative; border-radius: 15px; overflow: hidden; 
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1); margin-bottom: 10px;
+    border: 1px solid #eee;
+}
+.img-content { width: 100%; height: 200px; object-fit: cover; }
+.img-source {
+    position: absolute; bottom: 0; right: 0; background: rgba(0,0,0,0.7);
+    color: white; font-size: 0.65rem; padding: 4px 10px; border-top-left-radius: 10px;
+    font-style: italic; z-index: 10; font-family: sans-serif;
 }
 
-.learning-card .card-header {
-    background: transparent;
-    border: none;
-    padding: 0;
-    margin-bottom: 1.2rem;
+/* === SLIDE 1 (BATTLE MODE) === */
+.question-box {
+    background: #4e73df; color: white; padding: 15px 30px; border-radius: 50px;
+    font-size: 1.1rem; font-weight: 700; text-align: center; margin-bottom: 30px;
+    box-shadow: 0 5px 15px rgba(78, 115, 223, 0.3);
+    max-width: 550px; margin-left: auto; margin-right: auto;
 }
-.learning-card .card-header h6 {
-    color: #246bfd;
-    font-size: 1.1rem;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 1px;
+.battle-card {
+    cursor: pointer; transition: transform 0.2s, border 0.2s; 
+    border: 4px solid transparent; border-radius: 15px; background: #fff;
+    padding: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    max-width: 280px; margin: 0 auto; 
 }
-
-/* Typography Content */
-.learning-card h4, .learning-card h5 {
-    color: #1c253b;
-    font-weight: 800;
-    margin-bottom: 0.8rem;
-}
-.learning-card p, .learning-card li {
-    color: #495466;
-    font-size: 1.05rem;
-    line-height: 1.6;
+.battle-card:hover { transform: scale(1.03); border-color: #d1d3e2; }
+.battle-card.selected-correct { border-color: #1cc88a; background: #e8fbf3; }
+.battle-card.selected-wrong { border-color: #e74a3b; animation: shake 0.5s; }
+@keyframes shake {
+  0% { transform: translateX(0); } 25% { transform: translateX(-5px); } 
+  50% { transform: translateX(5px); } 100% { transform: translateX(0); }
 }
 
-/* Buttons & Forms */
-.btn { border-radius: 0.85rem; font-weight: 700; padding: 0.6rem 1.2rem; transition: all 0.2s; }
-.btn-primary { background-color: #246bfd; border: none; }
-.btn-primary:hover { background-color: #1a54ca; transform: translateY(-2px); }
-.form-control {
-    border-radius: 0.8rem;
-    border: 1px solid #eaf0fb;
-    padding: 1rem;
-    background: #f7fbff;
-}
-.form-control:focus { background: #fff; border-color: #246bfd; box-shadow: none; }
-
-/* === KHUSUS CHECKLIST INTERAKTIF === */
-.checklist-container {
-    background: #fff;
-    border: 1px solid #e3e6f0;
-    border-radius: 1rem;
-    overflow: hidden;
+/* === SLIDE 3: CHECKLIST & CONCLUSION === */
+.investigation-area {
+    background: #f8f9fc; border-radius: 15px; padding: 20px; border: 2px solid #e3e6f0;
 }
 .ciri-item {
-    padding: 1rem 1.2rem;
-    border-bottom: 1px solid #f0f2f5;
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    transition: background 0.3s;
+    background: white; padding: 15px; margin-bottom: 10px; border-radius: 10px;
+    display: flex; justify-content: space-between; align-items: center;
+    border: 1px solid #eee; transition: 0.2s;
 }
-.ciri-item:last-child { border-bottom: none; }
-.ciri-item:hover { background-color: #fcfdfe; }
-
-.ciri-label {
-    font-weight: 700;
-    color: #2e59d9;
-    font-size: 1rem;
-    display: block;
+.ciri-item:hover { transform: translateX(5px); border-color: #4e73df; }
+.ciri-label { font-weight: 700; color: #555; }
+.btn-check { border-radius: 20px; padding: 5px 15px; font-size: 0.85rem; }
+.result-badge {
+    display: none; font-weight: 800; padding: 5px 10px; border-radius: 5px; font-size: 0.85rem;
 }
-.ciri-text {
-    font-size: 0.9rem;
-    margin-top: 8px;
-    display: none;
-    border-radius: 0.6rem;
-    padding: 0.6rem 0.8rem;
+.res-yes { background: #d1e7dd; color: #0f5132; }
+.res-no { background: #f8d7da; color: #842029; }
+.conclusion-box {
+    background: #fff; border: 2px dashed #4e73df; border-radius: 15px; 
+    padding: 15px; margin-top: 15px; text-align: center;
+    animation: fadeIn 0.5s; box-shadow: 0 4px 10px rgba(0,0,0,0.05);
 }
-.ciri-text.show { display: block; animation: fadeInText 0.4s; }
-
-@keyframes fadeInText {
-    from { opacity: 0; transform: translateY(-5px); }
-    to { opacity: 1; transform: translateY(0); }
+.btn-conclusion { 
+    width: 100%; padding: 8px; font-weight: 700; border-radius: 10px; margin-bottom: 8px; font-size: 0.9rem;
 }
 
-.btn-cek {
-    border-radius: 50px;
-    padding: 0.3rem 1.2rem;
-    font-size: 0.85rem;
+/* === SLIDE 4: MATERI TABS === */
+.nav-pills-custom .nav-link {
+    border-radius: 50px; font-weight: 700; color: #858796; background: #fff;
+    border: 1px solid #e3e6f0; margin-right: 8px; padding: 10px 20px; margin-bottom: 10px;
+    text-align: left; transition: 0.3s;
+}
+.nav-pills-custom .nav-link.active {
+    background: #4e73df; color: white; border-color: #4e73df; 
+    box-shadow: 0 4px 10px rgba(78, 115, 223, 0.3);
+}
+.nav-pills-custom .nav-link.read-mark::after {
+    content: '\f00c'; font-family: 'Font Awesome 5 Free'; font-weight: 900;
+    float: right; color: #1cc88a;
+}
+.feature-content {
+    background: #f8f9fc; border-radius: 15px; padding: 25px; border: 1px solid #e3e6f0;
+    display: flex; flex-direction: column; gap: 15px;
+}
+.split-img-box {
+    display: flex; gap: 10px; height: 180px; width: 100%;
+}
+.half-img {
+    flex: 1; position: relative; border-radius: 10px; overflow: hidden;
+    box-shadow: 0 4px 5px rgba(0,0,0,0.1);
+}
+.half-img img { width: 100%; height: 100%; object-fit: cover; }
+.half-label {
+    position: absolute; bottom: 0; left: 0; width: 100%;
+    background: rgba(0,0,0,0.7); color: white; font-size: 0.75rem;
+    text-align: center; padding: 2px 0; font-weight: bold;
+}
+.feature-desc { font-size: 1.05rem; line-height: 1.7; color: #444; text-align: justify; border-top: 1px solid #ddd; padding-top: 15px; }
+.lock-message { color: #e74a3b; font-size: 0.9rem; font-style: italic; margin-top: 10px; font-weight: bold; }
+
+/* === SLIDE 5: TANTANGAN (REVISI) === */
+.mission-box {
+    background: #36b9cc; color: white; 
+    padding: 10px 25px; /* Padding lebih kecil */
+    border-radius: 50px; text-align: center;
+    font-weight: 700; font-size: 1rem; /* Font lebih kecil */
+    margin: 0 auto 30px auto; 
+    box-shadow: 0 5px 15px rgba(54, 185, 204, 0.3);
+    max-width: 500px; /* Lebar dibatasi */
+}
+.target-card {
+    background: white; border-radius: 15px; padding: 8px; border: 3px solid #eee;
+    cursor: pointer; transition: 0.3s; position: relative; overflow: hidden;
+    max-width: 220px; margin: 0 auto; 
+}
+.target-card:hover { transform: translateY(-5px); border-color: #36b9cc; }
+.target-card img { width: 100%; height: 140px; object-fit: cover; border-radius: 10px; margin-bottom: 10px; }
+.target-card h6 { font-weight: 800; color: #555; margin: 0; font-size: 0.95rem; }
+.target-card.wrong-pick { border-color: #e74a3b; background: #fdf2f2; animation: shake 0.5s; }
+.target-card.correct-pick { border-color: #1cc88a; background: #eefdf6; }
+
+/* Tombol Mulai yang lebih kecil */
+.btn-start-game {
+    font-size: 1rem; padding: 10px 30px; font-weight: 700;
 }
 
-/* === STYLE GAMBAR YANG DIPERBESAR & FULL === */
-
-/* Gambar Thumbnail di Slide 3 */
-.stim-img {
-    height: 220px; /* Lebih tinggi dari sebelumnya */
-    width: 100%;
-    object-fit: cover; /* Mengisi penuh kotak (crop jika perlu) */
-    border-radius: 1rem;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.08);
-    padding: 0; /* Hapus padding agar full ke pinggir */
-    border: none;
-}
-
-/* Gambar Utama di Slide 4 (Analisis) */
-#obj-img {
-    width: 100%;
-    height: 350px; /* Ukuran FIX yang besar */
-    object-fit: contain; /* Pastikan seluruh objek terlihat (tidak terpotong) */
-    background-color: #fff; 
-    border-radius: 1rem;
-    padding: 0; /* Full box */
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    border: 1px solid #f0f0f0;
-}
-
-/* Container text dibawah gambar Slide 3 */
-.caption-img {
-    margin-top: 10px;
-    font-weight: 800;
-    color: #4e73df;
-    font-size: 1.1rem;
+@media (max-width: 768px) {
+    .img-content { height: 180px; }
+    .split-img-box { height: 140px; }
+    .target-card img { height: 120px; }
+    .battle-card { max-width: 100%; } 
+    .question-box { width: 100%; border-radius: 15px; }
 }
 </style>
 {% endblock %}
 
 {% block content %}
-<div class="modul-header-card">
+
+<div class="modul-header-card sticky-top" style="top: 15px; z-index: 99;">
     <div>
-        <div class="modul-header-title">Modul 1: {{ subbab.judul }}</div>
-        <div class="modul-header-keterangan">
-            {{ subbab.deskripsi|default:"Mengenal Ciri-Ciri Makhluk Hidup" }}
-        </div>
+        <h5 class="font-weight-bold text-primary m-0"><i class="fas fa-seedling mr-2"></i>Modul 1: Ciri Makhluk Hidup</h5>
+        <small class="text-muted">Kegiatan 2.1: Mengamati Lingkungan</small>
     </div>
+    <div id="step-badge" class="step-badge">1. Stimulasi</div>
 </div>
 
 <div id="slide-1" class="learning-slide active">
-    <div class="learning-card">
-        <div class="card-header">
-            <h6>Tujuan Pembelajaran</h6>
+    <div class="learning-card text-center">
+        <h3 class="title-highlight">Tebak Cepat: Mobil vs Kucing</h3>
+        <p class="text-content mb-4">
+            Sebelum kita mulai, mari kita bandingkan dua objek ini. 
+            <strong>Jawab pertanyaan di kotak biru</strong> dengan menekan gambar yang benar!
+        </p>
+
+        <div class="question-box shadow-sm" id="stimulus-question">
+            Memuat Pertanyaan...
         </div>
-        <div class="card-body">
-            <h4 class="mb-4">Selamat Datang!</h4>
-            <p>Setelah menyelesaikan modul interaktif ini, Anda diharapkan mampu:</p>
-            <ul>
-                <li>Membedakan benda hidup dan benda mati berdasarkan pengamatan.</li>
-                <li>Mengidentifikasi 7 ciri utama yang dimiliki oleh makhluk hidup.</li>
-                <li>Menyimpulkan pengertian makhluk hidup berdasarkan data yang dikumpulkan.</li>
-            </ul>
-            <hr class="my-4">
-            <button class="btn btn-primary btn-lg shadow-sm" onclick="showSlide(2)">Mulai Belajar <i class="fas fa-arrow-right ml-2"></i></button>
+
+        <div class="row justify-content-center">
+            <div class="col-6 col-md-5 mb-3">
+                <div class="battle-card" id="card-mobil" onclick="checkStimulus('mobil')">
+                    <div class="img-container mb-0 border-0">
+                        <img src="{% static 'img/mobil2.jpg' %}" class="img-content rounded" alt="Mobil">
+                        <div class="img-source">Sumber: Dok. Pribadi</div>
+                    </div>
+                    <h5 class="font-weight-bold text-gray-800 mt-2">Mobil</h5>
+                </div>
+            </div>
+            <div class="col-6 col-md-5 mb-3">
+                <div class="battle-card" id="card-kucing" onclick="checkStimulus('kucing')">
+                    <div class="img-container mb-0 border-0">
+                        <img src="{% static 'img/kucing.jpg' %}" class="img-content rounded" alt="Kucing">
+                        <div class="img-source">Sumber: Dok. Pribadi</div>
+                    </div>
+                    <h5 class="font-weight-bold text-gray-800 mt-2">Kucing</h5>
+                </div>
+            </div>
+        </div>
+
+        <div id="stimulus-feedback" class="mt-5" style="display: none;">
+            <div class="alert alert-success d-inline-block px-4 py-2 mb-3">
+                <i class="fas fa-check-circle"></i> <strong>Hebat!</strong> Pengamatanmu tajam.
+            </div>
+            <p id="stimulus-msg" class="text-muted font-italic mb-3"></p>
+            <button class="btn btn-primary btn-lg rounded-pill px-5 shadow" onclick="nextSlide(2)">
+                Mulai Penyelidikan <i class="fas fa-search ml-2"></i>
+            </button>
         </div>
     </div>
 </div>
 
 <div id="slide-2" class="learning-slide">
     <div class="learning-card">
-        <div class="card-header">
-            <h6>Pemaparan Materi Singkat</h6>
+        <h3 class="title-highlight">Pilih Objek Pengamatan</h3>
+        <p class="text-content">
+            Untuk menjawab pertanyaan tadi, kita akan melakukan <strong>Cek Fisik</strong> pada <strong>4 Objek</strong> ini.
+        </p>
+        
+        <div class="row text-center mt-4">
+            <div class="col-6 col-md-3">
+                <div class="img-container">
+                    <img src="{% static 'img/pohon2.jpg' %}" class="img-content" style="height: 150px;">
+                    <div class="img-source">Sumber: Dok. Kemdikbud</div>
+                </div>
+                <h6 class="font-weight-bold">1. Pohon</h6>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="img-container">
+                    <img src="{% static 'img/batu2.jpg' %}" class="img-content" style="height: 150px;">
+                    <div class="img-source">Sumber: Dok. Kemdikbud</div>
+                </div>
+                <h6 class="font-weight-bold">2. Batu</h6>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="img-container">
+                    <img src="{% static 'img/kucing.jpg' %}" class="img-content" style="height: 150px;">
+                    <div class="img-source">Sumber: Dok. Kemdikbud</div>
+                </div>
+                <h6 class="font-weight-bold">3. Kucing</h6>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="img-container">
+                    <img src="{% static 'img/mobil2.jpg' %}" class="img-content" style="height: 150px;">
+                    <div class="img-source">Sumber: Dok. Kemdikbud</div>
+                </div>
+                <h6 class="font-weight-bold">4. Mobil</h6>
+            </div>
         </div>
-        <div class="card-body">
-            <h5>Apa itu Makhluk Hidup?</h5>
-            <p>Di sekitar kita, terdapat banyak sekali benda. Ada benda yang dapat tumbuh besar dan bergerak sendiri seperti Kucing. Ada juga benda yang diam saja seperti Batu.</p>
-            <p class="mb-4">Benda-benda yang memiliki kemampuan untuk bernapas, bergerak, makan, tumbuh, dan berkembang biak kita sebut sebagai <b>makhluk hidup</b>. Benda yang tidak memilikinya kita sebut <b>benda mati</b>.</p>
-            
-            <div class="alert alert-info border-0 shadow-sm" role="alert">
-                <i class="fas fa-info-circle mr-2"></i> <strong>Tantangan:</strong> Ayo kita temukan sendiri apa saja ciri-ciri pasti dari makhluk hidup!
-            </div>
-            
-            <div class="mt-4">
-                <button class="btn btn-light text-primary mr-2" onclick="showSlide(1)"><i class="fas fa-arrow-left"></i> Kembali</button>
-                <button class="btn btn-primary" onclick="showSlide(3)">Lanjut ke Aktivitas <i class="fas fa-arrow-right"></i></button>
-            </div>
+
+        <div class="text-center mt-4">
+            <p>Siap melakukan cek ciri-ciri kehidupan?</p>
+            <button class="btn btn-primary rounded-pill px-4" onclick="nextSlide(3)">Lanjut ke Pengumpulan Data <i class="fas fa-arrow-right"></i></button>
         </div>
     </div>
 </div>
 
 <div id="slide-3" class="learning-slide">
     <div class="learning-card">
-        <div class="card-header">
-            <h6>Tahap 1: Pengamatan</h6>
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h3 class="title-highlight m-0">Cek Ciri Kehidupan</h3>
+            <span class="badge badge-primary p-2" id="object-counter">Objek 1 dari 4</span>
         </div>
-        <div class="card-body">
-            <p>Perhatikan 4 gambar di bawah ini. Menurutmu, mana yang makhluk hidup dan mana yang benda mati?</p>
-            <div class="row text-center mt-4">
-                <div class="col-md-3 mb-4">
-                    <img src="{% static 'img/pohon2.jpg' %}" class="img-fluid stim-img" alt="Pohon">
-                    <div class="caption-img">Pohon</div>
+
+        <div class="row">
+            <div class="col-md-4 mb-3">
+                <div class="img-container">
+                    <img id="current-img" src="" class="img-content">
+                    <div class="img-source">Sumber: Dok. Kemdikbud</div>
                 </div>
-                <div class="col-md-3 mb-4">
-                    <img src="{% static 'img/batu2.jpg' %}" class="img-fluid stim-img" alt="Batu">
-                    <div class="caption-img">Batu</div>
+                <h4 class="font-weight-bold text-gray-800 mt-2 text-center" id="current-name">...</h4>
+
+                <div id="conclusion-area" class="conclusion-box" style="display: none;">
+                    <h6 class="font-weight-bold text-primary mb-3">Apa Kesimpulanmu?</h6>
+                    
+                    <div id="selection-buttons">
+                        <button class="btn btn-outline-success btn-conclusion" onclick="verifyConclusion(true)">
+                            <i class="fas fa-leaf"></i> MAKHLUK HIDUP
+                        </button>
+                        <button class="btn btn-outline-secondary btn-conclusion" onclick="verifyConclusion(false)">
+                            <i class="fas fa-cube"></i> BENDA MATI
+                        </button>
+                    </div>
+
+                    <div id="feedback-area" class="mt-2" style="display:none;">
+                        <div id="feedback-msg" class="alert font-weight-bold small p-2"></div>
+                        <button id="next-object-btn" class="btn btn-primary btn-sm rounded-pill mt-2 btn-block" onclick="nextObject()">
+                            Lanjut <i class="fas fa-chevron-right"></i>
+                        </button>
+                        <button id="finish-data-btn" class="btn btn-success btn-sm rounded-pill mt-2 btn-block" style="display:none;" onclick="nextSlide(4)">
+                            Selesai <i class="fas fa-check-circle"></i>
+                        </button>
+                    </div>
                 </div>
-                <div class="col-md-3 mb-4">
-                    <img src="{% static 'img/burung.png' %}" class="img-fluid stim-img" alt="Burung">
-                    <div class="caption-img">Burung</div>
-                </div>
-                <div class="col-md-3 mb-4">
-                    <img src="{% static 'img/mobil2.jpg' %}" class="img-fluid stim-img" alt="Mobil">
-                    <div class="caption-img">Mobil</div>
-                </div>
-            </div>
-            
-            <div class="bg-light p-3 rounded mt-2">
-                <h6 class="text-primary font-weight-bold">Pertanyaan Pemantik:</h6>
-                <ul class="mb-0">
-                    <li>"Pohon diam saja, apakah dia hidup?"</li>
-                    <li>"Mobil bisa bergerak, Burung juga bergerak. Apakah keduanya makhluk hidup?"</li>
-                </ul>
             </div>
 
-            <div class="mt-4">
-                <button class="btn btn-light text-primary mr-2" onclick="showSlide(2)"><i class="fas fa-arrow-left"></i> Kembali</button>
-                <button class="btn btn-primary" onclick="showSlide(4)">Lanjut ke Eksplorasi <i class="fas fa-arrow-right"></i></button>
+            <div class="col-md-8">
+                <div class="investigation-area">
+                    <p class="small text-muted mb-3">Klik tombol <strong>"Cek"</strong> untuk memeriksa apakah objek tersebut memiliki ciri berikut:</p>
+                    <div id="checklist-box"></div>
+                </div>
             </div>
         </div>
     </div>
@@ -273,314 +313,521 @@ body {
 
 <div id="slide-4" class="learning-slide">
     <div class="learning-card">
-        <div class="card-header">
-            <h6>Tahap 2: Eksplorasi & Penemuan (Data Collection)</h6>
-        </div>
-        <div class="card-body" id="interactive-area">
-            <p>Mari kita buktikan! Klik tombol <b>"Cek"</b> pada setiap ciri untuk melihat apakah objek tersebut memilikinya.</p>
-            
-            <div class="row">
-                <div class="col-md-5 text-center mb-4">
-                    <div class="p-3 bg-light rounded border sticky-top" style="top: 20px; z-index: 1;">
-                        <h4 id="obj-title" class="text-gray-900 font-weight-bold mb-3">Objek 1: Pohon</h4>
-                        
-                        <img id="obj-img" src="{% static 'img/pohon.png' %}" alt="Objek">
-                        
-                        <div id="result-area" style="display:none;" class="mt-4">
-                            <h6 class="font-weight-bold text-gray-800">Hasil Analisis:</h6>
-                            <div id="obj-result-badge" class="badge badge-success p-3" style="font-size: 1.1rem; width: 100%;">MAKHLUK HIDUP</div>
-                        </div>
+        <h3 class="title-highlight text-center">Karakteristik Makhluk Hidup</h3>
+        <p class="text-content text-center mb-4">
+            Klik pada <strong>setiap ciri (1-7)</strong> untuk membaca penjelasan lengkap dan mengaktifkan tombol lanjut.
+        </p>
 
-                        <button id="next-obj-btn" class="btn btn-info btn-block mt-3 py-2" style="display:none;">
-                            Analisis Objek Berikutnya <i class="fas fa-arrow-right"></i>
-                        </button>
-                         <button id="finish-modul-btn" class="btn btn-success btn-block mt-3 py-2" style="display:none;" onclick="showSlide(5)">
-                            Lanjut ke Kesimpulan <i class="fas fa-check"></i>
-                        </button>
-                    </div>
-                </div>
-
-                <div class="col-md-7">
-                    <h5 class="text-gray-900 mb-3 ml-1">Daftar Ciri-Ciri:</h5>
-                    <div id="checklist-container" class="checklist-container shadow-sm">
-                        <div class="p-5 text-center text-muted">Memuat data...</div>
-                    </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="nav flex-column nav-pills nav-pills-custom" role="tablist">
+                    <a class="nav-link active" id="tab-1" data-toggle="pill" href="#ciri-1" onclick="markTabRead(1)">1. Bernapas</a>
+                    <a class="nav-link" id="tab-2" data-toggle="pill" href="#ciri-2" onclick="markTabRead(2)">2. Memerlukan Nutrisi</a>
+                    <a class="nav-link" id="tab-3" data-toggle="pill" href="#ciri-3" onclick="markTabRead(3)">3. Bergerak</a>
+                    <a class="nav-link" id="tab-4" data-toggle="pill" href="#ciri-4" onclick="markTabRead(4)">4. Tumbuh & Berkembang</a>
+                    <a class="nav-link" id="tab-5" data-toggle="pill" href="#ciri-5" onclick="markTabRead(5)">5. Reproduksi</a>
+                    <a class="nav-link" id="tab-6" data-toggle="pill" href="#ciri-6" onclick="markTabRead(6)">6. Iritabilitas</a>
+                    <a class="nav-link" id="tab-7" data-toggle="pill" href="#ciri-7" onclick="markTabRead(7)">7. Ekskresi</a>
                 </div>
             </div>
+            <div class="col-md-8">
+                <div class="tab-content">
+                    
+                    <div class="tab-pane fade show active" id="ciri-1">
+                        <div class="feature-content">
+                            <div class="split-img-box">
+                                <div class="half-img">
+                                    <img src="{% static 'img/manusia_lari.jpg' %}">
+                                    <div class="img-source">Sumber: Dok. Kemdikbud</div>
+                                    <div class="half-label">Manusia (Paru-paru)</div>
+                                </div>
+                                <div class="half-img">
+                                    <img src="{% static 'img/pohon2.jpg' %}">
+                                    <div class="img-source">Sumber: Dok. Kemdikbud</div>
+                                    <div class="half-label">Tumbuhan (Stomata)</div>
+                                </div>
+                            </div>
+                            <div class="feature-desc">
+                                <h5 class="font-weight-bold">Bernapas (Respirasi)</h5>
+                                Bernapas adalah proses menghirup oksigen (O2) yang ada di lingkungan dan menghembuskan gas buangan berupa karbondioksida (CO2). Oksigen diperlukan tubuh untuk proses oksidasi (pembakaran) zat makanan guna menghasilkan energi.
+                            </div>
+                        </div>
+                    </div>
 
-            <hr class="mt-5">
-            <button class="btn btn-light text-primary" onclick="showSlide(3)"><i class="fas fa-arrow-left"></i> Kembali</button>
+                    <div class="tab-pane fade" id="ciri-2">
+                        <div class="feature-content">
+                            <div class="split-img-box">
+                                <div class="half-img">
+                                    <img src="{% static 'img/kucing.jpg' %}">
+                                    <div class="img-source">Sumber: Dok. Kemdikbud</div>
+                                    <div class="half-label">Hewan (Heterotrof)</div>
+                                </div>
+                                <div class="half-img">
+                                    <img src="{% static 'img/pohon2.jpg' %}">
+                                    <div class="img-source">Sumber: Dok. Kemdikbud</div>
+                                    <div class="half-label">Tumbuhan (Autotrof)</div>
+                                </div>
+                            </div>
+                            <div class="feature-desc">
+                                <h5 class="font-weight-bold">Memerlukan Makanan (Nutrisi)</h5>
+                                Makanan berfungsi sebagai sumber energi, pengganti sel tubuh yang rusak, dan untuk pertumbuhan. Hewan bersifat <em>heterotrof</em> (memakan makhluk hidup lain), sedangkan tumbuhan bersifat <em>autotrof</em> (membuat makanan sendiri melalui fotosintesis).
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab-pane fade" id="ciri-3">
+                        <div class="feature-content">
+                            <div class="split-img-box">
+                                <div class="half-img">
+                                    <img src="{% static 'img/kucing.jpg' %}">
+                                    <div class="img-source">Sumber: Dok. Kemdikbud</div>
+                                    <div class="half-label">Hewan (Gerak Aktif)</div>
+                                </div>
+                                <div class="half-img">
+                                    <img src="{% static 'img/putrimalu.jpg' %}">
+                                    <div class="img-source">Sumber: Dok. Kemdikbud</div>
+                                    <div class="half-label">Tumbuhan (Gerak Pasif)</div>
+                                </div>
+                            </div>
+                            <div class="feature-desc">
+                                <h5 class="font-weight-bold">Bergerak</h5>
+                                Hewan dan manusia dapat melakukan gerak aktif (berpindah tempat) menggunakan alat gerak (kaki, sayap, sirip). Tumbuhan melakukan gerak pasif (tidak berpindah tempat), contohnya gerak ujung batang menuju cahaya matahari.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab-pane fade" id="ciri-4">
+                        <div class="feature-content">
+                            <div class="split-img-box">
+                                <div class="half-img">
+                                    <img src="{% static 'img/manusia_lari.jpg' %}">
+                                    <div class="img-source">Sumber: Dok. Kemdikbud</div>
+                                    <div class="half-label">Manusia</div>
+                                </div>
+                                <div class="half-img">
+                                    <img src="{% static 'img/pohon2.jpg' %}">
+                                    <div class="img-source">Sumber: Dok. Kemdikbud</div>
+                                    <div class="half-label">Tumbuhan</div>
+                                </div>
+                            </div>
+                            <div class="feature-desc">
+                                <h5 class="font-weight-bold">Tumbuh dan Berkembang</h5>
+                                <strong>Tumbuh</strong> adalah pertambahan ukuran tubuh yang tidak dapat kembali ke ukuran semula (contoh: tinggi badan bertambah). <strong>Berkembang</strong> adalah proses perubahan menuju kedewasaan (contoh: pematangan fungsi organ reproduksi).
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab-pane fade" id="ciri-5">
+                        <div class="feature-content">
+                            <div class="split-img-box">
+                                <div class="half-img">
+                                    <img src="{% static 'img/kucing.jpg' %}">
+                                    <div class="img-source">Sumber: Dok. Kemdikbud</div>
+                                    <div class="half-label">Hewan (Melahirkan)</div>
+                                </div>
+                                <div class="half-img">
+                                    <img src="{% static 'img/pohon2.jpg' %}">
+                                    <div class="img-source">Sumber: Dok. Kemdikbud</div>
+                                    <div class="half-label">Tumbuhan (Biji/Tunas)</div>
+                                </div>
+                            </div>
+                            <div class="feature-desc">
+                                <h5 class="font-weight-bold">Berkembang Biak (Reproduksi)</h5>
+                                Kemampuan makhluk hidup untuk menghasilkan keturunan. Tujuannya adalah untuk melestarikan jenisnya agar tidak punah. Bisa secara generatif (kawin) maupun vegetatif (tidak kawin).
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab-pane fade" id="ciri-6">
+                        <div class="feature-content">
+                            <div class="split-img-box">
+                                <div class="half-img">
+                                    <img src="{% static 'img/manusia_lari.jpg' %}">
+                                    <div class="img-source">Sumber: Dok. Kemdikbud</div>
+                                    <div class="half-label">Manusia (Suhu/Sentuhan)</div>
+                                </div>
+                                <div class="half-img">
+                                    <img src="{% static 'img/putrimalu.jpg' %}">
+                                    <div class="img-source">Sumber: Dok. Kemdikbud</div>
+                                    <div class="half-label">Tumbuhan (Sentuhan)</div>
+                                </div>
+                            </div>
+                            <div class="feature-desc">
+                                <h5 class="font-weight-bold">Peka Terhadap Rangsang (Iritabilitas)</h5>
+                                Makhluk hidup mampu menanggapi rangsangan dari lingkungan. Rangsangan dapat berupa cahaya, bunyi, bau, rasa, atau sentuhan. Contoh: Daun putri malu menutup jika disentuh.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab-pane fade" id="ciri-7">
+                        <div class="feature-content">
+                            <div class="split-img-box">
+                                <div class="half-img">
+                                    <img src="{% static 'img/manusia_lari.jpg' %}">
+                                    <div class="img-source">Sumber: Dok. Kemdikbud</div>
+                                    <div class="half-label">Manusia (Keringat)</div>
+                                </div>
+                                <div class="half-img">
+                                    <img src="{% static 'img/pohon2.jpg' %}">
+                                    <div class="img-source">Sumber: Dok. Kemdikbud</div>
+                                    <div class="half-label">Tumbuhan (Uap Air)</div>
+                                </div>
+                            </div>
+                            <div class="feature-desc">
+                                <h5 class="font-weight-bold">Mengeluarkan Zat Sisa (Ekskresi)</h5>
+                                Proses pengeluaran zat sisa metabolisme yang tidak dibutuhkan lagi oleh tubuh. Jika tidak dibuang, zat ini dapat menjadi racun. Contoh: Keringat, urin, dan uap air pernapasan.
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="text-right mt-4">
+            <span id="lock-msg" class="lock-message">
+                <i class="fas fa-lock"></i> Silakan baca semua ciri (1-7) untuk membuka tombol lanjut.
+            </span>
+            <button id="btn-next-slide-4" class="btn btn-primary btn-lg rounded-pill px-5" style="display: none;" onclick="nextSlide(5)">
+                Lanjut ke Tantangan <i class="fas fa-arrow-right"></i>
+            </button>
         </div>
     </div>
 </div>
 
 <div id="slide-5" class="learning-slide">
     <div class="learning-card">
-        <div class="card-header">
-            <h6>Tahap 3: Verifikasi & Kesimpulan</h6>
+        <h3 class="title-highlight text-center">Uji Pemahaman: Analisis Klasifikasi</h3>
+        
+        <p class="text-content text-center mb-4">
+            Perhatikan ketiga objek pada setiap ronde. Analisislah karakteristik dari setiap objek tersebut.
+            <br>
+            Tentukan <strong>satu objek</strong> yang memiliki klasifikasi berbeda (pengecualian) dibandingkan dua objek lainnya.
+        </p>
+
+        <div class="mission-box" id="mission-text">
+            Siap? Klik tombol Mulai!
         </div>
-        <div class="card-body">
-            <h5>Verifikasi Data</h5>
-            <p>Dari aktivitas sebelumnya, kita telah menganalisis Pohon, Batu, Burung, dan Mobil. Hasilnya:</p>
-            <div class="row mb-3">
-                <div class="col-md-6 mb-2">
-                    <div class="alert alert-success">
-                        <strong>Makhluk Hidup:</strong> <br> Burung & Pohon. <small>(Memiliki 7 Ciri)</small>
-                    </div>
-                </div>
-                <div class="col-md-6 mb-2">
-                    <div class="alert alert-secondary">
-                        <strong>Benda Mati:</strong> <br> Batu & Mobil. <small>(Tidak memiliki ciri biologis)</small>
-                    </div>
+
+        <div class="row justify-content-center" id="game-area" style="display: none;">
+            <div class="col-4 col-md-3">
+                <div class="target-card" id="option-0" onclick="checkOddOne(0)">
+                    <img id="img-0" src="">
+                    <div class="img-source" id="source-0">Sumber: -</div>
+                    <h6 id="label-0">...</h6>
                 </div>
             </div>
-            
-            <p>Jadi, syarat mutlak makhluk hidup adalah memiliki ciri:</p>
-            <ol class="columns-2" style="column-count: 2;">
-                <li>Bernapas</li>
-                <li>Bergerak</li>
-                <li>Butuh Makan (Nutrisi)</li>
-                <li>Tumbuh & Berkembang</li>
-                <li>Berkembang Biak</li>
-                <li>Peka Terhadap Rangsang</li>
-                <li>Ekskresi (Zat Sisa)</li>
-            </ol>
-            <hr>
-            
-            <h5>Kesimpulan Akhir</h5>
-            <p>Berdasarkan pemahamanmu, tuliskan pengertian makhluk hidup:</p>
-            <form>
-                <div class="form-group">
-                    <textarea class="form-control" rows="3" 
-                              placeholder="Menurut saya, Makhluk hidup adalah..." 
-                              id="kesimpulan_text" 
-                              oninput="checkKesimpulan()"></textarea>
-                    <small id="kesimpulan_error" class="text-danger mt-1" style="display: none;">
-                        <i class="fas fa-exclamation-circle"></i> Mohon tulis kesimpulan minimal 10 karakter.
-                    </small>
+            <div class="col-4 col-md-3">
+                <div class="target-card" id="option-1" onclick="checkOddOne(1)">
+                    <img id="img-1" src="">
+                    <div class="img-source" id="source-1">Sumber: -</div>
+                    <h6 id="label-1">...</h6>
                 </div>
-            </form>
-            
-            <div class="d-flex justify-content-between align-items-center mt-4">
-                <button class="btn btn-light text-primary" onclick="showSlide(4)"><i class="fas fa-arrow-left"></i> Kembali</button>
-                
-                <a href="{% url 'selesai_step' 'modul_1' %}" 
-                   id="btn_selesai_modul" 
-                   class="btn btn-success disabled shadow-sm">
-                    Selesai & Lanjut <i class="fas fa-check-circle ml-2"></i>
-                </a>
+            </div>
+            <div class="col-4 col-md-3">
+                <div class="target-card" id="option-2" onclick="checkOddOne(2)">
+                    <img id="img-2" src="">
+                    <div class="img-source" id="source-2">Sumber: -</div>
+                    <h6 id="label-2">...</h6>
+                </div>
             </div>
         </div>
+
+        <div class="text-center mt-4" id="start-game-btn-area">
+            <button class="btn btn-success rounded-pill shadow btn-start-game" onclick="startGameOddOne()">
+                <i class="fas fa-play mr-2"></i> Mulai Analisis
+            </button>
+        </div>
+
+        <div id="game-feedback" class="mt-4 text-center" style="display: none;">
+            <h4 class="font-weight-bold" id="feedback-title"></h4>
+            <p id="feedback-desc"></p>
+            <button id="next-round-btn" class="btn btn-primary rounded-pill px-4" onclick="nextRound()">Lanjut Soal Berikutnya</button>
+            <a id="finish-game-btn" href="{% url 'selesai_step' 'modul_1' %}" class="btn btn-success rounded-pill px-4 shadow" style="display: none;">
+                Selesai Modul <i class="fas fa-check-double"></i>
+            </a>
+        </div>
+
     </div>
 </div>
+
 {% endblock %}
 
 {% block custom_js %}
 <script>
-/* === LOGIKA NAVIGASI SLIDE === */
-let currentSlide = 1;
+// === 1. NAVIGATION GLOBAL ===
+const stepNames = ["Stimulasi", "Identifikasi", "Pengumpulan Data", "Konsep", "Pembuktian"];
 
-function showSlide(slideNumber) {
-    document.getElementById('slide-' + currentSlide).classList.remove('active');
-    currentSlide = slideNumber;
-    document.getElementById('slide-' + currentSlide).classList.add('active');
-    document.querySelector('.modul-header-card').scrollIntoView({ behavior: 'smooth' });
-    if (slideNumber === 5) { checkKesimpulan(); }
+function nextSlide(n) {
+    document.querySelectorAll('.learning-slide').forEach(el => {
+        el.classList.remove('active');
+        el.style.opacity = 0;
+    });
+    
+    const target = document.getElementById('slide-' + n);
+    target.classList.add('active');
+    setTimeout(() => target.style.opacity = 1, 50);
+    
+    document.getElementById('step-badge').innerText = stepNames[n-1];
+    document.querySelector('.modul-header-card').scrollIntoView({behavior: 'smooth'});
+
+    if (n === 1) initStimulus();
+    if (n === 3) loadInvestigation(0);
+    if (n === 4) markTabRead(1); 
 }
 
-/* === LOGIKA VALIDASI KESIMPULAN === */
-function checkKesimpulan() {
-    const textarea = document.getElementById('kesimpulan_text');
-    const button = document.getElementById('btn_selesai_modul');
-    const errorMsg = document.getElementById('kesimpulan_error');
-    
-    if (textarea.value.trim().length >= 10) {
-        button.classList.remove('disabled');
-        button.style.pointerEvents = 'auto';
-        button.style.opacity = '1';
-        errorMsg.style.display = 'none';
+// === 2. LOGIC SLIDE 1 ===
+const stimulusQuestions = [
+    { text: "Mana yang memerlukan nutrisi untuk tumbuh?", answer: 'kucing' },
+    { text: "Mana yang menggunakan bahan bakar fosil?", answer: 'mobil' },
+    { text: "Mana yang melakukan respirasi sel?", answer: 'kucing' }
+];
+let stimIndex = 0;
+
+function initStimulus() {
+    stimIndex = 0;
+    showStimulusQuestion();
+}
+
+function showStimulusQuestion() {
+    if(stimIndex < stimulusQuestions.length) {
+        document.getElementById('stimulus-question').innerText = stimulusQuestions[stimIndex].text;
+        ['mobil', 'kucing'].forEach(id => {
+            const el = document.getElementById('card-' + id);
+            el.classList.remove('selected-correct', 'selected-wrong');
+            el.style.pointerEvents = 'auto';
+        });
     } else {
-        button.classList.add('disabled');
-        button.style.pointerEvents = 'none';
-        button.style.opacity = '0.6';
-        if(textarea.value.length > 0) {
-            errorMsg.style.display = 'block';
-        } else {
-            errorMsg.style.display = 'none';
-        }
+        document.getElementById('stimulus-question').innerText = "Observasi Awal Selesai.";
+        document.getElementById('stimulus-feedback').style.display = 'block';
+        document.getElementById('stimulus-msg').innerText = "Kesimpulan awal: Mobil bergerak menggunakan energi mesin, sedangkan Kucing adalah sistem biologis yang kompleks.";
+        ['mobil', 'kucing'].forEach(id => {
+            document.getElementById('card-' + id).style.pointerEvents = 'none';
+        });
     }
 }
 
-/* === DATA OBJEK (4 OBJEK: POHON, BATU, BURUNG, MOBIL) === */
-const objects = {
-    'Pohon': {
-        img: "{% static 'img/pohon.png' %}",
-        type: 'living', 
-        ciri: {
-            'Bernapas': { status: true, teks: 'YA! Tumbuhan bernapas melalui pori-pori daun (stomata).' },
-            'Bergerak': { status: true, teks: 'YA! Tumbuhan bergerak tumbuh ke arah cahaya, walau tidak berpindah tempat.' },
-            'Butuh Makan/Nutrisi': { status: true, teks: 'YA! Tumbuhan membuat makanan sendiri (fotosintesis) dan menyerap zat hara.' },
-            'Tumbuh & Berkembang': { status: true, teks: 'YA! Dari biji kecil tumbuh menjadi pohon besar.' },
-            'Berkembang Biak': { status: true, teks: 'YA! Pohon menghasilkan biji atau tunas.' },
-            'Peka Terhadap Rangsang': { status: true, teks: 'YA! Akar peka terhadap air, daun peka terhadap cahaya.' },
-            'Mengeluarkan Zat Sisa': { status: true, teks: 'YA! Tumbuhan mengeluarkan uap air dan oksigen.' }
-        },
-        kesimpulan: "MAKHLUK HIDUP"
-    },
-    'Batu': {
-        img: "{% static 'img/batu.png' %}",
-        type: 'non-living',
-        ciri: {
-            'Bernapas': { status: false, teks: 'TIDAK! Batu adalah benda padat yang tidak bernapas.' },
-            'Bergerak': { status: false, teks: 'TIDAK! Batu diam saja, kecuali dilempar atau terkena gempa.' },
-            'Butuh Makan/Nutrisi': { status: false, teks: 'TIDAK! Batu tidak butuh makanan.' },
-            'Tumbuh & Berkembang': { status: false, teks: 'TIDAK! Ukuran batu tidak bertambah besar dengan sendirinya.' },
-            'Berkembang Biak': { status: false, teks: 'TIDAK! Batu tidak bisa punya anak batu.' },
-            'Peka Terhadap Rangsang': { status: false, teks: 'TIDAK! Batu tidak bereaksi jika dipukul (selain pecah).' },
-            'Mengeluarkan Zat Sisa': { status: false, teks: 'TIDAK! Batu tidak mengeluarkan kotoran.' }
-        },
-        kesimpulan: "BENDA MATI"
-    },
-    'Burung': {
-        img: "{% static 'img/burung.png' %}",
-        type: 'living', 
-        ciri: {
-            'Bernapas': { status: true, teks: 'YA! Burung bernapas menghirup oksigen dengan paru-paru.' },
-            'Bergerak': { status: true, teks: 'YA! Burung terbang menggunakan sayap dan ototnya.' },
-            'Butuh Makan/Nutrisi': { status: true, teks: 'YA! Burung perlu makan biji atau serangga untuk energi.' },
-            'Tumbuh & Berkembang': { status: true, teks: 'YA! Dari telur menetas menjadi burung kecil lalu dewasa.' },
-            'Berkembang Biak': { status: true, teks: 'YA! Burung bertelur menghasilkan keturunan.' },
-            'Peka Terhadap Rangsang': { status: true, teks: 'YA! Burung kabur jika melihat pemangsa mendekat.' },
-            'Mengeluarkan Zat Sisa': { status: true, teks: 'YA! Burung mengeluarkan kotoran dari tubuhnya.' }
-        },
-        kesimpulan: "MAKHLUK HIDUP"
-    },
-    'Mobil': {
-        img: "{% static 'img/mobil.png' %}",
-        type: 'non-living',
-        ciri: {
-            'Bernapas': { status: false, teks: 'TIDAK! Asap knalpot itu polusi, bukan pernapasan sel.' },
-            'Bergerak': { status: true, teks: 'YA! Mobil bergerak, TAPI harus digerakkan mesin & manusia.' },
-            'Butuh Makan/Nutrisi': { status: false, teks: 'TIDAK! Bensin adalah bahan bakar, bukan nutrisi biologis.' },
-            'Tumbuh & Berkembang': { status: false, teks: 'TIDAK! Mobil tidak bisa bertambah besar sendiri.' },
-            'Berkembang Biak': { status: false, teks: 'TIDAK! Mobil dibuat di pabrik, tidak bisa beranak.' },
-            'Peka Terhadap Rangsang': { status: false, teks: 'TIDAK! Sensor mobil adalah listrik, bukan rasa sakit/takut.' },
-            'Mengeluarkan Zat Sisa': { status: false, teks: 'TIDAK! Sisa pembakaran mesin berbeda dengan ekskresi.' }
-        },
-        kesimpulan: "BENDA MATI"
+function checkStimulus(choice) {
+    const correct = stimulusQuestions[stimIndex].answer;
+    const card = document.getElementById('card-' + choice);
+    
+    if (choice === correct) {
+        card.classList.add('selected-correct');
+        setTimeout(() => {
+            stimIndex++; 
+            showStimulusQuestion();
+        }, 800);
+    } else {
+        card.classList.add('selected-wrong');
+        setTimeout(() => { card.classList.remove('selected-wrong'); }, 500);
     }
-};
+}
 
-let clickedCount = 0;
-const totalCiri = 7;
+// === 3. LOGIC SLIDE 3 ===
+const investigasiData = [
+    { name: "Pohon", img: "{% static 'img/pohon2.jpg' %}", isLiving: true, traits: { 'Bernapas': true, 'Bergerak': true, 'Butuh Makan': true, 'Tumbuh': true, 'Berkembang Biak': true, 'Peka Rangsang': true, 'Ekskresi': true } },
+    { name: "Batu", img: "{% static 'img/batu2.jpg' %}", isLiving: false, traits: { 'Bernapas': false, 'Bergerak': false, 'Butuh Makan': false, 'Tumbuh': false, 'Berkembang Biak': false, 'Peka Rangsang': false, 'Ekskresi': false } },
+    { name: "Kucing", img: "{% static 'img/kucing.jpg' %}", isLiving: true, traits: { 'Bernapas': true, 'Bergerak': true, 'Butuh Makan': true, 'Tumbuh': true, 'Berkembang Biak': true, 'Peka Rangsang': true, 'Ekskresi': true } },
+    { name: "Mobil", img: "{% static 'img/mobil2.jpg' %}", isLiving: false, traits: { 'Bernapas': false, 'Bergerak': true, 'Butuh Makan': false, 'Tumbuh': false, 'Berkembang Biak': false, 'Peka Rangsang': false, 'Ekskresi': false } }
+];
 
-/* === LOGIKA INTERAKTIF (LOAD OBJEK) === */
-function loadObject(namaObjek) {
-    const obj = objects[namaObjek];
-    const container = document.getElementById('checklist-container');
-    const nextBtn = document.getElementById('next-obj-btn');
+let currentObjIdx = 0;
+let checkedTraits = 0;
+
+function loadInvestigation(idx) {
+    const data = investigasiData[idx];
+    document.getElementById('current-name').innerText = data.name;
+    document.getElementById('current-img').src = data.img;
+    document.getElementById('object-counter').innerText = `Objek ${idx + 1} dari ${investigasiData.length}`;
     
-    // 1. Reset Tampilan
-    document.getElementById('obj-title').innerText = `Objek: ${namaObjek}`;
-    document.getElementById('obj-img').src = obj.img;
-    document.getElementById('result-area').style.display = 'none';
-    nextBtn.style.display = 'none';
-    document.getElementById('finish-modul-btn').style.display = 'none';
-    
-    // Set Target Tombol Berikutnya
-    if(namaObjek === 'Pohon') {
-        nextBtn.onclick = function() { loadObject('Batu'); };
-    } else if (namaObjek === 'Batu') {
-        nextBtn.onclick = function() { loadObject('Burung'); };
-    } else if (namaObjek === 'Burung') {
-        nextBtn.onclick = function() { loadObject('Mobil'); };
-    }
-    
-    container.innerHTML = "";
-    clickedCount = 0;
-    
-    // 2. Generate Item Checklist
-    for (const [ciriName, data] of Object.entries(obj.ciri)) {
-        const safeID = ciriName.replace(/\s/g, '').replace(/\//g, '');
-        const itemHTML = `
+    document.getElementById('conclusion-area').style.display = 'none';
+    document.getElementById('checklist-box').innerHTML = '';
+    document.getElementById('feedback-area').style.display = 'none';
+    document.getElementById('selection-buttons').style.display = 'block';
+    checkedTraits = 0;
+
+    for (const [trait, value] of Object.entries(data.traits)) {
+        const safeId = trait.replace(/\s/g, '');
+        const html = `
             <div class="ciri-item">
-                <div style="flex-grow: 1;">
-                    <span class="ciri-label">${ciriName}?</span>
-                    <div id="res-text-${safeID}" class="ciri-text alert alert-light border mt-2">
-                        ${data.teks}
-                    </div>
+                <span class="ciri-label">${trait}?</span>
+                <div>
+                    <span id="res-${safeId}" class="result-badge"></span>
+                    <button class="btn btn-outline-primary btn-check btn-sm" 
+                        onclick="revealTrait(this, '${safeId}', ${value})">Cek</button>
                 </div>
-                <div style="margin-left: 15px; min-width: 100px; text-align: right;">
-                    <button class="btn btn-outline-primary btn-cek shadow-sm" 
-                            id="btn-cek-${safeID}"
-                            onclick="checkCiri(this, '${namaObjek}', '${safeID}', ${data.status})">
-                        <i class="fas fa-search mr-1"></i> Cek
-                    </button>
-                    <span id="badge-${safeID}" style="display:none;" class="badge p-2 animated bounceIn"></span>
-                </div>
-            </div>
-        `;
-        container.insertAdjacentHTML('beforeend', itemHTML);
+            </div>`;
+        document.getElementById('checklist-box').insertAdjacentHTML('beforeend', html);
     }
 }
 
-/* === LOGIKA SAAT TOMBOL CEK DIKLIK === */
-function checkCiri(btnElement, namaObjek, safeID, status) {
-    const textDiv = document.getElementById(`res-text-${safeID}`);
-    const badgeSpan = document.getElementById(`badge-${safeID}`);
-    
-    btnElement.style.display = 'none';
-    badgeSpan.style.display = 'inline-block';
-    
-    if (status) {
-        badgeSpan.className = 'badge badge-success p-2';
-        badgeSpan.innerHTML = '<i class="fas fa-check"></i> YA';
-        textDiv.classList.remove('alert-light');
-        textDiv.classList.add('alert-success');
+function revealTrait(btn, safeId, isTrue) {
+    const badge = document.getElementById(`res-${safeId}`);
+    btn.style.display = 'none';
+    badge.style.display = 'inline-block';
+    if(isTrue) {
+        badge.classList.add('res-yes');
+        badge.innerHTML = '<i class="fas fa-check"></i> YA';
     } else {
-        badgeSpan.className = 'badge badge-danger p-2';
-        badgeSpan.innerHTML = '<i class="fas fa-times"></i> TIDAK';
-        textDiv.classList.remove('alert-light');
-        textDiv.classList.add('alert-danger');
+        badge.classList.add('res-no');
+        badge.innerHTML = '<i class="fas fa-times"></i> TIDAK';
     }
-    
-    textDiv.classList.add('show');
-    clickedCount++;
-    
-    if (clickedCount === totalCiri) {
-        setTimeout(() => showConclusion(namaObjek), 800);
+    checkedTraits++;
+    if(checkedTraits === 7) {
+        document.getElementById('conclusion-area').style.display = 'block';
     }
 }
 
-/* === TAMPILKAN KESIMPULAN OBJEK === */
-function showConclusion(namaObjek) {
-    const resultArea = document.getElementById('result-area');
-    const resultBadge = document.getElementById('obj-result-badge');
-    const objData = objects[namaObjek];
+function verifyConclusion(studentSaysLiving) {
+    const data = investigasiData[currentObjIdx];
+    const isCorrect = (studentSaysLiving === data.isLiving);
+    const feedbackMsg = document.getElementById('feedback-msg');
 
-    resultArea.style.display = 'block';
-    resultBadge.innerText = objData.kesimpulan;
-    
-    if (objData.kesimpulan === "MAKHLUK HIDUP") {
-        resultBadge.className = "badge badge-success p-3 w-100 shadow";
+    document.getElementById('selection-buttons').style.display = 'none';
+    document.getElementById('feedback-area').style.display = 'block';
+
+    if (isCorrect) {
+        feedbackMsg.className = "alert alert-success font-weight-bold small p-2";
+        feedbackMsg.innerHTML = `<i class="fas fa-check-circle"></i> TEPAT! ${data.name} dikategorikan sebagai ${data.isLiving ? 'Makhluk Hidup' : 'Benda Mati'}.`;
     } else {
-        resultBadge.className = "badge badge-secondary p-3 w-100 shadow";
+        feedbackMsg.className = "alert alert-danger font-weight-bold small p-2";
+        feedbackMsg.innerHTML = `<i class="fas fa-times-circle"></i> KURANG TEPAT. Perhatikan kembali data ciri-cirinya.`;
     }
 
-    // Logic Tombol Lanjut
-    if (namaObjek === 'Mobil') {
-        document.getElementById('finish-modul-btn').style.display = 'block';
-        document.getElementById('finish-modul-btn').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    if (currentObjIdx < investigasiData.length - 1) {
+        document.getElementById('next-object-btn').style.display = 'block';
+        document.getElementById('finish-data-btn').style.display = 'none';
     } else {
-        const nextBtn = document.getElementById('next-obj-btn');
-        nextBtn.style.display = 'block';
-        nextBtn.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        document.getElementById('next-object-btn').style.display = 'none';
+        document.getElementById('finish-data-btn').style.display = 'block';
     }
 }
 
-// Init Load
-window.addEventListener("DOMContentLoaded", function() { 
-    loadObject('Pohon'); 
+function nextObject() {
+    currentObjIdx++;
+    loadInvestigation(currentObjIdx);
+}
+
+// === 4. LOGIC SLIDE 4: TABS LOCK ===
+let viewedTabs = new Set();
+const totalTabs = 7;
+
+function markTabRead(n) {
+    viewedTabs.add(n);
+    document.getElementById('tab-' + n).classList.add('read-mark');
+    
+    if (viewedTabs.size === totalTabs) {
+        document.getElementById('lock-msg').style.display = 'none';
+        document.getElementById('btn-next-slide-4').style.display = 'inline-block';
+    }
+}
+
+// === 5. LOGIC SLIDE 5: ODD ONE OUT ===
+const gameRounds = [
+    {
+        mission: "Identifikasi objek yang merupakan MAKHLUK HIDUP.",
+        correctIdx: 1, 
+        items: [
+            { name: "Robot", img: "{% static 'img/robot.jpg' %}", source: "Dok. Kemdikbud" },
+            { name: "Pohon", img: "{% static 'img/pohon2.jpg' %}", source: "Dok. Kemdikbud" }, 
+            { name: "Air", img: "{% static 'img/air.jpg' %}", source: "Dok. Kemdikbud" }
+        ]
+    },
+    {
+        mission: "Identifikasi objek yang merupakan BENDA MATI.",
+        correctIdx: 2,
+        items: [
+            { name: "Kucing", img: "{% static 'img/kucing.jpg' %}", source: "Dok. Kemdikbud" },
+            { name: "Jamur", img: "{% static 'img/jamurroti.jpg' %}", source: "Dok. Kemdikbud" },
+            { name: "Meja", img: "{% static 'img/meja.png' %}", source: "Dok. Kemdikbud" } 
+        ]
+    },
+    {
+        mission: "Identifikasi satu-satunya MAKHLUK HIDUP di antara objek berikut.",
+        correctIdx: 0,
+        items: [
+            { name: "Putri Malu", img: "{% static 'img/putrimalu.jpg' %}", source: "Dok. Kemdikbud" }, 
+            { name: "Api", img: "{% static 'img/air.jpg' %}", source: "Dok. Kemdikbud" }, 
+            { name: "Mobil", img: "{% static 'img/mobil2.jpg' %}", source: "Dok. Kemdikbud" }
+        ]
+    }
+];
+
+let roundIdx = 0;
+
+function startGameOddOne() {
+    document.getElementById('start-game-btn-area').style.display = 'none';
+    document.getElementById('game-area').style.display = 'flex';
+    roundIdx = 0;
+    loadRound();
+}
+
+function loadRound() {
+    const data = gameRounds[roundIdx];
+    document.getElementById('mission-text').innerHTML = `<i class="fas fa-search mr-2"></i> ${data.mission}`;
+    document.getElementById('game-feedback').style.display = 'none';
+    
+    // Reset cards and set sources
+    for(let i=0; i<3; i++) {
+        const card = document.getElementById(`option-${i}`);
+        card.classList.remove('correct-pick', 'wrong-pick');
+        card.style.pointerEvents = 'auto'; 
+        
+        document.getElementById(`img-${i}`).src = data.items[i].img;
+        document.getElementById(`label-${i}`).innerText = data.items[i].name;
+        document.getElementById(`source-${i}`).innerText = "Sumber: " + data.items[i].source;
+    }
+}
+
+function checkOddOne(pickIdx) {
+    const data = gameRounds[roundIdx];
+    const correctIdx = data.correctIdx;
+    
+    if (pickIdx === correctIdx) {
+        document.getElementById(`option-${pickIdx}`).classList.add('correct-pick');
+        showFeedback(true);
+    } else {
+        document.getElementById(`option-${pickIdx}`).classList.add('wrong-pick');
+        setTimeout(() => {
+             document.getElementById(`option-${pickIdx}`).classList.remove('wrong-pick');
+        }, 500);
+    }
+}
+
+function showFeedback(isSuccess) {
+    if(!isSuccess) return;
+    
+    for(let i=0; i<3; i++) document.getElementById(`option-${i}`).style.pointerEvents = 'none';
+
+    const fbTitle = document.getElementById('feedback-title');
+    const fbDesc = document.getElementById('feedback-desc');
+    const box = document.getElementById('game-feedback');
+    const nextBtn = document.getElementById('next-round-btn');
+    const finishBtn = document.getElementById('finish-game-btn');
+
+    box.style.display = 'block';
+    fbTitle.className = "text-success font-weight-bold";
+    fbTitle.innerText = "Analisis Tepat!";
+    fbDesc.innerText = "Anda berhasil mengidentifikasi objek dengan klasifikasi berbeda.";
+
+    if (roundIdx < gameRounds.length - 1) {
+        nextBtn.style.display = 'inline-block';
+        finishBtn.style.display = 'none';
+    } else {
+        nextBtn.style.display = 'none';
+        finishBtn.style.display = 'inline-block';
+        fbDesc.innerText = "Selamat! Anda telah menyelesaikan seluruh rangkaian kegiatan Modul 1.";
+    }
+}
+
+function nextRound() {
+    roundIdx++;
+    loadRound();
+}
+
+// Init
+document.addEventListener('DOMContentLoaded', () => {
+    initStimulus();
 });
 </script>
 {% endblock %}
