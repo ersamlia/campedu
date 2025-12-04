@@ -189,18 +189,18 @@ p.text-content { font-size: 1.1rem; color: #555; line-height: 1.8; }
     <div class="learning-card">
         <div class="row align-items-center">
             <div class="col-lg-6">
-                <h3 class="title-highlight">Misteri Air Kolam</h3>
+                <h3 class="title-highlight">Misteri Dunia Mikroskopis</h3>
                 <p class="text-content">
-                    Kita sudah tahu Kucing itu hidup. Tapi bagaimana dengan setetes air kolam yang terlihat bening ini? 
-                    Gunakan mikroskop untuk melihat kehidupan yang tak kasat mata!
+                    Setelah mengamati Kucing, mari kita amati organisme yang sangat kecil! 
+                    Amati sampel di bawah ini untuk mengidentifikasi ciri-ciri Kingdom Monera, Protista, dan Fungi berdasarkan struktur selnya.
                 </p>
                 
                 <div class="mt-4">
                     <h6 class="font-weight-bold mb-3">Pilih Sampel Preparat:</h6>
                     <div class="preparat-controls justify-content-start">
-                        <button class="btn btn-preparat" onclick="setMicroscope('air', this)">1. Air Kolam</button>
-                        <button class="btn btn-preparat" onclick="setMicroscope('darah', this)">2. Sel Darah</button>
-                        <button class="btn btn-preparat" onclick="setMicroscope('daun', this)">3. Sel Daun</button>
+                        <button class="btn btn-preparat" onclick="setMicroscope('protista', this)">1. Air Kolam (Protista)</button>
+                        <button class="btn btn-preparat" onclick="setMicroscope('monera', this)">2. Bakteri (Monera)</button>
+                        <button class="btn btn-preparat" onclick="setMicroscope('fungi', this)">3. Jamur Roti (Fungi)</button>
                     </div>
                     
                     <div id="micro-result" class="mt-3 p-3 rounded bg-light border" style="display:none;">
@@ -342,24 +342,54 @@ function checkCiri(type) {
     if(checked1 && checked2) document.getElementById('btn-next-1').classList.remove('disabled');
 }
 
-// === 3. SLIDE 2 (MIKROSKOP) ===
+// === 3. SLIDE 2 (MIKROSKOP) - DATA BARU ===
 const slidesMicro = {
-    'air': { video: "{% static 'video/airkolam.mp4' %}", title: "Kingdom Protista", desc: "Ditemukan Paramecium! Organisme bersel satu yang bergerak." },
-    'darah': { video: "{% static 'video/seldarah.mp4' %}", title: "Sel Darah Merah", desc: "Sel penyusun jaringan hewan. Tidak memiliki dinding sel." },
-    'daun': { video: "{% static 'video/seldaun.mp4' %}", title: "Sel Tumbuhan", desc: "Tampak kloroplas hijau dan dinding sel yang kaku." }
+    // Preparat 1: Air Kolam -> Kingdom Protista
+    'protista': { 
+        video: "{% static 'video/airkolam.mp4' %}", // Pastikan path video ini ada
+        title: "Kingdom Protista (Eukariotik Uniseluler)", 
+        desc: "Ditemukan Paramecium/Amoeba! Organisme **uniseluler** (sel tunggal) yang sudah memiliki **membran inti (eukariotik)**. Perhatikan pergerakannya yang aktif. Ini bukan hewan, tumbuhan, atau jamur sejati." 
+    },
+    // Preparat 2: Bakteri -> Kingdom Monera
+    'monera': { 
+        video: "{% static 'video/bakteri.mp4' %}", // Pastikan path video ini ada
+        title: "Kingdom Monera (Prokariotik)", 
+        desc: "Ini adalah Bakteri. Ciri utamanya adalah **TIDAK memiliki membran inti (prokariotik)**. Mereka adalah organisme paling sederhana dan umumnya **uniseluler**. Ukurannya jauh lebih kecil dari Protista." 
+    },
+    // Preparat 3: Jamur Roti -> Kingdom Fungi
+    'fungi': { 
+        video: "{% static 'video/jamurroti.mp4' %}", // Pastikan path video ini ada
+        title: "Kingdom Fungi (Eukariotik Heterotrof)", 
+        desc: "Tampak benang-benang halus yang disebut **hifa**. Jamur adalah **eukariotik** tetapi **heterotrof** (tidak berfotosintesis). Mereka mencerna makanan di luar tubuh (Saprofit)." 
+    }
 };
+
+let preparatDilihat = new Set();
+let allPreparat = ['protista', 'monera', 'fungi'];
+
 function setMicroscope(type, btn) {
     document.querySelectorAll('.btn-preparat').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
+    
     const data = slidesMicro[type];
     const video = document.getElementById('micro-view');
     video.src = data.video;
     video.load();
     video.play().catch(e => console.log("Auto-play prevented"));
+    
     document.getElementById('micro-title').innerText = data.title;
-    document.getElementById('micro-desc').innerText = data.desc;
+    // Mengganti innerText dengan innerHTML untuk memformat bold
+    document.getElementById('micro-desc').innerHTML = data.desc.replace(/\*\*(.*?)\*\*/g, '<b>$1</b>'); 
     document.getElementById('micro-result').style.display = 'block';
-    document.getElementById('btn-next-2').classList.remove('disabled');
+    
+    // Logika Pelacakan Progres
+    if (allPreparat.includes(type)) {
+        preparatDilihat.add(type);
+    }
+    
+    if (preparatDilihat.size === allPreparat.length) {
+        document.getElementById('btn-next-2').classList.remove('disabled');
+    }
 }
 
 // === 4. SLIDE 3 (KUNCI DIKOTOM) ===
