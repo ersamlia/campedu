@@ -1,7 +1,7 @@
 {% extends 'main/base.html' %}
 {% load static %}
 
-{% block title %}Modul 2: Klasifikasi Makhluk Hidup{% endblock %}
+{% block title %}Materi 2: Klasifikasi Makhluk Hidup{% endblock %}
 
 {% block custom_css %}
 <style>
@@ -31,6 +31,17 @@ body { font-family: 'Nunito', sans-serif; background: #f0f8ff; }
 h3.title-highlight { color: #2e59d9; font-weight: 900; margin-bottom: 1rem; }
 p.text-content { font-size: 1.1rem; color: #555; line-height: 1.8; }
 
+/* === Tambahan Styling Sumber Gambar MINIMALIS === */
+.image-source {
+    font-size: 0.7rem;
+    color: #888;
+    margin-top: 5px;
+    display: block;
+    text-align: center;
+    font-style: italic;
+}
+.comparison-body { padding: 15px; } 
+
 /* === SLIDE 1: STIMULASI === */
 .comparison-wrapper { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; }
 .comparison-card {
@@ -39,7 +50,6 @@ p.text-content { font-size: 1.1rem; color: #555; line-height: 1.8; }
 }
 .comparison-card:hover { border-color: #4e73df; transform: translateY(-5px); }
 .comparison-card img { width: 100%; height: 200px; object-fit: cover; }
-.comparison-body { padding: 15px; }
 .check-list { text-align: left; margin-top: 10px; font-size: 0.9rem; }
 .check-item { margin-bottom: 5px; display: flex; align-items: center; }
 
@@ -51,7 +61,8 @@ p.text-content { font-size: 1.1rem; color: #555; line-height: 1.8; }
 .lens-circle {
     width: 300px; height: 300px; border: 5px solid #555; border-radius: 50%;
     overflow: hidden; background: black; box-shadow: 0 0 20px rgba(255,255,255,0.1);
-    margin-bottom: 20px; position: relative;
+    margin-bottom: 20px; 
+    position: relative;
 }
 .lens-circle video, .lens-circle img { width: 100%; height: 100%; object-fit: cover; }
 .preparat-controls { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
@@ -61,14 +72,15 @@ p.text-content { font-size: 1.1rem; color: #555; line-height: 1.8; }
 }
 .btn-preparat:hover, .btn-preparat.active { background: #4e73df; border-color: #4e73df; }
 
-/* === SLIDE 3: KUNCI DIKOTOM === */
+/* === SLIDE 3: KUNCI DIKOTOM (Semua styling dikembalikan) === */
 .dikotom-container {
     max-width: 750px; margin: 0 auto; background: #f8f9fc; border-radius: 15px; 
     padding: 30px; border: 2px solid #e3e6f0; text-align: center;
 }
 .plant-display {
     display: inline-block; border: 4px solid white; box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    border-radius: 15px; overflow: hidden; margin-bottom: 20px; width: 200px; height: 200px;
+    border-radius: 15px; overflow: hidden; margin-bottom: 20px; 
+    width: 200px; height: 200px;
 }
 .plant-display img { width: 100%; height: 100%; object-fit: cover; }
 .question-text { font-size: 1.25rem; font-weight: 800; color: #2e59d9; margin-bottom: 20px; }
@@ -81,7 +93,7 @@ p.text-content { font-size: 1.1rem; color: #555; line-height: 1.8; }
 .btn-choice:hover { border-color: #1cc88a; color: #1cc88a; background: #f0fcf6; transform: translateX(5px); }
 .breadcrumb-dikotom { font-size: 0.85rem; color: #888; margin-bottom: 15px; font-style: italic; }
 
-/* === SLIDE 4: TAKSON (VISUAL STYLE) === */
+/* === SLIDE 4: TAKSON === */
 .takson-pyramid {
     display: flex; flex-direction: column; align-items: center; gap: 8px;
 }
@@ -93,8 +105,6 @@ p.text-content { font-size: 1.1rem; color: #555; line-height: 1.8; }
     border: 1px solid #2e59d9;
     text-transform: uppercase; 
 }
-.takson-level:hover { transform: scale(1.05); background-color: #2e59d9; z-index: 10; }
-.takson-level.active { background-color: #1cc88a; border-color: #17a673; transform: scale(1.05); box-shadow: 0 0 15px rgba(28, 200, 138, 0.4); }
 
 /* Info Box Takson */
 .takson-info-box {
@@ -103,26 +113,86 @@ p.text-content { font-size: 1.1rem; color: #555; line-height: 1.8; }
     display: flex; flex-direction: column; justify-content: flex-start;
     transition: all 0.3s ease;
 }
-.takson-gallery {
-    display: flex; gap: 15px; justify-content: center; margin-bottom: 20px; flex-wrap: wrap;
-}
-.takson-card {
-    width: 140px; background: #fff; border-radius: 8px; overflow: hidden; 
-    box-shadow: 0 3px 6px rgba(0,0,0,0.1); border: 1px solid #f0f0f0;
-    display: flex; flex-direction: column;
-}
-.takson-card img { width: 100%; height: 100px; object-fit: cover; }
-.takson-card-body { padding: 8px; text-align: center; flex-grow: 1; }
-.takson-card-title { font-weight: 800; font-size: 0.8rem; color: #333; margin-bottom: 3px; }
-.takson-card-reason { font-size: 0.7rem; color: #1cc88a; line-height: 1.2; margin-bottom: 5px; }
-.takson-card-source { font-size: 0.6rem; color: #aaa; font-style: italic; border-top: 1px solid #eee; padding-top: 3px; }
 
-.takson-latin { font-size: 1.6rem; font-weight: 900; color: #1cc88a; margin-bottom: 5px; text-align: center; }
-.takson-indo { font-size: 1.1rem; color: #858796; font-weight: 700; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 1px; text-align: center; border-bottom: 1px solid #eee; padding-bottom: 10px;}
-.takson-desc { font-size: 1.1rem; line-height: 1.8; color: #444; text-align: justify; }
+/* Perubahan styling untuk teks Latin/Indo */
+.takson-latin-box { 
+    text-align: center; 
+    margin-bottom: 5px; 
+    font-weight: 900;
+}
+/* Memperbaiki ukuran font 'Tumbuhan:' dan 'Hewan:' */
+.takson-latin-box .takson-label { 
+    font-size: 1.1rem; /* Ukuran font yang lebih besar */
+    color: #858796;
+    font-weight: 700;
+}
+
+
+.takson-latin-plant { 
+    font-size: 1.6rem; 
+    color: #1cc88a; /* Warna Hijau/Tumbuhan */
+}
+
+.takson-latin-animal { 
+    font-size: 1.6rem; 
+    color: #4e73df; /* Warna Biru/Hewan */
+}
+
+.takson-indo { 
+    font-size: 1.1rem; 
+    color: #858796; 
+    font-weight: 700; 
+    margin-bottom: 20px; 
+    text-transform: uppercase; 
+    letter-spacing: 1px; 
+    text-align: center; 
+    border-bottom: 1px solid #eee; 
+    padding-bottom: 10px;
+}
+
+/* Card/Wrapper Baru untuk Multi-Gambar */
+.takson-image-card {
+    text-align: center;
+    padding: 10px;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    margin-bottom: 15px; 
+    background: #fff;
+    height: 100%;
+}
+.takson-image-card img {
+    width: 100%;
+    height: 150px; 
+    object-fit: cover;
+    border-radius: 6px;
+    margin-bottom: 8px;
+}
+.takson-image-card .caption {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: #4e73df;
+}
+.takson-image-card .sub-caption {
+    font-size: 0.75rem;
+    color: #858796;
+    margin-top: 5px;
+    display: block;
+}
+
+/* Styling Judul Grup */
+.takson-group-title {
+    font-weight: 900 !important; 
+    padding-bottom: 5px;
+    border-bottom: 2px solid #e3e6f0;
+    color: #2e59d9; /* Default ke biru gelap */
+}
 
 @media (max-width: 768px) {
     .lens-circle { width: 250px; height: 250px; }
+    .takson-image-card img { height: 120px; } 
+    .takson-latin-plant, .takson-latin-animal { font-size: 1.4rem; }
+    /* Menyesuaikan di media query juga */
+    .takson-latin-box .takson-label { font-size: 0.9rem; }
 }
 </style>
 {% endblock %}
@@ -131,7 +201,7 @@ p.text-content { font-size: 1.1rem; color: #555; line-height: 1.8; }
 
 <div class="modul-header-card sticky-top" style="top: 15px; z-index: 99;">
     <div>
-        <h5 class="font-weight-bold text-primary m-0"><i class="fas fa-sitemap mr-2"></i>Modul 2: Klasifikasi Makhluk Hidup</h5>
+        <h5 class="font-weight-bold text-primary m-0"><i class="fas fa-sitemap mr-2"></i>Materi 2: Klasifikasi Makhluk Hidup</h5>
         <small class="text-muted">Observasi & Pengelompokan</small>
     </div>
     <div id="step-badge" class="step-badge">1. Ciri Kehidupan</div>
@@ -139,24 +209,25 @@ p.text-content { font-size: 1.1rem; color: #555; line-height: 1.8; }
 
 <div id="slide-1" class="learning-slide active">
     <div class="learning-card">
-        <h3 class="title-highlight text-center">Robot vs Kucing: Mana yang Hidup?</h3>
+        <h3 class="title-highlight text-center">Mobil vs Kucing: Mana yang Hidup?</h3>
         <p class="text-content text-center mb-4">
-            Perhatikan Mobil-mobilan dan Kucing di bawah ini. Keduanya bisa bergerak. 
-            Apakah keduanya Makhluk Hidup? <strong>Klik gambar</strong> untuk mengecek cirinya!
+            Perhatikan Mobil dan Kucing di bawah ini. Keduanya bisa bergerak. 
+            Apakah keduanya Makhluk Hidup? <b>Klik gambar</b> untuk mengecek cirinya!
         </p>
 
         <div class="comparison-wrapper">
             <div class="comparison-card" onclick="checkCiri('mobil')">
                 <img src="{% static 'img/mobil.png' %}" alt="Mobil">
                 <div class="comparison-body">
-                    <h5 class="font-weight-bold">Mobil-mobilan</h5>
+                    <h5 class="font-weight-bold">Mobil</h5>
+                    <small class="image-source">Sumber: Dokumen Canva</small> 
                     <div id="list-mobil" style="display:none;" class="check-list">
                         <div class="check-item"><i class="fas fa-check text-success mr-2"></i> Bergerak? (Ya)</div>
                         <div class="check-item"><i class="fas fa-times text-danger mr-2"></i> Bernapas? (Tidak)</div>
                         <div class="check-item"><i class="fas fa-times text-danger mr-2"></i> Tumbuh Besar? (Tidak)</div>
                     </div>
                     <div id="res-mobil" class="alert alert-secondary mt-3 p-2" style="display:none;">
-                        <strong>BENDA TAK HIDUP</strong>
+                        <b>BENDA TAK HIDUP</b> 
                     </div>
                 </div>
             </div>
@@ -165,13 +236,14 @@ p.text-content { font-size: 1.1rem; color: #555; line-height: 1.8; }
                 <img src="{% static 'img/kucing.jpeg' %}" alt="Kucing">
                 <div class="comparison-body">
                     <h5 class="font-weight-bold">Kucing</h5>
+                    <small class="image-source">Sumber: Dokumen Canva</small> 
                     <div id="list-kucing" style="display:none;" class="check-list">
                         <div class="check-item"><i class="fas fa-check text-success mr-2"></i> Bergerak? (Ya)</div>
                         <div class="check-item"><i class="fas fa-check text-success mr-2"></i> Bernapas? (Ya)</div>
                         <div class="check-item"><i class="fas fa-check text-success mr-2"></i> Tumbuh Besar? (Ya)</div>
                     </div>
                     <div id="res-kucing" class="alert alert-success mt-3 p-2" style="display:none;">
-                        <strong>MAKHLUK HIDUP</strong>
+                        <b>MAKHLUK HIDUP</b> 
                     </div>
                 </div>
             </div>
@@ -191,8 +263,8 @@ p.text-content { font-size: 1.1rem; color: #555; line-height: 1.8; }
             <div class="col-lg-6">
                 <h3 class="title-highlight">Misteri Dunia Mikroskopis</h3>
                 <p class="text-content">
-                    Setelah mengamati Kucing, mari kita amati organisme yang sangat kecil! 
-                    Amati sampel di bawah ini untuk mengidentifikasi ciri-ciri Kingdom Monera, Protista, dan Fungi berdasarkan struktur selnya.
+                    Setelah mengamati makhluk hidup dan tak hidup, mari kita amati organisme yang sangat kecil! 
+                    Amati sampel di bawah ini untuk mengidentifikasi ciri-ciri <b>Kingdom Monera</b>, <b>Protista</b>, dan <b>Fungi</b> berdasarkan struktur selnya.
                 </p>
                 
                 <div class="mt-4">
@@ -216,6 +288,7 @@ p.text-content { font-size: 1.1rem; color: #555; line-height: 1.8; }
                         <video id="micro-view" poster="{% static 'img/lensa_kosong.png' %}" loop muted playsinline></video>
                     </div>
                     <small class="text-white-50">Perbesaran 400x</small>
+                    <small id="micro-source" class="image-source text-white-50 mt-1"></small> 
                 </div>
             </div>
         </div>
@@ -233,7 +306,7 @@ p.text-content { font-size: 1.1rem; color: #555; line-height: 1.8; }
         <div class="text-center mb-4">
             <h3 class="title-highlight">Praktikum: Kunci Determinasi</h3>
             <p class="text-content">
-                Ayo identifikasi <strong>5 Tumbuhan</strong> berikut menggunakan Kunci Dikotom. 
+                Ayo identifikasi <b>5 Tumbuhan</b> berikut menggunakan Kunci Dikotom.
                 Pilih ciri yang sesuai dengan gambar untuk mengetahui nama kelompoknya!
             </p>
             
@@ -244,6 +317,7 @@ p.text-content { font-size: 1.1rem; color: #555; line-height: 1.8; }
             <div class="plant-display">
                 <img id="current-plant-img" src="" alt="Tanaman Misterius">
             </div>
+            <small id="current-plant-source" class="image-source"></small> 
             <h5 class="font-weight-bold text-primary mb-3" id="current-plant-name">...</h5>
         </div>
 
@@ -270,17 +344,19 @@ p.text-content { font-size: 1.1rem; color: #555; line-height: 1.8; }
         <h3 class="title-highlight text-center">Hierarki Taksonomi</h3>
         <p class="text-content text-center mb-4">
             Ilmuwan mengurutkan makhluk hidup dari kelompok besar ke kecil.
-            <strong>Klik tingkat piramida</strong> untuk melihat contoh <strong>Hewan (Kucing)</strong> dan <strong>Tumbuhan (Jagung)</strong> di setiap tingkatan.
-        </p>
+            <b>Klik tingkat piramida</b> untuk melihat contoh <b>Hewan</b> dan <b>Tumbuhan</b> di setiap tingkatan.
+                    </p>
+        
+        
 
         <div class="row">
             <div class="col-md-4 mb-4">
                 <div class="takson-pyramid">
-                    <div class="takson-level" style="width: 100%;" onclick="showTaksonInfo(this, 'kingdom')">KINGDOM</div>
-                    <div class="takson-level" style="width: 90%;" onclick="showTaksonInfo(this, 'filum')">PHYLUM / DIVISION</div>
-                    <div class="takson-level" style="width: 80%;" onclick="showTaksonInfo(this, 'kelas')">CLASS</div>
-                    <div class="takson-level" style="width: 70%;" onclick="showTaksonInfo(this, 'ordo')">ORDER</div>
-                    <div class="takson-level" style="width: 60%;" onclick="showTaksonInfo(this, 'familia')">FAMILY</div>
+                    <div class="takson-level" style="width: 100%;" onclick="showTaksonInfo(this, 'kingdom')">KINGDOM / REGNUM</div>
+                    <div class="takson-level" style="width: 90%;" onclick="showTaksonInfo(this, 'filum')">PHYLUM / DIVISIO</div>
+                    <div class="takson-level" style="width: 80%;" onclick="showTaksonInfo(this, 'kelas')">CLASSIS</div>
+                    <div class="takson-level" style="width: 70%;" onclick="showTaksonInfo(this, 'ordo')">ORDO</div>
+                    <div class="takson-level" style="width: 60%;" onclick="showTaksonInfo(this, 'familia')">FAMILI</div>
                     <div class="takson-level" style="width: 50%;" onclick="showTaksonInfo(this, 'genus')">GENUS</div>
                     <div class="takson-level" style="width: 40%;" onclick="showTaksonInfo(this, 'spesies')">SPECIES</div>
                 </div>
@@ -296,7 +372,7 @@ p.text-content { font-size: 1.1rem; color: #555; line-height: 1.8; }
 
         <div class="text-center mt-5">
             <a href="{% url 'selesai_step' 'modul_2' %}" class="btn btn-success btn-lg rounded-pill px-5 shadow">
-                Selesai Modul 2 <i class="fas fa-check-circle ml-2"></i>
+                Selesai Materi 2 <i class="fas fa-check-circle ml-2"></i>
             </a>
         </div>
     </div>
@@ -306,6 +382,16 @@ p.text-content { font-size: 1.1rem; color: #555; line-height: 1.8; }
 
 {% block custom_js %}
 <script>
+// Fungsi global untuk konversi Markdown ke HTML Bold (<b>)
+function mdToHtmlBold(text) {
+    // Mengganti teks yang diapit ** dengan <b>
+    if (typeof text === 'string') {
+        return text.replace(/\*\*(.*?)\*\*/g, '<b>$1</b>');
+    }
+    return text;
+}
+
+
 // === 1. NAVIGASI GLOBAL ===
 const stepNames = ["1. Ciri Kehidupan", "2. Pengamatan Mikroskopis", "3. Kunci Dikotom", "4. Tingkatan Takson"];
 
@@ -320,9 +406,11 @@ function nextSlide(n) {
     document.querySelector('.modul-header-card').scrollIntoView({behavior: 'smooth'});
     if(stepNames[n-1]) document.getElementById('step-badge').innerText = stepNames[n-1];
 
-    // Init Dikotom if entering slide 3
     if(n === 3) {
-        loadPlant(0); 
+        loadPlant(currentPlantIndex); 
+    }
+    if (n !== 2) {
+        document.getElementById('micro-source').innerText = '';
     }
 }
 
@@ -342,25 +430,28 @@ function checkCiri(type) {
     if(checked1 && checked2) document.getElementById('btn-next-1').classList.remove('disabled');
 }
 
-// === 3. SLIDE 2 (MIKROSKOP) - DATA BARU ===
+// === 3. SLIDE 2 (MIKROSKOP) ===
 const slidesMicro = {
     // Preparat 1: Air Kolam -> Kingdom Protista
     'protista': { 
-        video: "{% static 'video/airkolam.mp4' %}", // Pastikan path video ini ada
+        video: "{% static 'video/airkolam.mp4' %}", 
         title: "Kingdom Protista (Eukariotik Uniseluler)", 
-        desc: "Ditemukan Paramecium/Amoeba! Organisme **uniseluler** (sel tunggal) yang sudah memiliki **membran inti (eukariotik)**. Perhatikan pergerakannya yang aktif. Ini bukan hewan, tumbuhan, atau jamur sejati." 
+        desc: "Ditemukan Paramecium/Amoeba! Organisme **uniseluler** (sel tunggal) yang sudah memiliki **membran inti (eukariotik)**. Perhatikan pergerakannya yang aktif. Ini bukan hewan, tumbuhan, atau jamur sejati.",
+        source: "Christian Linkenheld - Mikroskopie (YouTube)"
     },
     // Preparat 2: Bakteri -> Kingdom Monera
     'monera': { 
-        video: "{% static 'video/bakteri.mp4' %}", // Pastikan path video ini ada
+        video: "{% static 'video/bakteri.mp4' %}", 
         title: "Kingdom Monera (Prokariotik)", 
-        desc: "Ini adalah Bakteri. Ciri utamanya adalah **TIDAK memiliki membran inti (prokariotik)**. Mereka adalah organisme paling sederhana dan umumnya **uniseluler**. Ukurannya jauh lebih kecil dari Protista." 
+        desc: "Ini adalah Bakteri. Ciri utamanya adalah **TIDAK memiliki membran inti (prokariotik)**. Mereka adalah organisme paling sederhana dan umumnya **uniseluler**. Ukurannya jauh lebih kecil dari Protista.",
+        source: "Anson Call (YouTube)"
     },
     // Preparat 3: Jamur Roti -> Kingdom Fungi
     'fungi': { 
-        video: "{% static 'video/jamurroti.mp4' %}", // Pastikan path video ini ada
+        video: "{% static 'video/jamurroti.mp4' %}", 
         title: "Kingdom Fungi (Eukariotik Heterotrof)", 
-        desc: "Tampak benang-benang halus yang disebut **hifa**. Jamur adalah **eukariotik** tetapi **heterotrof** (tidak berfotosintesis). Mereka mencerna makanan di luar tubuh (Saprofit)." 
+        desc: "Tampak benang-benang halus yang disebut **hifa**. Jamur adalah **eukariotik** tetapi **heterotrof** (tidak berfotosintesis). Mereka mencerna makanan di luar tubuh (Saprofit).",
+        source: "Amaliyah (YouTube)"
     }
 };
 
@@ -378,11 +469,13 @@ function setMicroscope(type, btn) {
     video.play().catch(e => console.log("Auto-play prevented"));
     
     document.getElementById('micro-title').innerText = data.title;
-    // Mengganti innerText dengan innerHTML untuk memformat bold
-    document.getElementById('micro-desc').innerHTML = data.desc.replace(/\*\*(.*?)\*\*/g, '<b>$1</b>'); 
+    // PENGGUNAAN mdToHtmlBold UNTUK DESKRIPSI
+    document.getElementById('micro-desc').innerHTML = mdToHtmlBold(data.desc); 
     document.getElementById('micro-result').style.display = 'block';
     
-    // Logika Pelacakan Progres
+    // TAMPILKAN SUMBER
+    document.getElementById('micro-source').innerText = 'Sumber Video: ' + data.source;
+
     if (allPreparat.includes(type)) {
         preparatDilihat.add(type);
     }
@@ -394,11 +487,11 @@ function setMicroscope(type, btn) {
 
 // === 4. SLIDE 3 (KUNCI DIKOTOM) ===
 const plantsQueue = [
-    { name: "Tanaman A (Suplir)", img: "{% static 'img/suplir.jpeg' %}", correctResult: "Paku (Pteridophyta)" },
-    { name: "Tanaman B (Lumut)", img: "{% static 'img/lumut.jpeg' %}", correctResult: "Lumut (Bryophyta)" },
-    { name: "Tanaman C (Melinjo)", img: "{% static 'img/melinjo.jpeg' %}", correctResult: "Gymnospermae (Melinjo)" },
-    { name: "Tanaman D (Jagung)", img: "{% static 'img/jagung3.jpg' %}", correctResult: "Monokotil (Jagung)" },
-    { name: "Tanaman E (Kacang)", img: "{% static 'img/kacang-tanah.jpg' %}", correctResult: "Dikotil (Kacang/Mangga)" }
+    { name: "Tanaman A (Suplir)", img: "{% static 'img/suplir.jpeg' %}", source: "Sumber: Greeners.Co", correctResult: "Paku (Pteridophyta)" },
+    { name: "Tanaman B (Lumut)", img: "{% static 'img/lumut.jpeg' %}", source: "Sumber: detikcom", correctResult: "Lumut (Bryophyta)" },
+    { name: "Tanaman C (Melinjo)", img: "{% static 'img/melinjo.jpeg' %}", source: "Sumber: radarsurabaya.id", correctResult: "Gymnospermae (Melinjo)" },
+    { name: "Tanaman D (Jagung)", img: "{% static 'img/jagung3.jpg' %}", source: "Sumber: Corteva.id", correctResult: "Monokotil (Jagung)" },
+    { name: "Tanaman E (Kacang)", img: "{% static 'img/kacang-tanah.jpg' %}", source: "Sumber: BibitBunga.com", correctResult: "Dikotil (Kacang/Mangga)" }
 ];
 let currentPlantIndex = 0;
 const dikotomQuestions = {
@@ -415,6 +508,10 @@ function loadPlant(index) {
     document.getElementById('plant-counter').innerText = `Tanaman ${index + 1} / ${plantsQueue.length}`;
     document.getElementById('btn-next-plant').style.display = 'none';
     document.getElementById('btn-reset-plant').style.display = 'block';
+    
+    // TAMPILKAN SUMBER
+    document.getElementById('current-plant-source').innerText = plant.source;
+
     renderDikotom('1');
     document.getElementById('dikotom-path').innerText = "Mulai";
 }
@@ -469,80 +566,154 @@ function resetDikotom() {
     renderDikotom('1');
 }
 
-// === 5. SLIDE 4 LOGIC (TAKSONOMI FINAL DENGAN TUMBUHAN) ===
-const taksonEnriched = {
+// === 5. SLIDE 4 LOGIC (TAKSONOMI FINAL DENGAN GAMBAR DI CARD) ===
+const taksonEnriched_v4 = {
     'kingdom': {
-        latin: 'REGNUM (Dunia)',
-        indo: 'Kerajaan',
-        desc: `Tingkatan tertinggi. Anggotanya sangat banyak dan beragam. Ciri persamaannya masih sangat umum.<br><br>
-               <strong>Contoh Hewan:</strong> Kingdom Animalia (Semua Hewan, termasuk Kucing dan Ikan).<br>
-               <strong>Contoh Tumbuhan:</strong> Kingdom Plantae (Semua Tumbuhan, termasuk Jagung).`,
-        images: [
-            {src: "{% static 'img/kucing.jpeg' %}", label: 'Kucing', reason: 'Hewan', source: 'Dok. Kemdikbud'},
-            {src: "{% static 'img/jagung3.jpg' %}", label: 'Jagung', reason: 'Tumbuhan', source: 'Dok. Kemdikbud'},
-            {src: "{% static 'img/ikan2.jpeg' %}", label: 'Ikan', reason: 'Hewan', source: 'Dok. Kemdikbud'}
-        ]
+        latin: 'REGNUM / KINGDOM',
+        indo: 'Dunia (Kerajaan)',
+        desc: '**Kelompok paling besar.** Anggotanya sangat banyak dengan ciri persamaan yang sangat umum.',
+        hewan: {
+            nama_level: 'Kingdom Animalia',
+            ciri_level: 'Tidak bisa membuat makanan sendiri (Heterotrof), Multiseluler.',
+            items: [
+                { nama: 'Kucing', img: "{% static 'img/kucing.jpeg' %}", info: 'Contoh Mamalia', source: 'Dokumen Canva' },
+                { nama: 'Cacing Tanah', img: "{% static 'img/cacing.jpg' %}", info: 'Contoh Invertebrata', source: 'IPB University.com' },
+                { nama: 'Ikan', img: "{% static 'img/kelabau.jpeg' %}", info: 'Contoh Vertebrata Akuatik', source: 'ramen.id' }
+            ]
+        },
+        tumbuhan: {
+            nama_level: 'Regnum Plantae',
+            ciri_level: 'Bisa membuat makanan sendiri (Autotrof/Fotosintesis), Multiseluler.',
+            items: [
+                { nama: 'Jagung', img: "{% static 'img/jagung3.jpg' %}", info: 'Contoh Tumbuhan Berbunga', source: 'Corteva.id' },
+                { nama: 'Lumut', img: "{% static 'img/lumut.jpeg' %}", info: 'Contoh Tumbuhan Tidak Berpembuluh', source: 'detikcom' },
+                { nama: 'Paku/Suplir', img: "{% static 'img/suplir.jpeg' %}", info: 'Contoh Tumbuhan Berpembuluh', source: 'Greeners.Co' }
+            ]
+        }
     },
     'filum': {
-        latin: 'PHYLUM (Hewan) / DIVISIO (Tumbuhan)',
-        indo: 'Filum / Divisi',
-        desc: `<strong>Hewan:</strong> Filum Chordata (Bertulang Belakang). Kucing dan Ikan masuk, tapi Siput (hewan lunak) tidak.<br>
-               <strong>Tumbuhan:</strong> Divisi Spermatophyta (Tumbuhan Berbiji). Jagung masuk, tapi Lumut (berspora) tidak.`,
-        images: [
-            {src: "{% static 'img/kucing.jpeg' %}", label: 'Kucing (Chordata)', reason: 'Tulang belakang', source: 'Dok. Kemdikbud'},
-            {src: "{% static 'img/jagung3.jpg' %}", label: 'Jagung (Spermatophyta)', reason: 'Berbiji', source: 'Dok. Kemdikbud'}
-        ]
+        latin: 'DIVISIO / PHYLUM',
+        indo: 'Divisi (Filum)',
+        desc: '**Mengelompokkan berdasarkan rencana dasar tubuh.** Ciri pembeda mulai terlihat jelas. Divisio untuk Tumbuhan, Phylum untuk Hewan.',
+        hewan: {
+            nama_level: 'Phylum Chordata',
+            ciri_level: 'Memiliki sumbu tubuh/tulang belakang (Vertebrata) saat perkembangan.',
+            items: [
+                { nama: 'Kucing', img: "{% static 'img/tulangbelakangkucing.jpg' %}", info: 'Memiliki notokorda/tulang', source: 'Syok.My' },
+                { nama: 'Burung', img: "{% static 'img/tulangbelakangburung.jpeg' %}", info: 'Vertebrata Bersayap', source: 'Pinterest' }
+            ]
+        },
+        tumbuhan: {
+            nama_level: 'Divisio Spermatophyta',
+            ciri_level: 'Organisme yang berkembang biak dengan biji. (Lumut dan Paku tidak termasuk).',
+            items: [
+                { nama: 'Jagung (Biji)', img: "{% static 'img/jagungbiji2.jpg' %}", info: 'Contoh Angiospermae', source: 'Pinterest' },
+                { nama: 'Mangga', img: "{% static 'img/manggabiji.jpg' %}", info: 'Contoh Tumbuhan Berbuah', source: 'DepositPhotos.com' },
+                { nama: 'Melinjo', img: "{% static 'img/melinjobiji.jpg' %}", info: 'Contoh Gymnospermae', source: 'Tanjung Pustaka SMA Negeri 7 Purworejo' }
+            ]
+        }
     },
     'kelas': {
         latin: 'CLASSIS',
         indo: 'Kelas',
-        desc: `<strong>Hewan:</strong> Kelas Mammalia (Menyusui). Ikan (Pisces) tidak masuk.<br>
-               <strong>Tumbuhan:</strong> Kelas Monokotil (Berkeping Satu). Mangga (Dikotil) tidak masuk.`,
-        images: [
-            {src: "{% static 'img/kucing.jpeg' %}", label: 'Kucing (Mammalia)', reason: 'Menyusui', source: 'Dok. Kemdikbud'},
-            {src: "{% static 'img/jagung3.jpg' %}", label: 'Jagung (Monokotil)', reason: 'Keping satu', source: 'Dok. Kemdikbud'}
-        ]
+        desc: '**Kelompok dengan ciri yang lebih spesifik** dalam Divisio/Phylum yang sama.',
+        hewan: {
+            nama_level: 'Classis Mammalia',
+            ciri_level: 'Menyusui anak, memiliki rambut/bulu, berdarah panas.',
+            items: [
+                { nama: 'Kucing', img: "{% static 'img/kucingmenyusui.jpg' %}", info: 'Menyusui', source: 'Kompas.com' },
+                { nama: 'Gajah', img: "{% static 'img/gajah.jpeg' %}", info: 'Contoh Mamalia Besar', source: 'detikTravel-detikcom' }
+            ]
+        },
+        tumbuhan: {
+            nama_level: 'Classis Monocotyledoneae',
+            ciri_level: 'Hanya memiliki satu keping biji.',
+            items: [
+                { nama: 'Jagung', img: "{% static 'img/jagung3.jpg' %}", info: '1 Keping Biji', source: 'Corteva.id' },
+                { nama: 'Padi', img: "{% static 'img/Padi.jpg' %}", info: 'Daun Sejajar', source: 'Dinas Ketahanan Pangan Kota Semarang' }
+            ]
+        }
     },
     'ordo': {
         latin: 'ORDO',
         indo: 'Bangsa',
-        desc: `<strong>Hewan:</strong> Ordo Carnivora (Pemakan Daging). Sapi (Herbivora) tidak masuk.<br>
-               <strong>Tumbuhan:</strong> Ordo Poales (Bangsa Rumput-rumputan). Kelapa tidak masuk.`,
-        images: [
-            {src: "{% static 'img/kucing.jpeg' %}", label: 'Kucing (Carnivora)', reason: 'Makan daging', source: 'Dok. Kemdikbud'},
-            {src: "{% static 'img/jagung3.jpg' %}", label: 'Jagung (Poales)', reason: 'Rumputan', source: 'Dok. Kemdikbud'}
-        ]
+        desc: 'Kelompok yang memiliki **kemiripan pada bentuk tubuh dan cara hidup** (terutama makanan).',
+        hewan: {
+            nama_level: 'Ordo Carnivora',
+            ciri_level: 'Sebagian besar pemakan daging.',
+            items: [
+                { nama: 'Kucing', img: "{% static 'img/kucingmakan.png' %}", info: 'Memakan daging/ikan', source: 'Betahita.com' },
+                { nama: 'Serigala', img: "{% static 'img/serigalamakan.jpg' %}", info: 'Contoh Canidae', source: 'Pixabay.com' }
+            ]
+        },
+        tumbuhan: {
+            nama_level: 'Ordo Poales',
+            ciri_level: 'Suku rumput-rumputan (Poaceae).',
+            items: [
+                { nama: 'Jagung', img: "{% static 'img/jagung3.jpg' %}", info: 'Termasuk Poaceae', source: 'Corteva.id' },
+                { nama: 'Gandum', img: "{% static 'img/gandum.jpg' %}", info: 'Biji-bijian', source: 'Fakultas Pertanian UMA' }
+            ]
+        }
     },
     'familia': {
-        latin: 'FAMILIA',
+        latin: 'FAMILI',
         indo: 'Suku',
-        desc: `<strong>Hewan:</strong> Familia Felidae (Keluarga Kucing). Anjing tidak masuk.<br>
-               <strong>Tumbuhan:</strong> Familia Poaceae (Suku Rumput). Tebu masih saudara dekat, tapi padi agak jauh.`,
-        images: [
-            {src: "{% static 'img/kucing.jpeg' %}", label: 'Kucing (Felidae)', reason: 'Kucing-kucingan', source: 'Dok. Kemdikbud'},
-            {src: "{% static 'img/jagung3.jpg' %}", label: 'Jagung (Poaceae)', reason: 'Suku Rumput', source: 'Dok. Kemdikbud'}
-        ]
+        desc: 'Kelompok **marga (Genus) yang berkerabat dekat**. Anggota Familinya sangat mirip.',
+        hewan: {
+            nama_level: 'Famili Felidae',
+            ciri_level: 'Keluarga Kucing.',
+            items: [
+                { nama: 'Kucing', img: "{% static 'img/kucing.jpeg' %}", info: 'Kucing Rumah', source: 'Dokumen Canva' },
+                { nama: 'Singa', img: "{% static 'img/singa.jpg' %}", info: 'Contoh Felidae besar', source: 'Liputan6.com' }
+            ]
+        },
+        tumbuhan: {
+            nama_level: 'Famili Poaceae',
+            ciri_level: 'Suku rumput sejati.',
+            items: [
+                { nama: 'Jagung', img: "{% static 'img/jagung3.jpg' %}", info: 'Batang beruas', source: 'Corteva.id' },
+                { nama: 'Bambu', img: "{% static 'img/bambu.jpeg' %}", info: 'Rumput Raksasa', source: 'Yayasan Kehati.com' }
+            ]
+        }
     },
     'genus': {
         latin: 'GENUS',
         indo: 'Marga',
-        desc: `<strong>Hewan:</strong> Genus <em>Felis</em> (Kucing Kecil). Harimau (<em>Panthera</em>) tidak masuk.<br>
-               <strong>Tumbuhan:</strong> Genus <em>Zea</em>. Tebu (<em>Saccharum</em>) tidak masuk.`,
-        images: [
-            {src: "{% static 'img/kucing.jpeg' %}", label: 'Kucing (Felis)', reason: 'Kucing kecil', source: 'Dok. Kemdikbud'},
-            {src: "{% static 'img/jagung3.jpg' %}", label: 'Jagung (Zea)', reason: 'Marga Zea', source: 'Dok. Kemdikbud'}
-        ]
+        desc: '**Kelompok spesies yang paling dekat**. Hanya dipisahkan oleh perbedaan yang sangat kecil.',
+        hewan: {
+            nama_level: 'Genus Felis',
+            ciri_level: 'Kucing-kucing kecil.',
+            items: [
+                { nama: 'Kucing Rumah', img: "{% static 'img/kucingspesies.jpeg' %}", info: 'Felis catus', source: 'Kompas.com' },
+                { nama: 'Kucing Liar', img: "{% static 'img/kucingliar.jpg' %}", info: 'Felis silvestris', source: 'Kompas.com' }
+            ]
+        },
+        tumbuhan: {
+            nama_level: 'Genus Zea',
+            ciri_level: 'Hanya mencakup jenis-jenis jagung.',
+            items: [
+                { nama: 'Jagung', img: "{% static 'img/tanamanjagung.jpg' %}", info: 'Zea mays', source: 'GDM Organik.com' }
+            ]
+        }
     },
     'spesies': {
         latin: 'SPECIES',
-        indo: 'Jenis',
-        desc: `Tingkatan paling khusus. Hanya satu jenis makhluk hidup.<br><br>
-               <strong>Hewan:</strong> <em>Felis catus</em> (Kucing Rumah).<br>
-               <strong>Tumbuhan:</strong> <em>Zea mays</em> (Jagung Manis).`,
-        images: [
-            {src: "{% static 'img/kucing.jpeg' %}", label: 'Felis catus', reason: 'Spesies tunggal', source: 'Dok. Kemdikbud'},
-            {src: "{% static 'img/jagung3.jpg' %}", label: 'Zea mays', reason: 'Spesies tunggal', source: 'Dok. Kemdikbud'}
-        ]
+        indo: 'Spesies (Jenis)',
+        desc: '**Kelompok paling khusus (tingkat dasar).** Anggota-anggota dapat kawin dan menghasilkan keturunan subur.',
+        hewan: {
+            nama_level: 'Species Felis catus',
+            ciri_level: 'Spesies tunggal yang terdefinisi.',
+            items: [
+                { nama: 'Kucing Rumah', img: "{% static 'img/kucing.jpeg' %}", info: 'Felis catus', source: 'Dokumen Canva' }
+            ]
+        },
+        tumbuhan: {
+            nama_level: 'Species Zea mays',
+            ciri_level: 'Spesies tunggal yang terdefinisi.',
+            items: [
+                 { nama: 'Jagung', img: "{% static 'img/tanamanjagung.jpg' %}", info: 'Zea mays', source: 'GDM Organik.com' }
+            ]
+        }
     }
 };
 
@@ -552,33 +723,80 @@ function showTaksonInfo(el, key) {
     });
     el.classList.add('active');
 
-    const data = taksonEnriched[key];
+    const data = taksonEnriched_v4[key];
     const box = document.getElementById('takson-detail');
-    
-    let galleryHTML = '<div class="takson-gallery">';
-    data.images.forEach(img => {
-        galleryHTML += `
-            <div class="takson-card">
-                <img src="${img.src}">
-                <div class="takson-card-body">
-                    <div class="takson-card-title">${img.label}</div>
-                    <div class="takson-card-reason">${img.reason}</div>
-                    <div class="takson-card-source">Sumber: ${img.source}</div>
-                </div>
-            </div>`;
-    });
-    galleryHTML += '</div>';
 
-    box.innerHTML = `
-        <div class="animated fadeIn">
-            <div class="takson-header">
-                <div class="takson-latin">${data.latin}</div>
-                <div class="takson-indo">${data.indo}</div>
+    // Helper untuk membuat card gambar dengan sumber
+    function createImageCard(item, colClass) {
+        return             `<div class="${colClass} mb-4">
+                <div class="takson-image-card shadow-sm">
+                    <img src="${item.img}" alt="${item.nama}">
+                    <div class="caption">${item.nama}</div>
+                    <span class="sub-caption">${item.info}</span>
+                    <small class="image-source">Sumber: ${item.source}</small> 
+                </div>
+            </div>`
+        ;    }
+
+    // Helper untuk membuat grup (Hewan/Tumbuhan)
+    function createInfoGroup(type, groupData) {
+        const isHewan = type === 'Hewan';
+        const color = isHewan ? 'primary' : 'success';
+        const icon = isHewan ? 'paw' : 'leaf';
+        const colClass = groupData.items.length === 1 ? 'col-12 col-lg-6 offset-lg-3' : 
+                         groupData.items.length === 2 ? 'col-md-6' : 
+                         'col-md-4'; 
+
+        let imagesHTML = '';
+        groupData.items.forEach(item => {
+            imagesHTML += createImageCard(item, colClass);
+        });
+
+        return             `<div class="col-12 mt-4">
+                <div class="takson-group-wrapper border border-${color} rounded p-3">
+                    <h5 class="takson-group-title text-${color} mb-2">
+                        <i class="fas fa-${icon} mr-1"></i> <b>Kelompok ${type}</b>: ${groupData.nama_level}
+                    </h5>
+                    <p class="small text-muted font-weight-bold">Ciri Khas Kelompok: ${groupData.ciri_level}</p>
+                    <div class="row">
+                        ${imagesHTML}
+                    </div>
+                </div>
+            </div>`
+        ;    }
+
+    const groupsHTML =         `<div class="row">
+            ${createInfoGroup('Hewan', data.hewan)}
+            ${createInfoGroup('Tumbuhan', data.tumbuhan)}
+        </div>`
+    ;    
+    let latinDisplay = data.latin.split(' / ');
+    let plantLatin = latinDisplay[0];
+    let animalLatin = latinDisplay[1] ? latinDisplay[1] : latinDisplay[0]; // Jika hanya ada 1, pakai yang sama
+    let indoDisplay = data.indo;
+    
+    // Perubahan di sini: Mengganti <small class="text-muted" style="font-size: 0.9rem;"> menjadi class .takson-label
+    box.innerHTML =         `<div class="animated fadeIn">
+            <div class="takson-latin-box">
+                <span class="takson-label">Tumbuhan:</span> 
+                <span class="takson-latin-plant">${plantLatin}</span>
+                
+                <span class="text-dark mx-2">|</span>
+                
+                <span class="takson-label">Hewan:</span> 
+                <span class="takson-latin-animal">${animalLatin}</span>
             </div>
-            ${galleryHTML}
-            <div class="takson-desc">${data.desc}</div>
-        </div>
-    `;
-}
+            <div class="takson-indo">${indoDisplay}</div>
+            
+            <p class="text-content text-center mb-1 mt-2" style="font-style: italic;">${mdToHtmlBold(data.desc)}</p> 
+            ${groupsHTML}
+        </div>`
+    ;}
+
+// --- INISIALISASI ---
+
+loadPlant(currentPlantIndex); 
+
+
 </script>
 {% endblock %}
