@@ -1,7 +1,7 @@
 {% extends 'main/base.html' %}
 {% load static %}
 
-{% block title %}Modul 1: Ciri-Ciri Makhluk Hidup{% endblock %}
+{% block title %}Materi 1: Karakteristik Makhluk Hidup{% endblock %}
 
 {% block custom_css %}
 <style>
@@ -32,17 +32,28 @@ body { font-family: 'Nunito', sans-serif; background: #f0f8ff; }
 h3.title-highlight { color: #2e59d9; font-weight: 900; margin-bottom: 1rem; }
 p.text-content { font-size: 1.1rem; color: #555; line-height: 1.8; }
 
-/* === GAMBAR & SUMBER === */
+/* === GAMBAR & SUMBER (STYLE BARU) === */
 .img-container {
     position: relative; border-radius: 15px; overflow: hidden; 
     box-shadow: 0 4px 10px rgba(0,0,0,0.1); margin-bottom: 10px;
     border: 1px solid #eee;
 }
 .img-content { width: 100%; height: 200px; object-fit: cover; }
+
+/* Posisi Sumber: Pojok Kanan Atas (Konsisten) */
 .img-source {
-    position: absolute; bottom: 0; right: 0; background: rgba(0,0,0,0.7);
-    color: white; font-size: 0.65rem; padding: 4px 10px; border-top-left-radius: 10px;
-    font-style: italic; z-index: 10; font-family: sans-serif;
+    position: absolute; 
+    top: 8px;           /* Jarak dari atas */
+    right: 8px;         /* Jarak dari kanan */
+    background: rgba(0,0,0,0.6); /* Hitam transparan */
+    color: #fff; 
+    font-size: 0.65rem; 
+    padding: 3px 10px; 
+    border-radius: 20px; /* Membulat */
+    font-style: italic; 
+    z-index: 10; 
+    font-family: sans-serif;
+    backdrop-filter: blur(2px);
 }
 
 /* === SLIDE 1 (BATTLE MODE) === */
@@ -92,7 +103,7 @@ p.text-content { font-size: 1.1rem; color: #555; line-height: 1.8; }
     width: 100%; padding: 8px; font-weight: 700; border-radius: 10px; margin-bottom: 8px; font-size: 0.9rem;
 }
 
-/* === SLIDE 4: MATERI TABS === */
+/* === SLIDE 4: MATERI TABS (GAMBAR GANDA) === */
 .nav-pills-custom .nav-link {
     border-radius: 50px; font-weight: 700; color: #858796; background: #fff;
     border: 1px solid #e3e6f0; margin-right: 8px; padding: 10px 20px; margin-bottom: 10px;
@@ -118,23 +129,33 @@ p.text-content { font-size: 1.1rem; color: #555; line-height: 1.8; }
     box-shadow: 0 4px 5px rgba(0,0,0,0.1);
 }
 .half-img img { width: 100%; height: 100%; object-fit: cover; }
+
+/* LABEL GAMBAR SLIDE 4 */
 .half-label {
-    position: absolute; bottom: 0; left: 0; width: 100%;
-    background: rgba(0,0,0,0.7); color: white; font-size: 0.75rem;
-    text-align: center; padding: 2px 0; font-weight: bold;
+    position: absolute; 
+    bottom: 0; left: 0; width: 100%;
+    /* Gradient Hitam Transparan agar tulisan terbaca */
+    background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 100%);
+    color: white; 
+    font-size: 0.85rem;
+    text-align: center; 
+    padding: 20px 5px 8px 5px; /* Padding atas lebih besar untuk efek gradient */
+    font-weight: 700;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.8);
+    z-index: 5;
 }
+
 .feature-desc { font-size: 1.05rem; line-height: 1.7; color: #444; text-align: justify; border-top: 1px solid #ddd; padding-top: 15px; }
 .lock-message { color: #e74a3b; font-size: 0.9rem; font-style: italic; margin-top: 10px; font-weight: bold; }
 
-/* === SLIDE 5: TANTANGAN (REVISI) === */
+/* === SLIDE 5: TANTANGAN === */
 .mission-box {
     background: #36b9cc; color: white; 
-    padding: 10px 25px; /* Padding lebih kecil */
-    border-radius: 50px; text-align: center;
-    font-weight: 700; font-size: 1rem; /* Font lebih kecil */
+    padding: 10px 25px; border-radius: 50px; text-align: center;
+    font-weight: 700; font-size: 1rem;
     margin: 0 auto 30px auto; 
     box-shadow: 0 5px 15px rgba(54, 185, 204, 0.3);
-    max-width: 500px; /* Lebar dibatasi */
+    max-width: 500px;
 }
 .target-card {
     background: white; border-radius: 15px; padding: 8px; border: 3px solid #eee;
@@ -147,10 +168,7 @@ p.text-content { font-size: 1.1rem; color: #555; line-height: 1.8; }
 .target-card.wrong-pick { border-color: #e74a3b; background: #fdf2f2; animation: shake 0.5s; }
 .target-card.correct-pick { border-color: #1cc88a; background: #eefdf6; }
 
-/* Tombol Mulai yang lebih kecil */
-.btn-start-game {
-    font-size: 1rem; padding: 10px 30px; font-weight: 700;
-}
+.btn-start-game { font-size: 1rem; padding: 10px 30px; font-weight: 700; }
 
 @media (max-width: 768px) {
     .img-content { height: 180px; }
@@ -166,15 +184,15 @@ p.text-content { font-size: 1.1rem; color: #555; line-height: 1.8; }
 
 <div class="modul-header-card sticky-top" style="top: 15px; z-index: 99;">
     <div>
-        <h5 class="font-weight-bold text-primary m-0"><i class="fas fa-seedling mr-2"></i>Modul 1: Ciri Makhluk Hidup</h5>
-        <small class="text-muted">Kegiatan 2.1: Mengamati Lingkungan</small>
+        <h5 class="font-weight-bold text-primary m-0"><i class="fas fa-seedling mr-2"></i>Materi 1: Karakteristik Makhluk Hidup</h5>
+        
     </div>
     <div id="step-badge" class="step-badge">1. Stimulasi</div>
 </div>
 
 <div id="slide-1" class="learning-slide active">
     <div class="learning-card text-center">
-        <h3 class="title-highlight">Tebak Cepat: Mobil vs Kucing</h3>
+        <h3 class="title-highlight">AyoTebak: Mobil vs Kucing</h3>
         <p class="text-content mb-4">
             Sebelum kita mulai, mari kita bandingkan dua objek ini. 
             <strong>Jawab pertanyaan di kotak biru</strong> dengan menekan gambar yang benar!
@@ -211,7 +229,7 @@ p.text-content { font-size: 1.1rem; color: #555; line-height: 1.8; }
             </div>
             <p id="stimulus-msg" class="text-muted font-italic mb-3"></p>
             <button class="btn btn-primary btn-lg rounded-pill px-5 shadow" onclick="nextSlide(2)">
-                Mulai Penyelidikan <i class="fas fa-search ml-2"></i>
+                Mulai <i class="fas fa-search ml-2"></i>
             </button>
         </div>
     </div>
@@ -228,28 +246,28 @@ p.text-content { font-size: 1.1rem; color: #555; line-height: 1.8; }
             <div class="col-6 col-md-3">
                 <div class="img-container">
                     <img src="{% static 'img/pohon2.jpg' %}" class="img-content" style="height: 150px;">
-                    <div class="img-source">Sumber: Dok. Kemdikbud</div>
+                    <div class="img-source">Sumber: Dok. Pribadi</div>
                 </div>
                 <h6 class="font-weight-bold">1. Pohon</h6>
             </div>
             <div class="col-6 col-md-3">
                 <div class="img-container">
                     <img src="{% static 'img/batu2.jpg' %}" class="img-content" style="height: 150px;">
-                    <div class="img-source">Sumber: Dok. Kemdikbud</div>
+                    <div class="img-source">Sumber: Dok. Pribadi</div>
                 </div>
                 <h6 class="font-weight-bold">2. Batu</h6>
             </div>
             <div class="col-6 col-md-3">
                 <div class="img-container">
                     <img src="{% static 'img/kucing.jpg' %}" class="img-content" style="height: 150px;">
-                    <div class="img-source">Sumber: Dok. Kemdikbud</div>
+                    <div class="img-source">Sumber: Dok. Pribadi</div>
                 </div>
                 <h6 class="font-weight-bold">3. Kucing</h6>
             </div>
             <div class="col-6 col-md-3">
                 <div class="img-container">
                     <img src="{% static 'img/mobil2.jpg' %}" class="img-content" style="height: 150px;">
-                    <div class="img-source">Sumber: Dok. Kemdikbud</div>
+                    <div class="img-source">Sumber: Dok. Pribadi</div>
                 </div>
                 <h6 class="font-weight-bold">4. Mobil</h6>
             </div>
@@ -273,7 +291,7 @@ p.text-content { font-size: 1.1rem; color: #555; line-height: 1.8; }
             <div class="col-md-4 mb-3">
                 <div class="img-container">
                     <img id="current-img" src="" class="img-content">
-                    <div class="img-source">Sumber: Dok. Kemdikbud</div>
+                    <div class="img-source">Sumber: Dok. Pribadi</div>
                 </div>
                 <h4 class="font-weight-bold text-gray-800 mt-2 text-center" id="current-name">...</h4>
 
@@ -313,7 +331,7 @@ p.text-content { font-size: 1.1rem; color: #555; line-height: 1.8; }
 
 <div id="slide-4" class="learning-slide">
     <div class="learning-card">
-        <h3 class="title-highlight text-center">Karakteristik Makhluk Hidup</h3>
+        <h3 class="title-highlight text-center">Ciri - ciri Makhluk Hidup</h3>
         <p class="text-content text-center mb-4">
             Klik pada <strong>setiap ciri (1-7)</strong> untuk membaca penjelasan lengkap dan mengaktifkan tombol lanjut.
         </p>
@@ -337,14 +355,14 @@ p.text-content { font-size: 1.1rem; color: #555; line-height: 1.8; }
                         <div class="feature-content">
                             <div class="split-img-box">
                                 <div class="half-img">
-                                    <img src="{% static 'img/manusia_lari.jpg' %}">
-                                    <div class="img-source">Sumber: Dok. Kemdikbud</div>
-                                    <div class="half-label">Manusia (Paru-paru)</div>
+                                    <img src="{% static 'img/manusiaBernafas.jpg' %}">
+                                    <div class="img-source">Sumber: Tribunnewsmaker.com</div>
+                                    <div class="half-label">Manusia</div>
                                 </div>
                                 <div class="half-img">
-                                    <img src="{% static 'img/pohon2.jpg' %}">
-                                    <div class="img-source">Sumber: Dok. Kemdikbud</div>
-                                    <div class="half-label">Tumbuhan (Stomata)</div>
+                                    <img src="{% static 'img/tumbuhanBernafas.jpg' %}">
+                                    <div class="img-source">Sumber: thedailyECO</div>
+                                    <div class="half-label">Tumbuhan</div>
                                 </div>
                             </div>
                             <div class="feature-desc">
@@ -358,14 +376,14 @@ p.text-content { font-size: 1.1rem; color: #555; line-height: 1.8; }
                         <div class="feature-content">
                             <div class="split-img-box">
                                 <div class="half-img">
-                                    <img src="{% static 'img/kucing.jpg' %}">
-                                    <div class="img-source">Sumber: Dok. Kemdikbud</div>
-                                    <div class="half-label">Hewan (Heterotrof)</div>
+                                    <img src="{% static 'img/hewanMakan.jpg' %}">
+                                    <div class="img-source">Sumber: Kompas Regional</div>
+                                    <div class="half-label">Hewan</div>
                                 </div>
                                 <div class="half-img">
-                                    <img src="{% static 'img/pohon2.jpg' %}">
-                                    <div class="img-source">Sumber: Dok. Kemdikbud</div>
-                                    <div class="half-label">Tumbuhan (Autotrof)</div>
+                                    <img src="{% static 'img/pohonKasturi.jpg' %}">
+                                    <div class="img-source">Sumber: Generasi Peneliti</div>
+                                    <div class="half-label">Tumbuhan</div>
                                 </div>
                             </div>
                             <div class="feature-desc">
@@ -379,13 +397,13 @@ p.text-content { font-size: 1.1rem; color: #555; line-height: 1.8; }
                         <div class="feature-content">
                             <div class="split-img-box">
                                 <div class="half-img">
-                                    <img src="{% static 'img/kucing.jpg' %}">
-                                    <div class="img-source">Sumber: Dok. Kemdikbud</div>
+                                    <img src="{% static 'img/kucingBergerak.jpeg' %}">
+                                    <div class="img-source">Sumber: liputan6.com</div>
                                     <div class="half-label">Hewan (Gerak Aktif)</div>
                                 </div>
                                 <div class="half-img">
-                                    <img src="{% static 'img/putrimalu.jpg' %}">
-                                    <div class="img-source">Sumber: Dok. Kemdikbud</div>
+                                    <img src="{% static 'img/tumbuhanPasip.jpg' %}">
+                                    <div class="img-source">Sumber: Dok. Kompas.com</div>
                                     <div class="half-label">Tumbuhan (Gerak Pasif)</div>
                                 </div>
                             </div>
@@ -400,13 +418,13 @@ p.text-content { font-size: 1.1rem; color: #555; line-height: 1.8; }
                         <div class="feature-content">
                             <div class="split-img-box">
                                 <div class="half-img">
-                                    <img src="{% static 'img/manusia_lari.jpg' %}">
-                                    <div class="img-source">Sumber: Dok. Kemdikbud</div>
+                                    <img src="{% static 'img/tumbuh.jpg' %}">
+                                    <div class="img-source">Sumber: Blog StudyHouse</div>
                                     <div class="half-label">Manusia</div>
                                 </div>
                                 <div class="half-img">
-                                    <img src="{% static 'img/pohon2.jpg' %}">
-                                    <div class="img-source">Sumber: Dok. Kemdikbud</div>
+                                    <img src="{% static 'img/tumbuhan.jpeg' %}">
+                                    <div class="img-source">Sumber: Wayground</div>
                                     <div class="half-label">Tumbuhan</div>
                                 </div>
                             </div>
@@ -421,14 +439,14 @@ p.text-content { font-size: 1.1rem; color: #555; line-height: 1.8; }
                         <div class="feature-content">
                             <div class="split-img-box">
                                 <div class="half-img">
-                                    <img src="{% static 'img/kucing.jpg' %}">
-                                    <div class="img-source">Sumber: Dok. Kemdikbud</div>
-                                    <div class="half-label">Hewan (Melahirkan)</div>
+                                    <img src="{% static 'img/kucingMenyusu.jpg' %}">
+                                    <div class="img-source">Sumber: Dok. Pribadi</div>
+                                    <div class="half-label">Hewan</div>
                                 </div>
                                 <div class="half-img">
-                                    <img src="{% static 'img/pohon2.jpg' %}">
-                                    <div class="img-source">Sumber: Dok. Kemdikbud</div>
-                                    <div class="half-label">Tumbuhan (Biji/Tunas)</div>
+                                    <img src="{% static 'img/bertunas.jpg' %}">
+                                    <div class="img-source">Sumber: Djawanews.com</div>
+                                    <div class="half-label">Tumbuhan (Bertunas)</div>
                                 </div>
                             </div>
                             <div class="feature-desc">
@@ -442,13 +460,13 @@ p.text-content { font-size: 1.1rem; color: #555; line-height: 1.8; }
                         <div class="feature-content">
                             <div class="split-img-box">
                                 <div class="half-img">
-                                    <img src="{% static 'img/manusia_lari.jpg' %}">
-                                    <div class="img-source">Sumber: Dok. Kemdikbud</div>
-                                    <div class="half-label">Manusia (Suhu/Sentuhan)</div>
+                                    <img src="{% static 'img/silau.webp' %}">
+                                    <div class="img-source">Sumber: DepositPhotos</div>
+                                    <div class="half-label">Manusia (Peka terhadap cahaya)</div>
                                 </div>
                                 <div class="half-img">
-                                    <img src="{% static 'img/putrimalu.jpg' %}">
-                                    <div class="img-source">Sumber: Dok. Kemdikbud</div>
+                                    <img src="{% static 'img/putri.jpg' %}">
+                                    <div class="img-source">Sumber: bobo.ID</div>
                                     <div class="half-label">Tumbuhan (Sentuhan)</div>
                                 </div>
                             </div>
@@ -463,13 +481,13 @@ p.text-content { font-size: 1.1rem; color: #555; line-height: 1.8; }
                         <div class="feature-content">
                             <div class="split-img-box">
                                 <div class="half-img">
-                                    <img src="{% static 'img/manusia_lari.jpg' %}">
-                                    <div class="img-source">Sumber: Dok. Kemdikbud</div>
+                                    <img src="{% static 'img/keringat.jpg' %}">
+                                    <div class="img-source">Sumber: www.kumpulanilmu.com</div>
                                     <div class="half-label">Manusia (Keringat)</div>
                                 </div>
                                 <div class="half-img">
-                                    <img src="{% static 'img/pohon2.jpg' %}">
-                                    <div class="img-source">Sumber: Dok. Kemdikbud</div>
+                                    <img src="{% static 'img/uap.jpg' %}">
+                                    <div class="img-source">Sumber: Tribunnews.com</div>
                                     <div class="half-label">Tumbuhan (Uap Air)</div>
                                 </div>
                             </div>
@@ -489,7 +507,7 @@ p.text-content { font-size: 1.1rem; color: #555; line-height: 1.8; }
                 <i class="fas fa-lock"></i> Silakan baca semua ciri (1-7) untuk membuka tombol lanjut.
             </span>
             <button id="btn-next-slide-4" class="btn btn-primary btn-lg rounded-pill px-5" style="display: none;" onclick="nextSlide(5)">
-                Lanjut ke Tantangan <i class="fas fa-arrow-right"></i>
+                Selanjutnya <i class="fas fa-arrow-right"></i>
             </button>
         </div>
     </div>
@@ -544,7 +562,7 @@ p.text-content { font-size: 1.1rem; color: #555; line-height: 1.8; }
             <p id="feedback-desc"></p>
             <button id="next-round-btn" class="btn btn-primary rounded-pill px-4" onclick="nextRound()">Lanjut Soal Berikutnya</button>
             <a id="finish-game-btn" href="{% url 'selesai_step' 'modul_1' %}" class="btn btn-success rounded-pill px-4 shadow" style="display: none;">
-                Selesai Modul <i class="fas fa-check-double"></i>
+                Selesai<i class="fas fa-check-double"></i>
             </a>
         </div>
 
@@ -579,8 +597,8 @@ function nextSlide(n) {
 // === 2. LOGIC SLIDE 1 ===
 const stimulusQuestions = [
     { text: "Mana yang memerlukan nutrisi untuk tumbuh?", answer: 'kucing' },
-    { text: "Mana yang menggunakan bahan bakar fosil?", answer: 'mobil' },
-    { text: "Mana yang melakukan respirasi sel?", answer: 'kucing' }
+    { text: "Mana yang bergerak harus menggunakan bahan bakar?", answer: 'mobil' },
+    { text: "Mana yang bernafas?", answer: 'kucing' }
 ];
 let stimIndex = 0;
 
@@ -728,27 +746,27 @@ const gameRounds = [
         mission: "Identifikasi objek yang merupakan MAKHLUK HIDUP.",
         correctIdx: 1, 
         items: [
-            { name: "Robot", img: "{% static 'img/robot.jpg' %}", source: "Dok. Kemdikbud" },
-            { name: "Pohon", img: "{% static 'img/pohon2.jpg' %}", source: "Dok. Kemdikbud" }, 
-            { name: "Air", img: "{% static 'img/air.jpg' %}", source: "Dok. Kemdikbud" }
+            { name: "Robot", img: "{% static 'img/robot.png' %}", source: "Dok. Canva" },
+            { name: "Pohon", img: "{% static 'img/pohon2.jpg' %}", source: "Dok. Pribadi" }, 
+            { name: "Air", img: "{% static 'img/air.jpg' %}", source: "Merdeka.com" }
         ]
     },
     {
         mission: "Identifikasi objek yang merupakan BENDA MATI.",
         correctIdx: 2,
         items: [
-            { name: "Kucing", img: "{% static 'img/kucing.jpg' %}", source: "Dok. Kemdikbud" },
-            { name: "Jamur", img: "{% static 'img/jamurroti.jpg' %}", source: "Dok. Kemdikbud" },
-            { name: "Meja", img: "{% static 'img/meja.png' %}", source: "Dok. Kemdikbud" } 
+            { name: "Kucing", img: "{% static 'img/kucing.jpg' %}", source: "Dok. Pribadi" },
+            { name: "Jamur", img: "{% static 'img/jamurroti.jpg' %}", source: "Dok. bobo ID" },
+            { name: "Meja", img: "{% static 'img/meja.jpg' %}", source: "uwitan" } 
         ]
     },
     {
         mission: "Identifikasi satu-satunya MAKHLUK HIDUP di antara objek berikut.",
         correctIdx: 0,
         items: [
-            { name: "Putri Malu", img: "{% static 'img/putrimalu.jpg' %}", source: "Dok. Kemdikbud" }, 
-            { name: "Api", img: "{% static 'img/air.jpg' %}", source: "Dok. Kemdikbud" }, 
-            { name: "Mobil", img: "{% static 'img/mobil2.jpg' %}", source: "Dok. Kemdikbud" }
+            { name: "Putri Malu", img: "{% static 'img/putri.jpg' %}", source: "bobo ID" }, 
+            { name: "Api", img: "{% static 'img/api.jpg' %}", source: "Dok. Liputan6.com" }, 
+            { name: "Mobil", img: "{% static 'img/mobil2.jpg' %}", source: "Dok. Pribadi" }
         ]
     }
 ];

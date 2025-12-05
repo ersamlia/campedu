@@ -31,149 +31,97 @@ body { font-family: 'Nunito', sans-serif; background: #f0f8ff; }
 h3.title-highlight { color: #2e59d9; font-weight: 900; margin-bottom: 1rem; }
 p.text-content { font-size: 1.1rem; color: #555; line-height: 1.8; }
 
-/* === SLIDE 1: STIMULASI BIOLOGI === */
-.bio-grid {
-    display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; margin: 20px 0;
-}
-.bio-item {
-    border-radius: 10px; overflow: hidden; height: 150px; position: relative;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1); transition: transform 0.3s;
-}
+/* === SLIDE 1: STIMULASI (NEW INFO BOX) === */
+.bio-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; margin: 20px 0; }
+.bio-item { border-radius: 10px; overflow: hidden; height: 150px; position: relative; box-shadow: 0 4px 10px rgba(0,0,0,0.1); transition: transform 0.3s; }
 .bio-item:hover { transform: scale(1.05); }
 .bio-item img { width: 100%; height: 100%; object-fit: cover; }
-.bio-label {
-    position: absolute; bottom: 0; width: 100%; padding: 5px;
-    background: rgba(0,0,0,0.6); color: white; font-size: 0.8rem; text-align: center; font-weight: 700;
-}
+.bio-label { position: absolute; bottom: 0; width: 100%; padding: 5px; background: rgba(0,0,0,0.6); color: white; font-size: 0.8rem; text-align: center; font-weight: 700; }
 
-/* === SLIDE 2: IDENTIFIKASI MASALAH === */
-.problem-card {
-    background: #fff; border: 1px solid #e3e6f0; border-radius: 15px; padding: 20px;
-    text-align: center; transition: all 0.3s; cursor: pointer; height: 100%;
-    border-top: 5px solid #1cc88a;
+/* Info Box Tokoh (Whittaker) */
+.tokoh-box {
+    background: #fff3cd; border: 2px solid #ffeeba; border-radius: 15px; padding: 20px;
+    display: flex; align-items: flex-start; gap: 15px; text-align: left; margin-top: 25px;
 }
-.problem-card:hover, .problem-card.active {
-    background: #f0fcf6; transform: translateY(-5px); box-shadow: 0 8px 20px rgba(28, 200, 138, 0.15);
-}
-.problem-img {
-    width: 80px; height: 80px; border-radius: 50%; object-fit: cover; margin-bottom: 15px; border: 3px solid #e3e6f0;
-}
+.tokoh-icon { font-size: 2.5rem; color: #856404; }
+.tokoh-text h5 { font-weight: 800; color: #856404; margin-bottom: 5px; }
+.tokoh-text p { font-size: 1rem; color: #533f03; margin-bottom: 0; line-height: 1.5; }
+
+/* === SLIDE 2: FLIP CARD === */
+.quiz-container { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-top: 20px; }
+.quiz-card { background-color: transparent; width: 280px; height: 320px; perspective: 1000px; cursor: pointer; }
+.quiz-inner { position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.6s; transform-style: preserve-3d; border-radius: 15px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+.quiz-card.flipped .quiz-inner { transform: rotateY(180deg); }
+.quiz-front, .quiz-back { position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden; border-radius: 15px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; }
+.quiz-front { background-color: #fff; border: 2px solid #e3e6f0; }
+.quiz-back { background-color: #4e73df; color: white; transform: rotateY(180deg); }
+.quiz-img { width: 120px; height: 120px; object-fit: cover; border-radius: 50%; margin-bottom: 15px; border: 4px solid #f8f9fc; }
+.btn-flip { margin-top: 15px; border-radius: 20px; font-weight: bold; font-size: 0.9rem; }
 
 /* === SLIDE 3: ENSIKLOPEDIA === */
-.nav-pills-custom .nav-link {
-    border-radius: 50px; font-weight: 700; color: #858796; background: #fff;
-    border: 1px solid #e3e6f0; margin-right: 8px; padding: 10px 20px;
-}
-.nav-pills-custom .nav-link.active {
-    background: #4e73df; color: white; border-color: #4e73df; box-shadow: 0 4px 10px rgba(78, 115, 223, 0.3);
-}
-.static-info-box {
-    background: #f8f9fc; border-left: 5px solid #4e73df; padding: 25px; 
-    border-radius: 10px; margin-bottom: 25px;
-}
-.key-badge {
-    background: #4e73df; color: white; padding: 5px 12px; border-radius: 15px;
-    font-size: 0.8rem; font-weight: 800; text-transform: uppercase; margin-bottom: 10px; display: inline-block;
-}
-.sub-filter-container {
-    display: flex; gap: 10px; overflow-x: auto; margin-bottom: 15px; padding-bottom: 5px;
-}
-.btn-sub {
-    background: white; border: 1px solid #d1d3e2; color: #555; font-size: 0.9rem;
-    padding: 8px 20px; border-radius: 20px; font-weight: 700; white-space: nowrap; transition: 0.2s;
-}
+.nav-pills-custom .nav-link { border-radius: 50px; font-weight: 700; color: #858796; background: #fff; border: 1px solid #e3e6f0; margin-right: 8px; padding: 10px 20px; white-space: nowrap; }
+.nav-pills-custom .nav-link.active { background: #4e73df; color: white; border-color: #4e73df; box-shadow: 0 4px 10px rgba(78, 115, 223, 0.3); }
+.static-info-box { background: #f8f9fc; border-left: 5px solid #4e73df; padding: 25px; border-radius: 10px; margin-bottom: 25px; }
+.static-info-box p { font-size: 1.05rem; line-height: 1.6; color: #444; } 
+.key-badge { background: #4e73df; color: white; padding: 5px 12px; border-radius: 15px; font-size: 0.8rem; font-weight: 800; text-transform: uppercase; margin-bottom: 10px; display: inline-block; }
+.sub-filter-container { display: flex; gap: 10px; overflow-x: auto; margin-bottom: 15px; padding-bottom: 5px; flex-wrap: wrap; }
+.btn-sub { background: white; border: 1px solid #d1d3e2; color: #555; font-size: 0.85rem; padding: 6px 15px; border-radius: 20px; font-weight: 700; white-space: nowrap; transition: 0.2s; }
 .btn-sub:hover, .btn-sub.active { background: #36b9cc; color: white; border-color: #36b9cc; transform: translateY(-2px); }
-
-/* Gallery Grid */
-.gallery-grid {
-    display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 15px; animation: fadeIn 0.5s;
-}
+.sub-desc { font-size: 1rem; line-height: 1.6; color: #333; margin-bottom: 20px; padding: 15px; background: #fff; border-radius: 10px; border-left: 4px solid #36b9cc; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+.gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 15px; animation: fadeIn 0.5s; }
 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-.gallery-item {
-    background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 3px 6px rgba(0,0,0,0.1);
-    transition: transform 0.2s; border: 1px solid #e3e6f0;
-}
+.gallery-item { background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 3px 6px rgba(0,0,0,0.1); transition: transform 0.2s; border: 1px solid #e3e6f0; }
 .gallery-item:hover { transform: scale(1.05); border-color: #4e73df; }
-.gallery-item img { width: 100%; height: 110px; object-fit: cover; }
-.gallery-caption {
-    padding: 10px; font-size: 0.85rem; text-align: center; font-weight: 700; color: #444; background: #fff; border-top: 1px solid #f0f0f0;
-}
+.gallery-item img { width: 100%; height: 120px; object-fit: cover; }
+.gallery-caption { padding: 10px; font-size: 0.9rem; text-align: center; font-weight: 700; color: #444; background: #fff; border-top: 1px solid #f0f0f0; line-height: 1.2; }
 
-/* === SLIDE 4: SLIDER === */
-.compare-container {
-    position: relative; width: 100%; max-width: 600px; height: 350px;
-    border-radius: 15px; overflow: hidden; margin: 0 auto; border: 4px solid white;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.15);
-}
-.compare-img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; }
-.compare-slider {
-    position: absolute; top: 0; left: 50%; width: 4px; height: 100%; background: white;
-    cursor: ew-resize; z-index: 10;
-}
-.slider-btn {
-    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-    width: 40px; height: 40px; background: #4e73df; border: 2px solid white;
-    border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white;
-}
-.img-overlay { width: 50%; height: 100%; position: absolute; top: 0; left: 0; overflow: hidden; z-index: 5; border-right: 1px solid rgba(255,255,255,0.8); }
+/* === SLIDE 4: INSPECTOR === */
+.inspector-wrapper { display: flex; gap: 20px; justify-content: center; margin-top: 20px; align-items: flex-start; flex-wrap: wrap; }
+.inspector-group { width: 45%; min-width: 250px; flex: 1; display: flex; flex-direction: column; }
+.inspector-card { width: 100%; height: 200px; border-radius: 15px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.1); border: 2px solid #e3e6f0; background: white; }
+.inspector-card img { width: 100%; height: 100%; object-fit: cover; }
+.inspector-info { margin-top: 15px; padding: 15px; border-radius: 10px; background: white; border-left: 4px solid #ccc; box-shadow: 0 2px 8px rgba(0,0,0,0.08); display: none; animation: slideUp 0.3s ease-out; }
+.inspector-info .info-text { font-size: 1.1rem !important; line-height: 1.5; color: #333; font-weight: 700; }
+@keyframes slideUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+.info-green { border-left-color: #1cc88a; }
+.info-orange { border-left-color: #f6c23e; }
+.info-blue { border-left-color: #4e73df; }
+.info-red { border-left-color: #e74a3b; }
+.inspector-controls { width: 100%; display: flex; justify-content: center; gap: 10px; margin-top: 25px; flex-wrap: wrap; }
+.btn-inspect { border-radius: 30px; padding: 8px 20px; font-weight: 700; background: white; border: 2px solid #d1d3e2; color: #555; transition: 0.2s; }
+.btn-inspect:hover, .btn-inspect.active { background: #4e73df; color: white; border-color: #4e73df; transform: translateY(-3px); box-shadow: 0 4px 10px rgba(78, 115, 223, 0.2); }
 
 /* === SLIDE 5: GAME AREA === */
-.game-area {
-    background: #f1f5f9; border-radius: 20px; padding: 20px; border: 3px dashed #cbd5e1;
-}
-.bucket-container { 
-    display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; margin-bottom: 30px; align-items: flex-start;
-}
-.bucket {
-    flex: 1; min-width: 165px; min-height: 220px; 
-    background: white; border-radius: 12px; border: 2px solid transparent;
-    padding: 15px 12px; text-align: center; transition: 0.2s;
-    display: flex; flex-direction: column; align-items: center; justify-content: flex-start;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-}
+.game-area { background: #f1f5f9; border-radius: 20px; padding: 20px; border: 3px dashed #cbd5e1; }
+.bucket-container { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-bottom: 30px; align-items: flex-start; }
+.bucket { flex: 1; min-width: 160px; min-height: 200px; background: white; border-radius: 12px; border: 2px solid transparent; padding: 15px 10px; text-align: center; transition: 0.2s; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
 .bucket.hover { background: #e0f2fe; border-color: #0ea5e9; transform: translateY(-5px); }
-.bucket-icon { font-size: 2.2rem; margin-bottom: 8px; opacity: 0.7; }
-.bucket-name { font-size: 0.9rem; font-weight: 800; text-transform: uppercase; color: #64748b; margin-bottom: 12px; border-bottom: 2px solid #eaecf4; width: 100%; padding-bottom: 8px; }
+.bucket-icon { font-size: 2rem; margin-bottom: 8px; opacity: 0.7; }
+.bucket-name { font-size: 0.85rem; font-weight: 800; text-transform: uppercase; color: #64748b; margin-bottom: 12px; border-bottom: 2px solid #eaecf4; width: 100%; padding-bottom: 8px; }
 .bucket-content { display: flex; flex-direction: column; gap: 8px; width: 100%; flex-grow: 1; }
-
-.pool-container {
-    background: white; padding: 25px; border-radius: 15px; display: flex; gap: 20px; 
-    justify-content: center; flex-wrap: wrap; min-height: 130px;
-    box-shadow: inset 0 0 15px rgba(0,0,0,0.05); border: 1px solid #e3e6f0;
-}
-
-.drag-item {
-    width: 115px; height: 115px; border-radius: 12px; overflow: hidden; cursor: grab;
-    border: 3px solid white; box-shadow: 0 5px 10px rgba(0,0,0,0.1); transition: transform 0.2s;
-    position: relative; background: #fff; z-index: 10;
-}
+.pool-container { background: white; padding: 25px; border-radius: 15px; display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; min-height: 130px; box-shadow: inset 0 0 15px rgba(0,0,0,0.05); border: 1px solid #e3e6f0; }
+.drag-item { width: 100px; height: 100px; border-radius: 12px; overflow: hidden; cursor: grab; border: 3px solid white; box-shadow: 0 5px 10px rgba(0,0,0,0.1); transition: transform 0.2s; position: relative; background: #fff; z-index: 10; }
 .drag-item:active { cursor: grabbing; transform: scale(0.95); box-shadow: 0 8px 15px rgba(0,0,0,0.15); }
 .drag-item img { width: 100%; height: 100%; object-fit: cover; }
-.drag-label {
-    position: absolute; bottom: 0; left: 0; right: 0;
-    background: rgba(0,0,0,0.75); color: white; font-size: 0.75rem;
-    text-align: center; padding: 4px 0; font-weight: 700;
-    pointer-events: none;
-}
+.drag-label { position: absolute; bottom: 0; left: 0; right: 0; background: rgba(0,0,0,0.75); color: white; font-size: 0.7rem; text-align: center; padding: 3px 0; font-weight: 700; pointer-events: none; }
+.bucket-card { background: #f8f9fc; border: 1px solid #e3e6f0; border-left: 4px solid #1cc88a; padding: 10px; border-radius: 8px; display: flex; align-items: center; gap: 10px; text-align: left; width: 100%; box-shadow: 0 2px 4px rgba(0,0,0,0.05); animation: popIn 0.3s ease-out; }
+.bucket-card img { width: 45px; height: 45px; border-radius: 6px; object-fit: cover; flex-shrink: 0; border: 1px solid #ddd; }
+.bucket-card div { line-height: 1.3; flex: 1; }
+.bucket-card strong { display: block; margin-bottom: 2px; font-size: 1rem !important; color: #2e384d; }
+.bucket-card .text-muted { font-size: 0.9rem !important; color: #555 !important; display: block; }
 
-.bucket-card {
-    background: #f8f9fc; border: 1px solid #e3e6f0; border-left: 4px solid #1cc88a;
-    padding: 10px; border-radius: 8px; display: flex; align-items: center; gap: 12px;
-    text-align: left; width: 100%; box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-    animation: popIn 0.3s ease-out;
-}
-@keyframes popIn { 0% { transform: scale(0.8); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
-.bucket-card img { width: 55px; height: 55px; border-radius: 6px; object-fit: cover; flex-shrink: 0; border: 1px solid #ddd; }
-.bucket-card div { font-size: 0.85rem; line-height: 1.3; }
-.bucket-card strong { display: block; margin-bottom: 2px; font-size: 0.9rem; color: #2e384d; }
-.bucket-card .text-muted { font-size: 0.8rem; }
+/* Animasi Shake & Toast */
+.shake-anim { animation: shake 0.5s; border-color: #e74a3b !important; }
+@keyframes shake { 0% { transform: translateX(0); } 25% { transform: translateX(-5px); } 50% { transform: translateX(5px); } 75% { transform: translateX(-5px); } 100% { transform: translateX(0); } }
+#game-toast { visibility: hidden; min-width: 250px; background-color: #e74a3b; color: #fff; text-align: center; border-radius: 50px; padding: 16px; position: fixed; z-index: 1000; bottom: 30px; left: 50%; transform: translateX(-50%); box-shadow: 0 4px 12px rgba(0,0,0,0.2); font-weight: bold; opacity: 0; transition: opacity 0.5s, bottom 0.5s; font-size: 1rem; }
+#game-toast.show { visibility: visible; opacity: 1; bottom: 50px; }
 
 @media (max-width: 768px) {
     .bio-grid { grid-template-columns: repeat(2, 1fr); }
-    .bucket { min-width: 46%; } 
-    .compare-container { height: 250px; }
-    .drag-item { width: 90px; height: 90px; } 
-    .bucket-card img { width: 40px; height: 40px; }
+    .bucket { min-width: 45%; } 
+    .inspector-group { width: 100%; }
+    .inspector-card { height: 180px; }
+    .nav-pills-custom { flex-wrap: nowrap; overflow-x: auto; padding-bottom: 5px; }
 }
 </style>
 {% endblock %}
@@ -182,71 +130,93 @@ p.text-content { font-size: 1.1rem; color: #555; line-height: 1.8; }
 
 <div class="modul-header-card sticky-top" style="top: 15px; z-index: 99;">
     <div>
-        <h5 class="font-weight-bold text-primary m-0"><i class="fas fa-layer-group mr-2"></i>Modul 3: Klasifikasi Makhluk Hidup</h5>
-        <small class="text-muted">Metode Discovery Learning</small>
+        <h5 class="font-weight-bold text-primary m-0"><i class="fas fa-layer-group mr-2"></i>Materi 3: Makhluk Hidup dengan Klasifikasi 5 Kingdom</h5>
     </div>
     <div id="step-badge" class="step-badge">1. Stimulasi</div>
 </div>
 
 <div id="slide-1" class="learning-slide active">
     <div class="learning-card text-center">
-        <h3 class="title-highlight">Keanekaragaman Hayati</h3>
+        <h3 class="title-highlight">Keanekaragaman Makhluk Hidup</h3>
         <p class="text-content">
             Perhatikan alam sekitar kita. Tuhan menciptakan jutaan makhluk hidup dengan bentuk dan ukuran yang berbeda. 
-            Ada yang sangat besar, ada yang mikroskopis. Ada yang bisa bergerak, ada yang diam.
         </p>
-        
         <div class="bio-grid">
             <div class="bio-item"><img src="{% static 'img/kucing.jpeg' %}"><div class="bio-label">Hewan</div></div>
             <div class="bio-item"><img src="{% static 'img/lumut.jpeg' %}"><div class="bio-label">Tumbuhan</div></div>
             <div class="bio-item"><img src="{% static 'img/jamurroti.jpg' %}"><div class="bio-label">Jamur</div></div>
             <div class="bio-item"><img src="{% static 'img/bakteriecoli.jpeg' %}"><div class="bio-label">Bakteri</div></div>
         </div>
-
-        <div class="alert alert-info mt-4 text-left shadow-sm border-0">
-            <i class="fas fa-lightbulb text-warning mr-2"></i> <strong>Pertanyaan Besar:</strong>
-            Dengan jumlah sebanyak ini, bagaimana cara ilmuwan mempelajarinya agar tidak bingung? 
-            Jawabannya adalah dengan <strong>Sistem Klasifikasi 5 Kingdom</strong>.
+        
+        <div class="tokoh-box">
+            <div class="tokoh-icon"><i class="fas fa-user-graduate"></i></div>
+            <div class="tokoh-text">
+                <h5>Siapa Penemunya?</h5>
+                <p>
+                    Sistem klasifikasi yang kita pelajari saat ini adalah <strong>Sistem 5 Kingdom</strong> yang dicetuskan oleh <strong>Robert H. Whittaker</strong> pada tahun <strong>1969</strong>. 
+                    <br>Ia mengelompokkan makhluk hidup berdasarkan <em>struktur sel</em> (prokariotik/eukariotik), <em>cara memperoleh nutrisi</em> (autotrof/heterotrof), dan <em>susunan tubuh</em> (uniseluler/multiseluler).
+                </p>
+            </div>
         </div>
 
-        <button class="btn btn-primary btn-lg rounded-pill px-5 mt-2 shadow" onclick="nextSlide(2)">
-            Mulai Penyelidikan <i class="fas fa-search ml-2"></i>
+        <button class="btn btn-primary btn-lg rounded-pill px-5 mt-4 shadow" onclick="nextSlide(2)">
+            Mulai Identifikasi <i class="fas fa-search ml-2"></i>
         </button>
     </div>
 </div>
 
 <div id="slide-2" class="learning-slide">
-    <div class="learning-card">
-        <h3 class="title-highlight">Observasi Awal: Makhluk yang Membingungkan</h3>
-        <p class="text-content">Beberapa makhluk hidup memiliki ciri yang unik sehingga sulit dikelompokkan hanya dengan melihat sekilas. Pilih masalah di bawah ini untuk diselidiki:</p>
-
-        <div class="row mt-4">
-            <div class="col-md-4 mb-3">
-                <div class="problem-card" onclick="selectProblem(this)">
-                    <img src="{% static 'img/jamurroti.jpg' %}" class="problem-img">
-                    <h6 class="font-weight-bold">Jamur: Tumbuhan atau Bukan?</h6>
-                    <p class="small text-muted">"Jamur tumbuh di tanah dan tidak bergerak. Dulu dianggap tumbuhan. Tapi, jamur tidak berwarna hijau (tidak klorofil). Jadi, dia masuk mana?"</p>
+    <div class="learning-card text-center">
+        <h3 class="title-highlight">Cek Klasfikasi</h3>
+        <p class="text-content mb-4">Tebak klasifikasi makhluk di bawah ini. Klik kartu untuk melihat jawaban!</p>
+        <div class="quiz-container">
+            <div class="quiz-card" onclick="flipCard(this)">
+                <div class="quiz-inner">
+                    <div class="quiz-front">
+                        <img src="{% static 'img/jamurroti.jpg' %}" class="quiz-img">
+                        <h5 class="font-weight-bold text-dark">Jamur Roti</h5>
+                        <p class="text-muted small">Tumbuh di tanah, tidak bergerak. Apakah aku Tumbuhan?</p>
+                        <button class="btn btn-outline-primary btn-sm btn-flip">Cek Jawaban</button>
+                    </div>
+                    <div class="quiz-back">
+                        <h5 class="font-weight-bold"><i class="fas fa-times-circle text-warning"></i> BUKAN!</h5>
+                        <p class="small">Aku tidak punya klorofil. Aku kingdom <strong>FUNGI</strong>.</p>
+                    </div>
                 </div>
             </div>
-            <div class="col-md-4 mb-3">
-                <div class="problem-card" onclick="selectProblem(this)">
-                    <img src="{% static 'img/bakteriecoli.jpeg' %}" class="problem-img">
-                    <h6 class="font-weight-bold">Bakteri: Sederhana Sekali</h6>
-                    <p class="small text-muted">"Makhluk ini ada di mana-mana tapi tak kasat mata. Struktur selnya sangat sederhana, intinya tidak punya pembungkus. Apakah dia sama dengan kita?"</p>
+            <div class="quiz-card" onclick="flipCard(this)">
+                <div class="quiz-inner">
+                    <div class="quiz-front">
+                        <img src="{% static 'img/bakteriecoli.jpeg' %}" class="quiz-img">
+                        <h5 class="font-weight-bold text-dark">Bakteri</h5>
+                        <p class="text-muted small">Aku sangat kecil dan selku sederhana. Hewan atau bukan?</p>
+                        <button class="btn btn-outline-primary btn-sm btn-flip">Cek Jawaban</button>
+                    </div>
+                    <div class="quiz-back">
+                        <h5 class="font-weight-bold"><i class="fas fa-check-circle text-warning"></i> MONERA</h5>
+                        <p class="small">Inti selku tidak punya membran (Prokariotik). Aku <strong>MONERA</strong>.</p>
+                    </div>
                 </div>
             </div>
-            <div class="col-md-4 mb-3">
-                <div class="problem-card" onclick="selectProblem(this)">
-                    <img src="{% static 'img/paramecium.jpg' %}" class="problem-img">
-                    <h6 class="font-weight-bold">Protista: Si Unik</h6>
-                    <p class="small text-muted">"Ada makhluk kecil di air kolam. Dia bergerak lincah seperti hewan, tapi tubuhnya hanya satu sel. Apakah dia hewan? Atau makhluk lain?"</p>
+            <div class="quiz-card" onclick="flipCard(this)">
+                <div class="quiz-inner">
+                    <div class="quiz-front">
+                        <img src="{% static 'img/Amoeba.jpeg' %}" class="quiz-img">
+                        <h5 class="font-weight-bold text-dark">Amoeba</h5>
+                        <p class="text-muted small">Bergerak lincah tapi cuma satu sel. Hewan?</p>
+                        <button class="btn btn-outline-primary btn-sm btn-flip">Cek Jawaban</button>
+                    </div>
+                    <div class="quiz-back">
+                        <h5 class="font-weight-bold"><i class="fas fa-question-circle text-warning"></i> PROTISTA</h5>
+                        <p class="small">Aku bukan hewan sejati. Aku masuk <strong>PROTISTA</strong>.</p>
+                    </div>
                 </div>
             </div>
         </div>
-
-        <div id="problem-confirm" class="text-center mt-4" style="display:none;">
-            <p class="text-success font-weight-bold animated bounceIn">Pertanyaan Bagus! Mari kita cari jawabannya di Ensiklopedia Data.</p>
-            <button class="btn btn-primary rounded-pill" onclick="nextSlide(3)">Buka Ensiklopedia <i class="fas fa-book-open ml-2"></i></button>
+        <div class="mt-5">
+            <button class="btn btn-primary rounded-pill px-4 shadow" onclick="nextSlide(3)">
+                Lanjutkan<i class="fas fa-book-open ml-2"></i>
+            </button>
         </div>
     </div>
 </div>
@@ -254,8 +224,8 @@ p.text-content { font-size: 1.1rem; color: #555; line-height: 1.8; }
 <div id="slide-3" class="learning-slide">
     <div class="learning-card">
         <div class="d-flex justify-content-between align-items-center mb-3">
-            <h3 class="title-highlight m-0">Ensiklopedia 5 Kingdom</h3>
-            <small class="text-muted">Klik tombol Kingdom di bawah</small>
+            <h3 class="title-highlight m-0">Macam - macam 5 Kingdom</h3>
+            <small class="text-muted">Pilih Tab Kingdom</small>
         </div>
 
         <ul class="nav nav-pills nav-pills-custom mb-3" id="pills-tab" role="tablist">
@@ -267,30 +237,36 @@ p.text-content { font-size: 1.1rem; color: #555; line-height: 1.8; }
         </ul>
 
         <div class="tab-content">
-            
             <div class="tab-pane fade show active" id="tab-monera">
                 <div class="static-info-box" style="border-left-color: #e74a3b;">
                     <span class="key-badge" style="background: #e74a3b;">Kunci: Prokariotik</span>
-                    <h5 class="font-weight-bold text-gray-800">Monera (Bakteri & Alga Biru)</h5>
-                    <p class="mb-0 text-muted">
-                        Kingdom ini berisi makhluk hidup bersel satu yang paling sederhana. Ciri utamanya adalah <strong>Prokariotik</strong>, yaitu inti selnya tidak memiliki selaput pelindung (membran).
+                    <h5 class="font-weight-bold text-gray-800">Kingdom Monera</h5>
+                    <p class="mb-0">
+                        Anggota kingdom ini adalah organisme yang paling sederhana. Tubuhnya terdiri dari satu sel (<strong>Uniseluler</strong>). Ciri utamanya adalah <strong>Prokariotik</strong>, yaitu inti selnya belum memiliki membran inti (karyotheca). Monera berkembang biak dengan membelah diri.
                     </p>
                 </div>
                 <div class="sub-filter-container">
                     <button class="btn btn-sub active" onclick="showContent('monera','bakteri',this)">Bakteri</button>
-                    <button class="btn btn-sub" onclick="showContent('monera','cyano',this)">Ganggang Biru</button>
+                    <button class="btn btn-sub" onclick="showContent('monera','alga',this)">Ganggang Biru</button>
                 </div>
                 <div id="monera-bakteri" class="content-sect">
+                    <div class="sub-desc">
+                        <strong>Bakteri (Bacteria):</strong> Organisme mikroskopis yang tidak memiliki klorofil, sehingga tidak dapat membuat makanan sendiri (heterotrof). Ada bakteri yang menguntungkan (misal: pembusuk sisa makanan) dan ada yang merugikan (patogen).
+                    </div>
                     <div class="gallery-grid">
                         <div class="gallery-item"><img src="{% static 'img/bakteriecoli.jpeg' %}"><div class="gallery-caption">E. coli (Di usus)</div></div>
-                        <div class="gallery-item"><img src="{% static 'img/Lactobacillus.jpg' %}"><div class="gallery-caption">Lactobacillus (Yogurt)</div></div>
-                        <div class="gallery-item"><img src="{% static 'img/Salmonella.jpg' %}"><div class="gallery-caption">Salmonella (Penyakit)</div></div>
+                        <div class="gallery-item"><img src="{% static 'img/Lactobacillus.jpg' %}"><div class="gallery-caption">Lactobacillus</div></div>
+                        <div class="gallery-item"><img src="{% static 'img/Salmonella.jpg' %}"><div class="gallery-caption">Salmonella</div></div>
                     </div>
                 </div>
-                <div id="monera-cyano" class="content-sect" style="display:none;">
+                <div id="monera-alga" class="content-sect" style="display:none;">
+                    <div class="sub-desc">
+                        <strong>Ganggang Biru (Cyanobacteria):</strong> Berbeda dengan bakteri pada umumnya, Cyanobacteria memiliki pigmen klorofil sehingga dapat melakukan fotosintesis (autotrof). Habitatnya di perairan atau tempat lembab.
+                    </div>
                     <div class="gallery-grid">
-                        <div class="gallery-item"><img src="{% static 'img/Spirulina.jpg' %}"><div class="gallery-caption">Spirulina (Suplemen)</div></div>
-                        <div class="gallery-item"><img src="{% static 'img/Anabaena.jpg' %}"><div class="gallery-caption">Anabaena (Nitrogen)</div></div>
+                        <div class="gallery-item"><img src="{% static 'img/oscillatoria.jpg' %}"><div class="gallery-caption">Oscillatoria</div></div>
+                        <div class="gallery-item"><img src="{% static 'img/Spirulina.jpg' %}"><div class="gallery-caption">Spirulina</div></div>
+                        <div class="gallery-item"><img src="{% static 'img/Anabaena.jpg' %}"><div class="gallery-caption">Anabaena</div></div>
                     </div>
                 </div>
             </div>
@@ -298,55 +274,100 @@ p.text-content { font-size: 1.1rem; color: #555; line-height: 1.8; }
             <div class="tab-pane fade" id="tab-protista">
                 <div class="static-info-box" style="border-left-color: #36b9cc;">
                     <span class="key-badge" style="background: #36b9cc;">Kunci: Eukariotik Sederhana</span>
-                    <h5 class="font-weight-bold text-gray-800">Protista</h5>
-                    <p class="mb-0 text-muted">
-                        Berbeda dengan Monera, sel Protista sudah memiliki membran inti (<strong>Eukariotik</strong>). Namun, jaringan tubuhnya masih sederhana. Ada yang mirip hewan (Protozoa) dan mirip tumbuhan (Alga).
+                    <h5 class="font-weight-bold text-gray-800">Kingdom Protista</h5>
+                    <p class="mb-0">
+                        Organisme <strong>Eukariotik</strong> (inti sel bermembran) yang bukan hewan, tumbuhan, atau jamur. Sebagian besar uniseluler, namun ada juga yang multiseluler sederhana. Protista dikelompokkan berdasarkan kemiripannya dengan kingdom lain.
                     </p>
                 </div>
                 <div class="sub-filter-container">
                     <button class="btn btn-sub active" onclick="showContent('protista','hewan',this)">Mirip Hewan</button>
                     <button class="btn btn-sub" onclick="showContent('protista','tumbuhan',this)">Mirip Tumbuhan</button>
+                    <button class="btn btn-sub" onclick="showContent('protista','jamur',this)">Mirip Jamur</button>
                 </div>
                 <div id="protista-hewan" class="content-sect">
+                    <div class="sub-desc">
+                        <strong>Protozoa (Mirip Hewan):</strong> Organisme ini dapat bergerak aktif seperti hewan dan tidak memiliki klorofil (heterotrof). Alat geraknya bisa berupa kaki semu (pseudopodia), bulu cambuk (flagel), atau rambut getar (silia).
+                    </div>
                     <div class="gallery-grid">
                         <div class="gallery-item"><img src="{% static 'img/paramecium.jpg' %}"><div class="gallery-caption">Paramecium</div></div>
                         <div class="gallery-item"><img src="{% static 'img/Amoeba.jpeg' %}"><div class="gallery-caption">Amoeba</div></div>
-                        <div class="gallery-item"><img src="{% static 'img/Plasmodium.webp' %}"><div class="gallery-caption">Plasmodium (Malaria)</div></div>
+                        <div class="gallery-item"><img src="{% static 'img/Plasmodium.webp' %}"><div class="gallery-caption">Plasmodium</div></div>
                     </div>
                 </div>
                 <div id="protista-tumbuhan" class="content-sect" style="display:none;">
+                    <div class="sub-desc">
+                        <strong>Alga/Ganggang (Mirip Tumbuhan):</strong> Memiliki klorofil sehingga mampu berfotosintesis (autotrof). Tubuhnya belum memiliki akar, batang, dan daun sejati (talus).
+                    </div>
                     <div class="gallery-grid">
-                        <div class="gallery-item"><img src="{% static 'img/algahijau.jpg' %}"><div class="gallery-caption">Alga Hijau</div></div>
-                        <div class="gallery-item"><img src="{% static 'img/Eucheuma.jpg' %}"><div class="gallery-caption">Agar-agar</div></div>
+                        <div class="gallery-item"><img src="{% static 'img/algahijau.jpg' %}"><div class="gallery-caption">Ulva (Alga Hijau)</div></div>
                         <div class="gallery-item"><img src="{% static 'img/Spirogyra.jpg' %}"><div class="gallery-caption">Spirogyra</div></div>
+                        <div class="gallery-item"><img src="{% static 'img/Eucheuma.jpg' %}"><div class="gallery-caption">Eucheuma</div></div>
+                    </div>
+                </div>
+                <div id="protista-jamur" class="content-sect" style="display:none;">
+                    <div class="sub-desc">
+                        <strong>Protista Mirip Jamur:</strong> Organisme ini menghasilkan spora dan bersifat heterotrof (pengurai), namun struktur tubuh dan cara reproduksinya berbeda dengan jamur sejati. Contohnya jamur lendir dan jamur air.
+                    </div>
+                    <div class="gallery-grid">
+                        <div class="gallery-item"><img src="{% static 'img/jamurlendir.jpg' %}"><div class="gallery-caption">Myxomycota</div></div>
+                        <div class="gallery-item"><img src="{% static 'img/Saprolegnia.jpg' %}"><div class="gallery-caption">Saprolegnia</div></div>
+                        <div class="gallery-item"><img src="{% static 'img/Phytophthora.webp' %}"><div class="gallery-caption">Phytophthora</div></div>
                     </div>
                 </div>
             </div>
 
             <div class="tab-pane fade" id="tab-fungi">
                 <div class="static-info-box" style="border-left-color: #f6c23e;">
-                    <span class="key-badge" style="background: #f6c23e;">Kunci: Tidak Berklorofil</span>
-                    <h5 class="font-weight-bold text-gray-800">Fungi (Jamur)</h5>
-                    <p class="mb-0 text-muted">
-                        Jamur dipisahkan dari tumbuhan karena <strong>tidak memiliki klorofil</strong> (tidak bisa fotosintesis). Jamur hidup dengan menyerap zat organik dari lingkungannya (Saprofit) dan tubuhnya tersusun dari benang halus (Hifa).
+                    <span class="key-badge" style="background: #f6c23e;">Kunci: Heterotrof (Saprofit)</span>
+                    <h5 class="font-weight-bold text-gray-800">Kingdom Fungi (Jamur)</h5>
+                    <p class="mb-0">
+                        Organisme eukariotik yang memiliki dinding sel dari zat <strong>kitin</strong>. Tidak memiliki klorofil (Heterotrof), sehingga hidup sebagai saprofit (pengurai sisa makhluk hidup) atau parasit. Tubuhnya tersusun atas benang-benang halus (Hifa).
                     </p>
                 </div>
                 <div class="sub-filter-container">
-                    <button class="btn btn-sub active" onclick="showContent('fungi','mikro',this)">Mikroskopis</button>
-                    <button class="btn btn-sub" onclick="showContent('fungi','makro',this)">Makroskopis</button>
+                    <button class="btn btn-sub active" onclick="showContent('fungi','zygo',this)">Zygomycota</button>
+                    <button class="btn btn-sub" onclick="showContent('fungi','asco',this)">Ascomycota</button>
+                    <button class="btn btn-sub" onclick="showContent('fungi','basi',this)">Basidiomycota</button>
+                    <button class="btn btn-sub" onclick="showContent('fungi','deut',this)">Deuteromycota</button>
                 </div>
-                <div id="fungi-mikro" class="content-sect">
+                <div id="fungi-zygo" class="content-sect">
+                    <div class="sub-desc">
+                        <strong>Zygomycota:</strong> Hifanya tidak bersekat. Reproduksi seksual menghasilkan zigospora. Contoh paling umum adalah jamur tempe.
+                    </div>
                     <div class="gallery-grid">
-                        <div class="gallery-item"><img src="{% static 'img/jamurroti.jpg' %}"><div class="gallery-caption">Jamur Roti</div></div>
-                        <div class="gallery-item"><img src="{% static 'img/ragi.jpg' %}"><div class="gallery-caption">Ragi (Yeast)</div></div>
-                        <div class="gallery-item"><img src="{% static 'img/Neurospora.png' %}"><div class="gallery-caption">Jamur Oncom</div></div>
+                        <div class="gallery-item"><img src="{% static 'img/jamurroti.jpg' %}"><div class="gallery-caption">Rhizopus (Tempe)</div></div>
+                        <div class="gallery-item"><img src="{% static 'img/Mucor.jpg' %}"><div class="gallery-caption">Mucor</div></div>
+                        <div class="gallery-item"><img src="{% static 'img/Pilobolus.jpg' %}"><div class="gallery-caption">Pilobolus</div></div>
                     </div>
                 </div>
-                <div id="fungi-makro" class="content-sect" style="display:none;">
+                <div id="fungi-asco" class="content-sect" style="display:none;">
+                    <div class="sub-desc">
+                        <strong>Ascomycota:</strong> Hifanya bersekat. Spora seksual dihasilkan di dalam struktur seperti kantung yang disebut askus.
+                    </div>
+                    <div class="gallery-grid">
+                        <div class="gallery-item"><img src="{% static 'img/ragi.jpg' %}"><div class="gallery-caption">Saccharomyces</div></div>
+                        <div class="gallery-item"><img src="{% static 'img/Penicillium.jpg' %}"><div class="gallery-caption">Penicillium</div></div>
+                        <div class="gallery-item"><img src="{% static 'img/Neurospora.png' %}"><div class="gallery-caption">Neurospora</div></div>
+                    </div>
+                </div>
+                <div id="fungi-basi" class="content-sect" style="display:none;">
+                    <div class="sub-desc">
+                        <strong>Basidiomycota:</strong> Jamur makroskopis yang sering kita lihat. Spora seksual dihasilkan dalam basidium. Biasanya memiliki tubuh buah berbentuk payung.
+                    </div>
                     <div class="gallery-grid">
                         <div class="gallery-item"><img src="{% static 'img/jamurtiram.jpg' %}"><div class="gallery-caption">Jamur Tiram</div></div>
-                        <div class="gallery-item"><img src="{% static 'img/JamurKuping.jpeg' %}"><div class="gallery-caption">Jamur Kuping</div></div>
                         <div class="gallery-item"><img src="{% static 'img/jamurMerang.webp' %}"><div class="gallery-caption">Jamur Merang</div></div>
+                        <div class="gallery-item"><img src="{% static 'img/JamurKuping.jpeg' %}"><div class="gallery-caption">Jamur Kuping</div></div>
+                    </div>
+                </div>
+                <div id="fungi-deut" class="content-sect" style="display:none;">
+                    <div class="sub-desc">
+                        <strong>Deuteromycota (Jamur Tidak Sempurna):</strong> Kelompok jamur yang fase reproduksi seksualnya belum diketahui. Banyak yang menyebabkan penyakit kulit.
+                    </div>
+                    <div class="gallery-grid">
+                        <div class="gallery-item"><img src="{% static 'img/TineaVersicolor.webp' %}"><div class="gallery-caption">Tinea (Panu)</div></div>
+                        <div class="gallery-item"><img src="{% static 'img/CandidaAlbicans.webp' %}"><div class="gallery-caption">Candida</div></div>
+                        <div class="gallery-item"><img src="{% static 'img/Epidermophyton.webp' %}"><div class="gallery-caption">Epidermophyton</div></div>
                     </div>
                 </div>
             </div>
@@ -354,29 +375,44 @@ p.text-content { font-size: 1.1rem; color: #555; line-height: 1.8; }
             <div class="tab-pane fade" id="tab-plantae">
                 <div class="static-info-box" style="border-left-color: #1cc88a;">
                     <span class="key-badge" style="background: #1cc88a;">Kunci: Autotrof (Fotosintesis)</span>
-                    <h5 class="font-weight-bold text-gray-800">Plantae (Tumbuhan)</h5>
-                    <p class="mb-0 text-muted">
-                        Organisme multiseluler yang memiliki <strong>Klorofil</strong> sehingga mampu membuat makanan sendiri (Autotrof) melalui fotosintesis. Selnya memiliki dinding sel yang kaku dari selulosa.
+                    <h5 class="font-weight-bold text-gray-800">Kingdom Plantae (Tumbuhan)</h5>
+                    <p class="mb-0">
+                        Organisme multiseluler, eukariotik, dan memiliki dinding sel dari selulosa. Memiliki klorofil sehingga mampu membuat makanan sendiri (<strong>Autotrof</strong>) melalui fotosintesis.
                     </p>
                 </div>
                 <div class="sub-filter-container">
-                    <button class="btn btn-sub active" onclick="showContent('plantae','spora',this)">Pakai Spora</button>
-                    <button class="btn btn-sub" onclick="showContent('plantae','biji',this)">Pakai Biji</button>
+                    <button class="btn btn-sub active" onclick="showContent('plantae','bryo',this)">Lumut</button>
+                    <button class="btn btn-sub" onclick="showContent('plantae','pteri',this)">Paku</button>
+                    <button class="btn btn-sub" onclick="showContent('plantae','sperma',this)">Tumbuhan Berbiji</button>
                 </div>
-                <div id="plantae-spora" class="content-sect">
-                    <p class="small font-weight-bold text-primary mb-2">Tumbuhan Lumut & Paku:</p>
+                <div id="plantae-bryo" class="content-sect">
+                    <div class="sub-desc">
+                        <strong>Bryophyta (Tumbuhan Lumut):</strong> Tumbuhan peralihan yang belum memiliki akar, batang, dan daun sejati (Atracheophyta). Hidup di tempat lembab dan berkembang biak dengan spora.
+                    </div>
                     <div class="gallery-grid">
-                        <div class="gallery-item"><img src="{% static 'img/lumut.jpeg' %}"><div class="gallery-caption">Lumut (Karpet Hijau)</div></div>
-                        <div class="gallery-item"><img src="{% static 'img/suplir.jpeg' %}"><div class="gallery-caption">Paku/Pakis</div></div>
+                        <div class="gallery-item"><img src="{% static 'img/lumut.jpeg' %}"><div class="gallery-caption">Lumut Daun</div></div>
+                        <div class="gallery-item"><img src="{% static 'img/LumutHati.webp' %}"><div class="gallery-caption">Lumut Hati</div></div>
+                        <div class="gallery-item"><img src="{% static 'img/LumutTanduk.png' %}"><div class="gallery-caption">Lumut Tanduk</div></div>
+                    </div>
+                </div>
+                <div id="plantae-pteri" class="content-sect" style="display:none;">
+                    <div class="sub-desc">
+                        <strong>Pteridophyta (Tumbuhan Paku):</strong> Sudah memiliki akar, batang, dan daun sejati (Tracheophyta). Memiliki pembuluh angkut (xilem & floem) dan berkembang biak dengan spora yang terletak di bawah daun.
+                    </div>
+                    <div class="gallery-grid">
+                        <div class="gallery-item"><img src="{% static 'img/suplir.jpeg' %}"><div class="gallery-caption">Suplir</div></div>
+                        <div class="gallery-item"><img src="{% static 'img/Paku.jpg' %}"><div class="gallery-caption">Paku Ekor Kuda</div></div>
                         <div class="gallery-item"><img src="{% static 'img/Semanggi.png' %}"><div class="gallery-caption">Semanggi</div></div>
                     </div>
                 </div>
-                <div id="plantae-biji" class="content-sect" style="display:none;">
-                    <p class="small font-weight-bold text-primary mb-2">Tumbuhan Berbiji (Spermatophyta):</p>
+                <div id="plantae-sperma" class="content-sect" style="display:none;">
+                    <div class="sub-desc">
+                        <strong>Spermatophyta (Tumbuhan Berbiji):</strong> Tumbuhan tingkat tinggi yang berkembang biak dengan biji. Dibagi menjadi biji terbuka (Gymnospermae) dan biji tertutup (Angiospermae: Monokotil & Dikotil).
+                    </div>
                     <div class="gallery-grid">
-                        <div class="gallery-item"><img src="{% static 'img/jagung3.jpg' %}"><div class="gallery-caption">Jagung (Monokotil)</div></div>
-                        <div class="gallery-item"><img src="{% static 'img/mawar.jpeg' %}"><div class="gallery-caption">Mawar (Dikotil)</div></div>
-                        <div class="gallery-item"><img src="{% static 'img/melinjo.jpeg' %}"><div class="gallery-caption">Melinjo (Biji Terbuka)</div></div>
+                        <div class="gallery-item"><img src="{% static 'img/jagung3.jpg' %}"><div class="gallery-caption">Jagung</div></div>
+                        <div class="gallery-item"><img src="{% static 'img/mawar.jpeg' %}"><div class="gallery-caption">Mawar</div></div>
+                        <div class="gallery-item"><img src="{% static 'img/melinjo.jpeg' %}"><div class="gallery-caption">Melinjo</div></div>
                     </div>
                 </div>
             </div>
@@ -384,29 +420,34 @@ p.text-content { font-size: 1.1rem; color: #555; line-height: 1.8; }
             <div class="tab-pane fade" id="tab-animalia">
                 <div class="static-info-box" style="border-left-color: #4e73df;">
                     <span class="key-badge" style="background: #4e73df;">Kunci: Heterotrof & Bergerak</span>
-                    <h5 class="font-weight-bold text-gray-800">Animalia (Hewan)</h5>
-                    <p class="mb-0 text-muted">
-                        Kelompok paling kompleks. Tidak punya klorofil (Heterotrof) dan tidak punya dinding sel. Hal ini memungkinkan hewan untuk bergerak aktif mencari makan.
+                    <h5 class="font-weight-bold text-gray-800">Kingdom Animalia (Hewan)</h5>
+                    <p class="mb-0">
+                        Organisme multiseluler paling kompleks. Tidak memiliki dinding sel dan klorofil (Heterotrof). Memiliki sistem saraf dan mampu bergerak aktif (motil).
                     </p>
                 </div>
                 <div class="sub-filter-container">
                     <button class="btn btn-sub active" onclick="showContent('animalia','inv',this)">Invertebrata</button>
-                    <button class="btn btn-sub" onclick="showContent('animalia','ver',this)">Vertebrata</button>
+                    <button class="btn btn-sub" onclick="showContent('animalia','vert',this)">Vertebrata</button>
                 </div>
                 <div id="animalia-inv" class="content-sect">
-                    <p class="small font-weight-bold text-primary mb-2">Tidak punya tulang belakang:</p>
+                    <div class="sub-desc">
+                        <strong>Invertebrata (Avertebrata):</strong> Hewan yang tidak memiliki tulang belakang. Susunan tubuh dan sistem sarafnya lebih sederhana. Contoh: Cacing, Serangga, Siput.
+                    </div>
                     <div class="gallery-grid">
-                        <div class="gallery-item"><img src="{% static 'img/siput2.jpeg' %}"><div class="gallery-caption">Siput (Lunak)</div></div>
-                        <div class="gallery-item"><img src="{% static 'img/Kupu.jpg' %}"><div class="gallery-caption">Kupu-kupu (Serangga)</div></div>
+                        <div class="gallery-item"><img src="{% static 'img/siput2.jpeg' %}"><div class="gallery-caption">Siput</div></div>
+                        <div class="gallery-item"><img src="{% static 'img/Kupu.jpg' %}"><div class="gallery-caption">Kupu-kupu</div></div>
                         <div class="gallery-item"><img src="{% static 'img/Bintang.webp' %}"><div class="gallery-caption">Bintang Laut</div></div>
                     </div>
                 </div>
-                <div id="animalia-ver" class="content-sect" style="display:none;">
-                    <p class="small font-weight-bold text-primary mb-2">Punya tulang belakang:</p>
+                <div id="animalia-vert" class="content-sect" style="display:none;">
+                    <div class="sub-desc">
+                        <strong>Vertebrata:</strong> Hewan yang memiliki tulang belakang (kolumna vertebralis). Memiliki struktur tubuh yang lebih sempurna. Terbagi menjadi Pisces, Amphibia, Reptilia, Aves, dan Mammalia.
+                    </div>
                     <div class="gallery-grid">
-                        <div class="gallery-item"><img src="{% static 'img/kucing.jpeg' %}"><div class="gallery-caption">Kucing (Mamalia)</div></div>
-                        <div class="gallery-item"><img src="{% static 'img/ikan2.jpeg' %}"><div class="gallery-caption">Ikan (Pisces)</div></div>
-                        <div class="gallery-item"><img src="{% static 'img/Elang.jpg' %}"><div class="gallery-caption">Elang (Aves)</div></div>
+                        <div class="gallery-item"><img src="{% static 'img/kucing.jpeg' %}"><div class="gallery-caption">Kucing</div></div>
+                        <div class="gallery-item"><img src="{% static 'img/ikan2.jpeg' %}"><div class="gallery-caption">Ikan Mas</div></div>
+                        <div class="gallery-item"><img src="{% static 'img/Elang.jpg' %}"><div class="gallery-caption">Elang</div></div>
+                        <div class="gallery-item"><img src="{% static 'img/Katak.jpg' %}"><div class="gallery-caption">Katak</div></div>
                     </div>
                 </div>
             </div>
@@ -414,64 +455,94 @@ p.text-content { font-size: 1.1rem; color: #555; line-height: 1.8; }
 
         <div class="d-flex justify-content-between mt-4">
             <button class="btn btn-secondary" onclick="prevSlide(2)"><i class="fas fa-arrow-left"></i> Kembali</button>
-            <button class="btn btn-primary" onclick="nextSlide(4)">Analisis<i class="fas fa-microscope ml-2"></i></button>
+            <button class="btn btn-primary" onclick="nextSlide(4)">Selanjutnya<i class="fas fa-microscope ml-2"></i></button>
         </div>
     </div>
 </div>
 
 <div id="slide-4" class="learning-slide">
     <div class="learning-card">
-        <h3 class="title-highlight">Ayo Temukan Perbedaan!</h3>
-        <p class="text-content">Mari kita lihat "isi dalam" makhluk hidup ini untuk membuktikan perbedaan strukturnya.</p>
+        <h3 class="title-highlight text-center">Analisis Struktur</h3>
+        <p class="text-content text-center mb-4">
+            Klik tombol analisis di bawah untuk melihat perbedaan struktural antara dua kelompok makhluk hidup ini secara detail.
+        </p>
 
-        <div class="mt-5">
-            <h5 class="font-weight-bold text-gray-800 border-left-warning pl-3" style="border-left: 4px solid #f6c23e;">1. Tumbuhan vs Jamur</h5>
-            <p class="small text-muted mb-2">Geser slider! Tumbuhan berwarna hijau karena klorofil, sedangkan Jamur tidak.</p>
+        <div class="mt-4 mb-5 border-bottom pb-5">
+            <h5 class="font-weight-bold text-primary mb-3"><i class="fas fa-microscope mr-2"></i>Kasus 1: Tumbuhan vs Jamur</h5>
             
-            <div id="compare-1" class="compare-container">
-                <img class="compare-img" src="{% static 'img/jamur4.jpg' %}" alt="Jamur">
-                <div class="img-overlay"><img class="compare-img" src="{% static 'img/plantae.jpg' %}" alt="Tumbuhan" style="width: 600px;"></div>
-                <div class="compare-slider"><div class="slider-btn"><i class="fas fa-arrows-alt-h"></i></div></div>
+            <div class="inspector-wrapper" id="inspect-1">
+                <div class="inspector-group">
+                    <div class="inspector-card">
+                        <img src="{% static 'img/plantae.jpg' %}" alt="Tumbuhan">
+                    </div>
+                    <div class="inspector-info info-green" id="info-plant">
+                        <h6 class="font-weight-bold mb-1">TUMBUHAN</h6>
+                        <p class="mb-0 info-text">...</p>
+                    </div>
+                </div>
+
+                <div class="inspector-group">
+                    <div class="inspector-card">
+                        <img src="{% static 'img/jamur4.jpg' %}" alt="Jamur">
+                    </div>
+                    <div class="inspector-info info-orange" id="info-fungi">
+                        <h6 class="font-weight-bold mb-1">JAMUR</h6>
+                        <p class="mb-0 info-text">...</p>
+                    </div>
+                </div>
             </div>
-            <div class="d-flex justify-content-between px-3 font-weight-bold mt-2">
-                <span class="text-success">TUMBUHAN (Autotrof)</span>
-                <span class="text-warning">JAMUR (Heterotrof)</span>
+
+            <div class="inspector-controls">
+                <button class="btn-inspect" onclick="analyzeTrait('1', 'klorofil', 'Memiliki klorofil untuk fotosintesis (Autotrof).', 'Tidak memiliki klorofil (Heterotrof).', this)">
+                    <i class="fas fa-leaf mr-1"></i> Cek Klorofil
+                </button>
+                <button class="btn-inspect" onclick="analyzeTrait('1', 'dinding', 'Dinding sel tersusun dari selulosa (kuat & kaku).', 'Dinding sel tersusun dari zat kitin.', this)">
+                    <i class="fas fa-border-all mr-1"></i> Cek Dinding Sel
+                </button>
+                <button class="btn-inspect" onclick="analyzeTrait('1', 'makan', 'Autotrof: Membuat makanan sendiri dari air & CO2.', 'Saprofit/Parasit: Menguraikan sisa makhluk hidup lain.', this)">
+                    <i class="fas fa-utensils mr-1"></i> Cara Makan
+                </button>
             </div>
         </div>
 
-        <div class="mt-5">
-            <h5 class="font-weight-bold text-gray-800 border-left-success pl-3" style="border-left: 4px solid #1cc88a;">2. Biji & Akar (Monokotil vs Dikotil)</h5>
-            <p class="small text-muted mb-2">Perhatikan perbedaan keping biji dan sistem perakarannya.</p>
+        <div class="mt-4">
+            <h5 class="font-weight-bold text-primary mb-3"><i class="fas fa-fish mr-2"></i>Kasus 2: Vertebrata vs Invertebrata</h5>
             
-            <div id="compare-2" class="compare-container">
-                <img class="compare-img" src="{% static 'img/kacang-tanah.jpg' %}" alt="Dikotil">
-                <div class="img-overlay"><img class="compare-img" src="{% static 'img/jagung3.jpg' %}" alt="Monokotil" style="width: 600px;"></div>
-                <div class="compare-slider"><div class="slider-btn"><i class="fas fa-arrows-alt-h"></i></div></div>
-            </div>
-            <div class="d-flex justify-content-between px-3 font-weight-bold mt-2">
-                <span class="text-success">MONOKOTIL (Jagung)</span>
-                <span class="text-success">DIKOTIL (Kacang)</span>
-            </div>
-        </div>
+            <div class="inspector-wrapper" id="inspect-2">
+                <div class="inspector-group">
+                    <div class="inspector-card">
+                        <img src="{% static 'img/kelabau.jpeg' %}" alt="Ikan">
+                    </div>
+                    <div class="inspector-info info-blue" id="info-vert">
+                        <h6 class="font-weight-bold mb-1">VERTEBRATA (Ikan)</h6>
+                        <p class="mb-0 info-text">...</p>
+                    </div>
+                </div>
 
-        <div class="mt-5">
-            <h5 class="font-weight-bold text-gray-800 border-left-primary pl-3" style="border-left: 4px solid #4e73df;">3. Tulang Belakang</h5>
-            <p class="small text-muted mb-2">Lihat struktur Siput yang lunak vs Ikan yang bertulang.</p>
-            
-            <div id="compare-3" class="compare-container">
-                <img class="compare-img" src="{% static 'img/siput4.jpg' %}" alt="Siput">
-                <div class="img-overlay"><img class="compare-img" src="{% static 'img/ikan2.jpeg' %}" alt="Ikan" style="width: 600px;"></div>
-                <div class="compare-slider"><div class="slider-btn"><i class="fas fa-arrows-alt-h"></i></div></div>
+                <div class="inspector-group">
+                    <div class="inspector-card">
+                        <img src="{% static 'img/siput4.jpg' %}" alt="Siput">
+                    </div>
+                    <div class="inspector-info info-red" id="info-inv">
+                        <h6 class="font-weight-bold mb-1">INVERTEBRATA (Siput)</h6>
+                        <p class="mb-0 info-text">...</p>
+                    </div>
+                </div>
             </div>
-            <div class="d-flex justify-content-between px-3 font-weight-bold mt-2">
-                <span class="text-primary">VERTEBRATA (Ikan)</span>
-                <span class="text-secondary">INVERTEBRATA (Siput)</span>
+
+            <div class="inspector-controls">
+                <button class="btn-inspect" onclick="analyzeTrait('2', 'tulang', 'Memiliki tulang belakang (vertebrae) sebagai poros tubuh.', 'Tidak bertulang belakang. Tubuh lunak/eksoskeleton.', this)">
+                    <i class="fas fa-bone mr-1"></i> Cek Tulang
+                </button>
+                <button class="btn-inspect" onclick="analyzeTrait('2', 'saraf', 'Sistem saraf pusat (otak) terlindungi tengkorak.', 'Sistem saraf sederhana (tangga tali/difus), tanpa otak kompleks.', this)">
+                    <i class="fas fa-brain mr-1"></i> Sistem Saraf
+                </button>
             </div>
         </div>
 
         <div class="d-flex justify-content-between mt-5">
             <button class="btn btn-secondary" onclick="prevSlide(3)"><i class="fas fa-arrow-left"></i> Cek Data</button>
-            <button class="btn btn-primary" onclick="nextSlide(5)">Mulai Penyortiran <i class="fas fa-clipboard-check ml-2"></i></button>
+            <button class="btn btn-primary" onclick="nextSlide(5)">Selanjutnya<i class="fas fa-clipboard-check ml-2"></i></button>
         </div>
     </div>
 </div>
@@ -480,8 +551,8 @@ p.text-content { font-size: 1.1rem; color: #555; line-height: 1.8; }
     <div class="learning-card">
         <div class="d-flex justify-content-between align-items-center mb-3">
             <div>
-                <h3 class="title-highlight mb-0">Zona Penyortiran</h3>
-                <small class="text-muted">Masukkan spesies ke dalam Rak Kingdom yang tepat!</small>
+                <h3 class="title-highlight mb-0">Mengelompokkan Makhluk Hidup</h3>
+                <small class="text-muted">Masukkan spesies ke Rak Kingdom yang tepat!</small>
             </div>
             <span class="badge badge-success p-2">Skor: <span id="score">0</span>/10</span>
         </div>
@@ -512,13 +583,15 @@ p.text-content { font-size: 1.1rem; color: #555; line-height: 1.8; }
             <p class="text-center small mb-1">Tarik gambar di bawah ini:</p>
             <div class="pool-container" id="pool-container">
                 <small class="text-muted font-italic w-100 text-center mb-2" id="pool-hint">-- Area Barang --</small>
-                </div>
+            </div>
         </div>
+
+        <div id="game-toast">Kurang tepat! Coba lagi.</div>
 
         <div class="d-flex justify-content-between mt-5">
             <button class="btn btn-secondary" onclick="prevSlide(4)"><i class="fas fa-arrow-left"></i> Kembali</button>
-            <a href="{% url 'selesai_step' 'modul_3' %}" id="btn-finish" class="btn btn-success disabled font-weight-bold px-4" style="opacity: 0.5; pointer-events: none;">
-                Selesai & Lapor <i class="fas fa-check-double ml-2"></i>
+            <a href="{% url 'latihan_soal' 3 %}" id="btn-finish" class="btn btn-success disabled font-weight-bold px-4" style="opacity: 0.5; pointer-events: none;">
+                Selesai<i class="fas fa-check-double ml-2"></i>
             </a>
         </div>
     </div>
@@ -528,7 +601,7 @@ p.text-content { font-size: 1.1rem; color: #555; line-height: 1.8; }
 
 {% block custom_js %}
 <script>
-// === 1. NAVIGATION ===
+// 1. NAVIGASI
 const stepNames = ["Stimulasi", "Identifikasi", "Pengumpulan Data", "Analisis", "Pembuktian"];
 function nextSlide(n) { showSlide(n); }
 function prevSlide(n) { showSlide(n); }
@@ -541,25 +614,16 @@ function showSlide(n) {
     const target = document.getElementById('slide-' + n);
     target.classList.add('active');
     setTimeout(() => target.style.opacity = 1, 50);
-    
     document.getElementById('step-badge').innerText = n + ". " + stepNames[n-1];
     document.querySelector('.modul-header-card').scrollIntoView({behavior: 'smooth'});
 
-    if(n===4) { 
-        initSlider('compare-1'); 
-        initSlider('compare-2'); 
-        initSlider('compare-3');
-    }
     if(n===5 && document.getElementById('pool-container').children.length <= 1) initGame();
 }
 
-// === 2. INTERACTION LOGIC ===
-function selectProblem(el) {
-    document.querySelectorAll('.problem-card').forEach(c => c.classList.remove('active'));
-    el.classList.add('active');
-    document.getElementById('problem-confirm').style.display = 'block';
-}
+// 2. FLIP CARD
+function flipCard(card) { card.classList.toggle('flipped'); }
 
+// 3. ENSIKLOPEDIA LOGIC
 function showContent(kingdom, sub, btn) {
     document.querySelectorAll(`#tab-${kingdom} .content-sect`).forEach(el => el.style.display = 'none');
     const target = document.getElementById(`${kingdom}-${sub}`);
@@ -571,7 +635,6 @@ function showContent(kingdom, sub, btn) {
     btns.forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
 }
-
 function resetSub(kingdom) {
     setTimeout(() => {
         const firstBtn = document.querySelector(`#tab-${kingdom} .sub-filter-container .btn-sub`);
@@ -579,44 +642,37 @@ function resetSub(kingdom) {
     }, 100);
 }
 
-// === 3. SLIDER LOGIC ===
-function initSlider(id) {
-    const container = document.getElementById(id);
-    if(!container) return;
-    const slider = container.querySelector('.compare-slider');
-    const overlay = container.querySelector('.img-overlay');
-    let active = false;
-
-    ['mousedown', 'touchstart'].forEach(e => container.addEventListener(e, () => active = true));
-    ['mouseup', 'touchend'].forEach(e => window.addEventListener(e, () => active = false));
-    
-    container.addEventListener('mousemove', (e) => {
-        if(!active) return;
-        moveSlider(e.pageX - container.getBoundingClientRect().left, container, slider, overlay);
-    });
-    container.addEventListener('touchmove', (e) => {
-        if(!active) return;
-        moveSlider(e.touches[0].pageX - container.getBoundingClientRect().left, container, slider, overlay);
-    });
-}
-function moveSlider(x, container, slider, overlay) {
-    let w = container.offsetWidth;
-    x = Math.max(0, Math.min(x, w));
-    slider.style.left = x + "px"; overlay.style.width = x + "px";
+// 4. INSPECTOR LOGIC
+function analyzeTrait(caseId, trait, textLeft, textRight, btn) {
+    let infoLeft, infoRight;
+    if(caseId === '1') {
+        infoLeft = document.getElementById('info-plant');
+        infoRight = document.getElementById('info-fungi');
+    } else {
+        infoLeft = document.getElementById('info-vert');
+        infoRight = document.getElementById('info-inv');
+    }
+    btn.parentElement.querySelectorAll('.btn-inspect').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    infoLeft.style.display = 'block';
+    infoRight.style.display = 'block';
+    infoLeft.querySelector('.info-text').innerText = textLeft;
+    infoRight.querySelector('.info-text').innerText = textRight;
 }
 
-// === 4. GAME LOGIC ===
+
+// 5. GAME LOGIC (REVISI DATA)
 const gameData = [
-    {id:'g1', name:'E. coli', kingdom:'monera', img:"{% static 'img/bakteriecoli.jpeg' %}", info:'Bakteri usus.'},
-    {id:'g2', name:'Paramecium', kingdom:'protista', img:"{% static 'img/paramecium.jpg' %}", info:'Protozoa.'},
-    {id:'g3', name:'Jamur Roti', kingdom:'fungi', img:"{% static 'img/jamurroti.jpg' %}", info:'Pengurai.'},
-    {id:'g4', name:'Lumut', kingdom:'plantae', img:"{% static 'img/lumut.jpeg' %}", info:'Tumbuhan.'},
-    {id:'g5', name:'Kucing', kingdom:'animalia', img:"{% static 'img/kucing.jpeg' %}", info:'Mamalia.'},
-    {id:'g6', name:'Lactobacillus', kingdom:'monera', img:"{% static 'img/Lactobacillus.jpg' %}", info:'Bakteri yogurt.'},
-    {id:'g7', name:'Amoeba', kingdom:'protista', img:"{% static 'img/Amoeba.jpeg' %}", info:'Protozoa.'},
-    {id:'g8', name:'Jamur Tiram', kingdom:'fungi', img:"{% static 'img/jamurtiram.jpg' %}", info:'Jamur konsumsi.'},
-    {id:'g9', name:'Jagung', kingdom:'plantae', img:"{% static 'img/jagung3.jpg' %}", info:'Monokotil.'},
-    {id:'g10', name:'Siput', kingdom:'animalia', img:"{% static 'img/siput2.jpeg' %}", info:'Mollusca.'}
+    {id:'g1', name:'E. coli', kingdom:'monera', img:"{% static 'img/bakteriecoli.jpeg' %}", info:'Monera: Prokariotik (Tanpa membran inti).'},
+    {id:'g2', name:'Paramecium', kingdom:'protista', img:"{% static 'img/paramecium.jpg' %}", info:'Protista: Mirip hewan (Protozoa), bergerak aktif.'},
+    {id:'g3', name:'Jamur Roti', kingdom:'fungi', img:"{% static 'img/jamurroti.jpg' %}", info:'Fungi: Zygomycota, hidup sebagai pengurai (Saprofit).'},
+    {id:'g4', name:'Lumut', kingdom:'plantae', img:"{% static 'img/lumut.jpeg' %}", info:'Plantae: Bryophyta, tumbuhan tak berpembuluh.'},
+    {id:'g5', name:'Kucing', kingdom:'animalia', img:"{% static 'img/kucing.jpeg' %}", info:'Animalia: Vertebrata (Mamalia), menyusui anak.'},
+    {id:'g6', name:'Lactobacillus', kingdom:'monera', img:"{% static 'img/Lactobacillus.jpg' %}", info:'Monera: Bakteri baik pengolah susu.'},
+    {id:'g7', name:'Amoeba', kingdom:'protista', img:"{% static 'img/Amoeba.jpeg' %}", info:'Protista: Bergerak dengan kaki semu (Pseudopodia).'},
+    {id:'g8', name:'Jamur Tiram', kingdom:'fungi', img:"{% static 'img/jamurtiram.jpg' %}", info:'Fungi: Basidiomycota, memiliki tubuh buah.'},
+    {id:'g9', name:'Jagung', kingdom:'plantae', img:"{% static 'img/jagung3.jpg' %}", info:'Plantae: Spermatophyta, berbiji tunggal (Monokotil).'},
+    {id:'g10', name:'Siput', kingdom:'animalia', img:"{% static 'img/siput2.jpeg' %}", info:'Animalia: Invertebrata (Mollusca), bertubuh lunak.'}
 ];
 let score = 0;
 
@@ -624,7 +680,6 @@ function initGame() {
     const pool = document.getElementById('pool-container');
     Array.from(pool.children).forEach(child => { if(child.id !== 'pool-hint') child.remove(); });
     gameData.sort(() => Math.random() - 0.5);
-
     gameData.forEach(d => {
         let el = document.createElement('div');
         el.className = 'drag-item';
@@ -632,21 +687,15 @@ function initGame() {
         el.id = d.id;
         el.dataset.kingdom = d.kingdom;
         el.innerHTML = `<img src="${d.img}" style="pointer-events:none;"><div class="drag-label" style="font-size:0.8rem; padding: 5px 0;">${d.name}</div>`;
-        
         el.addEventListener('dragstart', dragStart);
-        el.addEventListener('touchstart', touchStart, {passive:false});
-        el.addEventListener('touchmove', touchMove, {passive:false});
-        el.addEventListener('touchend', touchEnd);
         pool.appendChild(el);
     });
-
     document.querySelectorAll('.bucket').forEach(b => {
         b.addEventListener('dragover', dragOver);
         b.addEventListener('dragleave', dragLeave);
         b.addEventListener('drop', drop);
     });
 }
-
 function dragStart(e) { e.dataTransfer.setData('text', e.target.id); setTimeout(()=>e.target.style.visibility='hidden', 0); }
 function dragOver(e) { e.preventDefault(); e.currentTarget.classList.add('hover'); }
 function dragLeave(e) { e.currentTarget.classList.remove('hover'); }
@@ -656,76 +705,36 @@ function drop(e) {
     bucket.classList.remove('hover');
     const id = e.dataTransfer.getData('text');
     const item = document.getElementById(id);
-    checkMatch(item, bucket);
-}
-
-// Touch Logic
-let tClone=null, tActive=null;
-function touchStart(e) {
-    tActive = e.target.closest('.drag-item');
-    if(!tActive) return;
-    tClone = tActive.cloneNode(true);
-    Object.assign(tClone.style, {position:'absolute', width:'115px', height:'115px', opacity:'0.8', zIndex:1000, pointerEvents:'none'});
-    document.body.appendChild(tClone);
-    moveClone(e.touches[0]);
-}
-function touchMove(e) { e.preventDefault(); if(tClone) moveClone(e.touches[0]); }
-function touchEnd(e) {
-    if(tClone) {
-        let t = e.changedTouches[0];
-        tClone.remove(); tClone=null;
-        let bucket = document.elementFromPoint(t.clientX, t.clientY)?.closest('.bucket');
-        if(bucket && tActive) checkMatch(tActive, bucket);
-    }
-    tActive=null;
-}
-function moveClone(t) { tClone.style.left=(t.pageX-57)+'px'; tClone.style.top=(t.pageY-57)+'px'; }
-
-function checkMatch(item, bucket) {
+    
     if(item.dataset.kingdom === bucket.dataset.kingdom) {
         const data = gameData.find(x => x.id === item.id);
-        
-        // 1. Move to bucket
-        item.style.visibility = 'visible';
-        item.style.position = 'static';
-        item.classList.add('dropped-item');
-        item.draggable = false; 
-        item.removeEventListener('dragstart', dragStart);
-        item.removeEventListener('touchstart', touchStart);
-        
-        // Create Result Card
         const card = document.createElement('div');
         card.className = 'bucket-card';
         card.innerHTML = `<img src="${data.img}"><div><strong>${data.name}</strong><br><span class="text-muted">${data.info}</span></div>`;
         bucket.querySelector('.bucket-content').appendChild(card);
-
         item.remove();
-
         score++;
         document.getElementById('score').innerText = score;
-        bucket.style.background = "#dcfce7"; 
-        setTimeout(() => { bucket.style.background = "white"; }, 500);
-
         if(score === 10) {
-            document.getElementById('pool-hint').innerText = "Luar biasa! Semua spesies telah diidentifikasi.";
+            document.getElementById('pool-hint').innerText = "Selesai!";
             const btn = document.getElementById('btn-finish');
             btn.classList.remove('disabled');
             btn.style.opacity = 1;
             btn.style.pointerEvents = 'auto';
-            btn.classList.add('animated', 'pulse', 'infinite');
-        } else if (document.getElementById('pool-container').children.length === 1) {
-             document.getElementById('pool-hint').innerText = "Kolam kosong.";
         }
     } else {
+        // Salah Kamar Logic
         item.style.visibility = 'visible';
-        item.animate([
-            { transform: 'translateX(0)' },
-            { transform: 'translateX(-10px)' },
-            { transform: 'translateX(10px)' },
-            { transform: 'translateX(0)' }
-        ], { duration: 300 });
-        alert("Ups! Spesimen ini tidak cocok di Kingdom tersebut.");
+        item.classList.add('shake-anim');
+        showToast();
+        setTimeout(() => { item.classList.remove('shake-anim'); }, 500);
     }
+}
+
+function showToast() {
+    const toast = document.getElementById("game-toast");
+    toast.className = "show";
+    setTimeout(function(){ toast.className = toast.className.replace("show", ""); }, 2500);
 }
 </script>
 {% endblock %}
