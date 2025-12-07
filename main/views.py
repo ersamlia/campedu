@@ -3,7 +3,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.db.models import Count, Q, Avg, BooleanField, Case, When
-from django.db import models  # <-- INI ADALAH PERBAIKAN UNTUK NAMEERROR
+from django.db import models
 from .models import (
     Profile,
     SubBab,
@@ -22,17 +22,15 @@ from django.contrib import messages
 
 # === HALAMAN UTAMA & AUTENTIKASI ===
 
-
 def halaman_utama_view(request):
     return render(request, "main/halamanUtama.html")
-
 
 def register_view(request):
     if request.method == "POST":
         username = request.POST["username"]
         email = request.POST["email"]
         password = request.POST["password"]
-        role = request.POST["role"]  # 'SISWA' or 'GURU'
+        role = request.POST["role"]
 
         if User.objects.filter(username=username).exists():
             messages.error(request, "Username sudah digunakan!")
@@ -54,7 +52,6 @@ def register_view(request):
 
     return render(request, "main/register.html")
 
-
 def login_view(request):
     if request.method == "POST":
         username = request.POST["username"]
@@ -74,18 +71,15 @@ def login_view(request):
 
     return render(request, "main/login.html")
 
-
 def logout_view(request):
     logout(request)
     return redirect("halaman_utama")
-
 
 def forgot_password_view(request):
     return render(request, "main/forgot-password.html")
 
 
 # === ALUR SISWA ===
-
 
 @login_required
 def siswa_dashboard_view(request):
@@ -102,16 +96,13 @@ def siswa_dashboard_view(request):
         latihan_3_id = LatihanSoal.objects.get(subbab__urutan=3).id
         pengayaan_id = SoalPengayaan.objects.first().id
     except Exception as e:
-        # Ini terjadi jika database masih kosong
         messages.error(
             request,
             f"Data materi belum diisi oleh Admin. Harap hubungi Guru. (Error: {e})",
         )
-        return render(
-            request, "main/siswa/dashboard_siswa.html", {"next_step": None}
-        )  # Kirim context minimal
+        return render(request, "main/siswa/dashboard_siswa.html", {"next_step": None})
 
-    # REVISI: Definisikan seluruh alur belajar di satu tempat
+    # REVISI: Alur Belajar Tanpa Alat Bantu
     ALUR_BELAJAR = [
         {
             "nama": "Modul 1: Karakteristik",
@@ -126,16 +117,10 @@ def siswa_dashboard_view(request):
             "prasyarat": progress.modul_1_completed,
         },
         {
-            "nama": "Alat: Glosarium",
-            "step": "glosarium",
-            "url": redirect("glosarium").url,
-            "prasyarat": progress.latihan_1_completed,
-        },
-        {
             "nama": "Modul 2: Klasifikasi",
             "step": "modul_2",
             "url": redirect("modul", urutan_id=2).url,
-            "prasyarat": progress.glosarium_completed,
+            "prasyarat": progress.latihan_1_completed, # Syarat: Latihan 1 Selesai
         },
         {
             "nama": "Latihan Soal 2",
@@ -144,28 +129,16 @@ def siswa_dashboard_view(request):
             "prasyarat": progress.modul_2_completed,
         },
         {
-            "nama": "Alat: Lab Mikroskop",
-            "step": "mikroskop",
-            "url": redirect("lab_mikroskop").url,
-            "prasyarat": progress.latihan_2_completed,
-        },
-        {
             "nama": "Modul 3: 5 Kingdom",
             "step": "modul_3",
             "url": redirect("modul", urutan_id=3).url,
-            "prasyarat": progress.mikroskop_completed,
-        },
-        {
-            "nama": "Alat: Database Spesies",
-            "step": "database",
-            "url": redirect("database_spesies").url,
-            "prasyarat": progress.modul_3_completed,
+            "prasyarat": progress.latihan_2_completed, # Syarat: Latihan 2 Selesai
         },
         {
             "nama": "Latihan Soal 3",
             "step": "latihan_3",
             "url": redirect("latihan_soal", latihan_id=latihan_3_id).url,
-            "prasyarat": progress.database_completed,
+            "prasyarat": progress.modul_3_completed,
         },
         {
             "nama": "Ujian Akhir Bab",
@@ -175,12 +148,9 @@ def siswa_dashboard_view(request):
         },
     ]
 
-    # Hitung metrik untuk "Cards"
     total_steps = len(ALUR_BELAJAR)
     completed_steps = 0
     next_step = None
-
-    # Data untuk progress bar di dashboard
     alur_belajar_data = []
 
     for item in ALUR_BELAJAR:
@@ -193,7 +163,7 @@ def siswa_dashboard_view(request):
             status = "selesai"
         elif is_unlocked and not next_step:
             status = "aktif"
-            next_step = item  # Temukan langkah berikutnya
+            next_step = item
 
         alur_belajar_data.append(
             {
@@ -203,12 +173,10 @@ def siswa_dashboard_view(request):
             }
         )
 
-    # Data untuk Card "Progress"
     progress_percentage = 0
     if total_steps > 0:
         progress_percentage = (completed_steps / total_steps) * 100
 
-    # Data untuk Card "Skor Terakhir"
     skor_terakhir = "-"
     hasil_latihan_terakhir = (
         HasilLatihan.objects.filter(siswa=request.user).order_by("-id").first()
@@ -247,9 +215,7 @@ def selesai_step_view(request, step_name):
         messages.error(request, "Langkah tidak valid.")
         return redirect("siswa_dashboard")
 
-    # --- REVISI: LOGIKA REDIRECT LANGSUNG ---
-    # Alih-alih kembali ke dashboard, kita arahkan ke langkah berikutnya
-
+    # --- LOGIKA REDIRECT (ALUR BARU) ---
     try:
         latihan_1_id = LatihanSoal.objects.get(subbab__urutan=1).id
         latihan_2_id = LatihanSoal.objects.get(subbab__urutan=2).id
@@ -262,27 +228,22 @@ def selesai_step_view(request, step_name):
     if step_name == "modul_1":
         return redirect("latihan_soal", latihan_id=latihan_1_id)
     elif step_name == "latihan_1":
-        return redirect("glosarium")
-    elif step_name == "glosarium":
-        return redirect("modul", urutan_id=2)
+        # Langsung ke Modul 2 (Glosarium dihapus)
+        return redirect("modul", urutan_id=2) 
     elif step_name == "modul_2":
         return redirect("latihan_soal", latihan_id=latihan_2_id)
     elif step_name == "latihan_2":
-        return redirect("lab_mikroskop")
-    elif step_name == "mikroskop":
-        return redirect("modul", urutan_id=3)
+        # Langsung ke Modul 3 (Mikroskop dihapus)
+        return redirect("modul", urutan_id=3) 
     elif step_name == "modul_3":
-        return redirect("database_spesies")
-    elif step_name == "database":
+        # Langsung ke Latihan 3 (Database dihapus)
         return redirect("latihan_soal", latihan_id=latihan_3_id)
     elif step_name == "latihan_3":
         return redirect("pengayaan", pengayaan_id=pengayaan_id)
     elif step_name == "pengayaan":
-        # Jika sudah selesai pengayaan, baru kembali ke dashboard
         messages.success(request, "Selamat! Anda telah menyelesaikan seluruh bab!")
         return redirect("siswa_dashboard")
 
-    # Fallback
     return redirect("siswa_dashboard")
 
 
@@ -291,13 +252,16 @@ def modul_view(request, urutan_id):
     subbab = get_object_or_404(SubBab, urutan=urutan_id)
     progress = get_object_or_404(SiswaProgress, siswa=request.user)
 
+    # REVISI SYARAT PEMBUKA MODUL
     is_unlocked = False
     if urutan_id == 1:
         is_unlocked = True
     elif urutan_id == 2:
-        is_unlocked = progress.glosarium_completed
+        # Syarat Modul 2: Latihan 1 Selesai
+        is_unlocked = progress.latihan_1_completed 
     elif urutan_id == 3:
-        is_unlocked = progress.mikroskop_completed
+        # Syarat Modul 3: Latihan 2 Selesai
+        is_unlocked = progress.latihan_2_completed 
 
     if not is_unlocked:
         messages.error(
@@ -322,7 +286,7 @@ def latihan_soal_view(request, latihan_id):
     elif latihan.subbab.urutan == 2:
         is_unlocked = progress.modul_2_completed
     elif latihan.subbab.urutan == 3:
-        is_unlocked = progress.database_completed
+        is_unlocked = progress.modul_3_completed 
 
     if not is_unlocked:
         messages.error(
@@ -330,16 +294,11 @@ def latihan_soal_view(request, latihan_id):
         )
         return redirect("siswa_dashboard")
 
-    # --- REVISI: Logika Petunjuk ---
     if request.GET.get("mulai") == "true":
-        # 1. Siswa SUDAH mengklik tombol "Mulai"
-        # Tampilkan halaman soal
         pertanyaan = latihan.pertanyaan_set.all()
         context = {"latihan": latihan, "pertanyaan": pertanyaan}
         return render(request, "main/siswa/latihan_soal.html", context)
     else:
-        # 2. Siswa BARU tiba di halaman ini
-        # Tampilkan halaman petunjuk
         context = {"latihan": latihan}
         return render(request, "main/siswa/latihan_petunjuk.html", context)
 
@@ -349,8 +308,8 @@ def submit_latihan_view(request, latihan_id):
     if request.method == "POST":
         latihan = get_object_or_404(LatihanSoal, id=latihan_id)
         pertanyaan_list = latihan.pertanyaan_set.all()
-
         total_soal = pertanyaan_list.count()
+
         if total_soal == 0:
             messages.error(request, "Latihan ini tidak memiliki pertanyaan.")
             return redirect("siswa_dashboard")
@@ -387,7 +346,6 @@ def submit_latihan_view(request, latihan_id):
             setattr(progress, step_name, True)
             progress.save()
 
-        # Arahkan ke halaman hasil (feedback)
         return redirect("hasil_latihan", latihan_id=latihan.id)
 
     return redirect("siswa_dashboard")
@@ -397,54 +355,38 @@ def submit_latihan_view(request, latihan_id):
 def hasil_latihan_view(request, latihan_id):
     latihan = get_object_or_404(LatihanSoal, id=latihan_id)
     hasil = get_object_or_404(HasilLatihan, siswa=request.user, latihan=latihan)
-
-    # Ambil semua jawaban siswa untuk latihan ini
     jawaban_siswa = JawabanSiswa.objects.filter(
         siswa=request.user, pertanyaan__latihan=latihan
     ).select_related("pertanyaan", "pilihan_dipilih")
 
-    # --- TAMBAHAN: Hitung Statistik ---
     total_soal = jawaban_siswa.count()
     jawaban_benar = jawaban_siswa.filter(is_benar=True).count()
     jawaban_salah = total_soal - jawaban_benar
-    # ----------------------------------
 
     context = {
         "latihan": latihan, 
         "hasil": hasil, 
         "jawaban_siswa": jawaban_siswa,
-        "jawaban_benar": jawaban_benar, # Kirim ke template
-        "jawaban_salah": jawaban_salah  # Kirim ke template
+        "jawaban_benar": jawaban_benar,
+        "jawaban_salah": jawaban_salah
     }
     return render(request, "main/siswa/hasil_latihan.html", context)
 
 
-# --- View untuk Soal Pengayaan ---
 @login_required
 def pengayaan_view(request, pengayaan_id):
     pengayaan = get_object_or_404(SoalPengayaan, id=pengayaan_id)
     progress = get_object_or_404(SiswaProgress, siswa=request.user)
     
-    # Cek prasyarat
     if not progress.latihan_3_completed:
         messages.error(request, "Selesaikan semua latihan sub-bab terlebih dahulu!")
         return redirect("siswa_dashboard")
 
-    # --- LOGIKA BARU DIMULAI DI SINI ---
     if request.GET.get("mulai") == "true":
-        # 1. Siswa SUDAH mengklik "Mulai", tampilkan soal
-        
-        # Ambil semua pertanyaan yang terkait dengan pengayaan ini
         pertanyaan = pengayaan.pertanyaan_set.all()
-        
-        # Kirim ke template
-        context = {
-            "pengayaan": pengayaan, 
-            "pertanyaan": pertanyaan  # <--- INI YANG SEBELUMNYA HILANG
-        }
+        context = {"pengayaan": pengayaan, "pertanyaan": pertanyaan}
         return render(request, "main/siswa/pengayaan.html", context)
     else:
-        # 2. Siswa BARU tiba, tampilkan petunjuk
         context = {"pengayaan": pengayaan}
         return render(request, "main/siswa/pengayaan_petunjuk.html", context)
 
@@ -453,52 +395,32 @@ def submit_pengayaan_view(request, pengayaan_id):
     if request.method == "POST":
         pengayaan = get_object_or_404(SoalPengayaan, id=pengayaan_id)
         pertanyaan_list = pengayaan.pertanyaan_set.all()
-
         total_soal = pertanyaan_list.count()
+
         if total_soal == 0:
             return redirect("siswa_dashboard")
 
         jawaban_benar = 0
-
         for pertanyaan in pertanyaan_list:
-            # Ambil input dari form berdasarkan name="pertanyaan_{id}"
             jawaban_user = request.POST.get(f"pertanyaan_{pertanyaan.id}")
-
-            if not jawaban_user:
-                continue  # Skip jika tidak dijawab
+            if not jawaban_user: continue
 
             if pertanyaan.tipe == "PG":
-                # --- LOGIKA PILIHAN GANDA ---
-                # jawaban_user adalah ID dari PilihanPengayaan
                 try:
                     pilihan_dipilih = PilihanPengayaan.objects.get(id=jawaban_user)
-                    if pilihan_dipilih.is_benar:
-                        jawaban_benar += 1
-                except PilihanPengayaan.DoesNotExist:
-                    pass
+                    if pilihan_dipilih.is_benar: jawaban_benar += 1
+                except PilihanPengayaan.DoesNotExist: pass
 
             elif pertanyaan.tipe == "ISIAN":
-                # --- LOGIKA ISIAN SINGKAT ---
-                # jawaban_user adalah teks string
-                # Kita bandingkan dengan kunci jawaban (lowercase agar tidak sensitif huruf besar/kecil)
-                kunci = (
-                    pertanyaan.kunci_jawaban_isian.strip().lower()
-                    if pertanyaan.kunci_jawaban_isian
-                    else ""
-                )
+                kunci = pertanyaan.kunci_jawaban_isian.strip().lower() if pertanyaan.kunci_jawaban_isian else ""
                 jawaban_siswa = jawaban_user.strip().lower()
+                if jawaban_siswa == kunci: jawaban_benar += 1
 
-                if jawaban_siswa == kunci:
-                    jawaban_benar += 1
-
-        # Hitung Skor Akhir
         skor = (jawaban_benar / total_soal) * 100
-
         HasilPengayaan.objects.update_or_create(
             siswa=request.user, pengayaan=pengayaan, defaults={"skor": skor}
         )
 
-        # Update Progres Siswa
         progress = get_object_or_404(SiswaProgress, siswa=request.user)
         progress.pengayaan_completed = True
         progress.save()
@@ -514,11 +436,7 @@ def hasil_pengayaan_view(request, pengayaan_id):
     hasil = get_object_or_404(HasilPengayaan, siswa=request.user, pengayaan=pengayaan)
     pertanyaan_list = pengayaan.pertanyaan_set.all()
     
-    # --- LOGIKA BARU: MENGHITUNG JUMLAH BENAR/SALAH ---
     total_soal = pertanyaan_list.count()
-    
-    # Hitung mundur jumlah benar dari skor yang tersimpan
-    # Rumus: (Skor / 100) * Total Soal
     if total_soal > 0:
         jawaban_benar = round((hasil.skor * total_soal) / 100)
         jawaban_salah = total_soal - jawaban_benar
@@ -527,88 +445,35 @@ def hasil_pengayaan_view(request, pengayaan_id):
         jawaban_salah = 0
         
     context = {
-        "pengayaan": pengayaan, 
-        "hasil": hasil,
-        "pertanyaan_list": pertanyaan_list,
-        "jawaban_benar": int(jawaban_benar), # Pastikan jadi integer
-        "jawaban_salah": int(jawaban_salah),
-        "total_soal": total_soal
+        "pengayaan": pengayaan, "hasil": hasil, "pertanyaan_list": pertanyaan_list,
+        "jawaban_benar": int(jawaban_benar), "jawaban_salah": int(jawaban_salah), "total_soal": total_soal
     }
     return render(request, "main/siswa/hasil_pengayaan.html", context)
 
 
-# === ALAT BANTU BELAJAR SISWA (VIEWS BARU) ===
-
-
-@login_required
-def glosarium_view(request):
-    if request.user.profile.role != "SISWA":
-        return redirect("guru_dashboard")
-    progress = get_object_or_404(SiswaProgress, siswa=request.user)
-
-    if not progress.latihan_1_completed:
-        messages.error(request, "Selesaikan Latihan 1 terlebih dahulu!")
-        return redirect("siswa_dashboard")
-
-    return render(request, "main/siswa/glosarium.html")
-
-
-@login_required
-def lab_mikroskop_view(request):
-    if request.user.profile.role != "SISWA":
-        return redirect("guru_dashboard")
-    progress = get_object_or_404(SiswaProgress, siswa=request.user)
-
-    if not progress.latihan_2_completed:
-        messages.error(request, "Selesaikan Latihan 2 terlebih dahulu!")
-        return redirect("siswa_dashboard")
-
-    return render(request, "main/siswa/lab_mikroskop.html")
-
-
-@login_required
-def database_spesies_view(request):
-    if request.user.profile.role != "SISWA":
-        return redirect("guru_dashboard")
-    progress = get_object_or_404(SiswaProgress, siswa=request.user)
-
-    if not progress.modul_3_completed:
-        messages.error(request, "Selesaikan Modul 3 terlebih dahulu!")
-        return redirect("siswa_dashboard")
-
-    return render(request, "main/siswa/database_spesies.html")
-
-
 # === ALUR GURU ===
-# (REVISI BESAR PADA PANTAU PROGRES)
-
 
 @login_required
 def guru_dashboard_view(request):
     if request.user.profile.role != "GURU":
         return redirect("siswa_dashboard")
 
-    # === Ambil Data untuk Kartu Metrik ===
-
-    # 1. Total Siswa
     total_siswa = User.objects.filter(profile__role="SISWA").count()
-    if total_siswa == 0:
-        total_siswa = 1  # Hindari pembagian dengan nol
+    if total_siswa == 0: total_siswa = 1
 
-    # 2. Progres Rata-Rata Kelas
-    # Kita hitung progres berdasarkan 10 langkah di model SiswaProgress
-    total_langkah = 10
+    # REVISI: Total langkah sekarang hanya 7 (Tanpa Glosarium, Mikroskop, Database)
+    total_langkah = 7
     langkah_selesai_agregat = SiswaProgress.objects.filter(
         siswa__profile__role="SISWA"
     ).aggregate(
         modul_1=Count("pk", filter=Q(modul_1_completed=True)),
         latihan_1=Count("pk", filter=Q(latihan_1_completed=True)),
-        glosarium=Count("pk", filter=Q(glosarium_completed=True)),
+        # glosarium REMOVED
         modul_2=Count("pk", filter=Q(modul_2_completed=True)),
         latihan_2=Count("pk", filter=Q(latihan_2_completed=True)),
-        mikroskop=Count("pk", filter=Q(mikroskop_completed=True)),
+        # mikroskop REMOVED
         modul_3=Count("pk", filter=Q(modul_3_completed=True)),
-        database=Count("pk", filter=Q(database_completed=True)),
+        # database REMOVED
         latihan_3=Count("pk", filter=Q(latihan_3_completed=True)),
         pengayaan=Count("pk", filter=Q(pengayaan_completed=True)),
     )
@@ -616,19 +481,14 @@ def guru_dashboard_view(request):
     total_langkah_seharusnya = total_siswa * total_langkah
     progres_rata_rata = (total_langkah_selesai / total_langkah_seharusnya) * 100
 
-    # 3. Skor Rata-Rata (dari semua latihan yang sudah dikerjakan)
     skor_rata_rata_data = HasilLatihan.objects.all().aggregate(avg_skor=Avg("skor"))
     skor_rata_rata = skor_rata_rata_data["avg_skor"] or 0
 
-    # 4. Modul Paling Sulit (Latihan dengan skor rata-rata terendah)
     modul_sulit = (
         LatihanSoal.objects.annotate(skor_rata2=Avg("hasillatihan__skor"))
-        .filter(skor_rata2__isnull=False)
-        .order_by("skor_rata2")
-        .first()
-    )  # .first() mengambil yg terendah
+        .filter(skor_rata2__isnull=False).order_by("skor_rata2").first()
+    )
 
-    # === Ambil Data untuk Bar Chart ===
     chart_data = {
         "l1_count": langkah_selesai_agregat["latihan_1"],
         "l2_count": langkah_selesai_agregat["latihan_2"],
@@ -636,15 +496,11 @@ def guru_dashboard_view(request):
         "p_count": langkah_selesai_agregat["pengayaan"],
     }
 
-    # === Ambil Data untuk "Soal Paling Sulit" ===
     soal_sulit = (
         Pertanyaan.objects.annotate(
             num_salah=Count("jawabansiswa", filter=Q(jawabansiswa__is_benar=False))
-        )
-        .filter(num_salah__gt=0)
-        .order_by("-num_salah")
-        .first()
-    )  # -num_salah mengambil yg tertinggi
+        ).filter(num_salah__gt=0).order_by("-num_salah").first()
+    )
 
     context = {
         "total_siswa": total_siswa,
@@ -654,74 +510,43 @@ def guru_dashboard_view(request):
         "chart_data": chart_data,
         "soal_sulit": soal_sulit,
     }
-
     return render(request, "main/guru/dashboard_guru.html", context)
-
 
 @login_required
 def pantau_progres_view(request):
-    if request.user.profile.role != "GURU":
-        return redirect("siswa_dashboard")
-
+    if request.user.profile.role != "GURU": return redirect("siswa_dashboard")
     daftar_siswa = User.objects.filter(profile__role="SISWA")
-
     data_progres = []
     for siswa in daftar_siswa:
         progress, created = SiswaProgress.objects.get_or_create(siswa=siswa)
-
-        skor_1 = HasilLatihan.objects.filter(
-            siswa=siswa, latihan__subbab__urutan=1
-        ).first()
-        skor_2 = HasilLatihan.objects.filter(
-            siswa=siswa, latihan__subbab__urutan=2
-        ).first()
-        skor_3 = HasilLatihan.objects.filter(
-            siswa=siswa, latihan__subbab__urutan=3
-        ).first()
+        skor_1 = HasilLatihan.objects.filter(siswa=siswa, latihan__subbab__urutan=1).first()
+        skor_2 = HasilLatihan.objects.filter(siswa=siswa, latihan__subbab__urutan=2).first()
+        skor_3 = HasilLatihan.objects.filter(siswa=siswa, latihan__subbab__urutan=3).first()
         skor_p = HasilPengayaan.objects.filter(siswa=siswa).first()
-
-        data_progres.append(
-            {
-                "nama": siswa.username,
-                "progress": progress,
-                "skor_1": skor_1.skor if skor_1 else "-",
-                "skor_2": skor_2.skor if skor_2 else "-",
-                "skor_3": skor_3.skor if skor_3 else "-",
-                "skor_p": skor_p.skor if skor_p else "-",
-            }
-        )
-
+        data_progres.append({
+            "nama": siswa.username, "progress": progress,
+            "skor_1": skor_1.skor if skor_1 else "-", "skor_2": skor_2.skor if skor_2 else "-",
+            "skor_3": skor_3.skor if skor_3 else "-", "skor_p": skor_p.skor if skor_p else "-",
+        })
     context = {"data_progres": data_progres}
     return render(request, "main/guru/pantau_progres.html", context)
 
-
 @login_required
 def analisis_hasil_view(request):
-    if request.user.profile.role != "GURU":
-        return redirect("siswa_dashboard")
-
+    if request.user.profile.role != "GURU": return redirect("siswa_dashboard")
     analisis_latihan = []
     for latihan in LatihanSoal.objects.all().order_by("subbab__urutan"):
         data_latihan = {"judul": latihan.judul, "pertanyaan": []}
         for pertanyaan in latihan.pertanyaan_set.all():
             total_menjawab = JawabanSiswa.objects.filter(pertanyaan=pertanyaan).count()
-            total_salah = JawabanSiswa.objects.filter(
-                pertanyaan=pertanyaan, is_benar=False
-            ).count()
-
+            total_salah = JawabanSiswa.objects.filter(pertanyaan=pertanyaan, is_benar=False).count()
             persen_salah = 0
             if total_menjawab > 0:
                 persen_salah = (total_salah / total_menjawab) * 100
-
-            data_latihan["pertanyaan"].append(
-                {
-                    "teks": pertanyaan.teks_pertanyaan,
-                    "total_menjawab": total_menjawab,
-                    "total_salah": total_salah,
-                    "persen_salah": round(persen_salah, 1),
-                }
-            )
+            data_latihan["pertanyaan"].append({
+                "teks": pertanyaan.teks_pertanyaan, "total_menjawab": total_menjawab,
+                "total_salah": total_salah, "persen_salah": round(persen_salah, 1),
+            })
         analisis_latihan.append(data_latihan)
-
     context = {"analisis_latihan": analisis_latihan}
     return render(request, "main/guru/analisis_hasil.html", context)
