@@ -26,7 +26,8 @@
         overflow: hidden;
     }
     .hero-welcome::before {
-        content: ''; position: absolute; width: 250px; height: 250px;
+        content: '';
+        position: absolute; width: 250px; height: 250px;
         background: rgba(255,255,255,0.1); border-radius: 50%;
         top: -80px; right: -40px;
     }
@@ -101,7 +102,7 @@
     }
     .card-body { padding: 2rem; }
 
-    /* Insight Box (Soal Sulit) */
+    /* Insight Box (masih didefinisikan, tapi tidak dipakai) */
     .insight-box {
         background: #fff5f5;
         border-left: 4px solid #fc8181;
@@ -128,7 +129,6 @@
         box-shadow: 0 4px 10px rgba(66, 165, 245, 0.2);
     }
     .btn-blue:hover { background-color: #1e88e5; color: #fff; transform: translateY(-2px); }
-
 </style>
 {% endblock %}
 
@@ -187,21 +187,18 @@
         </div>
     </div>
 
+    <!-- Materi Tersulit diganti menjadi Jumlah Latihan -->
     <div class="col-xl-3 col-md-6 mb-4">
         <div class="stat-card card-alert">
             <div class="stat-content">
-                <div class="stat-label">Materi Tersulit</div>
-                <div class="stat-value" style="font-size: 1.1rem;">
-                    {% if modul_sulit %}
-                        {{ modul_sulit.judul|truncatewords:2 }}
-                    {% else %}
-                        -
-                    {% endif %}
+                <div class="stat-label">Jumlah Latihan</div>
+                <div class="stat-value" style="font-size: 1.4rem;">
+                    {{ total_latihan|default:"4" }}
                 </div>
-                <div class="stat-sub text-warning">Perlu evaluasi</div>
+                <div class="stat-sub text-warning">Termasuk ujian akhir</div>
             </div>
             <div class="stat-icon-box">
-                <i class="fas fa-exclamation-triangle"></i>
+                <i class="fas fa-tasks"></i>
             </div>
         </div>
     </div>
@@ -223,32 +220,7 @@
     </div>
 
     <div class="col-lg-4">
-        
-        <div class="content-card">
-            <div class="card-header">
-                <h6 class="card-title">⚠️ Analisis Soal</h6>
-            </div>
-            <div class="card-body">
-                {% if soal_sulit %}
-                    <div class="insight-box">
-                        <div class="insight-title">{{ soal_sulit.latihan.judul }}</div>
-                        <p class="mb-2" style="font-size: 0.9rem; color: #555; font-style: italic;">
-                            "{{ soal_sulit.teks_pertanyaan|truncatewords:10 }}"
-                        </p>
-                        <hr class="my-2" style="border-top: 1px dashed #fc8181;">
-                        <div class="d-flex align-items-center text-danger font-weight-bold">
-                            <i class="fas fa-times-circle mr-2"></i> {{ soal_sulit.num_salah }} Siswa Salah
-                        </div>
-                    </div>
-                    <div class="mt-3 text-center">
-                        <small class="text-muted">Banyak siswa kesulitan pada soal ini.</small>
-                    </div>
-                {% else %}
-                    <p class="text-muted text-center my-4">Belum ada data yang cukup.</p>
-                {% endif %}
-            </div>
-        </div>
-
+        <!-- Card Analisis Soal dihapus; hanya Menu Cepat -->
         <div class="content-card">
             <div class="card-header">
                 <h6 class="card-title">⚡ Menu Cepat</h6>

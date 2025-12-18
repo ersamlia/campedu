@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Laporan Analisis Hasil Belajar</title>
+    <style>
+        @page {
+            size: A4 portrait;
+            margin: 1.5cm;
+            @frame footer_frame {
+                -pdf-frame-content: footerContent;
+                bottom: 0.5cm;
+                margin-left: 1.5cm;
+                margin-right: 1.5cm;
+                height: 1cm;
+            }
+        }
+
+        body {
+            font-family: Helvetica, sans-serif;
+            font-size: 10pt;
+            color: #333;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 16pt;
+            color: #2c3e50;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+        }
+
+        .subtitle {
+            text-align: center;
+            font-size: 9pt;
+            color: #666;
+            margin-bottom: 25px;
+            border-bottom: 2px solid #4e73df;
+            padding-bottom: 10px;
+        }
+
+        .item-container {
+            margin-bottom: 25px;
+            page-break-inside: avoid;
+        }
+
+        .header-box {
+            padding: 8px 10px;
+            color: white;
+            font-weight: bold;
+            font-size: 11pt;
+            border-top-left-radius: 4px;
+            border-top-right-radius: 4px;
+        }
+
+        .bg-blue { background-color: #4e73df; }
+        .bg-red  { background-color: #e74a3b; }
+
+        .stats-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            background-color: #f8f9fc;
+        }
+
+        .stats-table td {
+            width: 25%;
+            padding: 8px;
+            text-align: center;
+            border-right: 1px solid #ddd;
+        }
+
+        .stats-label {
+            font-size: 8pt;
+            color: #666;
+            display: block;
+            margin-bottom: 2px;
+            text-transform: uppercase;
+        }
+
+        .stats-val {
+            font-size: 11pt;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .main-table {
+            width: 100%;
+            border-collapse: collapse;
+            border: 0.5px solid #999;
+        }
+
+        .main-table th {
+            background-color: #eaecf4;
+            color: #333;
+            font-weight: bold;
+            font-size: 9pt;
+            padding: 8px;
+            border: 0.5px solid #999;
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        .main-table td {
+            padding: 6px;
+            font-size: 9pt;
+            border: 0.5px solid #999;
+            vertical-align: middle;
+            color: #333;
+        }
+
+        .pass { color: #1cc88a; font-weight: bold; }
+        .fail { color: #e74a3b; font-weight: bold; }
+
+        .row-even  { background-color: #f9f9f9; }
+        .row-odd   { background-color: #ffffff; }
+
+        .text-left   { text-align: left;  padding-left: 5px; }
+        .text-center { text-align: center; }
+
+        #footerContent {
+            text-align: right;
+            font-size: 8pt;
+            color: #aaa;
+            border-top: 1px solid #eee;
+            padding-top: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Laporan Analisis Hasil Belajar</h1>
+    <div class="subtitle">Dicetak pada: {% now "d F Y, H:i" %}</div>
+
+    {% for item in analisis_latihan %}
+    <div class="item-container">
+
+        <!-- kategori hanya untuk warna, tidak ditampilkan sebagai teks -->
+        <div class="header-box {% if item.kategori == 'PENGAYAAN' %}bg-red{% else %}bg-blue{% endif %}">
+            {{ item.judul }}
+        </div>
+
+        <table class="stats-table">
+            <tr>
+                <td>
+                    <span class="stats-label">Rata-rata</span>
+                    <span class="stats-val">
+                        {{ item.rata_rata|default:"0"|floatformat:1 }}
+                    </span>
+                </td>
+                <td>
+                    <span class="stats-label">Tertinggi</span>
+                    <span class="stats-val">
+                        {{ item.nilai_tertinggi|default:"0"|floatformat:0 }}
+                    </span>
+                </td>
+                <td>
+                    <span class="stats-label">Terendah</span>
+                    <span class="stats-val">
+                        {{ item.nilai_terendah|default:"0"|floatformat:0 }}
+                    </span>
+                </td>
+                <td>
+                    <span class="stats-label">Tuntas</span>
+                    <span class="stats-val">
+                        {{ item.jumlah_lulus|default:"0" }}
+                    </span>
+                </td>
+            </tr>
+        </table>
+
+        <table class="main-table">
+            <thead>
+                <tr>
+                    <th class="text-center">No</th>
+                    <th class="text-left">Nama Siswa</th>
+                    <th class="text-center">Tanggal</th>
+                    <th class="text-center">Nilai</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for siswa in item.daftar_nilai %}
+                <tr class="{% cycle 'row-odd' 'row-even' %}">
+                    <td class="text-center">{{ forloop.counter }}</td>
+                    <td class="text-left">{{ siswa.nama }}</td>
+                    <td class="text-center">
+                        {{ siswa.tanggal_submit|default_if_none:""|date:"d/m/Y" }}
+                    </td>
+                    <td class="text-center">
+                        {% with nilai=siswa.nilai|default_if_none:0 %}
+                        <span class="{% if nilai|floatformat:0 >= 70 %}pass{% else %}fail{% endif %}">
+                            {{ nilai|floatformat:0 }}
+                        </span>
+                        {% endwith %}
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="4" class="text-center" style="padding: 15px; color: #888;">
+                        Belum ada siswa yang mengerjakan.
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+    <br>
+    {% empty %}
+    <div style="text-align: center; margin-top: 50px; color: #888;">
+        <h3>Belum ada data tersedia.</h3>
+    </div>
+    {% endfor %}
+
+    <div id="footerContent">
+        Halaman <pdf:pagenumber>
+    </div>
+
+</body>
+</html>

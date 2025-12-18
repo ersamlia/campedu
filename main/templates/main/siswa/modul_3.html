@@ -19,6 +19,36 @@ body { font-family: 'Nunito', sans-serif; background: #f0f8ff; }
     font-weight: 800; letter-spacing: 0.5px; border: 1px solid #d1d3e2;
 }
 
+/* === OBJECTIVE BOX (Slide 1 Baru) === */
+.objective-slide-content {
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center; padding: 20px;
+}
+.objective-box {
+    background: #fff; 
+    border: 2px solid #e3e6f0;
+    border-top: 5px solid #4e73df;
+    border-radius: 15px;
+    padding: 30px;
+    max-width: 700px;
+    margin: 0 auto;
+    position: relative;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+}
+.objective-box::before {
+    content: '\f140'; /* Icon Target */
+    font-family: 'Font Awesome 5 Free'; font-weight: 900;
+    position: absolute; top: -30px; left: 50%; transform: translateX(-50%);
+    background: #4e73df; color: white; width: 60px; height: 60px;
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    font-size: 1.8rem; box-shadow: 0 5px 10px rgba(78, 115, 223, 0.3);
+}
+.objective-list {
+    text-align: left; margin-top: 20px; color: #555; font-size: 1.05rem; line-height: 1.8;
+}
+.objective-list li { margin-bottom: 10px; display: flex; align-items: flex-start; }
+.objective-list li i { margin-top: 5px; flex-shrink: 0; }
+
 /* === CARD & SLIDES === */
 .learning-slide { display: none; opacity: 0; transition: opacity 0.5s ease-in-out; }
 .learning-slide.active { display: block; opacity: 1; }
@@ -31,7 +61,7 @@ body { font-family: 'Nunito', sans-serif; background: #f0f8ff; }
 h3.title-highlight { color: #2e59d9; font-weight: 900; margin-bottom: 1rem; }
 p.text-content { font-size: 1.1rem; color: #555; line-height: 1.8; }
 
-/* === SLIDE 1: STIMULASI === */
+/* === SLIDE 2: STIMULASI === */
 .bio-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; margin: 20px 0; }
 .bio-item { border-radius: 10px; overflow: hidden; height: 150px; position: relative; box-shadow: 0 4px 10px rgba(0,0,0,0.1); transition: transform 0.3s; }
 .bio-item:hover { transform: scale(1.05); }
@@ -47,7 +77,7 @@ p.text-content { font-size: 1.1rem; color: #555; line-height: 1.8; }
 .tokoh-text h5 { font-weight: 800; color: #856404; margin-bottom: 5px; }
 .tokoh-text p { font-size: 1rem; color: #533f03; margin-bottom: 0; line-height: 1.5; }
 
-/* === SLIDE 2: FLIP CARD === */
+/* === SLIDE 3: FLIP CARD === */
 .quiz-container { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-top: 20px; }
 .quiz-card { background-color: transparent; width: 280px; height: 320px; perspective: 1000px; cursor: pointer; }
 .quiz-inner { position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.6s; transform-style: preserve-3d; border-radius: 15px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
@@ -58,7 +88,7 @@ p.text-content { font-size: 1.1rem; color: #555; line-height: 1.8; }
 .quiz-img { width: 120px; height: 120px; object-fit: cover; border-radius: 50%; margin-bottom: 15px; border: 4px solid #f8f9fc; }
 .btn-flip { margin-top: 15px; border-radius: 20px; font-weight: bold; font-size: 0.9rem; }
 
-/* === SLIDE 3: ENSIKLOPEDIA === */
+/* === SLIDE 4: ENSIKLOPEDIA === */
 .nav-pills-custom .nav-link { border-radius: 50px; font-weight: 700; color: #858796; background: #fff; border: 1px solid #e3e6f0; margin-right: 8px; padding: 10px 20px; white-space: nowrap; }
 .nav-pills-custom .nav-link.active { background: #4e73df; color: white; border-color: #4e73df; box-shadow: 0 4px 10px rgba(78, 115, 223, 0.3); }
 .nav-pills-custom .nav-link.read-mark::after { content: '\f00c'; font-family: 'Font Awesome 5 Free'; font-weight: 900; float: right; color: #1cc88a; margin-left: 5px; }
@@ -76,7 +106,7 @@ p.text-content { font-size: 1.1rem; color: #555; line-height: 1.8; }
 .gallery-item img { width: 100%; height: 120px; object-fit: cover; }
 .gallery-caption { padding: 10px; font-size: 0.9rem; text-align: center; font-weight: 700; color: #444; background: #fff; border-top: 1px solid #f0f0f0; line-height: 1.2; }
 
-/* === SLIDE 4: INSPECTOR === */
+/* === SLIDE 5: INSPECTOR === */
 .inspector-wrapper { display: flex; gap: 20px; justify-content: center; margin-top: 20px; align-items: flex-start; flex-wrap: wrap; }
 .inspector-group { width: 45%; min-width: 250px; flex: 1; display: flex; flex-direction: column; }
 .inspector-card { width: 100%; height: 200px; border-radius: 15px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.1); border: 2px solid #e3e6f0; background: white; }
@@ -92,7 +122,7 @@ p.text-content { font-size: 1.1rem; color: #555; line-height: 1.8; }
 .btn-inspect { border-radius: 30px; padding: 8px 20px; font-weight: 700; background: white; border: 2px solid #d1d3e2; color: #555; transition: 0.2s; }
 .btn-inspect:hover, .btn-inspect.active { background: #4e73df; color: white; border-color: #4e73df; transform: translateY(-3px); box-shadow: 0 4px 10px rgba(78, 115, 223, 0.2); }
 
-/* === SLIDE 5: GAME AREA === */
+/* === SLIDE 6: GAME AREA === */
 .game-area { background: #f1f5f9; border-radius: 20px; padding: 20px; border: 3px dashed #cbd5e1; }
 .bucket-container { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-bottom: 30px; align-items: flex-start; }
 .bucket { flex: 1; min-width: 160px; min-height: 200px; background: white; border-radius: 12px; border: 2px solid transparent; padding: 15px 10px; text-align: center; transition: 0.2s; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
@@ -156,10 +186,56 @@ p.text-content { font-size: 1.1rem; color: #555; line-height: 1.8; }
     <div>
         <h5 class="font-weight-bold text-primary m-0"><i class="fas fa-layer-group mr-2"></i>Materi 3: Makhluk Hidup dengan Klasifikasi 5 Kingdom</h5>
     </div>
-    <div id="step-badge" class="step-badge">1. Stimulasi</div>
+    <div id="step-badge" class="step-badge">1. Pendahuluan</div>
 </div>
 
 <div id="slide-1" class="learning-slide active">
+    <div class="learning-card text-center">
+        
+        <div class="objective-slide-content">
+            
+            <div class="objective-box">
+                <h4 class="font-weight-bold text-gray-800">Tujuan Pembelajaran</h4>
+                <p class="text-muted small">Di akhir petualangan ini, kamu diharapkan mampu:</p>
+                <ul class="objective-list">
+                    <li>
+                        <i class="fas fa-check-circle text-success mr-2"></i> 
+                        <span><strong>Memahami dasar klasifikasi</strong> 5 Kingdom yang dicetuskan oleh Robert H. Whittaker. (Slide Stimulasi)</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-check-circle text-success mr-2"></i> 
+                        <span><strong>Membedakan</strong> organisme prokariotik, eukariotik sederhana, dan eukariotik kompleks. (Slide Cek Klasifikasi)</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-check-circle text-success mr-2"></i> 
+                        <span><strong>Mengidentifikasi karakteristik</strong> utama dari Kingdom Monera, Protista, Fungi, Plantae, dan Animalia. (Slide Ensiklopedia)</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-check-circle text-success mr-2"></i> 
+                        <span><strong>Menganalisis perbedaan</strong> struktural (seperti dinding sel dan cara memperoleh makanan) antar kingdom. (Slide Analisis)</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-check-circle text-success mr-2"></i> 
+                        <span><strong>Mengelompokkan</strong> berbagai spesies makhluk hidup ke dalam Kingdom yang tepat. (Slide Permainan)</span>
+                    </li>
+                </ul>
+            </div>
+            
+        </div>
+
+        <div class="pagination-footer">
+            <button class="btn btn-outline-secondary btn-nav-page" disabled>
+                <i class="fas fa-chevron-left"></i> Kembali
+            </button>
+            <div class="page-numbers-container" id="page-numbers-1"></div>
+            <button class="btn btn-primary btn-nav-page shadow" onclick="changePage(1)">
+                Mulai Belajar <i class="fas fa-chevron-right ml-2"></i>
+            </button>
+        </div>
+    </div>
+</div>
+
+<div id="slide-2" class="learning-slide">
     <div class="learning-card text-center">
         <h3 class="title-highlight">Keanekaragaman Makhluk Hidup</h3>
         <p class="text-content">
@@ -184,18 +260,18 @@ p.text-content { font-size: 1.1rem; color: #555; line-height: 1.8; }
         </div>
 
         <div class="pagination-footer">
-            <button class="btn btn-outline-secondary btn-nav-page" onclick="changePage(-1)" disabled>
+            <button class="btn btn-outline-secondary btn-nav-page" onclick="changePage(-1)">
                 <i class="fas fa-chevron-left"></i> Kembali
             </button>
-            <div class="page-numbers-container" id="page-numbers-1"></div>
-            <button id="btn-next-1" class="btn btn-outline-primary btn-nav-page" onclick="changePage(1)">
+            <div class="page-numbers-container" id="page-numbers-2"></div>
+            <button id="btn-next-2" class="btn btn-outline-primary btn-nav-page" onclick="changePage(1)">
                 Selanjutnya <i class="fas fa-chevron-right"></i>
             </button>
         </div>
     </div>
 </div>
 
-<div id="slide-2" class="learning-slide">
+<div id="slide-3" class="learning-slide">
     <div class="learning-card text-center">
         <h3 class="title-highlight">Cek Klasifikasi</h3>
         <p class="text-content mb-4">Tebak klasifikasi makhluk di bawah ini. <strong>Balikkan semua kartu</strong> untuk lanjut!</p>
@@ -248,15 +324,15 @@ p.text-content { font-size: 1.1rem; color: #555; line-height: 1.8; }
             <button class="btn btn-outline-secondary btn-nav-page" onclick="changePage(-1)">
                 <i class="fas fa-chevron-left"></i> Kembali
             </button>
-            <div class="page-numbers-container" id="page-numbers-2"></div>
-            <button id="btn-next-2" class="btn btn-outline-primary btn-nav-page" onclick="changePage(1)" disabled>
+            <div class="page-numbers-container" id="page-numbers-3"></div>
+            <button id="btn-next-3" class="btn btn-outline-primary btn-nav-page" onclick="changePage(1)" disabled>
                 Selanjutnya <i class="fas fa-chevron-right"></i>
             </button>
         </div>
     </div>
 </div>
 
-<div id="slide-3" class="learning-slide">
+<div id="slide-4" class="learning-slide">
     <div class="learning-card">
         <div class="d-flex justify-content-between align-items-center mb-3">
             <h3 class="title-highlight m-0">Macam - macam 5 Kingdom</h3>
@@ -456,15 +532,15 @@ p.text-content { font-size: 1.1rem; color: #555; line-height: 1.8; }
             <button class="btn btn-outline-secondary btn-nav-page" onclick="changePage(-1)">
                 <i class="fas fa-chevron-left"></i> Kembali
             </button>
-            <div class="page-numbers-container" id="page-numbers-3"></div>
-            <button id="btn-next-3" class="btn btn-outline-primary btn-nav-page" onclick="changePage(1)" disabled>
+            <div class="page-numbers-container" id="page-numbers-4"></div>
+            <button id="btn-next-4" class="btn btn-outline-primary btn-nav-page" onclick="changePage(1)" disabled>
                 Selanjutnya <i class="fas fa-chevron-right"></i>
             </button>
         </div>
     </div>
 </div>
 
-<div id="slide-4" class="learning-slide">
+<div id="slide-5" class="learning-slide">
     <div class="learning-card">
         <h3 class="title-highlight text-center">Analisis Struktur</h3>
         <p class="text-content text-center mb-4">
@@ -512,15 +588,15 @@ p.text-content { font-size: 1.1rem; color: #555; line-height: 1.8; }
             <button class="btn btn-outline-secondary btn-nav-page" onclick="changePage(-1)">
                 <i class="fas fa-chevron-left"></i> Kembali
             </button>
-            <div class="page-numbers-container" id="page-numbers-4"></div>
-            <button id="btn-next-4" class="btn btn-outline-primary btn-nav-page" onclick="changePage(1)" disabled>
+            <div class="page-numbers-container" id="page-numbers-5"></div>
+            <button id="btn-next-5" class="btn btn-outline-primary btn-nav-page" onclick="changePage(1)" disabled>
                 Selanjutnya <i class="fas fa-chevron-right"></i>
             </button>
         </div>
     </div>
 </div>
 
-<div id="slide-5" class="learning-slide">
+<div id="slide-6" class="learning-slide">
     <div class="learning-card">
         <div class="d-flex justify-content-between align-items-center mb-3">
             <div>
@@ -566,7 +642,7 @@ p.text-content { font-size: 1.1rem; color: #555; line-height: 1.8; }
             <button class="btn btn-outline-secondary btn-nav-page" onclick="changePage(-1)">
                 <i class="fas fa-chevron-left"></i> Kembali
             </button>
-            <div class="page-numbers-container" id="page-numbers-5"></div>
+            <div class="page-numbers-container" id="page-numbers-6"></div>
             
             <a id="btn-finish-module" href="{% url 'latihan_soal' 3 %}" class="btn btn-success btn-nav-page" style="display: none;">
                 Selesai <i class="fas fa-check"></i>
@@ -580,17 +656,18 @@ p.text-content { font-size: 1.1rem; color: #555; line-height: 1.8; }
 {% block custom_js %}
 <script>
 // === 1. GLOBAL STATE & NAVIGATION ===
-const stepNames = ["Stimulasi", "Identifikasi", "Ensiklopedia", "Analisis", "Permainan"];
-const totalSlides = 5;
+const stepNames = ["Pendahuluan", "Stimulasi", "Identifikasi", "Ensiklopedia", "Analisis", "Permainan"];
+const totalSlides = 6;
 let currentSlideIndex = 1;
 
-// Initial State (1 Unlocked, rest Locked)
+// Initial State (1 & 2 Unlocked)
 let progressState = {
     1: true,
-    2: false, 
-    3: false,
+    2: true, // Default open
+    3: false, 
     4: false,
-    5: false
+    5: false,
+    6: false
 };
 
 // --- Storage Logic ---
@@ -598,11 +675,15 @@ function loadProgress() {
     const saved = localStorage.getItem('modul_3_progress');
     if (saved) {
         progressState = JSON.parse(saved);
-        // Smart Unlock: Jika level atas terbuka, level bawah otomatis terbuka
+        // Smart Unlock berjenjang (Updated for 6 slides)
+        if (progressState[6]) { progressState[5] = true; }
         if (progressState[5]) { progressState[4] = true; }
         if (progressState[4]) { progressState[3] = true; }
         if (progressState[3]) { progressState[2] = true; }
         if (progressState[2]) { progressState[1] = true; }
+        // Force slide 1 & 2 open
+        progressState[1] = true;
+        progressState[2] = true;
     }
 }
 
@@ -613,20 +694,21 @@ function saveProgress() {
 // --- Navigation Logic ---
 function nextSlide(n) {
     if (n > currentSlideIndex) {
-        if (currentSlideIndex === 2 && !progressState[3]) {
-             if(document.getElementById('btn-next-2').disabled) {
+        // Validasi Kunci (Digeser +1 dari logic lama)
+        if (currentSlideIndex === 3 && !progressState[4]) { // Old Slide 2 (Quiz)
+             if(document.getElementById('btn-next-3').disabled) {
                  alert("Silakan balik semua kartu kuis terlebih dahulu!");
                  return;
              }
         }
-        if (currentSlideIndex === 3 && !progressState[4]) {
-             if(document.getElementById('btn-next-3').disabled) {
+        if (currentSlideIndex === 4 && !progressState[5]) { // Old Slide 3 (Ensiklopedia)
+             if(document.getElementById('btn-next-4').disabled) {
                  alert("Silakan buka kelima tab Kingdom terlebih dahulu!");
                  return;
              }
         }
-        if (currentSlideIndex === 4 && !progressState[5]) {
-             if(document.getElementById('btn-next-4').disabled) {
+        if (currentSlideIndex === 5 && !progressState[6]) { // Old Slide 4 (Inspector)
+             if(document.getElementById('btn-next-5').disabled) {
                  alert("Lakukan analisis pada kedua kasus terlebih dahulu!");
                  return;
              }
@@ -659,9 +741,9 @@ function nextSlide(n) {
         renderPageNumbers(n);
         checkNextButtonState(n);
 
-        // Slide Specific Init
-        if (n === 3) markTabRead('monera'); // Auto mark first tab
-        if(n === 5 && document.getElementById('pool-container').children.length <= 1) initGame();
+        // Slide Specific Init (Updated Indices)
+        if (n === 4) markTabRead('monera'); // Slide 4 is now Encyclopedia
+        if(n === 6 && document.getElementById('pool-container').children.length <= 1) initGame(); // Slide 6 is Game
     }
 }
 
@@ -685,6 +767,7 @@ function renderPageNumbers(slideNum) {
             btnClass += ' active'; 
             disabledAttr = ''; 
         } else if (i < slideNum || progressState[i+1] === true || (i===1)) { 
+            // Logic: slide i is unlocked if progressState[i+1] (next step) is true OR if it's slide 1
             btnClass += ' unlocked'; 
             disabledAttr = '';
             onClickAttr = `onclick="nextSlide(${i})"`;
@@ -696,33 +779,36 @@ function renderPageNumbers(slideNum) {
 }
 
 function checkNextButtonState(n) {
-    if (n === 1) {
-        // Slide 1 always allows going to 2
-        document.getElementById('btn-next-1').removeAttribute('disabled');
-    }
+    // Slide 1 & 2 always open
     if (n === 2) {
-        const btn = document.getElementById('btn-next-2');
-        if (progressState[3]) btn.removeAttribute('disabled');
-        else btn.setAttribute('disabled', 'true');
+        document.getElementById('btn-next-2').removeAttribute('disabled');
     }
+    // Slide 3 (Quiz)
     if (n === 3) {
         const btn = document.getElementById('btn-next-3');
         if (progressState[4]) btn.removeAttribute('disabled');
         else btn.setAttribute('disabled', 'true');
     }
+    // Slide 4 (Ensiklopedia)
     if (n === 4) {
         const btn = document.getElementById('btn-next-4');
         if (progressState[5]) btn.removeAttribute('disabled');
         else btn.setAttribute('disabled', 'true');
     }
+    // Slide 5 (Analisis)
     if (n === 5) {
+        const btn = document.getElementById('btn-next-5');
+        if (progressState[6]) btn.removeAttribute('disabled');
+        else btn.setAttribute('disabled', 'true');
+    }
+    // Slide 6 (Game)
+    if (n === 6) {
         const btn = document.getElementById('btn-finish-module');
-        // Game finish logic handled in game function
         if (score === 10) btn.style.display = 'inline-block';
     }
 }
 
-// === 2. SLIDE 2 LOGIC (FLIP CARD) ===
+// === 2. SLIDE 3 LOGIC (FLIP CARD) ===
 let flippedCount = 0;
 let flippedCards = new Set();
 
@@ -732,24 +818,23 @@ function flipCard(card, id) {
         flippedCards.add(id);
         
         if (flippedCards.size === 3) {
-            progressState[3] = true; // Unlock slide 3
+            progressState[4] = true; // Unlock slide 4
             saveProgress();
-            document.getElementById('btn-next-2').removeAttribute('disabled');
-            renderPageNumbers(2);
+            document.getElementById('btn-next-3').removeAttribute('disabled');
+            renderPageNumbers(3);
         }
     } else {
         card.classList.remove('flipped');
     }
 }
 
-// === 3. SLIDE 3 LOGIC (ENSIKLOPEDIA) ===
+// === 3. SLIDE 4 LOGIC (ENSIKLOPEDIA) ===
 let visitedTabs = new Set();
 const totalTabs = 5;
 
 function trackTab(kingdom) {
     // Show Sub Content Logic (Reset sub tabs)
     resetSub(kingdom);
-    
     // Add mark
     markTabRead(kingdom);
 }
@@ -762,10 +847,10 @@ function markTabRead(kingdom) {
     }
 
     if (visitedTabs.size === totalTabs) {
-        progressState[4] = true; // Unlock slide 4
+        progressState[5] = true; // Unlock slide 5
         saveProgress();
-        document.getElementById('btn-next-3').removeAttribute('disabled');
-        renderPageNumbers(3);
+        document.getElementById('btn-next-4').removeAttribute('disabled');
+        renderPageNumbers(4);
     }
 }
 
@@ -788,7 +873,7 @@ function resetSub(kingdom) {
     }, 100);
 }
 
-// === 4. SLIDE 4 LOGIC (INSPECTOR) ===
+// === 4. SLIDE 5 LOGIC (INSPECTOR) ===
 let analyzedCases = new Set();
 
 function analyzeTrait(caseId, trait, textLeft, textRight, btn) {
@@ -811,14 +896,14 @@ function analyzeTrait(caseId, trait, textLeft, textRight, btn) {
 
     analyzedCases.add(caseId);
     if(analyzedCases.size === 2) {
-        progressState[5] = true; // Unlock slide 5
+        progressState[6] = true; // Unlock slide 6
         saveProgress();
-        document.getElementById('btn-next-4').removeAttribute('disabled');
-        renderPageNumbers(4);
+        document.getElementById('btn-next-5').removeAttribute('disabled');
+        renderPageNumbers(5);
     }
 }
 
-// === 5. SLIDE 5 LOGIC (GAME) ===
+// === 5. SLIDE 6 LOGIC (GAME) ===
 const gameData = [
     {id:'g1', name:'E. coli', kingdom:'monera', img:"{% static 'img/bakteriecoli.jpeg' %}", info:'Monera: Prokariotik.'},
     {id:'g2', name:'Paramecium', kingdom:'protista', img:"{% static 'img/paramecium.jpg' %}", info:'Protista: Mirip hewan.'},

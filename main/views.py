@@ -1,3 +1,7 @@
+from django.http import HttpResponse
+from django.template.loader import get_template
+from xhtml2pdf import pisa
+from django.db.models import Avg, Max, Min
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -18,6 +22,8 @@ from .models import (
     JawabanSiswa,
     HasilPengayaan,
 )
+
+
 from django.contrib import messages
 
 # === HALAMAN UTAMA & AUTENTIKASI ===
@@ -77,6 +83,8 @@ def logout_view(request):
 
 def forgot_password_view(request):
     return render(request, "main/forgot-password.html")
+
+
 
 
 # === ALUR SISWA ===
@@ -533,20 +541,235 @@ def pantau_progres_view(request):
 
 @login_required
 def analisis_hasil_view(request):
-    if request.user.profile.role != "GURU": return redirect("siswa_dashboard")
-    analisis_latihan = []
-    for latihan in LatihanSoal.objects.all().order_by("subbab__urutan"):
-        data_latihan = {"judul": latihan.judul, "pertanyaan": []}
-        for pertanyaan in latihan.pertanyaan_set.all():
-            total_menjawab = JawabanSiswa.objects.filter(pertanyaan=pertanyaan).count()
-            total_salah = JawabanSiswa.objects.filter(pertanyaan=pertanyaan, is_benar=False).count()
-            persen_salah = 0
-            if total_menjawab > 0:
-                persen_salah = (total_salah / total_menjawab) * 100
-            data_latihan["pertanyaan"].append({
-                "teks": pertanyaan.teks_pertanyaan, "total_menjawab": total_menjawab,
-                "total_salah": total_salah, "persen_salah": round(persen_salah, 1),
+    # Cek apakah user adalah GURU
+    if request.user.profile.role != "GURU":
+        return redirect("siswa_dashboard")
+
+    analisis_gabungan = []
+
+    # ==========================================
+    # 1. DATA LATIHAN HARIAN (Tabel LatihanSoal)
+    # ==========================================
+    semua_latihan = LatihanSoal.objects.all().order_by('id')
+    
+    for lat in semua_latihan:
+        kategori = 'LATIHAN'
+        
+        hasil_siswa = HasilLatihan.objects.filter(latihan=lat)
+        agregat = hasil_siswa.aggregate(Avg('skor'), Max('skor'), Min('skor'))
+        
+        daftar_nilai = []
+        jumlah_lulus = 0
+        
+        for h in hasil_siswa:
+            skor_siswa = h.skor if h.skor is not None else 0
+            if skor_siswa >= 70: 
+                jumlah_lulus += 1
+            
+            # Ambil nama & NIS aman
+            nama = h.siswa.get_full_name() or h.siswa.username
+            try:
+                nis = h.siswa.profile.nis
+            except:
+                nis = "-"
+
+            # --- SAFE DATE HANDLING ---
+            # Mencoba mencari 'tanggal_dibuat', kalau tidak ada cari 'tanggal', kalau tidak ada tampilkan '-'
+            tgl = getattr(h, 'tanggal_dibuat', getattr(h, 'tanggal', '-'))
+
+            daftar_nilai.append({
+                'nama': nama, 
+                'nis': nis,
+                'tanggal_submit': tgl, # Gunakan variabel aman ini
+                'nilai': skor_siswa
             })
-        analisis_latihan.append(data_latihan)
-    context = {"analisis_latihan": analisis_latihan}
-    return render(request, "main/guru/analisis_hasil.html", context)
+
+        analisis_gabungan.append({
+            'judul': lat.judul,
+            'kategori': kategori,
+            'rata_rata': agregat['skor__avg'] or 0,
+            'nilai_tertinggi': agregat['skor__max'] or 0,
+            'nilai_terendah': agregat['skor__min'] or 0,
+            'jumlah_lulus': jumlah_lulus,
+            'daftar_nilai': daftar_nilai,
+        })
+
+    # ==========================================
+    # 2. DATA UJIAN / PENGAYAAN (Tabel SoalPengayaan)
+    # ==========================================
+    semua_pengayaan = SoalPengayaan.objects.all().order_by('id')
+    
+    for peng in semua_pengayaan:
+        kategori = 'PENGAYAAN'
+        
+        hasil_siswa = HasilPengayaan.objects.filter(pengayaan=peng)
+        agregat = hasil_siswa.aggregate(Avg('skor'), Max('skor'), Min('skor'))
+        
+        daftar_nilai = []
+        jumlah_lulus = 0
+        
+        for h in hasil_siswa:
+            skor_siswa = h.skor if h.skor is not None else 0
+            if skor_siswa >= 70: 
+                jumlah_lulus += 1
+                
+            nama = h.siswa.get_full_name() or h.siswa.username
+            try:
+                nis = h.siswa.profile.nis
+            except:
+                nis = "-"
+
+            # --- SAFE DATE HANDLING ---
+            tgl = getattr(h, 'tanggal_dibuat', getattr(h, 'tanggal', '-'))
+
+            daftar_nilai.append({
+                'nama': nama, 
+                'nis': nis,
+                'tanggal_submit': tgl, # Gunakan variabel aman ini
+                'nilai': skor_siswa
+            })
+
+        analisis_gabungan.append({
+            'judul': peng.judul,
+            'kategori': kategori,
+            'rata_rata': agregat['skor__avg'] or 0,
+            'nilai_tertinggi': agregat['skor__max'] or 0,
+            'nilai_terendah': agregat['skor__min'] or 0,
+            'jumlah_lulus': jumlah_lulus,
+            'daftar_nilai': daftar_nilai,
+        })
+
+    context = {
+        'analisis_latihan': analisis_gabungan
+    }
+    return render(request, 'main/guru/analisis_hasil.html', context)
+
+@login_required
+def download_progres_pdf(request):
+    if request.user.profile.role != "GURU":
+        return redirect("siswa_dashboard")
+    
+    # 1. Ambil Data (Sama persis dengan pantau_progres_view)
+    daftar_siswa = User.objects.filter(profile__role="SISWA").order_by('username')
+    data_progres = []
+    
+    for siswa in daftar_siswa:
+        progress, created = SiswaProgress.objects.get_or_create(siswa=siswa)
+        skor_1 = HasilLatihan.objects.filter(siswa=siswa, latihan__subbab__urutan=1).first()
+        skor_2 = HasilLatihan.objects.filter(siswa=siswa, latihan__subbab__urutan=2).first()
+        skor_3 = HasilLatihan.objects.filter(siswa=siswa, latihan__subbab__urutan=3).first()
+        skor_p = HasilPengayaan.objects.filter(siswa=siswa).first()
+        
+        data_progres.append({
+            "nama": siswa.username, # Atau siswa.get_full_name()
+            "progress": progress,
+            "skor_1": skor_1.skor if skor_1 else "-",
+            "skor_2": skor_2.skor if skor_2 else "-",
+            "skor_3": skor_3.skor if skor_3 else "-",
+            "skor_p": skor_p.skor if skor_p else "-",
+        })
+
+    context = {"data_progres": data_progres}
+
+    # 2. Render Template PDF
+    template_path = 'main/guru/pdf_progres.html' # Kita akan buat file ini di langkah 3
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename="rekap_nilai_siswa.pdf"'
+    
+    template = get_template(template_path)
+    html = template.render(context)
+
+    # 3. Create PDF
+    pisa_status = pisa.CreatePDF(
+       html, dest=response
+    )
+
+    if pisa_status.err:
+       return HttpResponse('We had some errors <pre>' + html + '</pre>')
+    return response
+
+@login_required
+def download_analisis_pdf(request):
+    if request.user.profile.role != "GURU":
+        return redirect("siswa_dashboard")
+
+    analisis_gabungan = []
+
+    # 1. DATA LATIHAN HARIAN
+    semua_latihan = LatihanSoal.objects.all().order_by('id')
+    for lat in semua_latihan:
+        kategori = 'LATIHAN'
+        hasil_siswa = HasilLatihan.objects.filter(latihan=lat)
+        agregat = hasil_siswa.aggregate(Avg('skor'), Max('skor'), Min('skor'))
+        
+        daftar_nilai = []
+        jumlah_lulus = 0
+        for h in hasil_siswa:
+            skor_siswa = h.skor if h.skor is not None else 0
+            if skor_siswa >= 70: jumlah_lulus += 1
+            
+            nama = h.siswa.get_full_name() or h.siswa.username
+            try: nis = h.siswa.profile.nis
+            except: nis = "-"
+            tgl = getattr(h, 'tanggal_dibuat', getattr(h, 'tanggal', '-'))
+
+            daftar_nilai.append({
+                'nama': nama, 'nis': nis, 'tanggal_submit': tgl, 'nilai': skor_siswa
+            })
+
+        analisis_gabungan.append({
+            'judul': lat.judul,
+            'kategori': kategori,
+            'rata_rata': agregat['skor__avg'] or 0,
+            'nilai_tertinggi': agregat['skor__max'] or 0,
+            'nilai_terendah': agregat['skor__min'] or 0,
+            'jumlah_lulus': jumlah_lulus,
+            'daftar_nilai': daftar_nilai,
+        })
+
+    # 2. DATA PENGAYAAN / UJIAN
+    semua_pengayaan = SoalPengayaan.objects.all().order_by('id')
+    for peng in semua_pengayaan:
+        kategori = 'PENGAYAAN'
+        hasil_siswa = HasilPengayaan.objects.filter(pengayaan=peng)
+        agregat = hasil_siswa.aggregate(Avg('skor'), Max('skor'), Min('skor'))
+        
+        daftar_nilai = []
+        jumlah_lulus = 0
+        for h in hasil_siswa:
+            skor_siswa = h.skor if h.skor is not None else 0
+            if skor_siswa >= 70: jumlah_lulus += 1
+                
+            nama = h.siswa.get_full_name() or h.siswa.username
+            try: nis = h.siswa.profile.nis
+            except: nis = "-"
+            tgl = getattr(h, 'tanggal_dibuat', getattr(h, 'tanggal', '-'))
+
+            daftar_nilai.append({
+                'nama': nama, 'nis': nis, 'tanggal_submit': tgl, 'nilai': skor_siswa
+            })
+
+        analisis_gabungan.append({
+            'judul': peng.judul,
+            'kategori': kategori,
+            'rata_rata': agregat['skor__avg'] or 0,
+            'nilai_tertinggi': agregat['skor__max'] or 0,
+            'nilai_terendah': agregat['skor__min'] or 0,
+            'jumlah_lulus': jumlah_lulus,
+            'daftar_nilai': daftar_nilai,
+        })
+
+    context = {'analisis_latihan': analisis_gabungan}
+    
+    # RENDER KE PDF
+    template_path = 'main/guru/pdf_analisis.html' # Kita buat file ini di langkah 3
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename="laporan_analisis_hasil.pdf"'
+    
+    template = get_template(template_path)
+    html = template.render(context)
+    pisa_status = pisa.CreatePDF(html, dest=response)
+
+    if pisa_status.err:
+       return HttpResponse('We had some errors <pre>' + html + '</pre>')
+    return response

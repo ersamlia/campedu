@@ -25,20 +25,20 @@
             .sidebar,
             .sidebar.sidebar-dark.accordion,
             .navbar-nav.sidebar.sidebar-dark.accordion {
-                background: #009688 !important;     /* TEAL cyan utama */
+                background: #009688 !important;
                 min-height: 100vh;
-                border-right: 1px solid #42a5f5 !important; /* Sky blue accent */
+                border-right: 1px solid #42a5f5 !important;
                 font-family: 'Nunito', sans-serif !important;
             }
             .sidebar .sidebar-brand {
-                color: #ffffff !important;          /* Sky blue untuk brand/teks utama */
+                color: #ffffff !important;
                 font-size: 1.32rem;
                 font-weight: 900;
                 letter-spacing: .04em;
                 text-transform: none;
             }
             .sidebar .sidebar-brand-icon {
-                color: #cddc39 !important;          /* Lime/chartreuse accent pada icon */
+                color: #cddc39 !important;
                 font-size: 1.9rem !important;
                 margin-right: 8px;
             }
@@ -66,7 +66,7 @@
             .sidebar .nav-link:focus,
             .sidebar .nav-link:hover,
             .sidebar .nav-item.active > .nav-link {
-                background: #A8BBA3  !important;         /* Biru langit menu aktif */
+                background: #A8BBA3  !important;
                 color: #009688 !important;
                 font-weight: 800;
                 border-radius: 0.92rem;
@@ -83,7 +83,7 @@
                 color: #fff !important;
             }
             .sidebar-divider {
-                border-color: #cddc39 !important;  /* Lime accent untuk garis */
+                border-color: #cddc39 !important;
                 opacity: 0.3;
                 margin: 10px 1rem !important;
             }
@@ -93,13 +93,13 @@
                 font-size: 0.95rem;
             }
             .sidebar .collapse-header {
-                color: #009688  !important;        
+                color: #009688  !important;
                 font-weight: 800;
                 font-size: 0.85rem;
                 text-transform: uppercase;
             }
             .sidebar .nav-link i {
-                color: #FFF6DA !important;        /* semua icon lime/chartreuse */
+                color: #FFF6DA !important;
                 margin-right: 10px;
                 font-size: 1.1rem;
                 vertical-align: middle;
@@ -138,6 +138,8 @@
                 <hr class="sidebar-divider my-0">
                 
                 {% if user.profile.role == 'SISWA' %}
+
+                    <!-- MENU SISWA TETAP -->
                     <li class="nav-item {% if request.resolver_match.url_name == 'siswa_dashboard' %}active{% endif %}">
                         <a class="nav-link" href="{% url 'siswa_dashboard' %}">
                             <i class="fas fa-home"></i>
@@ -220,22 +222,24 @@
                     </li>
 
                 {% elif user.profile.role == 'GURU' %}
+
+                    <!-- MENU GURU DENGAN NAMA DIUBAH -->
                     <li class="nav-item {% if request.resolver_match.url_name == 'guru_dashboard' %}active{% endif %}">
                         <a class="nav-link" href="{% url 'guru_dashboard' %}">
                             <i class="fas fa-tachometer-alt"></i>
-                            <span>Dashboard Guru</span></a>
+                            <span>Dashboard Kelas</span></a>
                     </li>
                     <hr class="sidebar-divider">
-                    <div class="sidebar-heading">Manajemen Kelas</div>
+                    <div class="sidebar-heading">Panel Guru</div>
                     <li class="nav-item {% if request.resolver_match.url_name == 'pantau_progres' %}active{% endif %}">
                         <a class="nav-link" href="{% url 'pantau_progres' %}">
                             <i class="fas fa-chart-bar"></i>
-                            <span>Pantau Progres Siswa</span></a>
+                            <span>Pantau Progres</span></a>
                     </li>
                     <li class="nav-item {% if request.resolver_match.url_name == 'analisis_hasil' %}active{% endif %}">
                         <a class="nav-link" href="{% url 'analisis_hasil' %}">
                             <i class="fas fa-diagnoses"></i>
-                            <span>Analisis Hasil Belajar</span></a>
+                            <span>Analisis Nilai</span></a>
                     </li>
                 {% endif %}
                 

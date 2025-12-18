@@ -20,6 +20,35 @@ body { font-family: 'Nunito', sans-serif; background: #f0f8ff; }
     font-weight: 800; letter-spacing: 0.5px; border: 1px solid #d1d3e2;
 }
 
+/* === OBJECTIVE BOX (Slide 1) === */
+.objective-slide-content {
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center; padding: 20px;
+}
+.objective-box {
+    background: #fff; 
+    border: 2px solid #e3e6f0;
+    border-top: 5px solid #36b9cc;
+    border-radius: 15px;
+    padding: 40px;
+    max-width: 700px;
+    margin: 0 auto;
+    position: relative;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+}
+.objective-box::before {
+    content: '\f140'; /* Icon Target */
+    font-family: 'Font Awesome 5 Free'; font-weight: 900;
+    position: absolute; top: -30px; left: 50%; transform: translateX(-50%);
+    background: #36b9cc; color: white; width: 60px; height: 60px;
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    font-size: 1.8rem; box-shadow: 0 5px 10px rgba(54, 185, 204, 0.3);
+}
+.objective-list {
+    text-align: left; margin-top: 20px; color: #555; font-size: 1.05rem; line-height: 1.8;
+}
+.objective-list li { margin-bottom: 10px; }
+
 /* === SLIDES === */
 .learning-slide { display: none; opacity: 0; transition: opacity 0.5s ease-in-out; }
 .learning-slide.active { display: block; opacity: 1; }
@@ -39,7 +68,6 @@ p.text-content { font-size: 1.1rem; color: #555; line-height: 1.8; }
     border: 1px solid #eee;
 }
 .img-content { width: 100%; height: 200px; object-fit: cover; }
-
 .img-source {
     position: absolute; top: 8px; right: 8px;
     background: rgba(0,0,0,0.6); color: #fff; 
@@ -48,7 +76,7 @@ p.text-content { font-size: 1.1rem; color: #555; line-height: 1.8; }
     backdrop-filter: blur(2px);
 }
 
-/* === SLIDE 1 (BATTLE MODE) === */
+/* === GAME STIMULASI === */
 .question-box {
     background: #4e73df; color: white; padding: 15px 30px; border-radius: 50px;
     font-size: 1.1rem; font-weight: 700; text-align: center; margin-bottom: 30px;
@@ -69,7 +97,7 @@ p.text-content { font-size: 1.1rem; color: #555; line-height: 1.8; }
   50% { transform: translateX(5px); } 100% { transform: translateX(0); }
 }
 
-/* === SLIDE 3: CHECKLIST & CONCLUSION (UPDATE TAMPILAN) === */
+/* === CHECKLIST & CONCLUSION === */
 .investigation-area {
     background: #f8f9fc; border-radius: 15px; padding: 20px; border: 2px solid #e3e6f0;
 }
@@ -86,50 +114,24 @@ p.text-content { font-size: 1.1rem; color: #555; line-height: 1.8; }
 }
 .res-yes { background: #d1e7dd; color: #0f5132; }
 .res-no { background: #f8d7da; color: #842029; }
-
-/* Box Kesimpulan */
 .conclusion-box {
     background: #fff; border: 2px dashed #4e73df; border-radius: 15px; 
     padding: 20px; margin-top: 20px; text-align: center;
     animation: fadeIn 0.5s; box-shadow: 0 4px 15px rgba(0,0,0,0.08);
 }
-
-/* Tombol Kesimpulan BESAR (REVISI) */
 .btn-conclusion { 
-    width: 100%; 
-    padding: 15px 10px; /* Padding lebih besar */
-    font-weight: 800; 
-    border-radius: 15px; 
-    margin-bottom: 15px; 
-    font-size: 1.1rem; /* Font lebih besar */
-    transition: all 0.2s;
-    border-width: 2px;
+    width: 100%; padding: 15px 10px; font-weight: 800; border-radius: 15px; 
+    margin-bottom: 15px; font-size: 1.1rem; transition: all 0.2s; border-width: 2px;
 }
-.btn-conclusion:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-}
-
-/* Feedback Box Modern (REVISI) */
+.btn-conclusion:hover { transform: translateY(-3px); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
 .feedback-container {
-    background: #e8fbf3; 
-    border: 2px solid #1cc88a; 
-    border-radius: 15px;
-    padding: 20px;
-    margin-top: 15px;
-    text-align: center;
-    animation: zoomIn 0.3s;
+    background: #e8fbf3; border: 2px solid #1cc88a; border-radius: 15px;
+    padding: 20px; margin-top: 15px; text-align: center; animation: zoomIn 0.3s;
 }
-.feedback-wrong {
-    background: #fdf2f2; 
-    border-color: #e74a3b;
-}
-@keyframes zoomIn {
-    from { transform: scale(0.9); opacity: 0; }
-    to { transform: scale(1); opacity: 1; }
-}
+.feedback-wrong { background: #fdf2f2; border-color: #e74a3b; }
+@keyframes zoomIn { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 
-/* === SLIDE 4: MATERI TABS === */
+/* === TABS MATERI === */
 .nav-pills-custom .nav-link {
     border-radius: 50px; font-weight: 700; color: #858796; background: #fff;
     border: 1px solid #e3e6f0; margin-right: 8px; padding: 10px 20px; margin-bottom: 10px;
@@ -163,7 +165,7 @@ p.text-content { font-size: 1.1rem; color: #555; line-height: 1.8; }
 .feature-desc { font-size: 1.05rem; line-height: 1.7; color: #444; text-align: justify; border-top: 1px solid #ddd; padding-top: 15px; }
 .lock-message { color: #e74a3b; font-size: 0.9rem; font-style: italic; margin-top: 10px; font-weight: bold; }
 
-/* === SLIDE 5: TANTANGAN === */
+/* === GAME AKHIR === */
 .mission-box {
     background: #36b9cc; color: white; padding: 10px 25px; border-radius: 50px; text-align: center;
     font-weight: 700; font-size: 1rem; margin: 0 auto 30px auto; 
@@ -220,11 +222,41 @@ p.text-content { font-size: 1.1rem; color: #555; line-height: 1.8; }
     <div>
         <h5 class="font-weight-bold text-primary m-0"><i class="fas fa-seedling mr-2"></i>Materi 1: Karakteristik Makhluk Hidup</h5>
     </div>
-    <div id="step-badge" class="step-badge">1. Stimulasi</div>
+    <div id="step-badge" class="step-badge">1. Pendahuluan</div>
 </div>
 
 <div id="slide-1" class="learning-slide active">
     <div class="learning-card text-center">
+        
+        <div class="objective-slide-content">
+            
+            <div class="objective-box">
+                <h4 class="font-weight-bold text-gray-800">Tujuan Pembelajaran</h4>
+                <p class="text-muted small">Setelah mempelajari modul ini, kamu diharapkan mampu:</p>
+                <ul class="objective-list">
+                    <li><i class="fas fa-check-circle text-info mr-2"></i> <strong>Membedakan</strong> antara makhluk hidup dan benda mati melalui pengamatan ciri fisik.</li>
+                    <li><i class="fas fa-check-circle text-info mr-2"></i> <strong>Mengidentifikasi 7 ciri-ciri kehidupan</strong> (bernapas, nutrisi, bergerak, tumbuh, reproduksi, iritabilitas, ekskresi).</li>
+                    <li><i class="fas fa-check-circle text-info mr-2"></i> <strong>Menganalisis</strong> karakteristik objek untuk menyimpulkan klasifikasinya.</li>
+                </ul>
+            </div>
+            
+        </div>
+
+        <div class="pagination-footer">
+            <button class="btn btn-outline-secondary btn-nav-page" disabled>
+                <i class="fas fa-chevron-left"></i> Kembali
+            </button>
+            <div class="page-numbers-container" id="page-numbers-1"></div>
+            <button class="btn btn-primary btn-nav-page shadow" onclick="changePage(1)">
+                Mulai Belajar <i class="fas fa-chevron-right ml-2"></i>
+            </button>
+        </div>
+    </div>
+</div>
+
+<div id="slide-2" class="learning-slide">
+    <div class="learning-card text-center">
+        
         <h3 class="title-highlight">Ayo Tebak: Mobil vs Kucing</h3>
         <p class="text-content mb-4">
             Sebelum kita mulai, mari kita bandingkan dua objek ini. 
@@ -264,10 +296,10 @@ p.text-content { font-size: 1.1rem; color: #555; line-height: 1.8; }
         </div>
 
         <div class="pagination-footer">
-            <button class="btn btn-outline-secondary btn-nav-page" onclick="changePage(-1)" disabled>
+            <button class="btn btn-outline-secondary btn-nav-page" onclick="changePage(-1)">
                 <i class="fas fa-chevron-left"></i> Kembali
             </button>
-            <div class="page-numbers-container" id="page-numbers-1"></div>
+            <div class="page-numbers-container" id="page-numbers-2"></div>
             <button class="btn btn-outline-primary btn-nav-page" onclick="changePage(1)">
                 Selanjutnya <i class="fas fa-chevron-right"></i>
             </button>
@@ -275,7 +307,7 @@ p.text-content { font-size: 1.1rem; color: #555; line-height: 1.8; }
     </div>
 </div>
 
-<div id="slide-2" class="learning-slide">
+<div id="slide-3" class="learning-slide">
     <div class="learning-card">
         <h3 class="title-highlight">Pilih Objek Pengamatan</h3>
         <p class="text-content">
@@ -317,7 +349,7 @@ p.text-content { font-size: 1.1rem; color: #555; line-height: 1.8; }
             <button class="btn btn-outline-secondary btn-nav-page" onclick="changePage(-1)">
                 <i class="fas fa-chevron-left"></i> Kembali
             </button>
-            <div class="page-numbers-container" id="page-numbers-2"></div>
+            <div class="page-numbers-container" id="page-numbers-3"></div>
             <button class="btn btn-outline-primary btn-nav-page" onclick="changePage(1)">
                 Selanjutnya <i class="fas fa-chevron-right"></i>
             </button>
@@ -325,7 +357,7 @@ p.text-content { font-size: 1.1rem; color: #555; line-height: 1.8; }
     </div>
 </div>
 
-<div id="slide-3" class="learning-slide">
+<div id="slide-4" class="learning-slide">
     <div class="learning-card">
         <div class="d-flex justify-content-between align-items-center mb-3">
             <h3 class="title-highlight m-0">Cek Ciri Kehidupan</h3>
@@ -375,15 +407,15 @@ p.text-content { font-size: 1.1rem; color: #555; line-height: 1.8; }
             <button class="btn btn-outline-secondary btn-nav-page" onclick="changePage(-1)">
                 <i class="fas fa-chevron-left"></i> Kembali
             </button>
-            <div class="page-numbers-container" id="page-numbers-3"></div>
-            <button id="btn-next-3" class="btn btn-outline-primary btn-nav-page" onclick="changePage(1)" disabled>
+            <div class="page-numbers-container" id="page-numbers-4"></div>
+            <button id="btn-next-4" class="btn btn-outline-primary btn-nav-page" onclick="changePage(1)" disabled>
                 Selanjutnya <i class="fas fa-chevron-right"></i>
             </button>
         </div>
     </div>
 </div>
 
-<div id="slide-4" class="learning-slide">
+<div id="slide-5" class="learning-slide">
     <div class="learning-card">
         <h3 class="title-highlight text-center">Ciri - ciri Makhluk Hidup</h3>
         <p class="text-content text-center mb-4">
@@ -566,15 +598,15 @@ p.text-content { font-size: 1.1rem; color: #555; line-height: 1.8; }
             <button class="btn btn-outline-secondary btn-nav-page" onclick="changePage(-1)">
                 <i class="fas fa-chevron-left"></i> Kembali
             </button>
-            <div class="page-numbers-container" id="page-numbers-4"></div>
-            <button id="btn-next-4" class="btn btn-outline-primary btn-nav-page" onclick="changePage(1)" disabled>
+            <div class="page-numbers-container" id="page-numbers-5"></div>
+            <button id="btn-next-5" class="btn btn-outline-primary btn-nav-page" onclick="changePage(1)" disabled>
                 Selanjutnya <i class="fas fa-chevron-right"></i>
             </button>
         </div>
     </div>
 </div>
 
-<div id="slide-5" class="learning-slide">
+<div id="slide-6" class="learning-slide">
     <div class="learning-card">
         <h3 class="title-highlight text-center">Uji Pemahaman: Analisis Klasifikasi</h3>
         
@@ -628,7 +660,7 @@ p.text-content { font-size: 1.1rem; color: #555; line-height: 1.8; }
             <button class="btn btn-outline-secondary btn-nav-page" onclick="changePage(-1)">
                 <i class="fas fa-chevron-left"></i> Kembali
             </button>
-            <div class="page-numbers-container" id="page-numbers-5"></div>
+            <div class="page-numbers-container" id="page-numbers-6"></div>
             
             <a id="btn-finish-module" href="{% url 'selesai_step' 'modul_1' %}" class="btn btn-success btn-nav-page" style="display: none;">
                 Selesai <i class="fas fa-check"></i>
@@ -643,27 +675,34 @@ p.text-content { font-size: 1.1rem; color: #555; line-height: 1.8; }
 {% block custom_js %}
 <script>
 // === 1. GLOBAL VARIABLES & STATE ===
-const stepNames = ["Stimulasi", "Identifikasi", "Pengumpulan Data", "Konsep", "Pembuktian"];
-const totalSlides = 5;
+const stepNames = ["Pendahuluan", "Stimulasi", "Identifikasi", "Pengumpulan Data", "Konsep", "Pembuktian"];
+const totalSlides = 6;
 let currentSlideIndex = 1; 
 
 let progressState = {
     1: true,
-    2: true, 
-    3: false,
-    4: false,
-    5: false
+    2: true, // Stimulasi Awal
+    3: true, // Identifikasi (Pilih Objek)
+    4: false, // Cek Fisik (Terkunci Awal)
+    5: false, // Materi (Terkunci Awal)
+    6: false  // Game Akhir (Terkunci Awal)
 };
 
-// --- LOGIKA PENYIMPANAN CERDAS ---
+// --- LOGIKA PENYIMPANAN CERDAS (KEMBALI KE ORIGINAL) ---
 function loadProgress() {
-    const saved = localStorage.getItem('modul_1_progress');
+    // Menggunakan key original 'modul_1_progress'
+    const saved = localStorage.getItem('modul_1_progress'); 
     if (saved) {
         progressState = JSON.parse(saved);
-        if (progressState[5]) { progressState[4] = true; progressState[3] = true; }
-        if (progressState[4]) { progressState[3] = true; }
+        
+        // Validasi pembukaan kunci berjenjang (Logic lama diadaptasi ke 6 slide)
+        if (progressState[6]) { progressState[5] = true; progressState[4] = true; }
+        if (progressState[5]) { progressState[4] = true; }
+        
+        // Memastikan 3 slide awal selalu terbuka jika pernah diakses
         progressState[1] = true;
         progressState[2] = true;
+        progressState[3] = true;
     }
 }
 
@@ -674,11 +713,12 @@ function saveProgress() {
 // === 2. NAVIGATION LOGIC ===
 function nextSlide(n) {
     if (n > currentSlideIndex) {
-        if (currentSlideIndex === 3 && !progressState[3]) {
+        // Validasi Kunci (Digeser +1 index dari kode lama)
+        if (currentSlideIndex === 4 && !progressState[4]) { // Slide 4 = Cek Fisik
             alert("Selesaikan investigasi pada ke-4 objek terlebih dahulu!");
             return;
         }
-        if (currentSlideIndex === 4 && !progressState[4]) {
+        if (currentSlideIndex === 5 && !progressState[5]) { // Slide 5 = Materi
             alert("Harap baca semua materi (1-7) terlebih dahulu!");
             return;
         }
@@ -701,7 +741,7 @@ function nextSlide(n) {
 
         currentSlideIndex = n;
         
-        // AUTO UNLOCK ON ARRIVAL
+        // AUTO UNLOCK logic
         if (n > 1) {
             for(let k=1; k < n; k++) {
                 progressState[k] = true;
@@ -712,12 +752,13 @@ function nextSlide(n) {
         renderPageNumbers(n);
         checkNextButtonState(n);
 
-        if (n === 1) initStimulus();
-        if (n === 3) {
-            if(!progressState[3]) loadInvestigation(0);
+        // Trigger functions (Index disesuaikan)
+        if (n === 2) initStimulus(); 
+        if (n === 4) { 
+            if(!progressState[4]) loadInvestigation(0);
             else loadInvestigation(0);
         }
-        if (n === 4) markTabRead(1); 
+        if (n === 5) markTabRead(1); 
     }
 }
 
@@ -740,7 +781,7 @@ function renderPageNumbers(slideNum) {
         if (i === slideNum) {
             btnClass += ' active'; 
             disabledAttr = ''; 
-        } else if (i < slideNum || progressState[i-1] === true) {
+        } else if (i < slideNum || progressState[i] === true) {
             btnClass += ' unlocked'; 
             disabledAttr = '';
             onClickAttr = `onclick="nextSlide(${i})"`;
@@ -752,16 +793,17 @@ function renderPageNumbers(slideNum) {
 }
 
 function checkNextButtonState(n) {
-    if (n === 3) {
-        const btn = document.getElementById('btn-next-3');
-        if (progressState[3]) btn.removeAttribute('disabled');
+    // Validasi tombol sesuai slide baru
+    if (n === 4) { // Slide Cek Fisik
+        const btn = document.getElementById('btn-next-4');
+        if (progressState[4]) btn.removeAttribute('disabled');
         else btn.setAttribute('disabled', 'true');
     }
-    if (n === 4) {
-        const btn = document.getElementById('btn-next-4');
+    if (n === 5) { // Slide Materi
+        const btn = document.getElementById('btn-next-5');
         const lockMsg = document.getElementById('lock-msg');
         
-        if (progressState[4]) {
+        if (progressState[5]) {
             btn.removeAttribute('disabled');
             lockMsg.style.display = 'none';
         } else {
@@ -769,14 +811,14 @@ function checkNextButtonState(n) {
             lockMsg.style.display = 'block';
         }
     }
-    if (n === 5) {
+    if (n === 6) { // Slide Akhir
         const btn = document.getElementById('btn-finish-module');
-        if (progressState[5]) btn.style.display = 'inline-block';
+        if (progressState[6]) btn.style.display = 'inline-block';
         else btn.style.display = 'none';
     }
 }
 
-// === 3. SLIDE 1 LOGIC ===
+// === 3. SLIDE 2 LOGIC (Stimulasi) ===
 const stimulusQuestions = [
     { text: "Mana yang memerlukan nutrisi untuk tumbuh?", answer: 'kucing' },
     { text: "Mana yang bergerak harus menggunakan bahan bakar?", answer: 'mobil' },
@@ -824,7 +866,7 @@ function checkStimulus(choice) {
     }
 }
 
-// === 4. SLIDE 3 LOGIC (UPDATED WITH FEEDBACK) ===
+// === 4. SLIDE 4 LOGIC (Investigasi) ===
 const investigasiData = [
     { 
         name: "Pohon", 
@@ -935,11 +977,11 @@ function verifyConclusion(studentSaysLiving) {
         document.getElementById('next-object-btn').style.display = 'none';
         msg.innerHTML += "<br><br><strong>Semua objek selesai! Silakan tekan tombol 'Selanjutnya' di bawah.</strong>";
         
-        progressState[3] = true;
+        progressState[4] = true; // Slide 4 selesai
         saveProgress();
         
-        document.getElementById('btn-next-3').removeAttribute('disabled');
-        renderPageNumbers(3);
+        document.getElementById('btn-next-4').removeAttribute('disabled');
+        renderPageNumbers(4);
     }
 }
 
@@ -948,7 +990,7 @@ function nextObject() {
     loadInvestigation(currentObjIdx);
 }
 
-// === 5. SLIDE 4 LOGIC ===
+// === 5. SLIDE 5 LOGIC (Materi) ===
 let viewedTabs = new Set();
 const totalTabs = 7;
 
@@ -958,15 +1000,15 @@ function markTabRead(n) {
     
     if (viewedTabs.size === totalTabs) {
         document.getElementById('lock-msg').style.display = 'none';
-        progressState[4] = true;
+        progressState[5] = true; // Slide 5 selesai
         saveProgress();
-        const pagBtn = document.getElementById('btn-next-4');
+        const pagBtn = document.getElementById('btn-next-5');
         if(pagBtn) pagBtn.removeAttribute('disabled');
-        renderPageNumbers(4);
+        renderPageNumbers(5);
     }
 }
 
-// === 6. SLIDE 5 LOGIC ===
+// === 6. SLIDE 6 LOGIC (Game Akhir) ===
 const gameRounds = [
     {
         mission: "Identifikasi objek yang merupakan MAKHLUK HIDUP.",
@@ -1048,9 +1090,9 @@ function showFeedback(isSuccess) {
 
         document.getElementById('btn-finish-module').style.display = 'inline-block';
         
-        progressState[5] = true;
+        progressState[6] = true; // Slide 6 selesai
         saveProgress();
-        renderPageNumbers(5);
+        renderPageNumbers(6);
     }
 }
 
@@ -1062,7 +1104,6 @@ function nextRound() {
 // === INIT ===
 document.addEventListener('DOMContentLoaded', () => {
     loadProgress(); 
-    initStimulus();
     renderPageNumbers(1);
     checkNextButtonState(1);
 });

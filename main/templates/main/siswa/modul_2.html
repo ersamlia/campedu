@@ -19,6 +19,36 @@ body { font-family: 'Nunito', sans-serif; background: #f0f8ff; }
     font-weight: 800; letter-spacing: 0.5px; border: 1px solid #d1d3e2;
 }
 
+/* === OBJECTIVE BOX (Slide 1 Baru) === */
+.objective-slide-content {
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center; padding: 20px;
+}
+.objective-box {
+    background: #fff; 
+    border: 2px solid #e3e6f0;
+    border-top: 5px solid #4e73df;
+    border-radius: 15px;
+    padding: 30px;
+    max-width: 700px;
+    margin: 0 auto;
+    position: relative;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+}
+.objective-box::before {
+    content: '\f140'; /* Icon Target */
+    font-family: 'Font Awesome 5 Free'; font-weight: 900;
+    position: absolute; top: -30px; left: 50%; transform: translateX(-50%);
+    background: #4e73df; color: white; width: 60px; height: 60px;
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    font-size: 1.8rem; box-shadow: 0 5px 10px rgba(78, 115, 223, 0.3);
+}
+.objective-list {
+    text-align: left; margin-top: 20px; color: #555; font-size: 1.05rem; line-height: 1.8;
+}
+.objective-list li { margin-bottom: 10px; display: flex; align-items: flex-start; }
+.objective-list li i { margin-top: 5px; flex-shrink: 0; }
+
 /* === LEARNING CARD === */
 .learning-slide { display: none; opacity: 0; transition: opacity 0.5s ease-in-out; }
 .learning-slide.active { display: block; opacity: 1; }
@@ -33,16 +63,11 @@ p.text-content { font-size: 1.1rem; color: #555; line-height: 1.8; }
 
 /* === Tambahan Styling Sumber Gambar MINIMALIS === */
 .image-source {
-    font-size: 0.7rem;
-    color: #888;
-    margin-top: 5px;
-    display: block;
-    text-align: center;
-    font-style: italic;
+    font-size: 0.7rem; color: #888; margin-top: 5px; display: block; text-align: center; font-style: italic;
 }
 .comparison-body { padding: 15px; } 
 
-/* === SLIDE 1: STIMULASI === */
+/* === SLIDE 2: STIMULASI === */
 .comparison-wrapper { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; }
 .comparison-card {
     flex: 1; min-width: 250px; border: 2px solid #eaecf4; border-radius: 15px; 
@@ -53,7 +78,7 @@ p.text-content { font-size: 1.1rem; color: #555; line-height: 1.8; }
 .check-list { text-align: left; margin-top: 10px; font-size: 0.9rem; }
 .check-item { margin-bottom: 5px; display: flex; align-items: center; }
 
-/* === SLIDE 2: MIKROSKOP === */
+/* === SLIDE 3: MIKROSKOP === */
 .microscope-area {
     background: #1a1a1a; border-radius: 20px; padding: 20px; color: white;
     display: flex; flex-direction: column; align-items: center; position: relative;
@@ -61,8 +86,7 @@ p.text-content { font-size: 1.1rem; color: #555; line-height: 1.8; }
 .lens-circle {
     width: 300px; height: 300px; border: 5px solid #555; border-radius: 50%;
     overflow: hidden; background: black; box-shadow: 0 0 20px rgba(255,255,255,0.1);
-    margin-bottom: 20px; 
-    position: relative;
+    margin-bottom: 20px; position: relative;
 }
 .lens-circle video, .lens-circle img { width: 100%; height: 100%; object-fit: cover; }
 .preparat-controls { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
@@ -72,28 +96,26 @@ p.text-content { font-size: 1.1rem; color: #555; line-height: 1.8; }
 }
 .btn-preparat:hover, .btn-preparat.active { background: #4e73df; border-color: #4e73df; }
 
-/* === SLIDE 3: KUNCI DIKOTOM === */
+/* === SLIDE 4: KUNCI DIKOTOM === */
 .dikotom-container {
     max-width: 750px; margin: 0 auto; background: #f8f9fc; border-radius: 15px; 
     padding: 30px; border: 2px solid #e3e6f0; text-align: center;
 }
 .plant-display {
     display: inline-block; border: 4px solid white; box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    border-radius: 15px; overflow: hidden; margin-bottom: 20px; 
-    width: 200px; height: 200px;
+    border-radius: 15px; overflow: hidden; margin-bottom: 20px; width: 200px; height: 200px;
 }
 .plant-display img { width: 100%; height: 100%; object-fit: cover; }
 .question-text { font-size: 1.25rem; font-weight: 800; color: #2e59d9; margin-bottom: 20px; }
 .btn-choice {
     display: block; width: 100%; margin-bottom: 10px; padding: 12px;
     background: white; border: 2px solid #d1d3e2; border-radius: 10px;
-    text-align: left; font-weight: 700; color: #555; transition: 0.2s; cursor: pointer;
-    position: relative;
+    text-align: left; font-weight: 700; color: #555; transition: 0.2s; cursor: pointer; position: relative;
 }
 .btn-choice:hover { border-color: #1cc88a; color: #1cc88a; background: #f0fcf6; transform: translateX(5px); }
 .breadcrumb-dikotom { font-size: 0.85rem; color: #888; margin-bottom: 15px; font-style: italic; }
 
-/* === SLIDE 4: TAKSON === */
+/* === SLIDE 5: TAKSON === */
 .takson-pyramid { display: flex; flex-direction: column; align-items: center; gap: 8px; }
 .takson-level {
     width: 100%; text-align: center; padding: 12px; 
@@ -105,8 +127,7 @@ p.text-content { font-size: 1.1rem; color: #555; line-height: 1.8; }
 .takson-info-box {
     background: #fff; border-left: 6px solid #1cc88a; padding: 30px; 
     border-radius: 10px; box-shadow: 0 5px 20px rgba(0,0,0,0.08); height: 100%;
-    display: flex; flex-direction: column; justify-content: flex-start;
-    transition: all 0.3s ease;
+    display: flex; flex-direction: column; justify-content: flex-start; transition: all 0.3s ease;
 }
 .takson-latin-box { text-align: center; margin-bottom: 5px; font-weight: 900; }
 .takson-latin-box .takson-label { font-size: 1.1rem; color: #858796; font-weight: 700; }
@@ -155,8 +176,6 @@ p.text-content { font-size: 1.1rem; color: #555; line-height: 1.8; }
     .takson-image-card img { height: 120px; } 
     .takson-latin-plant, .takson-latin-animal { font-size: 1.4rem; }
     .takson-latin-box .takson-label { font-size: 0.9rem; }
-    
-    /* Mobile Pagination */
     .pagination-footer { flex-direction: column-reverse; }
     .page-numbers-container { order: 2; margin-bottom: 10px; }
     .btn-nav-page { width: 100%; order: 1; }
@@ -170,10 +189,52 @@ p.text-content { font-size: 1.1rem; color: #555; line-height: 1.8; }
     <div>
         <h5 class="font-weight-bold text-primary m-0"><i class="fas fa-sitemap mr-2"></i>Materi 2: Klasifikasi Makhluk Hidup</h5>
     </div>
-    <div id="step-badge" class="step-badge">1. Ciri Kehidupan</div>
+    <div id="step-badge" class="step-badge">1. Pendahuluan</div>
 </div>
 
 <div id="slide-1" class="learning-slide active">
+    <div class="learning-card text-center">
+        
+        <div class="objective-slide-content">
+            
+            <div class="objective-box">
+                <h4 class="font-weight-bold text-gray-800">Tujuan Pembelajaran</h4>
+                <p class="text-muted small">Di akhir petualangan modul ini, kamu akan mampu:</p>
+                <ul class="objective-list">
+                    <li>
+                        <i class="fas fa-check-circle text-success mr-2"></i> 
+                        <span><strong>Membedakan</strong> makhluk hidup dan benda mati berdasarkan ciri-ciri kehidupannya. (Slide Stimulasi)</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-check-circle text-success mr-2"></i> 
+                        <span><strong>Mengidentifikasi</strong> karakteristik unik Kingdom Monera, Protista, dan Fungi melalui pengamatan mikroskopis virtual. (Slide Mikroskop)</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-check-circle text-success mr-2"></i> 
+                        <span><strong>Mengklasifikasikan</strong> tumbuhan menggunakan Kunci Determinasi (Dikotom) sederhana. (Slide Identifikasi)</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-check-circle text-success mr-2"></i> 
+                        <span><strong>Memahami urutan</strong> tingkatan taksonomi dari Kingdom hingga Spesies pada hewan dan tumbuhan. (Slide Taksonomi)</span>
+                    </li>
+                </ul>
+            </div>
+            
+        </div>
+
+        <div class="pagination-footer">
+            <button class="btn btn-outline-secondary btn-nav-page" disabled>
+                <i class="fas fa-chevron-left"></i> Kembali
+            </button>
+            <div class="page-numbers-container" id="page-numbers-1"></div>
+            <button class="btn btn-primary btn-nav-page shadow" onclick="changePage(1)">
+                Mulai Materi <i class="fas fa-chevron-right ml-2"></i>
+            </button>
+        </div>
+    </div>
+</div>
+
+<div id="slide-2" class="learning-slide">
     <div class="learning-card">
         <h3 class="title-highlight text-center">Mobil vs Kucing: Mana yang Hidup?</h3>
         <p class="text-content text-center mb-4">
@@ -216,18 +277,18 @@ p.text-content { font-size: 1.1rem; color: #555; line-height: 1.8; }
         </div>
 
         <div class="pagination-footer">
-            <button class="btn btn-outline-secondary btn-nav-page" onclick="changePage(-1)" disabled>
+            <button class="btn btn-outline-secondary btn-nav-page" onclick="changePage(-1)">
                 <i class="fas fa-chevron-left"></i> Kembali
             </button>
-            <div class="page-numbers-container" id="page-numbers-1"></div>
-            <button id="btn-next-1" class="btn btn-outline-primary btn-nav-page" onclick="changePage(1)" disabled>
+            <div class="page-numbers-container" id="page-numbers-2"></div>
+            <button id="btn-next-2" class="btn btn-outline-primary btn-nav-page" onclick="changePage(1)" disabled>
                 Selanjutnya <i class="fas fa-chevron-right"></i>
             </button>
         </div>
     </div>
 </div>
 
-<div id="slide-2" class="learning-slide">
+<div id="slide-3" class="learning-slide">
     <div class="learning-card">
         <div class="row align-items-center">
             <div class="col-lg-6">
@@ -267,15 +328,15 @@ p.text-content { font-size: 1.1rem; color: #555; line-height: 1.8; }
             <button class="btn btn-outline-secondary btn-nav-page" onclick="changePage(-1)">
                 <i class="fas fa-chevron-left"></i> Kembali
             </button>
-            <div class="page-numbers-container" id="page-numbers-2"></div>
-            <button id="btn-next-2" class="btn btn-outline-primary btn-nav-page" onclick="changePage(1)" disabled>
+            <div class="page-numbers-container" id="page-numbers-3"></div>
+            <button id="btn-next-3" class="btn btn-outline-primary btn-nav-page" onclick="changePage(1)" disabled>
                 Selanjutnya <i class="fas fa-chevron-right"></i>
             </button>
         </div>
     </div>
 </div>
 
-<div id="slide-3" class="learning-slide">
+<div id="slide-4" class="learning-slide">
     <div class="learning-card">
         <div class="text-center mb-4">
             <h3 class="title-highlight">Kunci Determinasi</h3>
@@ -312,15 +373,15 @@ p.text-content { font-size: 1.1rem; color: #555; line-height: 1.8; }
             <button class="btn btn-outline-secondary btn-nav-page" onclick="changePage(-1)">
                 <i class="fas fa-chevron-left"></i> Kembali
             </button>
-            <div class="page-numbers-container" id="page-numbers-3"></div>
-            <button id="btn-next-3" class="btn btn-outline-primary btn-nav-page" onclick="changePage(1)" disabled>
+            <div class="page-numbers-container" id="page-numbers-4"></div>
+            <button id="btn-next-4" class="btn btn-outline-primary btn-nav-page" onclick="changePage(1)" disabled>
                 Selanjutnya <i class="fas fa-chevron-right"></i>
             </button>
         </div>
     </div>
 </div>
 
-<div id="slide-4" class="learning-slide">
+<div id="slide-5" class="learning-slide">
     <div class="learning-card">
         <h3 class="title-highlight text-center">Hierarki Taksonomi</h3>
         <p class="text-content text-center mb-4">
@@ -353,7 +414,7 @@ p.text-content { font-size: 1.1rem; color: #555; line-height: 1.8; }
             <button class="btn btn-outline-secondary btn-nav-page" onclick="changePage(-1)">
                 <i class="fas fa-chevron-left"></i> Kembali
             </button>
-            <div class="page-numbers-container" id="page-numbers-4"></div>
+            <div class="page-numbers-container" id="page-numbers-5"></div>
             
             <a id="btn-finish-modul" href="{% url 'selesai_step' 'modul_2' %}" class="btn btn-success btn-nav-page" style="display: none;">
                 Selesai <i class="fas fa-check"></i>
@@ -367,16 +428,18 @@ p.text-content { font-size: 1.1rem; color: #555; line-height: 1.8; }
 {% block custom_js %}
 <script>
 // === 1. GLOBAL STATE & NAVIGATION ===
-const stepNames = ["1. Ciri Kehidupan", "2. Pengamatan Mikroskopis", "3. Kunci Dikotom", "4. Tingkatan Takson"];
-const totalSlides = 4;
+// Diupdate menjadi 5 Slide
+const stepNames = ["1. Pendahuluan", "2. Ciri Kehidupan", "3. Pengamatan Mikroskopis", "4. Kunci Dikotom", "5. Tingkatan Takson"];
+const totalSlides = 5;
 let currentSlideIndex = 1;
 
-// Initial State
+// Initial State (Slide 1 & 2 open by default logic)
 let progressState = {
     1: true,
-    2: false, 
-    3: false,
-    4: false
+    2: true, // Stimulasi terbuka setelah Pendahuluan (Default)
+    3: false, 
+    4: false,
+    5: false
 };
 
 // --- Storage Logic ---
@@ -384,10 +447,14 @@ function loadProgress() {
     const saved = localStorage.getItem('modul_2_progress');
     if (saved) {
         progressState = JSON.parse(saved);
-        // Smart Unlock: Jika level atas terbuka, level bawah otomatis terbuka
+        // Smart Unlock berjenjang (Updated for 5 slides)
+        if (progressState[5]) { progressState[4] = true; }
         if (progressState[4]) { progressState[3] = true; }
         if (progressState[3]) { progressState[2] = true; }
         if (progressState[2]) { progressState[1] = true; }
+        // Force slide 1 & 2 open
+        progressState[1] = true;
+        progressState[2] = true;
     }
 }
 
@@ -397,23 +464,22 @@ function saveProgress() {
 
 // --- Navigation Logic ---
 function nextSlide(n) {
-    // Protection: Prevent jumping ahead if current slide not finished
     if (n > currentSlideIndex) {
-        if (currentSlideIndex === 1 && !progressState[2]) { // Logic: if trying to go to 2 but 1 not done (mapped to state 2 unlocked)
-             // Check button state directly for simplicity in logic
-             if(document.getElementById('btn-next-1').disabled) {
+        // Validasi Kunci (Digeser +1 dari logic sebelumnya)
+        if (currentSlideIndex === 2 && !progressState[3]) { // Old Slide 1
+             if(document.getElementById('btn-next-2').disabled) {
                  alert("Silakan cek ciri Mobil DAN Kucing terlebih dahulu!");
                  return;
              }
         }
-        if (currentSlideIndex === 2 && !progressState[3]) {
-             if(document.getElementById('btn-next-2').disabled) {
+        if (currentSlideIndex === 3 && !progressState[4]) { // Old Slide 2
+             if(document.getElementById('btn-next-3').disabled) {
                  alert("Silakan amati ke-3 preparat (Air Kolam, Bakteri, Jamur)!");
                  return;
              }
         }
-        if (currentSlideIndex === 3 && !progressState[4]) {
-             if(document.getElementById('btn-next-3').disabled) {
+        if (currentSlideIndex === 4 && !progressState[5]) { // Old Slide 3
+             if(document.getElementById('btn-next-4').disabled) {
                  alert("Selesaikan identifikasi ke-5 tanaman terlebih dahulu!");
                  return;
              }
@@ -435,11 +501,9 @@ function nextSlide(n) {
 
         currentSlideIndex = n;
         
-        // Auto Unlock Previous Levels on Arrival
+        // Auto Unlock Previous Levels
         if (n > 1) {
             for(let k=1; k < n; k++) {
-                // If we are at slide N, slide N-1 implies next state is unlocked
-                // Mapping: Slide 1 done -> state 2 true. Slide 2 done -> state 3 true.
                 progressState[k+1] = true; 
             }
             saveProgress();
@@ -448,15 +512,14 @@ function nextSlide(n) {
         renderPageNumbers(n);
         checkNextButtonState(n);
 
-        // Slide Specific Inits
-        if (n === 2) {
-            document.getElementById('micro-source').innerText = ''; // Reset source text
-        }
+        // Slide Specific Inits (Updated Index)
         if (n === 3) {
-            if (currentPlantIndex === 0 || !progressState[4]) {
+            document.getElementById('micro-source').innerText = ''; 
+        }
+        if (n === 4) {
+            if (currentPlantIndex === 0 || !progressState[5]) {
                 loadPlant(currentPlantIndex);
             } else {
-                // If previously finished, show end state or stay at last plant
                 loadPlant(currentPlantIndex); 
             }
         }
@@ -483,7 +546,7 @@ function renderPageNumbers(slideNum) {
             btnClass += ' active'; 
             disabledAttr = ''; 
         } else if (i < slideNum || progressState[i+1] === true || (i===1)) { 
-            // Logic: Page 1 is always unlocked. Page 2 unlocked if progressState[2] is true.
+            // Logic: slide i is unlocked if progressState[i+1] (next step) is true OR if it's slide 1
             btnClass += ' unlocked'; 
             disabledAttr = '';
             onClickAttr = `onclick="nextSlide(${i})"`;
@@ -495,31 +558,28 @@ function renderPageNumbers(slideNum) {
 }
 
 function checkNextButtonState(n) {
-    if (n === 1) {
-        const btn = document.getElementById('btn-next-1');
-        // Unlocked if progressState[2] is true (meaning slide 1 finished)
-        if (progressState[2]) btn.removeAttribute('disabled');
-        else btn.setAttribute('disabled', 'true');
-    }
+    // Tombol Slide 1 (Pendahuluan) selalu aktif
+    // Tombol Slide 2 (Stimulasi)
     if (n === 2) {
         const btn = document.getElementById('btn-next-2');
         if (progressState[3]) btn.removeAttribute('disabled');
         else btn.setAttribute('disabled', 'true');
     }
+    // Tombol Slide 3 (Mikroskop)
     if (n === 3) {
         const btn = document.getElementById('btn-next-3');
         if (progressState[4]) btn.removeAttribute('disabled');
         else btn.setAttribute('disabled', 'true');
     }
+    // Tombol Slide 4 (Dikotom)
     if (n === 4) {
-        // Slide 4 specific: Finish button inside content
-        const btn = document.getElementById('btn-finish-modul');
-        // We can create a state 5 for finish, or just reuse logic
-        // Let's rely on click interaction for this one
+        const btn = document.getElementById('btn-next-4');
+        if (progressState[5]) btn.removeAttribute('disabled');
+        else btn.setAttribute('disabled', 'true');
     }
 }
 
-// === 2. SLIDE 1 LOGIC (STIMULASI) ===
+// === 2. SLIDE 2 LOGIC (STIMULASI) ===
 let checked1 = false;
 let checked2 = false;
 function checkCiri(type) {
@@ -534,14 +594,14 @@ function checkCiri(type) {
     }
     
     if(checked1 && checked2) {
-        progressState[2] = true; // Unlock slide 2
+        progressState[3] = true; // Unlock slide 3 (Mikroskop)
         saveProgress();
-        document.getElementById('btn-next-1').removeAttribute('disabled');
-        renderPageNumbers(1);
+        document.getElementById('btn-next-2').removeAttribute('disabled');
+        renderPageNumbers(2);
     }
 }
 
-// === 3. SLIDE 2 LOGIC (MIKROSKOP) ===
+// === 3. SLIDE 3 LOGIC (MIKROSKOP) ===
 const slidesMicro = {
     'protista': { 
         video: "{% static 'video/airkolam.mp4' %}", 
@@ -590,14 +650,14 @@ function setMicroscope(type, btn) {
     }
     
     if (preparatDilihat.size === allPreparat.length) {
-        progressState[3] = true; // Unlock slide 3
+        progressState[4] = true; // Unlock slide 4 (Dikotom)
         saveProgress();
-        document.getElementById('btn-next-2').removeAttribute('disabled');
-        renderPageNumbers(2);
+        document.getElementById('btn-next-3').removeAttribute('disabled');
+        renderPageNumbers(3);
     }
 }
 
-// === 4. SLIDE 3 LOGIC (DIKOTOM) ===
+// === 4. SLIDE 4 LOGIC (DIKOTOM) ===
 const plantsQueue = [
     { name: "Tanaman A (Suplir)", img: "{% static 'img/suplir.jpeg' %}", source: "Sumber: Greeners.Co", correctResult: "Paku (Pteridophyta)" },
     { name: "Tanaman B (Lumut)", img: "{% static 'img/lumut.jpeg' %}", source: "Sumber: detikcom", correctResult: "Lumut (Bryophyta)" },
@@ -658,12 +718,12 @@ function checkAnswer(result) {
             document.getElementById('btn-reset-plant').style.display = 'none';
         } else {
             // FINISH ALL PLANTS
-            progressState[4] = true; // Unlock Slide 4
+            progressState[5] = true; // Unlock Slide 5 (Takson)
             saveProgress();
             
-            document.getElementById('btn-next-3').removeAttribute('disabled');
+            document.getElementById('btn-next-4').removeAttribute('disabled');
             document.getElementById('btn-reset-plant').style.display = 'none';
-            renderPageNumbers(3);
+            renderPageNumbers(4);
         }
     } else {
         area.innerHTML = `<div class="alert alert-warning p-4 text-center"><h5 class="font-weight-bold">Kurang Tepat</h5><p>Kamu memilih: <strong>${result}</strong>.</p><button class="btn btn-outline-primary mt-2" onclick="resetDikotom()">Ulangi Identifikasi</button></div>`;
@@ -680,7 +740,7 @@ function resetDikotom() {
     renderDikotom('1');
 }
 
-// === 5. SLIDE 4 LOGIC (TAKSON) ===
+// === 5. SLIDE 5 LOGIC (TAKSON) ===
 const taksonEnriched_v4 = {
     'kingdom': {
         latin: 'REGNUM / KINGDOM', indo: 'Dunia (Kerajaan)', desc: '**Kelompok paling besar.** Anggotanya sangat banyak.',

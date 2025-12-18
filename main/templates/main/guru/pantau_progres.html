@@ -120,19 +120,6 @@
     .status-check { color: #1cc88a; font-size: 1.1rem; }
     .status-dash { color: #d1d3e2; font-weight: bold; font-size: 1.2rem; }
     
-    .score-badge {
-        display: inline-block;
-        padding: 2px 8px;
-        min-width: 35px;
-        border-radius: 6px;
-        font-weight: 700;
-        font-size: 0.8rem;
-        text-align: center;
-    }
-    .score-pass { background-color: #e8f5e9; color: #2e7d32; border: 1px solid #c8e6c9; }
-    .score-fail { background-color: #ffebee; color: #c62828; border: 1px solid #ffcdd2; }
-    .score-none { color: #b0bec5; font-style: italic; font-size: 0.8rem; }
-
     /* === LEGEND (KETERANGAN) === */
     .legend-box {
         display: flex; gap: 20px; margin-top: 15px;
@@ -149,7 +136,10 @@
             <h1 class="h4 font-weight-bold text-dark mb-1">Pantau Progres Siswa</h1>
             <small class="text-muted">Geser tabel ke kanan untuk melihat detail lengkap per Bab.</small>
         </div>
-        <i class="fas fa-chart-line fa-2x text-gray-300"></i>
+        
+        <div class="d-flex align-items-center">
+            <i class="fas fa-chart-line fa-2x text-gray-300"></i>
+        </div>
     </div>
 
     <div class="table-container">
@@ -201,8 +191,10 @@
                             </td>
                             <td class="text-center">
                                 {% if data.skor_1 != "-" %}
-                                    <span class="score-badge {% if data.skor_1 >= 70 %}score-pass{% else %}score-fail{% endif %}">{{ data.skor_1 }}</span>
-                                {% else %}<span class="score-none">-</span>{% endif %}
+                                    <i class="fas fa-check-circle status-check"></i>
+                                {% else %}
+                                    <span class="status-dash">-</span>
+                                {% endif %}
                             </td>
                             <td class="text-center sep-right">
                                 {% if data.progress.glosarium_completed %}<i class="fas fa-check-circle status-check"></i>{% else %}<span class="status-dash">-</span>{% endif %}
@@ -213,12 +205,15 @@
                             </td>
                             <td class="text-center">
                                 {% if data.skor_2 != "-" %}
-                                    <span class="score-badge {% if data.skor_2 >= 70 %}score-pass{% else %}score-fail{% endif %}">{{ data.skor_2 }}</span>
-                                {% else %}<span class="score-none">-</span>{% endif %}
+                                    <i class="fas fa-check-circle status-check"></i>
+                                {% else %}
+                                    <span class="status-dash">-</span>
+                                {% endif %}
                             </td>
                             <td class="text-center sep-right">
                                 {% if data.progress.mikroskop_completed %}<i class="fas fa-check-circle status-check"></i>{% else %}<span class="status-dash">-</span>{% endif %}
                             </td>
+
                             <td class="text-center">
                                 {% if data.progress.modul_3_completed %}
                                     <i class="fas fa-check-circle status-check"></i>
@@ -237,16 +232,18 @@
                             
                             <td class="text-center sep-right">
                                 {% if data.skor_3 != "-" %}
-                                    <span class="score-badge {% if data.skor_3 >= 70 %}score-pass{% else %}score-fail{% endif %}">{{ data.skor_3 }}</span>
+                                    <i class="fas fa-check-circle status-check"></i>
                                 {% else %}
-                                    <span class="score-none">-</span>
+                                    <span class="status-dash">-</span>
                                 {% endif %}
                             </td>
 
                             <td class="text-center bg-white">
                                 {% if data.skor_p != "-" %}
-                                    <span class="score-badge {% if data.skor_p >= 70 %}score-pass{% else %}score-fail{% endif %}">{{ data.skor_p }}</span>
-                                {% else %}<span class="score-none">Belum</span>{% endif %}
+                                    <i class="fas fa-check-circle status-check"></i>
+                                {% else %}
+                                    <span class="status-dash">-</span>
+                                {% endif %}
                             </td>
                         </tr>
                     {% empty %}
@@ -265,19 +262,11 @@
     <div class="legend-box">
         <div class="legend-item">
             <i class="fas fa-check-circle status-check"></i>
-            <span>Selesai</span>
+            <span>Selesai / Sudah Mengerjakan</span>
         </div>
         <div class="legend-item">
             <span class="status-dash">-</span>
             <span>Belum</span>
-        </div>
-        <div class="legend-item">
-            <span class="score-badge score-pass">85</span>
-            <span>Tuntas (≥70)</span>
-        </div>
-        <div class="legend-item">
-            <span class="score-badge score-fail">60</span>
-            <span>Remedial (<70)</span>
         </div>
     </div>
 
